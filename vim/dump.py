@@ -71,10 +71,16 @@ def dump_template():
 
 def push_to_neosnippet():
     branch = 'neosnippet'
+
+    subprocess.check_call(['git', 'add', 'cpp.snip'])
+    subprocess.check_call(['git', 'stash'])
+
     try:
         subprocess.check_call(['git', 'checkout', branch])
     except subprocess.CalledProcessError:
         subprocess.check_call(['git', 'checkout', '--orphan', branch])
+
+    subprocess.check_call(['git', 'stash', 'pop', 'stash@{0}'])
 
     url = 'https://{}:{}@github.com/{}.git'.format(
             os.environ['GITHUB_ACTOR'],
