@@ -89,7 +89,10 @@ def push_to_master():
 
 def push_to_vim_template():
     branch = 'vim-template'
-    subprocess.check_call(['git', 'checkout', branch])
+    try:
+        subprocess.check_call(['git', 'checkout', branch])
+    except subprocess.CalledProcessError:
+        subprocess.check_call(['git', 'checkout', '--orphan', branch])
 
     url = 'https://{}:{}@github.com/{}.git'.format(
             os.environ['GITHUB_ACTOR'],
