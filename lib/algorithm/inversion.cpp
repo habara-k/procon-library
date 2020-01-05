@@ -1,5 +1,4 @@
 #include "../template.cpp"
-
 #include "../structure/binary_indexed_tree.cpp"
 
 template<typename T>
