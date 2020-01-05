@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#77c6183086c03e38260b57f4d8fbb66c">lib/algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/algorithm/inversion.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-01-05 14:08:39+09:00
 
 
 
@@ -53,7 +53,6 @@ layout: default
 {% raw %}
 ```cpp
 #include "../template.cpp"
-
 #include "../structure/binary_indexed_tree.cpp"
 
 template<typename T>
@@ -255,8 +254,6 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 2 "lib/algorithm/inversion.cpp"
-
 #line 1 "lib/algorithm/../structure/../template.cpp"
 
 
@@ -449,7 +446,7 @@ struct BIT {
         return s;
     }
 };
-#line 4 "lib/algorithm/inversion.cpp"
+#line 3 "lib/algorithm/inversion.cpp"
 
 template<typename T>
 LL inversion(const vector<T>& A)

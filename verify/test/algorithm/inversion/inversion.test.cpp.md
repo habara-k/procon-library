@@ -30,7 +30,7 @@ layout: default
 <a href="../../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/algorithm/inversion/inversion.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-01-05 14:08:39+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_D">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_D</a>
@@ -247,8 +247,6 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 2 "test/algorithm/inversion/../../../lib/algorithm/inversion.cpp"
-
 #line 1 "test/algorithm/inversion/../../../lib/algorithm/../structure/../template.cpp"
 
 
@@ -441,7 +439,7 @@ struct BIT {
         return s;
     }
 };
-#line 4 "test/algorithm/inversion/../../../lib/algorithm/inversion.cpp"
+#line 3 "test/algorithm/inversion/../../../lib/algorithm/inversion.cpp"
 
 template<typename T>
 LL inversion(const vector<T>& A)
