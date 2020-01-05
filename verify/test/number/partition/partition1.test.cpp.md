@@ -30,7 +30,7 @@ layout: default
 <a href="../../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/partition/partition1.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-01-05 15:01:12+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_J">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_J</a>
@@ -514,7 +514,6 @@ Ring Partition(int k, int n) {
     }
     return part[k][n];
 }
-
 #line 5 "test/number/partition/partition1.test.cpp"
 
 int main() {

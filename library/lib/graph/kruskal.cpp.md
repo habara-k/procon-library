@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/kruskal.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-01-05 15:01:12+09:00
 
 
 
@@ -53,7 +53,6 @@ layout: default
 {% raw %}
 ```cpp
 #include "../template.cpp"
-
 #include "../structure/union_find.cpp"
 
 template<typename T>
@@ -256,8 +255,6 @@ using LL = long long;
 #define sc second
 
 const LL MOD = 1e9+7;
-
-#line 2 "lib/graph/kruskal.cpp"
 
 #line 1 "lib/graph/../structure/../template.cpp"
 
@@ -463,7 +460,7 @@ struct UnionFind
         return sz[root(x)];
     }
 };
-#line 4 "lib/graph/kruskal.cpp"
+#line 3 "lib/graph/kruskal.cpp"
 
 template<typename T>
 T kruskal(const vector<edge<T>> &es, int V) {

@@ -30,7 +30,7 @@ layout: default
 <a href="../../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/kruskal/kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-01-05 15:01:12+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A</a>
@@ -245,8 +245,6 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 2 "test/graph/kruskal/../../../lib/graph/kruskal.cpp"
-
 #line 1 "test/graph/kruskal/../../../lib/graph/../structure/../template.cpp"
 
 
@@ -451,7 +449,7 @@ struct UnionFind
         return sz[root(x)];
     }
 };
-#line 4 "test/graph/kruskal/../../../lib/graph/kruskal.cpp"
+#line 3 "test/graph/kruskal/../../../lib/graph/kruskal.cpp"
 
 template<typename T>
 T kruskal(const vector<edge<T>> &es, int V) {

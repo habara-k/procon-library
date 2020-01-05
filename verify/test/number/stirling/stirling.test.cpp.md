@@ -30,7 +30,7 @@ layout: default
 <a href="../../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/stirling/stirling.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-01-05 15:01:12+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I</a>
@@ -500,7 +500,6 @@ const LL MOD = 1e9+7;
 #line 1 "test/number/stirling/../../../lib/number/combination.cpp"
 
 
-
 #line 1 "test/number/stirling/../../../lib/number/../template.cpp"
 
 
@@ -672,13 +671,10 @@ using LL = long long;
 #define sc second
 
 const LL MOD = 1e9+7;
-
-#line 5 "test/number/stirling/../../../lib/number/combination.cpp"
 
 #line 1 "test/number/stirling/../../../lib/number/factorial.cpp"
 
 
-
 #line 1 "test/number/stirling/../../../lib/number/../template.cpp"
 
 
@@ -851,7 +847,7 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 5 "test/number/stirling/../../../lib/number/factorial.cpp"
+#line 4 "test/number/stirling/../../../lib/number/factorial.cpp"
 
 template<typename Ring>
 struct Fact {
@@ -871,8 +867,7 @@ struct Fact {
     }
 };
 
-
-#line 7 "test/number/stirling/../../../lib/number/combination.cpp"
+#line 5 "test/number/stirling/../../../lib/number/combination.cpp"
 
 template<typename Field>
 struct Comb {
@@ -887,7 +882,6 @@ struct Comb {
         return fact[n] / (fact[n-r] * fact[r]);
     }
 };
-
 
 #line 3 "test/number/stirling/../../../lib/number/stirling.cpp"
 

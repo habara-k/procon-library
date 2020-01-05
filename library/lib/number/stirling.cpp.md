@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/stirling.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-01-05 15:01:12+09:00
 
 
 
@@ -259,7 +259,6 @@ const LL MOD = 1e9+7;
 #line 1 "lib/number/combination.cpp"
 
 
-
 #line 1 "lib/number/../template.cpp"
 
 
@@ -431,13 +430,10 @@ using LL = long long;
 #define sc second
 
 const LL MOD = 1e9+7;
-
-#line 5 "lib/number/combination.cpp"
 
 #line 1 "lib/number/factorial.cpp"
 
 
-
 #line 1 "lib/number/../template.cpp"
 
 
@@ -610,7 +606,7 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 5 "lib/number/factorial.cpp"
+#line 4 "lib/number/factorial.cpp"
 
 template<typename Ring>
 struct Fact {
@@ -630,8 +626,7 @@ struct Fact {
     }
 };
 
-
-#line 7 "lib/number/combination.cpp"
+#line 5 "lib/number/combination.cpp"
 
 template<typename Field>
 struct Comb {
@@ -646,7 +641,6 @@ struct Comb {
         return fact[n] / (fact[n-r] * fact[r]);
     }
 };
-
 
 #line 3 "lib/number/stirling.cpp"
 
