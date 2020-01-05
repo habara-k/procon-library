@@ -97,6 +97,10 @@ def push_to_neosnippet():
         subprocess.check_call(['git', 'commit', '-m', 'Dump snippet'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
 
+    master = os.environ['GITHUB_REF'][len('refs/heads/'):]
+    print('master:', master)
+    subprocess.check_call(['git', 'checkout', master])
+
 
 def push_to_vim_template():
     branch = 'vim-template'
@@ -125,6 +129,10 @@ def push_to_vim_template():
     if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
         subprocess.check_call(['git', 'commit', '-m', 'Dump template'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
+
+    master = os.environ['GITHUB_REF'][len('refs/heads/'):]
+    print('master:', master)
+    subprocess.check_call(['git', 'checkout', master])
 
 
 if __name__ == '__main__':
