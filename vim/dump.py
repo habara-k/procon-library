@@ -11,8 +11,8 @@ def find_all_files(directory):
 
 
 def dump_snippet():
-    BASE_FILE = 'vim/src/base.cpp.snip'
-    SNIP_FILE = 'vim/public/cpp.snip'
+    BASE_FILE = 'vim/base.cpp.snip'
+    SNIP_FILE = 'cpp.snip'
 
     shutil.copy(BASE_FILE, SNIP_FILE)
 
@@ -45,8 +45,8 @@ def dump_snippet():
 
 
 def dump_template():
-    BASE_FILE = 'vim/src/base-template.cpp'
-    TEMPLATE_FILE = 'vim/public/base-main.cpp'
+    BASE_FILE = 'vim/base-template.cpp'
+    TEMPLATE_FILE = 'base-main.cpp'
     SOURCE_FILE = 'lib/template.cpp'
 
     with open(TEMPLATE_FILE,'w') as file:
@@ -87,7 +87,27 @@ def push_to_master():
         subprocess.check_call(['git', 'push', url, 'HEAD'])
 
 
+def push_to_vim_template():
+    branch = 'vim-template'
+    subprocess.check_call(['git', 'checkout', branch])
+
+    url = 'https://{}:{}@github.com/{}.git'.format(
+            os.environ['GITHUB_ACTOR'],
+            os.environ['GITHUB_TOKEN'],
+            os.environ['GITHUB_REPOSITORY'])
+
+    subprocess.check_call(['git', 'config', '--global', 'user.email', 'noreply@github.com'])
+    subprocess.check_call(['git', 'config', '--global', 'user.name', 'GitHub'])
+
+    subprocess.check_call(['git', 'reset'])
+    subprocess.check_call(['git', 'add', 'base-main.cpp'])
+
+    if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
+        subprocess.check_call(['git', 'commit', '-m', 'Dump snippet and template'])
+        subprocess.check_call(['git', 'push', url, 'HEAD'])
+
+
 if __name__ == '__main__':
     dump_snippet()
     dump_template()
-    push_to_master()
+    #push_to_master()
