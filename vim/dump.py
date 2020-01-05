@@ -100,10 +100,16 @@ def push_to_neosnippet():
 
 def push_to_vim_template():
     branch = 'vim-template'
+
+    subprocess.check_call(['git', 'add', 'base-main.cpp'])
+    subprocess.check_call(['git', 'stash'])
+
     try:
         subprocess.check_call(['git', 'checkout', branch])
     except subprocess.CalledProcessError:
         subprocess.check_call(['git', 'checkout', '--orphan', branch])
+
+    subprocess.check_call(['git', 'stash', 'pop', 'stash@{0}'])
 
     url = 'https://{}:{}@github.com/{}.git'.format(
             os.environ['GITHUB_ACTOR'],
