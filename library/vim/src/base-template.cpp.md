@@ -21,17 +21,17 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :warning: vim/base-template.cpp
+# :warning: vim/src/base-template.cpp
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../index.html#f898198629bb686f1dfc3d1ac8b13506">vim</a>
-* <a href="{{ site.github.repository_url }}/blob/master/vim/base-template.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 13:18:13+09:00
+* category: <a href="../../../index.html#1e45766cad4fc615f4b62c4dd8d0991f">vim/src</a>
+* <a href="{{ site.github.repository_url }}/blob/master/vim/src/base-template.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-01-05 14:28:36+09:00
 
 
 
@@ -57,7 +57,7 @@ int main()
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "vim/base-template.cpp"
+#line 1 "vim/src/base-template.cpp"
 int main()
 {
     cin.tie(0);
@@ -71,5 +71,5 @@ int main()
 ```
 {% endraw %}
 
-<a href="../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

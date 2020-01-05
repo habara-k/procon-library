@@ -92,11 +92,11 @@ layout: default
 * :heavy_check_mark: <a href="library/lib/structure/weighted_union_find.cpp.html">lib/structure/weighted_union_find.cpp</a>
 
 
-<div id="f898198629bb686f1dfc3d1ac8b13506"></div>
+<div id="1e45766cad4fc615f4b62c4dd8d0991f"></div>
 
-### vim
+### vim/src
 
-* :warning: <a href="library/vim/base-template.cpp.html">vim/base-template.cpp</a>
+* :warning: <a href="library/vim/src/base-template.cpp.html">vim/src/base-template.cpp</a>
 
 
 ## Verify Files
