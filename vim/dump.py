@@ -20,8 +20,6 @@ def dump_snippet():
 
         for src_path in find_all_files('lib'):
 
-
-
             src_title, fext = os.path.splitext(os.path.basename(src_path))
             if fext != '.cpp':
                 continue
@@ -50,10 +48,11 @@ def dump_template():
     SOURCE_FILE = 'lib/template.cpp'
 
     with open(TEMPLATE_FILE,'w') as file:
+
         with open(SOURCE_FILE,'r') as src:
 
             for row in src:
-                if re.match('#ifndef', row):
+                if re.match('#ifndef TEMPLATE', row):
                     continue
                 if re.match('#define TEMPLATE', row):
                     continue
@@ -97,9 +96,7 @@ def push_to_neosnippet():
         subprocess.check_call(['git', 'commit', '-m', 'Dump snippet'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
 
-    master = os.environ['GITHUB_REF'][len('refs/heads/'):]
-    print('master:', master)
-    subprocess.check_call(['git', 'checkout', master])
+    subprocess.check_call(['git', 'checkout', 'master'])
 
 
 def push_to_vim_template():
@@ -130,9 +127,7 @@ def push_to_vim_template():
         subprocess.check_call(['git', 'commit', '-m', 'Dump template'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
 
-    master = os.environ['GITHUB_REF'][len('refs/heads/'):]
-    print('master:', master)
-    subprocess.check_call(['git', 'checkout', master])
+    subprocess.check_call(['git', 'checkout', 'master'])
 
 
 if __name__ == '__main__':
