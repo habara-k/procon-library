@@ -1,5 +1,4 @@
 #include "../template.cpp"
-
 #include "../structure/union_find.cpp"
 
 template<typename T>

@@ -1,6 +1,5 @@
 #ifndef FACTORIAL
 #define FACTORIAL
-
 #include "../template.cpp"
 
 template<typename Ring>
@@ -20,5 +19,4 @@ struct Fact {
         return fact[i];
     }
 };
-
 #endif

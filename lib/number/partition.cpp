@@ -19,4 +19,3 @@ Ring Partition(int k, int n) {
     }
     return part[k][n];
 }
-

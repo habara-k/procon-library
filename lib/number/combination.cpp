@@ -1,8 +1,6 @@
 #ifndef COMBINATION
 #define COMBINATION
-
 #include "../template.cpp"
-
 #include "factorial.cpp"
 
 template<typename Field>
@@ -18,5 +16,4 @@ struct Comb {
         return fact[n] / (fact[n-r] * fact[r]);
     }
 };
-
 #endif
