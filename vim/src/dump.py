@@ -12,7 +12,7 @@ def find_all_files(directory):
 
 def dump_snippet():
     BASE_FILE = 'vim/src/base.cpp.snip'
-    SNIP_FILE = 'vim/cpp.snip'
+    SNIP_FILE = 'vim/snippet/cpp.snip'
 
     shutil.copy(BASE_FILE, SNIP_FILE)
 
@@ -44,7 +44,7 @@ def dump_snippet():
 
 def dump_template():
     BASE_FILE = 'vim/src/base-template.cpp'
-    TEMPLATE_FILE = 'vim/base-main.cpp'
+    TEMPLATE_FILE = 'vim/template/cpp/base-main.cpp'
     SOURCE_FILE = 'lib/template.cpp'
 
     with open(TEMPLATE_FILE,'w') as file:
