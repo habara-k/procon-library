@@ -111,3 +111,4 @@ if __name__ == '__main__':
     dump_snippet()
     dump_template()
     #push_to_master()
+    push_to_vim_template()
