@@ -118,8 +118,6 @@ snippet make_vector
 
 snippet combination
 
-
-
     template<typename Field>
     struct Comb {
         Fact<Field> fact;
@@ -133,7 +131,6 @@ snippet combination
             return fact[n] / (fact[n-r] * fact[r]);
         }
     };
-
 
 
 snippet stirling
@@ -278,9 +275,7 @@ snippet partition
     }
 
 
-
 snippet factorial
-
 
     template<typename Ring>
     struct Fact {
@@ -301,7 +296,6 @@ snippet factorial
     };
 
 
-
 snippet extended_gcd
 
     template<typename T>
@@ -317,7 +311,6 @@ snippet extended_gcd
 
 
 snippet kruskal
-
 
     template<typename T>
     T kruskal(const vector<edge<T>> &es, int V) {
