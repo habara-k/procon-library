@@ -117,6 +117,7 @@ def push_to_vim_template():
 
 if __name__ == '__main__':
     dump_snippet()
-    dump_template()
     push_to_neosnippet()
-    push_to_vim_template()
+
+    #dump_template()
+    #push_to_vim_template()
