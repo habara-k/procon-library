@@ -114,3 +114,14 @@ snippet make_v
 
 snippet make_vector
     make_vector<${1:int}>(${2:n}, ${3:0})${0}
+
+snippet binary_search
+    auto check = [&](int k) {
+        ${1:condition}
+    };
+
+    int ng = ${2:-1}, ok = ${3:n};
+    while (abs($3 - $2) > 1) {
+        int mid = ($2 + $3) / 2;
+        (check(mid) ? $3 : $2) = mid;
+    }
