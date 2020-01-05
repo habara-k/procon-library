@@ -69,9 +69,12 @@ def dump_template():
                 file.write(row)
 
 
-def push_to_master():
-    branch = os.environ['GITHUB_REF'][len('refs/heads/'):]
-    subprocess.check_call(['git', 'checkout', branch])
+def push_to_neosnippet():
+    branch = 'neosnippet'
+    try:
+        subprocess.check_call(['git', 'checkout', branch])
+    except subprocess.CalledProcessError:
+        subprocess.check_call(['git', 'checkout', '--orphan', branch])
 
     url = 'https://{}:{}@github.com/{}.git'.format(
             os.environ['GITHUB_ACTOR'],
@@ -80,10 +83,12 @@ def push_to_master():
 
     subprocess.check_call(['git', 'config', '--global', 'user.email', 'noreply@github.com'])
     subprocess.check_call(['git', 'config', '--global', 'user.name', 'GitHub'])
-    subprocess.check_call(['git', 'add', 'vim/public'])
+
+    subprocess.check_call(['git', 'reset'])
+    subprocess.check_call(['git', 'add', 'cpp.snip'])
 
     if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
-        subprocess.check_call(['git', 'commit', '-m', 'Dump snippet and template'])
+        subprocess.check_call(['git', 'commit', '-m', 'Dump snippet'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
 
 
@@ -106,12 +111,12 @@ def push_to_vim_template():
     subprocess.check_call(['git', 'add', 'base-main.cpp'])
 
     if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
-        subprocess.check_call(['git', 'commit', '-m', 'Dump snippet and template'])
+        subprocess.check_call(['git', 'commit', '-m', 'Dump template'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
 
 
 if __name__ == '__main__':
     dump_snippet()
     dump_template()
-    #push_to_master()
+    push_to_neosnippet()
     push_to_vim_template()
