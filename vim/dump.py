@@ -131,5 +131,5 @@ if __name__ == '__main__':
     dump_snippet()
     push_to_neosnippet()
 
-    #dump_template()
-    #push_to_vim_template()
+    dump_template()
+    push_to_vim_template()
