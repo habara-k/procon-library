@@ -11,8 +11,8 @@ def find_all_files(directory):
 
 
 def dump_snippet():
-    BASE_FILE = 'vim/base.cpp.snip'
-    SNIP_FILE = 'cpp.snip'
+    BASE_FILE = 'vim/src/base.cpp.snip'
+    SNIP_FILE = 'vim/cpp.snip'
 
     shutil.copy(BASE_FILE, SNIP_FILE)
 
@@ -43,8 +43,8 @@ def dump_snippet():
 
 
 def dump_template():
-    BASE_FILE = 'vim/base-template.cpp'
-    TEMPLATE_FILE = 'base-main.cpp'
+    BASE_FILE = 'vim/src/base-template.cpp'
+    TEMPLATE_FILE = 'vim/base-main.cpp'
     SOURCE_FILE = 'lib/template.cpp'
 
     with open(TEMPLATE_FILE,'w') as file:
@@ -67,21 +67,8 @@ def dump_template():
             for row in base:
                 file.write(row)
 
-
-def push_to_neosnippet():
-    branch = 'neosnippet'
-
-    subprocess.check_call(['git', 'add', 'cpp.snip'])
-    subprocess.check_call(['git', 'stash'])
-
-    try:
-        subprocess.check_call(['git', 'checkout', branch])
-    except subprocess.CalledProcessError:
-        subprocess.check_call(['git', 'checkout', '--orphan', branch])
-
-    subprocess.check_call(['rm', 'cpp.snip'])
-    subprocess.check_call(['git', 'stash', 'pop', 'stash@{0}'])
-
+def push_to_master():
+    subprocess.check_call(['git', 'checkout', 'master'])
     url = 'https://{}:{}@github.com/{}.git'.format(
             os.environ['GITHUB_ACTOR'],
             os.environ['GITHUB_TOKEN'],
@@ -89,52 +76,13 @@ def push_to_neosnippet():
 
     subprocess.check_call(['git', 'config', '--global', 'user.email', 'noreply@github.com'])
     subprocess.check_call(['git', 'config', '--global', 'user.name', 'GitHub'])
-
-    subprocess.check_call(['git', 'reset'])
-    subprocess.check_call(['git', 'add', 'cpp.snip'])
-
+    subprocess.check_call(['git', 'add', 'vim/public'])
     if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
-        subprocess.check_call(['git', 'commit', '-m', 'Dump snippet'])
+        subprocess.check_call(['git', 'commit', '-m', 'Dump snippet and template'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
-
-    subprocess.check_call(['git', 'checkout', 'master'])
-
-
-def push_to_vim_template():
-    branch = 'vim-template'
-
-    subprocess.check_call(['git', 'add', 'base-main.cpp'])
-    subprocess.check_call(['git', 'stash'])
-
-    try:
-        subprocess.check_call(['git', 'checkout', branch])
-    except subprocess.CalledProcessError:
-        subprocess.check_call(['git', 'checkout', '--orphan', branch])
-
-    subprocess.check_call(['rm', 'base-main.cpp'])
-    subprocess.check_call(['git', 'stash', 'pop', 'stash@{0}'])
-
-    url = 'https://{}:{}@github.com/{}.git'.format(
-            os.environ['GITHUB_ACTOR'],
-            os.environ['GITHUB_TOKEN'],
-            os.environ['GITHUB_REPOSITORY'])
-
-    subprocess.check_call(['git', 'config', '--global', 'user.email', 'noreply@github.com'])
-    subprocess.check_call(['git', 'config', '--global', 'user.name', 'GitHub'])
-
-    subprocess.check_call(['git', 'reset'])
-    subprocess.check_call(['git', 'add', 'base-main.cpp'])
-
-    if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
-        subprocess.check_call(['git', 'commit', '-m', 'Dump template'])
-        subprocess.check_call(['git', 'push', url, 'HEAD'])
-
-    subprocess.check_call(['git', 'checkout', 'master'])
 
 
 if __name__ == '__main__':
     dump_snippet()
-    push_to_neosnippet()
-
     dump_template()
-    push_to_vim_template()
+    push_to_master()

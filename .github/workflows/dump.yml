@@ -15,4 +15,4 @@ jobs:
     - name: Dump snippet and template
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: python3 vim/dump.py
+      run: python3 vim/src/dump.py
