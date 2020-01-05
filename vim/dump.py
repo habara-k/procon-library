@@ -79,6 +79,7 @@ def push_to_neosnippet():
     except subprocess.CalledProcessError:
         subprocess.check_call(['git', 'checkout', '--orphan', branch])
 
+    subprocess.check_call(['rm', 'cpp.snip'])
     subprocess.check_call(['git', 'stash', 'pop', 'stash@{0}'])
 
     url = 'https://{}:{}@github.com/{}.git'.format(
@@ -110,6 +111,7 @@ def push_to_vim_template():
     except subprocess.CalledProcessError:
         subprocess.check_call(['git', 'checkout', '--orphan', branch])
 
+    subprocess.check_call(['rm', 'base-main.cpp'])
     subprocess.check_call(['git', 'stash', 'pop', 'stash@{0}'])
 
     url = 'https://{}:{}@github.com/{}.git'.format(
