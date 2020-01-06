@@ -45,7 +45,6 @@ layout: default
 
 ### lib/algorithm
 
-* :heavy_check_mark: <a href="library/lib/algorithm/binary_search.cpp.html">lib/algorithm/binary_search.cpp</a>
 * :heavy_check_mark: <a href="library/lib/algorithm/inversion.cpp.html">lib/algorithm/inversion.cpp</a>
 * :heavy_check_mark: <a href="library/lib/algorithm/longest_increasing_subsequence.cpp.html">lib/algorithm/longest_increasing_subsequence.cpp</a>
 
@@ -108,7 +107,6 @@ layout: default
 
 ## Verify Files
 
-* :heavy_check_mark: <a href="verify/test/algorithm/binary_search/binary_search.test.cpp.html">test/algorithm/binary_search/binary_search.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp.html">test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
