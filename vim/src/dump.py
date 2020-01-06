@@ -68,7 +68,6 @@ def dump_template():
                 file.write(row)
 
 def push_to_master():
-    subprocess.check_call(['git', 'checkout', 'master'])
     url = 'https://{}:{}@github.com/{}.git'.format(
             os.environ['GITHUB_ACTOR'],
             os.environ['GITHUB_TOKEN'],
