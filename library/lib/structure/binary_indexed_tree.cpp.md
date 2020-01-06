@@ -43,12 +43,12 @@ layout: default
 
 ## Required by
 
-* :x: <a href="../algorithm/inversion.cpp.html">lib/algorithm/inversion.cpp</a>
+* :heavy_check_mark: <a href="../algorithm/inversion.cpp.html">lib/algorithm/inversion.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
 

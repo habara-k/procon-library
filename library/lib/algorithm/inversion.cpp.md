@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: lib/algorithm/inversion.cpp
+# :heavy_check_mark: lib/algorithm/inversion.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#77c6183086c03e38260b57f4d8fbb66c">lib/algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/algorithm/inversion.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-06 13:01:18+09:00
+    - Last commit date: 2020-01-06 13:04:50+09:00
 
 
 
@@ -44,7 +44,7 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
 
 
 ## Code
@@ -59,7 +59,7 @@ template<typename T>
 LL inversion(const vector<T>& A)
 {
     map<T, int> idx;
-    for (T& a : A) idx[a] = -1;
+    for (const T& a : A) idx[a] = -1;
 
     int cnt = 0;
     for (auto& p : idx) p.second = cnt++;
@@ -452,7 +452,7 @@ template<typename T>
 LL inversion(const vector<T>& A)
 {
     map<T, int> idx;
-    for (T& a : A) idx[a] = -1;
+    for (const T& a : A) idx[a] = -1;
 
     int cnt = 0;
     for (auto& p : idx) p.second = cnt++;
