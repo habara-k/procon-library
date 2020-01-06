@@ -5,7 +5,7 @@ template<typename T>
 LL inversion(const vector<T>& A)
 {
     map<T, int> idx;
-    for (T& a : A) idx[a] = -1;
+    for (const T& a : A) idx[a] = -1;
 
     int cnt = 0;
     for (auto& p : idx) p.second = cnt++;
