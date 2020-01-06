@@ -115,6 +115,17 @@ snippet make_v
 snippet make_vector
     make_vector<${1:int}>(${2:n}, ${3:0})${0}
 
+snippet binary_search
+    auto check = [&](int k) {
+        ${1:condition}
+    };
+
+    int ng = ${2:-1}, ok = ${3:n};
+    while (abs($3 - $2) > 1) {
+        int mid = ($2 + $3) / 2;
+        (check(mid) ? $3 : $2) = mid;
+    }
+
 
 snippet combination
 
@@ -751,22 +762,6 @@ snippet longest_increasing_subsequence
         }
         return distance(dp.begin(), lower_bound(dp.begin(), dp.end(), INF));
     }
-
-
-snippet binary_search
-
-    pair<int,int> my_binary_search(
-            int ng, int ok,
-            function<bool(int)> check) {
-
-        while (abs(ok - ng) > 1) {
-            int mid = (ng + ok) / 2;
-            (check(mid) ? ok : ng) = mid;
-        }
-
-        return { ng, ok };
-    }
-
 
 
 snippet inversion
