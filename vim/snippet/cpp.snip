@@ -127,19 +127,195 @@ snippet binary_search
     }
 
 
-snippet combination
+snippet dijkstra
 
-    template<typename Field>
-    struct Comb {
-        Fact<Field> fact;
+    template<typename T>
+    vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
+        const T INF = numeric_limits<T>::max();
+        vector<T> d(g.size(), INF);
 
-        Comb(int n) : fact(n) {}
-
-        Field operator()(int n, int r) {
-            if (n < 0 || n-r < 0 || r < 0) {
-                return Field{0};
+        using Pi = pair<T, int>;
+        priority_queue<Pi, vector<Pi>, greater<Pi>> que;
+        d[s] = 0;
+        que.emplace(d[s], s);
+        while (!que.empty()) {
+            T cost;
+            int v;
+            tie(cost, v) = que.top();
+            que.pop();
+            if (d[v] < cost) continue;
+            for (auto &e : g[v]) {
+                T nxt = cost + e.cost;
+                if (d[e.to] > nxt) {
+                    d[e.to] = nxt;
+                    que.emplace(nxt, e.to);
+                }
             }
-            return fact[n] / (fact[n-r] * fact[r]);
+        }
+        return d;
+    }
+
+
+snippet kruskal
+
+    template<typename T>
+    T kruskal(const vector<edge<T>> &es, int V) {
+
+        UnionFind uf(V);
+        T ret = 0;
+
+        vector<int> ord(es.size());
+        iota(ord.begin(), ord.end(), 0);
+        sort(ord.begin(), ord.end(), [&](int i,int j){
+                return es[i].cost < es[j].cost;
+                });
+
+        for (auto i : ord) {
+            auto &e = es[i];
+            if (!uf.issame(e.src, e.to)) {
+                ret += e.cost;
+                uf.merge(e.src, e.to);
+            }
+        }
+
+        return ret;
+    }
+
+
+snippet warshall_floyd
+
+    template<typename T>
+    void warshall_floyd(vector<vector<T>> &g) {
+        const auto INF = numeric_limits<T>::max();
+        int n = g.size();
+        for(int k = 0; k < n; k++) {
+            for(int i = 0; i < n; i++) {
+                for(int j = 0; j < n; j++) {
+                    if(g[i][k] == INF || g[k][j] == INF) continue;
+                    g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
+                }
+            }
+        }
+    }
+
+
+snippet lowest_common_ancestor
+
+    struct LCA {
+        int n, log2_n;
+        vector<int> depth;
+        vector<vector<int>> par;
+
+        void dfs(const vector<vector<int>>& G, int v, int p, int d) {
+            depth[v] = d;
+            par[0][v] = p;
+            for (auto to : G[v]) {
+                if (to != p) dfs(G, to, v, d+1);
+            }
+        }
+
+        LCA(const vector<vector<int>>& G, int root=0) :
+                n(G.size()), log2_n(log2(n)), depth(n),
+                par(log2_n+1, vector<int>(n,-1)) {
+
+            dfs(G, root, -1, 0);
+            for (int k = 0; k < log2_n; ++k) {
+                for (int v = 0; v < n; ++v) {
+                    if (par[k][v] != -1) {
+                        par[k+1][v] = par[k][par[k][v]];
+                    }
+                }
+            }
+        }
+
+        int query(int u, int v) {
+            if (depth[u] > depth[v]) swap(u, v);
+
+            // align the depth of u and v
+            for (int k = 0; k <= log2_n; ++k) {
+                if ((depth[v] - depth[u]) >> k & 1) {
+                    v = par[k][v];
+                }
+            }
+            if (u == v) return u;
+
+            // go back until u and v's parents do not match
+            for (int k = log2_n; k >= 0; --k) {
+                if (par[k][u] != par[k][v]) {
+                    u = par[k][u];
+                    v = par[k][v];
+                }
+            }
+            return par[0][u];
+        }
+    };
+
+
+snippet dinic
+
+    template<typename T>
+    struct Dinic {
+        const T INF;
+
+        struct edge {
+            int to;
+            T cap;
+            int rev;
+            bool isrev;
+        };
+
+        vector<vector<edge>> g;
+        vector<int> level, iter;
+
+        Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
+
+        void add_edge(int src, int to, T cap) {
+            g[src].push_back({to, cap, (int)g[to].size(), false});
+            g[to].push_back({src, 0, (int)g[src].size()-1, true});
+        }
+
+        bool bfs(int s, int t) {
+            level.assign(g.size(), -1);
+            queue<int> que;
+            level[s] = 0;
+            que.push(s);
+            while (!que.empty()) {
+                int v = que.front();
+                que.pop();
+                for (auto &e : g[v]) {
+                    if (e.cap > 0 && level[e.to] == -1) {
+                        level[e.to] = level[v] + 1;
+                        que.push(e.to);
+                    }
+                }
+            }
+            return level[t] != -1;
+        }
+
+        T dfs(int v, const int t, T flow) {
+            if (v == t) return flow;
+            for (int &i = iter[v]; i < g[v].size(); i++) {
+                edge &e = g[v][i];
+                if (e.cap > 0 && level[v] < level[e.to]) {
+                    T d = dfs(e.to, t, min(flow, e.cap));
+                    if (d > 0) {
+                        e.cap -= d;
+                        g[e.to][e.rev].cap += d;
+                        return d;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        T max_flow(int s, int t) {
+            T flow = 0;
+            while (bfs(s, t)) {
+                iter.assign(g.size(), 0);
+                T f = 0;
+                while((f = dfs(s, t, INF)) > 0) flow += f;
+            }
+            return flow;
         }
     };
 
@@ -163,21 +339,38 @@ snippet stirling
     }
 
 
-snippet bell
+snippet factorial
 
-    // Bell number
-    // Bell(n, k) := the number of cases
-    //            to split n balls(distinguished)
-    //            into k boxes(not distinguished)
-    //
-    // require Comb<Field> GREATER THAN OR EQUAL TO k
-    template<typename Field>
-    Field Bell(LL n, LL k, Comb<Field>& comb) {
-        Field ret = 0;
-        for (LL l = 0; l <= k; ++l) {
-            ret += Stirling(n, l, comb);
+    template<typename Ring>
+    struct Fact {
+
+        vector<Ring> fact;
+
+        Fact(int n) {
+            fact.resize(n+1);
+            fact[0] = Ring{1};
+            for (int i = 1; i <= n; ++i) {
+                fact[i] = fact[i-1] * Ring{i};
+            }
         }
-        return ret;
+
+        Ring operator[](int i) {
+            return fact[i];
+        }
+    };
+
+
+snippet extended_gcd
+
+    template<typename T>
+    T extended_gcd(T a, T b, T& x, T& y) {
+        // solve ax + by = gcd(a, b)
+        if (b == 0) { x = 1; y = 0; return a; }
+
+        T X, Y;
+        T g = extended_gcd(b, a % b, X, Y);
+        x = Y; y = X - a/b * Y;
+        return g;
     }
 
 
@@ -263,6 +456,24 @@ snippet modint
     };
 
 
+snippet bell
+
+    // Bell number
+    // Bell(n, k) := the number of cases
+    //            to split n balls(distinguished)
+    //            into k boxes(not distinguished)
+    //
+    // require Comb<Field> GREATER THAN OR EQUAL TO k
+    template<typename Field>
+    Field Bell(LL n, LL k, Comb<Field>& comb) {
+        Field ret = 0;
+        for (LL l = 0; l <= k; ++l) {
+            ret += Stirling(n, l, comb);
+        }
+        return ret;
+    }
+
+
 snippet partition
 
     // Partition function
@@ -286,232 +497,88 @@ snippet partition
     }
 
 
-snippet factorial
+snippet combination
 
-    template<typename Ring>
-    struct Fact {
+    template<typename Field>
+    struct Comb {
+        Fact<Field> fact;
 
-        vector<Ring> fact;
+        Comb(int n) : fact(n) {}
 
-        Fact(int n) {
-            fact.resize(n+1);
-            fact[0] = Ring{1};
-            for (int i = 1; i <= n; ++i) {
-                fact[i] = fact[i-1] * Ring{i};
+        Field operator()(int n, int r) {
+            if (n < 0 || n-r < 0 || r < 0) {
+                return Field{0};
             }
-        }
-
-        Ring operator[](int i) {
-            return fact[i];
+            return fact[n] / (fact[n-r] * fact[r]);
         }
     };
 
 
-snippet extended_gcd
+snippet rolling_hash
 
-    template<typename T>
-    T extended_gcd(T a, T b, T& x, T& y) {
-        // solve ax + by = gcd(a, b)
-        if (b == 0) { x = 1; y = 0; return a; }
+    struct RollingHash {
+        const int base = 9973;
+        const int mod[2] = {999999937, 1000000007};
+        vector<int> s;
+        vector<LL> hash[2], pow[2];
 
-        T X, Y;
-        T g = extended_gcd(b, a % b, X, Y);
-        x = Y; y = X - a/b * Y;
-        return g;
-    }
-
-
-snippet kruskal
-
-    template<typename T>
-    T kruskal(const vector<edge<T>> &es, int V) {
-
-        UnionFind uf(V);
-        T ret = 0;
-
-        vector<int> ord(es.size());
-        iota(ord.begin(), ord.end(), 0);
-        sort(ord.begin(), ord.end(), [&](int i,int j){
-                return es[i].cost < es[j].cost;
-                });
-
-        for (auto i : ord) {
-            auto &e = es[i];
-            if (!uf.issame(e.src, e.to)) {
-                ret += e.cost;
-                uf.merge(e.src, e.to);
-            }
-        }
-
-        return ret;
-    }
-
-
-snippet lowest_common_ancestor
-
-    struct LCA {
-        int n, log2_n;
-        vector<int> depth;
-        vector<vector<int>> par;
-
-        void dfs(const vector<vector<int>>& G, int v, int p, int d) {
-            depth[v] = d;
-            par[0][v] = p;
-            for (auto to : G[v]) {
-                if (to != p) dfs(G, to, v, d+1);
-            }
-        }
-
-        LCA(const vector<vector<int>>& G, int root=0) :
-                n(G.size()), log2_n(log2(n)), depth(n),
-                par(log2_n+1, vector<int>(n,-1)) {
-
-            dfs(G, root, -1, 0);
-            for (int k = 0; k < log2_n; ++k) {
-                for (int v = 0; v < n; ++v) {
-                    if (par[k][v] != -1) {
-                        par[k+1][v] = par[k][par[k][v]];
-                    }
+        RollingHash(const vector<int> &cs) : s(cs) {
+            int n = s.size();
+            for (int id = 0; id < 2; ++id) {
+                hash[id].assign(n+1, 0);
+                pow[id].assign(n+1, 1);
+                for (int i = 0; i < n; ++i) {
+                    hash[id][i+1] = (hash[id][i] * base + s[i]) % mod[id];
+                    pow[id][i+1] = pow[id][i] * base % mod[id];
                 }
             }
         }
 
-        int query(int u, int v) {
-            if (depth[u] > depth[v]) swap(u, v);
-
-            // align the depth of u and v
-            for (int k = 0; k <= log2_n; ++k) {
-                if ((depth[v] - depth[u]) >> k & 1) {
-                    v = par[k][v];
-                }
-            }
-            if (u == v) return u;
-
-            // go back until u and v's parents do not match
-            for (int k = log2_n; k >= 0; --k) {
-                if (par[k][u] != par[k][v]) {
-                    u = par[k][u];
-                    v = par[k][v];
-                }
-            }
-            return par[0][u];
+        // get hash of s[l:r)
+        LL get(int l, int r, int id = 0) {
+            LL res = hash[id][r] - hash[id][l] * pow[id][r-l] % mod[id];
+            if (res < 0) res += mod[id];
+            return res;
         }
     };
 
 
-snippet dijkstra
+snippet inversion
 
     template<typename T>
-    vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
-        const T INF = numeric_limits<T>::max();
-        vector<T> d(g.size(), INF);
+    LL inversion(const vector<T>& A)
+    {
+        map<T, int> idx;
+        for (const T& a : A) idx[a] = -1;
 
-        using Pi = pair<T, int>;
-        priority_queue<Pi, vector<Pi>, greater<Pi>> que;
-        d[s] = 0;
-        que.emplace(d[s], s);
-        while (!que.empty()) {
-            T cost;
-            int v;
-            tie(cost, v) = que.top();
-            que.pop();
-            if (d[v] < cost) continue;
-            for (auto &e : g[v]) {
-                T nxt = cost + e.cost;
-                if (d[e.to] > nxt) {
-                    d[e.to] = nxt;
-                    que.emplace(nxt, e.to);
-                }
-            }
+        int cnt = 0;
+        for (auto& p : idx) p.second = cnt++;
+
+        assert(cnt == A.size());
+
+        BIT<int> bit(cnt+1);
+        LL res = 0;
+        for (int i = 0; i < A.size(); ++i) {
+            res += i - bit.sum(idx[A[i]]);
+            bit.add(idx[A[i]], 1);
         }
-        return d;
+
+        return res;
     }
 
 
-snippet warshall_floyd
+snippet longest_increasing_subsequence
 
     template<typename T>
-    void warshall_floyd(vector<vector<T>> &g) {
-        const auto INF = numeric_limits<T>::max();
-        int n = g.size();
-        for(int k = 0; k < n; k++) {
-            for(int i = 0; i < n; i++) {
-                for(int j = 0; j < n; j++) {
-                    if(g[i][k] == INF || g[k][j] == INF) continue;
-                    g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
-                }
-            }
+    int LIS(const vector<T>& a) {
+        int n = a.size();
+        T INF = numeric_limits<T>::max();
+        vector<T> dp(n, INF);
+        for (int i = 0; i < n; ++i) {
+            *lower_bound(dp.begin(), dp.end(), a[i]) = a[i];
         }
+        return distance(dp.begin(), lower_bound(dp.begin(), dp.end(), INF));
     }
-
-
-snippet dinic
-
-    template<typename T>
-    struct Dinic {
-        const T INF;
-
-        struct edge {
-            int to;
-            T cap;
-            int rev;
-            bool isrev;
-        };
-
-        vector<vector<edge>> g;
-        vector<int> level, iter;
-
-        Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
-
-        void add_edge(int src, int to, T cap) {
-            g[src].push_back({to, cap, (int)g[to].size(), false});
-            g[to].push_back({src, 0, (int)g[src].size()-1, true});
-        }
-
-        bool bfs(int s, int t) {
-            level.assign(g.size(), -1);
-            queue<int> que;
-            level[s] = 0;
-            que.push(s);
-            while (!que.empty()) {
-                int v = que.front();
-                que.pop();
-                for (auto &e : g[v]) {
-                    if (e.cap > 0 && level[e.to] == -1) {
-                        level[e.to] = level[v] + 1;
-                        que.push(e.to);
-                    }
-                }
-            }
-            return level[t] != -1;
-        }
-
-        T dfs(int v, const int t, T flow) {
-            if (v == t) return flow;
-            for (int &i = iter[v]; i < g[v].size(); i++) {
-                edge &e = g[v][i];
-                if (e.cap > 0 && level[v] < level[e.to]) {
-                    T d = dfs(e.to, t, min(flow, e.cap));
-                    if (d > 0) {
-                        e.cap -= d;
-                        g[e.to][e.rev].cap += d;
-                        return d;
-                    }
-                }
-            }
-            return 0;
-        }
-
-        T max_flow(int s, int t) {
-            T flow = 0;
-            while (bfs(s, t)) {
-                iter.assign(g.size(), 0);
-                T f = 0;
-                while((f = dfs(s, t, INF)) > 0) flow += f;
-            }
-            return flow;
-        }
-    };
 
 
 snippet segment_tree
@@ -558,6 +625,87 @@ snippet segment_tree
 
         M operator[](int k) {
             return data[k + sz];
+        }
+    };
+
+
+snippet union_find
+
+    struct UnionFind
+    {
+        vector<int> par, sz;
+        UnionFind(int n) : par(n), sz(n, 1) {
+            for (int i = 0; i < n; ++i) par[i] = i;
+        }
+
+        int root(int x) {
+            if (par[x] == x) return x;
+            return par[x] = root(par[x]);
+        }
+
+        void merge(int x, int y) {
+            x = root(x);
+            y = root(y);
+            if (x == y) return;
+            if (sz[x] < sz[y]) swap(x, y);
+            par[y] = x;
+            sz[x] += sz[y];
+            sz[y] = 0;
+        }
+
+        bool issame(int x, int y) {
+            return root(x) == root(y);
+        }
+
+        int size(int x) {
+            return sz[root(x)];
+        }
+    };
+
+
+snippet weighted_union_find
+
+    template<typename A>
+    struct WeightedUnionFind
+    {
+        vector<int> par, sz;
+        vector<A> data;     // data[x]: diff from root to x
+        WeightedUnionFind(int n, A e=0) :
+            par(n), sz(n, 1), data(n, e) {
+            for (int i = 0; i < n; ++i) par[i] = i;
+        }
+
+        int root(int x) {
+            if (par[x] == x) return x;
+            int r = root(par[x]);
+            data[x] += data[par[x]];
+            return par[x] = r;
+        }
+
+        A weight(int x) {
+            root(x);
+            return data[x];
+        }
+
+        A diff(int x, int y) {
+            // diff from x to y
+            return data[y] - data[x];
+        }
+
+        void merge(int x, int y, A w) {
+            // merge so that "diff from x to y" will be w.
+            w += weight(x); w -= weight(y);
+            x = root(x); y = root(y);
+            if (x == y) return;
+            if (sz[x] < sz[y]) swap(x, y), w = -w;
+            par[y] = x;
+            sz[x] += sz[y];
+            sz[y] = 0;
+            data[y] = w;
+        }
+
+        bool issame(int x, int y) {
+            return root(x) == root(y);
         }
     };
 
@@ -647,53 +795,6 @@ snippet lazy_segment_tree
     };
 
 
-snippet weighted_union_find
-
-    template<typename A>
-    struct WeightedUnionFind
-    {
-        vector<int> par, sz;
-        vector<A> data;     // data[x]: diff from root to x
-        WeightedUnionFind(int n, A e=0) :
-            par(n), sz(n, 1), data(n, e) {
-            for (int i = 0; i < n; ++i) par[i] = i;
-        }
-
-        int root(int x) {
-            if (par[x] == x) return x;
-            int r = root(par[x]);
-            data[x] += data[par[x]];
-            return par[x] = r;
-        }
-
-        A weight(int x) {
-            root(x);
-            return data[x];
-        }
-
-        A diff(int x, int y) {
-            // diff from x to y
-            return data[y] - data[x];
-        }
-
-        void merge(int x, int y, A w) {
-            // merge so that "diff from x to y" will be w.
-            w += weight(x); w -= weight(y);
-            x = root(x); y = root(y);
-            if (x == y) return;
-            if (sz[x] < sz[y]) swap(x, y), w = -w;
-            par[y] = x;
-            sz[x] += sz[y];
-            sz[y] = 0;
-            data[y] = w;
-        }
-
-        bool issame(int x, int y) {
-            return root(x) == root(y);
-        }
-    };
-
-
 snippet binary_indexed_tree
 
     template<typename T>
@@ -712,106 +813,5 @@ snippet binary_indexed_tree
             i += 1; T s = 0;
             while (i > 0) { s += bit[i]; i -= i & -i; }
             return s;
-        }
-    };
-
-
-snippet union_find
-
-    struct UnionFind
-    {
-        vector<int> par, sz;
-        UnionFind(int n) : par(n), sz(n, 1) {
-            for (int i = 0; i < n; ++i) par[i] = i;
-        }
-
-        int root(int x) {
-            if (par[x] == x) return x;
-            return par[x] = root(par[x]);
-        }
-
-        void merge(int x, int y) {
-            x = root(x);
-            y = root(y);
-            if (x == y) return;
-            if (sz[x] < sz[y]) swap(x, y);
-            par[y] = x;
-            sz[x] += sz[y];
-            sz[y] = 0;
-        }
-
-        bool issame(int x, int y) {
-            return root(x) == root(y);
-        }
-
-        int size(int x) {
-            return sz[root(x)];
-        }
-    };
-
-
-snippet longest_increasing_subsequence
-
-    template<typename T>
-    int LIS(const vector<T>& a) {
-        int n = a.size();
-        T INF = numeric_limits<T>::max();
-        vector<T> dp(n, INF);
-        for (int i = 0; i < n; ++i) {
-            *lower_bound(dp.begin(), dp.end(), a[i]) = a[i];
-        }
-        return distance(dp.begin(), lower_bound(dp.begin(), dp.end(), INF));
-    }
-
-
-snippet inversion
-
-    template<typename T>
-    LL inversion(const vector<T>& A)
-    {
-        map<T, int> idx;
-        for (const T& a : A) idx[a] = -1;
-
-        int cnt = 0;
-        for (auto& p : idx) p.second = cnt++;
-
-        assert(cnt == A.size());
-
-        BIT<int> bit(cnt+1);
-        LL res = 0;
-        for (int i = 0; i < A.size(); ++i) {
-            res += i - bit.sum(idx[A[i]]);
-            bit.add(idx[A[i]], 1);
-        }
-
-        return res;
-    }
-
-
-snippet rolling_hash
-
-    struct RollingHash {
-        const int base = 9973;
-        const int mod[2] = {999999937, 1000000007};
-        vector<int> s;
-        vector<LL> hash[2], pow[2];
-
-        RollingHash(const vector<int> &cs) : s(cs) {
-            int n = s.size();
-            for (int id = 0; id < 2; ++id) {
-                hash[id].assign(n+1, 0);
-                pow[id].assign(n+1, 1);
-                for (int i = 0; i < n; ++i) {
-                    hash[id][i+1] = (hash[id][i] * base + s[i]) % mod[id];
-                    pow[id][i+1] = pow[id][i] * base % mod[id];
-                }
-            }
-        }
-
-        // get hash of s[l:r)
-        LL get(int l, int r, int id = 0) {
-            LL res = hash[id][r] - hash[id][l] * pow[id][r-l] % mod[id];
-            if (res < 0) res += mod[id];
-            return res;
         }
     };
