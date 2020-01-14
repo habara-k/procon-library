@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#1e45766cad4fc615f4b62c4dd8d0991f">vim/src</a>
 * <a href="{{ site.github.repository_url }}/blob/master/vim/src/base-template.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 14:28:36+09:00
+    - Last commit date: 2020-01-14 20:19:11+09:00
 
 
 
@@ -45,6 +45,7 @@ int main()
 {
     cin.tie(0);
     ios::sync_with_stdio(false);
+    cout << fixed << setprecision(10);
 
     {{_cursor_}}
 
@@ -62,6 +63,7 @@ int main()
 {
     cin.tie(0);
     ios::sync_with_stdio(false);
+    cout << fixed << setprecision(10);
 
     {{_cursor_}}
 
