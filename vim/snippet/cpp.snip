@@ -121,9 +121,9 @@ snippet binary_search
     };
 
     int ng = ${2:-1}, ok = ${3:n};
-    while (abs($3 - $2) > 1) {
-        int mid = ($2 + $3) / 2;
-        (check(mid) ? $3 : $2) = mid;
+    while (abs(ok - ng) > 1) {
+        int mid = (ng + ok) / 2;
+        (check(mid) ? ok : ng) = mid;
     }
 
 
