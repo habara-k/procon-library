@@ -116,16 +116,15 @@ snippet make_vector
     make_vector<${1:int}>(${2:n}, ${3:0})${0}
 
 snippet binary_search
-    auto check = [&](${1:int} k) {
-        ${2:condition}
+    auto check = [&](int k) {
+        ${1:condition}
     };
 
-    $1 ng = ${3:-1}, ok = ${4:n};
-    while (abs(ok - ng) > 1) {
-        $1 mid = (ng + ok) / 2;
-        (check(mid) ? ok : ng) = mid;
+    int ng = ${2:-1}, ok = ${3:n};
+    while (abs($3 - $2) > 1) {
+        int mid = ($2 + $3) / 2;
+        (check(mid) ? $3 : $2) = mid;
     }
-
 
 snippet random
     const int SEED = 0;
