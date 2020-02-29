@@ -62,7 +62,7 @@ snippet rAll
     ${1:c}.rbegin(), $1.rend()${0}
 
 snippet sort
-    sort(${1:c}.begin(), $1.end());${0}
+    sort(${1:c}.begin(), $1.end()${2:#:,});${0}
 
 snippet rsort
     sort(${1:c}.rbegin(), $1.rend());${0}
@@ -125,6 +125,19 @@ snippet binary_search
         int mid = (ng + ok) / 2;
         (check(mid) ? ok : ng) = mid;
     }
+
+snippet random
+    const int SEED = 0;
+    std::mt19937 mt(SEED);
+
+snippet clock
+    struct Clock {
+        clock_t start;
+        Clock() : start(clock()) {}
+        double operator()() {
+            return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
+        }
+    };
 
 
 snippet dijkstra
