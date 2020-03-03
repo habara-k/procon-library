@@ -122,8 +122,14 @@ snippet binary_search
 
     $1 ng = ${3:-1}, ok = ${4:n};
     while (abs(ok - ng) > 1) {
-        int mid = (ng + ok) / 2;
+        $1 mid = (ng + ok) / 2;
         (check(mid) ? ok : ng) = mid;
+    }
+
+snippet next_combination
+    LL next_combination(LL mask) {
+        LL x = mask & -mask, y = mask + x;
+        return (((mask & ~y) / x) >> 1) | y;
     }
 
 snippet random
