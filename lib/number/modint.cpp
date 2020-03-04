@@ -1,7 +1,8 @@
 #include "../template.cpp"
 
-template<LL mod>
+template<long long mod>
 struct modint {
+    using LL = long long;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
