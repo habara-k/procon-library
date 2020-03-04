@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#77c6183086c03e38260b57f4d8fbb66c">lib/algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/algorithm/inversion.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-06 13:04:50+09:00
+    - Last commit date: 2020-03-04 17:53:52+09:00
 
 
 
@@ -239,6 +239,7 @@ struct edge {
     int src, to;
     T cost;
 
+    edge() {}
     edge(int to, T cost) : src(-1), to(to), cost(cost) {}
     edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
 
@@ -411,6 +412,7 @@ struct edge {
     int src, to;
     T cost;
 
+    edge() {}
     edge(int to, T cost) : src(-1), to(to), cost(cost) {}
     edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
 

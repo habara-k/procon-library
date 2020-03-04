@@ -30,7 +30,7 @@ layout: default
 <a href="../../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-03-04 17:53:52+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E</a>
@@ -235,6 +235,7 @@ struct edge {
     int src, to;
     T cost;
 
+    edge() {}
     edge(int to, T cost) : src(-1), to(to), cost(cost) {}
     edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
 

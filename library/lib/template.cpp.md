@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../index.html#e8acc63b1e238f3255c900eed37254b8">lib</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/template.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 02:34:25+09:00
+    - Last commit date: 2020-03-04 17:53:52+09:00
 
 
 
@@ -251,6 +251,7 @@ struct edge {
     int src, to;
     T cost;
 
+    edge() {}
     edge(int to, T cost) : src(-1), to(to), cost(cost) {}
     edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
 
@@ -430,6 +431,7 @@ struct edge {
     int src, to;
     T cost;
 
+    edge() {}
     edge(int to, T cost) : src(-1), to(to), cost(cost) {}
     edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/factorial.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-01-05 15:01:12+09:00
+    - Last commit date: 2020-03-04 17:53:52+09:00
 
 
 
@@ -250,6 +250,7 @@ struct edge {
     int src, to;
     T cost;
 
+    edge() {}
     edge(int to, T cost) : src(-1), to(to), cost(cost) {}
     edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
 
