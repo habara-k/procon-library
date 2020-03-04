@@ -44,6 +44,7 @@ layout: default
 * :heavy_check_mark: <a href="graph/dinic.cpp.html">lib/graph/dinic.cpp</a>
 * :heavy_check_mark: <a href="graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 * :heavy_check_mark: <a href="graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
+* :heavy_check_mark: <a href="graph/strongly_connected_components.cpp.html">lib/graph/strongly_connected_components.cpp</a>
 * :heavy_check_mark: <a href="graph/warshall_floyd.cpp.html">lib/graph/warshall_floyd.cpp</a>
 * :heavy_check_mark: <a href="number/bell.cpp.html">lib/number/bell.cpp</a>
 * :heavy_check_mark: <a href="number/combination.cpp.html">lib/number/combination.cpp</a>
@@ -68,6 +69,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp.html">test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/graph/strongly_connected_components/strongly_connected_components.test.cpp.html">test/graph/strongly_connected_components/strongly_connected_components.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/warshall_floyd/warshall_floyd.test.cpp.html">test/graph/warshall_floyd/warshall_floyd.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/number/bell/bell.test.cpp.html">test/number/bell/bell.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/number/combination/combination.test.cpp.html">test/number/combination/combination.test.cpp</a>
