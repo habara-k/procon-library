@@ -30,7 +30,7 @@ layout: default
 <a href="../../../../index.html">Back to top page</a>
 
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/partition/partition1.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-04 21:01:05+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_J">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_J</a>
@@ -244,8 +244,9 @@ const LL MOD = 1e9+7;
 
 #line 2 "test/number/partition/../../../lib/number/modint.cpp"
 
-template<LL mod>
+template<long long mod>
 struct modint {
+    using LL = long long;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 

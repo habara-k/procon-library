@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/modint.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-04 21:01:05+09:00
 
 
 
@@ -59,8 +59,9 @@ layout: default
 ```cpp
 #include "../template.cpp"
 
-template<LL mod>
+template<long long mod>
 struct modint {
+    using LL = long long;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
@@ -319,8 +320,9 @@ const LL MOD = 1e9+7;
 
 #line 2 "lib/number/modint.cpp"
 
-template<LL mod>
+template<long long mod>
 struct modint {
+    using LL = long long;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
