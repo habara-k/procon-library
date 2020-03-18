@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/union_find/union_find.test.cpp
+# :heavy_check_mark: test/number/is_prime/is_prime.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#a6ff2114eee69df4e8133581d018ead8">test/structure/union_find</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/union_find/union_find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+* category: <a href="../../../../index.html#06a2e32a774c9bde5c2eb0511cf0cc0a">test/number/is_prime</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/number/is_prime/is_prime.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-18 19:49:05+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/number/is_prime.cpp.html">lib/number/is_prime.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -48,20 +48,21 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C"
 
-#include "../../../lib/structure/union_find.cpp"
+#include "../../../lib/number/is_prime.cpp"
 
 int main() {
-    int N, Q;
-    cin >> N >> Q;
-    UnionFind uf(N);
-    while (Q--) {
-        int t, x, y;
-        cin >> t >> x >> y;
-        if (t == 0) uf.merge(x, y);
-        else printf("%d\n", uf.root(x) == uf.root(y));
+    int n; cin >> n;
+
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        int a; cin >> a;
+
+        if (is_prime(a)) ++ans;
     }
+
+    cout << ans << endl;
 }
 
 ```
@@ -70,10 +71,10 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/union_find/union_find.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A"
+#line 1 "test/number/is_prime/is_prime.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C"
 
-#line 1 "test/structure/union_find/../../../lib/structure/../template.cpp"
+#line 1 "test/number/is_prime/../../../lib/number/../template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -246,50 +247,28 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 2 "test/structure/union_find/../../../lib/structure/union_find.cpp"
+#line 2 "test/number/is_prime/../../../lib/number/is_prime.cpp"
 
-struct UnionFind
-{
-    vector<int> par, sz;
-    UnionFind(int n) : par(n), sz(n, 1) {
-        for (int i = 0; i < n; ++i) par[i] = i;
+// O(sqrt(n))
+bool is_prime(int64_t n) {
+    for (int64_t i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
     }
-
-    int root(int x) {
-        if (par[x] == x) return x;
-        return par[x] = root(par[x]);
-    }
-
-    void merge(int x, int y) {
-        x = root(x);
-        y = root(y);
-        if (x == y) return;
-        if (sz[x] < sz[y]) swap(x, y);
-        par[y] = x;
-        sz[x] += sz[y];
-        sz[y] = 0;
-    }
-
-    bool issame(int x, int y) {
-        return root(x) == root(y);
-    }
-
-    int size(int x) {
-        return sz[root(x)];
-    }
-};
-#line 4 "test/structure/union_find/union_find.test.cpp"
+    return true;
+}
+#line 4 "test/number/is_prime/is_prime.test.cpp"
 
 int main() {
-    int N, Q;
-    cin >> N >> Q;
-    UnionFind uf(N);
-    while (Q--) {
-        int t, x, y;
-        cin >> t >> x >> y;
-        if (t == 0) uf.merge(x, y);
-        else printf("%d\n", uf.root(x) == uf.root(y));
+    int n; cin >> n;
+
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        int a; cin >> a;
+
+        if (is_prime(a)) ++ans;
     }
+
+    cout << ans << endl;
 }
 
 ```

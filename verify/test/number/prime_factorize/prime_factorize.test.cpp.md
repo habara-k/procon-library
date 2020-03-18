@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/union_find/union_find.test.cpp
+# :heavy_check_mark: test/number/prime_factorize/prime_factorize.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#a6ff2114eee69df4e8133581d018ead8">test/structure/union_find</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/union_find/union_find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+* category: <a href="../../../../index.html#81083c2a28e9c4ae76d8eb04f40d8427">test/number/prime_factorize</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/number/prime_factorize/prime_factorize.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-18 19:49:05+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/number/prime_factorize.cpp.html">lib/number/prime_factorize.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -48,20 +48,23 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A"
 
-#include "../../../lib/structure/union_find.cpp"
+#include "../../../lib/number/prime_factorize.cpp"
 
 int main() {
-    int N, Q;
-    cin >> N >> Q;
-    UnionFind uf(N);
-    while (Q--) {
-        int t, x, y;
-        cin >> t >> x >> y;
-        if (t == 0) uf.merge(x, y);
-        else printf("%d\n", uf.root(x) == uf.root(y));
+    int n; cin >> n;
+
+    map<int64_t, int> fact = prime_factorize(n);
+
+    cout << n << ":";
+
+    for (auto tp : fact) {
+        for (int i = 0; i < tp.second; ++i) {
+            cout << " " << tp.first;
+        }
     }
+    cout << endl;
 }
 
 ```
@@ -70,10 +73,10 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/union_find/union_find.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A"
+#line 1 "test/number/prime_factorize/prime_factorize.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A"
 
-#line 1 "test/structure/union_find/../../../lib/structure/../template.cpp"
+#line 1 "test/number/prime_factorize/../../../lib/number/../template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -246,50 +249,35 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 2 "test/structure/union_find/../../../lib/structure/union_find.cpp"
+#line 2 "test/number/prime_factorize/../../../lib/number/prime_factorize.cpp"
 
-struct UnionFind
-{
-    vector<int> par, sz;
-    UnionFind(int n) : par(n), sz(n, 1) {
-        for (int i = 0; i < n; ++i) par[i] = i;
+// O(sqrt(n))
+map<int64_t, int> prime_factorize(int64_t n) {
+    map<int64_t, int> ret;
+    for (int64_t i = 2; i * i <= n; i++) {
+        while (n % i == 0) {
+            ret[i]++;
+            n /= i;
+        }
     }
-
-    int root(int x) {
-        if (par[x] == x) return x;
-        return par[x] = root(par[x]);
-    }
-
-    void merge(int x, int y) {
-        x = root(x);
-        y = root(y);
-        if (x == y) return;
-        if (sz[x] < sz[y]) swap(x, y);
-        par[y] = x;
-        sz[x] += sz[y];
-        sz[y] = 0;
-    }
-
-    bool issame(int x, int y) {
-        return root(x) == root(y);
-    }
-
-    int size(int x) {
-        return sz[root(x)];
-    }
-};
-#line 4 "test/structure/union_find/union_find.test.cpp"
+    if (n != 1) ret[n] = 1;
+    return ret;
+}
+#line 4 "test/number/prime_factorize/prime_factorize.test.cpp"
 
 int main() {
-    int N, Q;
-    cin >> N >> Q;
-    UnionFind uf(N);
-    while (Q--) {
-        int t, x, y;
-        cin >> t >> x >> y;
-        if (t == 0) uf.merge(x, y);
-        else printf("%d\n", uf.root(x) == uf.root(y));
+    int n; cin >> n;
+
+    map<int64_t, int> fact = prime_factorize(n);
+
+    cout << n << ":";
+
+    for (auto tp : fact) {
+        for (int i = 0; i < tp.second; ++i) {
+            cout << " " << tp.first;
+        }
     }
+    cout << endl;
 }
 
 ```

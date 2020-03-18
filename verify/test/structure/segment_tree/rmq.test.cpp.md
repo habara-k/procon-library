@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#971922f92a29e476633aa9737b609e73">test/structure/segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rmq.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

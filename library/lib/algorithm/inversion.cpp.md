@@ -258,7 +258,7 @@ const LL MOD = 1e9+7;
 #line 1 "lib/algorithm/../structure/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "lib/algorithm/../structure/../template.cpp"
 using namespace std;
 
 template<class T>

@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#86cae120d42a0d43d0c5d09d870524dd">test/graph/strongly_connected_components</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/strongly_connected_components/strongly_connected_components.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 20:03:13+09:00
 

@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#55ffd76effd0710197f26166214ebb8c">test/algorithm/longest_increasing_subsequence</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

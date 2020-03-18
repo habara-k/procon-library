@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#df8c23d08651db196c1c82ea686faba2">test/number/factorial</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/factorial/factorial.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 21:01:05+09:00
 
@@ -337,7 +338,7 @@ struct modint {
 #line 1 "test/number/factorial/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/factorial/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>

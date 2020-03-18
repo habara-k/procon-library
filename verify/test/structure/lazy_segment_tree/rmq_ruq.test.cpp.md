@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/rmq_ruq.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

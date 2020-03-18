@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#88b7a25864ce5c4f4167b1d8c119c43d">test/number/combination</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/combination/combination.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 21:01:05+09:00
 
@@ -340,7 +341,7 @@ struct modint {
 #line 1 "test/number/combination/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/combination/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
@@ -536,7 +537,7 @@ struct Fact {
 #line 1 "test/number/combination/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/combination/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
@@ -712,7 +713,7 @@ const LL MOD = 1e9+7;
 #line 1 "test/number/combination/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/combination/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>

@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#d2a63e0baffa309a1127d6e740b99c90">test/graph/dinic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/dinic/dinic.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

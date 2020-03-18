@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#d9e12f9dc0f8a33e7aac457cb4bf3d29">test/structure/weighted_union_find</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/weighted_union_find/weighted_union_find.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

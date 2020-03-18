@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#31a4d3622b17b59245712065ac1a2caf">test/string/rolling_hash</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/string/rolling_hash/rolling_hash.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

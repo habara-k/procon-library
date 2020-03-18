@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#38640ab2ecc3a4a536dc679b5f4e96b8">test/number/extended_gcd</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/extended_gcd/extended_gcd.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

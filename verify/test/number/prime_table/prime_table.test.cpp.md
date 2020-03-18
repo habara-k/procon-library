@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/union_find/union_find.test.cpp
+# :heavy_check_mark: test/number/prime_table/prime_table.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#a6ff2114eee69df4e8133581d018ead8">test/structure/union_find</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/union_find/union_find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+* category: <a href="../../../../index.html#2b7aa7da66a017dccac965e53f6e606d">test/number/prime_table</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/number/prime_table/prime_table.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-18 19:49:05+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/number/prime_table.cpp.html">lib/number/prime_table.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -48,20 +48,23 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C"
 
-#include "../../../lib/structure/union_find.cpp"
+#include "../../../lib/number/prime_table.cpp"
 
 int main() {
-    int N, Q;
-    cin >> N >> Q;
-    UnionFind uf(N);
-    while (Q--) {
-        int t, x, y;
-        cin >> t >> x >> y;
-        if (t == 0) uf.merge(x, y);
-        else printf("%d\n", uf.root(x) == uf.root(y));
+    int n; cin >> n;
+
+    vector<bool> table = prime_table(1e8);
+
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        int a; cin >> a;
+
+        if (table[a]) ++ans;
     }
+
+    cout << ans << endl;
 }
 
 ```
@@ -70,10 +73,10 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/union_find/union_find.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A"
+#line 1 "test/number/prime_table/prime_table.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C"
 
-#line 1 "test/structure/union_find/../../../lib/structure/../template.cpp"
+#line 1 "test/number/prime_table/../../../lib/number/../template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -246,50 +249,36 @@ using LL = long long;
 
 const LL MOD = 1e9+7;
 
-#line 2 "test/structure/union_find/../../../lib/structure/union_find.cpp"
+#line 2 "test/number/prime_table/../../../lib/number/prime_table.cpp"
 
-struct UnionFind
-{
-    vector<int> par, sz;
-    UnionFind(int n) : par(n), sz(n, 1) {
-        for (int i = 0; i < n; ++i) par[i] = i;
+// O(nloglogn)
+vector<bool> prime_table(int n) {
+    n = max(n, 1);
+    vector<bool> prime(n+1, true);
+    prime[0] = prime[1] = false;
+    for (int i = 2; i * i <= n; i++) {
+        if (!prime[i]) continue;
+        for(int j = 2 * i; j <= n; j += i) {
+            prime[j] = false;
+        }
     }
-
-    int root(int x) {
-        if (par[x] == x) return x;
-        return par[x] = root(par[x]);
-    }
-
-    void merge(int x, int y) {
-        x = root(x);
-        y = root(y);
-        if (x == y) return;
-        if (sz[x] < sz[y]) swap(x, y);
-        par[y] = x;
-        sz[x] += sz[y];
-        sz[y] = 0;
-    }
-
-    bool issame(int x, int y) {
-        return root(x) == root(y);
-    }
-
-    int size(int x) {
-        return sz[root(x)];
-    }
-};
-#line 4 "test/structure/union_find/union_find.test.cpp"
+    return prime;
+}
+#line 4 "test/number/prime_table/prime_table.test.cpp"
 
 int main() {
-    int N, Q;
-    cin >> N >> Q;
-    UnionFind uf(N);
-    while (Q--) {
-        int t, x, y;
-        cin >> t >> x >> y;
-        if (t == 0) uf.merge(x, y);
-        else printf("%d\n", uf.root(x) == uf.root(y));
+    int n; cin >> n;
+
+    vector<bool> table = prime_table(1e8);
+
+    int ans = 0;
+    for (int i = 0; i < n; ++i) {
+        int a; cin >> a;
+
+        if (table[a]) ++ans;
     }
+
+    cout << ans << endl;
 }
 
 ```

@@ -69,8 +69,11 @@ layout: default
 * :heavy_check_mark: <a href="library/lib/number/combination.cpp.html">lib/number/combination.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/extended_gcd.cpp.html">lib/number/extended_gcd.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/factorial.cpp.html">lib/number/factorial.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/is_prime.cpp.html">lib/number/is_prime.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/partition.cpp.html">lib/number/partition.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/prime_factorize.cpp.html">lib/number/prime_factorize.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/prime_table.cpp.html">lib/number/prime_table.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/stirling.cpp.html">lib/number/stirling.cpp</a>
 
 
@@ -120,9 +123,12 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/number/combination/combination.test.cpp.html">test/number/combination/combination.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/extended_gcd/extended_gcd.test.cpp.html">test/number/extended_gcd/extended_gcd.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/factorial/factorial.test.cpp.html">test/number/factorial/factorial.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/is_prime/is_prime.test.cpp.html">test/number/is_prime/is_prime.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/modint/modint.test.cpp.html">test/number/modint/modint.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/partition/partition1.test.cpp.html">test/number/partition/partition1.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/prime_factorize/prime_factorize.test.cpp.html">test/number/prime_factorize/prime_factorize.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/prime_table/prime_table.test.cpp.html">test/number/prime_table/prime_table.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>

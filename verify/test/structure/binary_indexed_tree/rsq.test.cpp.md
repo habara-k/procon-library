@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/rsq.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 17:53:52+09:00
 

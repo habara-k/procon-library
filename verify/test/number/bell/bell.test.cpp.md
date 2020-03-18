@@ -29,6 +29,7 @@ layout: default
 
 <a href="../../../../index.html">Back to top page</a>
 
+* category: <a href="../../../../index.html#a5ce40af8caf9ecb21752e52fc5b624f">test/number/bell</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/bell/bell.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-03-04 21:01:05+09:00
 
@@ -331,7 +332,7 @@ struct modint {
 #line 1 "test/number/bell/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/bell/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
@@ -507,7 +508,7 @@ const LL MOD = 1e9+7;
 #line 1 "test/number/bell/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/bell/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
@@ -683,7 +684,7 @@ const LL MOD = 1e9+7;
 #line 1 "test/number/bell/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/bell/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
@@ -892,7 +893,7 @@ struct Comb {
 #line 1 "test/number/bell/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/bell/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
@@ -1068,7 +1069,7 @@ const LL MOD = 1e9+7;
 #line 1 "test/number/bell/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/bell/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
@@ -1244,7 +1245,7 @@ const LL MOD = 1e9+7;
 #line 1 "test/number/bell/../../../lib/number/../template.cpp"
 
 
-#include <bits/stdc++.h>
+#line 4 "test/number/bell/../../../lib/number/../template.cpp"
 using namespace std;
 
 template<class T>
