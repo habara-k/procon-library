@@ -127,8 +127,8 @@ snippet binary_search
     }
 
 snippet next_combination
-    long long next_combination(long long mask) {
-        long long x = mask & -mask, y = mask + x;
+    int64_t next_combination(int64_t mask) {
+        int64_t x = mask & -mask, y = mask + x;
         return (((mask & ~y) / x) >> 1) | y;
     }
 
@@ -178,7 +178,7 @@ snippet topological_sort
 snippet inversion
 
     template<typename T>
-    LL inversion(const vector<T>& A)
+    int64_t inversion(const vector<T>& A)
     {
         map<T, int> idx;
         for (const T& a : A) idx[a] = -1;
@@ -189,7 +189,7 @@ snippet inversion
         assert(cnt == A.size());
 
         BIT<int> bit(cnt+1);
-        LL res = 0;
+        int64_t res = 0;
         for (int i = 0; i < A.size(); ++i) {
             res += i - bit.sum(idx[A[i]]);
             bit.add(idx[A[i]], 1);
@@ -455,7 +455,7 @@ snippet rolling_hash
         const int base = 9973;
         const int mod[2] = {999999937, 1000000007};
         vector<int> s;
-        vector<LL> hash[2], pow[2];
+        vector<int64_t> hash[2], pow[2];
 
         RollingHash(const vector<int> &cs) : s(cs) {
             int n = s.size();
@@ -470,8 +470,8 @@ snippet rolling_hash
         }
 
         // get hash of s[l:r)
-        LL get(int l, int r, int id = 0) {
-            LL res = hash[id][r] - hash[id][l] * pow[id][r-l] % mod[id];
+        int64_t get(int l, int r, int id = 0) {
+            int64_t res = hash[id][r] - hash[id][l] * pow[id][r-l] % mod[id];
             if (res < 0) res += mod[id];
             return res;
         }
@@ -551,9 +551,9 @@ snippet prime_table
 
 snippet modint
 
-    template<long long mod>
+    template<int64_t mod>
     struct modint {
-        using LL = long long;
+        using LL = int64_t;
         LL val;
         modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
@@ -641,9 +641,9 @@ snippet bell
     //
     // require Comb<Field> GREATER THAN OR EQUAL TO k
     template<typename Field>
-    Field Bell(LL n, LL k, Comb<Field>& comb) {
+    Field Bell(int64_t n, int64_t k, Comb<Field>& comb) {
         Field ret = 0;
-        for (LL l = 0; l <= k; ++l) {
+        for (int64_t l = 0; l <= k; ++l) {
             ret += Stirling(n, l, comb);
         }
         return ret;
@@ -660,9 +660,9 @@ snippet stirling
     //
     // require Comb<Field> GREATER THAN OR EQUAL TO k
     template<typename Field>
-    Field Stirling(LL n, LL k, Comb<Field>& comb) {
+    Field Stirling(int64_t n, int64_t k, Comb<Field>& comb) {
         Field ret = 0;
-        for (LL l = 0; l <= k; ++l) {
+        for (int64_t l = 0; l <= k; ++l) {
             ret += comb(k, l) * Field(k-l).pow(n) * (l & 1 ? -1 : 1);
         }
         return ret /= comb.fact[k];

@@ -161,12 +161,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 
 int main()
