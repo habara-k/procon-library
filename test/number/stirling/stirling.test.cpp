@@ -4,7 +4,7 @@
 #include "../../../lib/number/stirling.cpp"
 
 int main() {
-    LL n, k; cin >> n >> k;
+    int64_t n, k; cin >> n >> k;
 
     using Int = modint<MOD>;
     Comb<Int> comb(k);

@@ -8,9 +8,9 @@ int main() {
     LazySegmentTree<int> ruq(
             N, numeric_limits<int>::max(),
             numeric_limits<int>::max(),
-            [](LL a, LL b){ return min(a, b); },
-            [](LL a, LL b, int w){ return b; },
-            [](LL a, LL b){ return b; }
+            [](int64_t a, int64_t b){ return min(a, b); },
+            [](int64_t a, int64_t b, int w){ return b; },
+            [](int64_t a, int64_t b){ return b; }
             );
 
     while (Q--) {

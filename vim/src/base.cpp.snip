@@ -127,8 +127,8 @@ snippet binary_search
     }
 
 snippet next_combination
-    long long next_combination(long long mask) {
-        long long x = mask & -mask, y = mask + x;
+    int64_t next_combination(int64_t mask) {
+        int64_t x = mask & -mask, y = mask + x;
         return (((mask & ~y) / x) >> 1) | y;
     }
 

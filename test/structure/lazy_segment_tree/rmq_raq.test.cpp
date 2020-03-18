@@ -5,11 +5,11 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<LL> rmq_raq(
-            N, numeric_limits<LL>::max(), 0,
-            [](LL a, LL b){ return min(a, b); },
-            [](LL a, LL b, int w){ return a + b; },
-            [](LL a, LL b){ return a + b; }
+    LazySegmentTree<int64_t> rmq_raq(
+            N, numeric_limits<int64_t>::max(), 0,
+            [](int64_t a, int64_t b){ return min(a, b); },
+            [](int64_t a, int64_t b, int w){ return a + b; },
+            [](int64_t a, int64_t b){ return a + b; }
             );
     for (int i = 0; i < N; ++i) {
         rmq_raq.set(i, 0);
@@ -19,7 +19,7 @@ int main() {
     while (Q--) {
         int C; cin >> C;
         if (C == 0) {
-            int S, T; LL X;
+            int S, T; int64_t X;
             cin >> S >> T >> X;
             rmq_raq.update(S, T+1, X);
         } else {

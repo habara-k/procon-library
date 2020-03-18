@@ -6,7 +6,7 @@ int main()
 {
     int n;
     cin >> n;
-    vector<LL> A(n);
+    vector<int64_t> A(n);
     for (int i = 0; i < n; ++i) {
         cin >> A[i];
     }

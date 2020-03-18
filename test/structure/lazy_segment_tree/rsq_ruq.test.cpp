@@ -5,17 +5,17 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<LL> rsq_ruq(
-            N, 0, numeric_limits<LL>::max(),
-            [](LL a, LL b){ return a + b; },
-            [](LL a, LL b, int w){ return b*w; },
-            [](LL a, LL b){ return b; }
+    LazySegmentTree<int64_t> rsq_ruq(
+            N, 0, numeric_limits<int64_t>::max(),
+            [](int64_t a, int64_t b){ return a + b; },
+            [](int64_t a, int64_t b, int w){ return b*w; },
+            [](int64_t a, int64_t b){ return b; }
             );
 
     while (Q--) {
         int C; cin >> C;
         if (C == 0) {
-            int S, T; LL X;
+            int S, T; int64_t X;
             cin >> S >> T >> X;
             rsq_ruq.update(S, T+1, X);
         } else {

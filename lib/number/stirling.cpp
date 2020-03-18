@@ -9,9 +9,9 @@
 //
 // require Comb<Field> GREATER THAN OR EQUAL TO k
 template<typename Field>
-Field Stirling(LL n, LL k, Comb<Field>& comb) {
+Field Stirling(int64_t n, int64_t k, Comb<Field>& comb) {
     Field ret = 0;
-    for (LL l = 0; l <= k; ++l) {
+    for (int64_t l = 0; l <= k; ++l) {
         ret += comb(k, l) * Field(k-l).pow(n) * (l & 1 ? -1 : 1);
     }
     return ret /= comb.fact[k];

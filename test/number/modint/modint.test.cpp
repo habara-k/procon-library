@@ -3,7 +3,7 @@
 #include "../../../lib/number/modint.cpp"
 
 int main() {
-    LL n, k;
+    int64_t n, k;
     cin >> n >> k;
 
     if (n > k) {
@@ -13,7 +13,7 @@ int main() {
 
     using Int = modint<MOD>;
     Int ans = 1;
-    for (LL i = 0; i < n; ++i) {
+    for (int64_t i = 0; i < n; ++i) {
         ans *= (k - i);
     }
     cout << ans << endl;

@@ -5,7 +5,7 @@
 #include "../../../lib/number/combination.cpp"
 
 int main() {
-    LL n, k;
+    int64_t n, k;
     cin >> n >> k;
 
     if (n > k) {
