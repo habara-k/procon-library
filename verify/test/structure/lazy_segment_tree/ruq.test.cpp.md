@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/ruq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D</a>
@@ -58,9 +58,9 @@ int main() {
     LazySegmentTree<int> ruq(
             N, numeric_limits<int>::max(),
             numeric_limits<int>::max(),
-            [](LL a, LL b){ return min(a, b); },
-            [](LL a, LL b, int w){ return b; },
-            [](LL a, LL b){ return b; }
+            [](int64_t a, int64_t b){ return min(a, b); },
+            [](int64_t a, int64_t b, int w){ return b; },
+            [](int64_t a, int64_t b){ return b; }
             );
 
     while (Q--) {
@@ -252,12 +252,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/structure/lazy_segment_tree/../../../lib/structure/lazy_segment_tree.cpp"
 
@@ -350,9 +350,9 @@ int main() {
     LazySegmentTree<int> ruq(
             N, numeric_limits<int>::max(),
             numeric_limits<int>::max(),
-            [](LL a, LL b){ return min(a, b); },
-            [](LL a, LL b, int w){ return b; },
-            [](LL a, LL b){ return b; }
+            [](int64_t a, int64_t b){ return min(a, b); },
+            [](int64_t a, int64_t b, int w){ return b; },
+            [](int64_t a, int64_t b){ return b; }
             );
 
     while (Q--) {

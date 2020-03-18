@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#31a4d3622b17b59245712065ac1a2caf">test/string/rolling_hash</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/string/rolling_hash/rolling_hash.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B</a>
@@ -243,12 +243,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/string/rolling_hash/../../../lib/string/rolling_hash.cpp"
 
@@ -256,7 +256,7 @@ struct RollingHash {
     const int base = 9973;
     const int mod[2] = {999999937, 1000000007};
     vector<int> s;
-    vector<LL> hash[2], pow[2];
+    vector<int64_t> hash[2], pow[2];
 
     RollingHash(const vector<int> &cs) : s(cs) {
         int n = s.size();
@@ -271,8 +271,8 @@ struct RollingHash {
     }
 
     // get hash of s[l:r)
-    LL get(int l, int r, int id = 0) {
-        LL res = hash[id][r] - hash[id][l] * pow[id][r-l] % mod[id];
+    int64_t get(int l, int r, int id = 0) {
+        int64_t res = hash[id][r] - hash[id][l] * pow[id][r-l] % mod[id];
         if (res < 0) res += mod[id];
         return res;
     }

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#44397479ec27b867fc95e0f72cb70728">test/graph/dijkstra</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/dijkstra/dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A</a>
@@ -243,12 +243,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/graph/dijkstra/../../../lib/graph/dijkstra.cpp"
 

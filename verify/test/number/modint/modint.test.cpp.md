@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#b82c94848a9ea5c8a0e34523c4c1bc6e">test/number/modint</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/modint/modint.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 21:01:05+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B</a>
@@ -53,7 +53,7 @@ layout: default
 #include "../../../lib/number/modint.cpp"
 
 int main() {
-    LL n, k;
+    int64_t n, k;
     cin >> n >> k;
 
     if (n > k) {
@@ -63,7 +63,7 @@ int main() {
 
     using Int = modint<MOD>;
     Int ans = 1;
-    for (LL i = 0; i < n; ++i) {
+    for (int64_t i = 0; i < n; ++i) {
         ans *= (k - i);
     }
     cout << ans << endl;
@@ -244,18 +244,18 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/number/modint/../../../lib/number/modint.cpp"
 
-template<long long mod>
+template<int64_t mod>
 struct modint {
-    using LL = long long;
+    using LL = int64_t;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
@@ -335,7 +335,7 @@ struct modint {
 #line 4 "test/number/modint/modint.test.cpp"
 
 int main() {
-    LL n, k;
+    int64_t n, k;
     cin >> n >> k;
 
     if (n > k) {
@@ -345,7 +345,7 @@ int main() {
 
     using Int = modint<MOD>;
     Int ans = 1;
-    for (LL i = 0; i < n; ++i) {
+    for (int64_t i = 0; i < n; ++i) {
         ans *= (k - i);
     }
     cout << ans << endl;

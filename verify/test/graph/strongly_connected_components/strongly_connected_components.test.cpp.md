@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#86cae120d42a0d43d0c5d09d870524dd">test/graph/strongly_connected_components</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/strongly_connected_components/strongly_connected_components.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 20:03:13+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C</a>
@@ -247,12 +247,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/graph/strongly_connected_components/../../../lib/graph/strongly_connected_components.cpp"
 

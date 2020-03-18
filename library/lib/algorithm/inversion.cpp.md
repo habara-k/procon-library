@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#77c6183086c03e38260b57f4d8fbb66c">lib/algorithm</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/algorithm/inversion.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 
@@ -56,7 +56,7 @@ layout: default
 #include "../structure/binary_indexed_tree.cpp"
 
 template<typename T>
-LL inversion(const vector<T>& A)
+int64_t inversion(const vector<T>& A)
 {
     map<T, int> idx;
     for (const T& a : A) idx[a] = -1;
@@ -67,7 +67,7 @@ LL inversion(const vector<T>& A)
     assert(cnt == A.size());
 
     BIT<int> bit(cnt+1);
-    LL res = 0;
+    int64_t res = 0;
     for (int i = 0; i < A.size(); ++i) {
         res += i - bit.sum(idx[A[i]]);
         bit.add(idx[A[i]], 1);
@@ -248,12 +248,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "lib/algorithm/../structure/../template.cpp"
 
@@ -421,12 +421,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "lib/algorithm/../structure/binary_indexed_tree.cpp"
 
@@ -451,7 +451,7 @@ struct BIT {
 #line 3 "lib/algorithm/inversion.cpp"
 
 template<typename T>
-LL inversion(const vector<T>& A)
+int64_t inversion(const vector<T>& A)
 {
     map<T, int> idx;
     for (const T& a : A) idx[a] = -1;
@@ -462,7 +462,7 @@ LL inversion(const vector<T>& A)
     assert(cnt == A.size());
 
     BIT<int> bit(cnt+1);
-    LL res = 0;
+    int64_t res = 0;
     for (int i = 0; i < A.size(); ++i) {
         res += i - bit.sum(idx[A[i]]);
         bit.add(idx[A[i]], 1);

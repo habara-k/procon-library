@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#a5ce40af8caf9ecb21752e52fc5b624f">test/number/bell</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/bell/bell.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 21:01:05+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_G">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_G</a>
@@ -58,7 +58,7 @@ layout: default
 #include "../../../lib/number/bell.cpp"
 
 int main() {
-    LL n, k; cin >> n >> k;
+    int64_t n, k; cin >> n >> k;
 
     using Int = modint<MOD>;
     Comb<Int> comb(k);
@@ -241,18 +241,18 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/number/bell/../../../lib/number/modint.cpp"
 
-template<long long mod>
+template<int64_t mod>
 struct modint {
-    using LL = long long;
+    using LL = int64_t;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
@@ -495,12 +495,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "test/number/bell/../../../lib/number/combination.cpp"
 
@@ -671,12 +671,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "test/number/bell/../../../lib/number/factorial.cpp"
 
@@ -847,12 +847,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 4 "test/number/bell/../../../lib/number/factorial.cpp"
 
@@ -1056,12 +1056,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "test/number/bell/../../../lib/number/combination.cpp"
 
@@ -1232,12 +1232,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "test/number/bell/../../../lib/number/factorial.cpp"
 
@@ -1408,12 +1408,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 4 "test/number/bell/../../../lib/number/factorial.cpp"
 
@@ -1461,9 +1461,9 @@ struct Comb {
 //
 // require Comb<Field> GREATER THAN OR EQUAL TO k
 template<typename Field>
-Field Stirling(LL n, LL k, Comb<Field>& comb) {
+Field Stirling(int64_t n, int64_t k, Comb<Field>& comb) {
     Field ret = 0;
-    for (LL l = 0; l <= k; ++l) {
+    for (int64_t l = 0; l <= k; ++l) {
         ret += comb(k, l) * Field(k-l).pow(n) * (l & 1 ? -1 : 1);
     }
     return ret /= comb.fact[k];
@@ -1477,9 +1477,9 @@ Field Stirling(LL n, LL k, Comb<Field>& comb) {
 //
 // require Comb<Field> GREATER THAN OR EQUAL TO k
 template<typename Field>
-Field Bell(LL n, LL k, Comb<Field>& comb) {
+Field Bell(int64_t n, int64_t k, Comb<Field>& comb) {
     Field ret = 0;
-    for (LL l = 0; l <= k; ++l) {
+    for (int64_t l = 0; l <= k; ++l) {
         ret += Stirling(n, l, comb);
     }
     return ret;
@@ -1487,7 +1487,7 @@ Field Bell(LL n, LL k, Comb<Field>& comb) {
 #line 5 "test/number/bell/bell.test.cpp"
 
 int main() {
-    LL n, k; cin >> n >> k;
+    int64_t n, k; cin >> n >> k;
 
     using Int = modint<MOD>;
     Comb<Int> comb(k);

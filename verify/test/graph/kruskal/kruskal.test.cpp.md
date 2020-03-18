@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#5783499dee4ed269189fef3427a7d836">test/graph/kruskal</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/kruskal/kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A</a>
@@ -240,12 +240,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "test/graph/kruskal/../../../lib/graph/../structure/../template.cpp"
 
@@ -413,12 +413,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/graph/kruskal/../../../lib/graph/../structure/union_find.cpp"
 

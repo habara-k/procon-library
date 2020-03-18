@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#48198b7eaf65467b49c6ef390bc37e8f">test/number/partition</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/partition/partition2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 21:01:05+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_L">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_L</a>
@@ -236,18 +236,18 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/number/partition/../../../lib/number/modint.cpp"
 
-template<long long mod>
+template<int64_t mod>
 struct modint {
-    using LL = long long;
+    using LL = int64_t;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
@@ -490,12 +490,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/number/partition/../../../lib/number/partition.cpp"
 

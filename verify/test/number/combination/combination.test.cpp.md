@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#88b7a25864ce5c4f4167b1d8c119c43d">test/number/combination</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/combination/combination.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 21:01:05+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B</a>
@@ -57,7 +57,7 @@ layout: default
 #include "../../../lib/number/combination.cpp"
 
 int main() {
-    LL n, k;
+    int64_t n, k;
     cin >> n >> k;
 
     if (n > k) {
@@ -247,18 +247,18 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/number/combination/../../../lib/number/modint.cpp"
 
-template<long long mod>
+template<int64_t mod>
 struct modint {
-    using LL = long long;
+    using LL = int64_t;
     LL val;
     modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
@@ -504,12 +504,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 4 "test/number/combination/../../../lib/number/factorial.cpp"
 
@@ -700,12 +700,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "test/number/combination/../../../lib/number/factorial.cpp"
 
@@ -876,12 +876,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 4 "test/number/combination/../../../lib/number/factorial.cpp"
 
@@ -922,7 +922,7 @@ struct Comb {
 #line 6 "test/number/combination/combination.test.cpp"
 
 int main() {
-    LL n, k;
+    int64_t n, k;
     cin >> n >> k;
 
     if (n > k) {

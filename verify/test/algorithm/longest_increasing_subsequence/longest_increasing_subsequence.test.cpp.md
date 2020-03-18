@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#55ffd76effd0710197f26166214ebb8c">test/algorithm/longest_increasing_subsequence</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D</a>
@@ -55,7 +55,7 @@ layout: default
 int main()
 {
     int n; cin >> n;
-    vector<LL> a(n);
+    vector<int64_t> a(n);
     for (int i = 0; i < n; ++i) {
         cin >> a[i];
     }
@@ -239,12 +239,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/algorithm/longest_increasing_subsequence/../../../lib/algorithm/longest_increasing_subsequence.cpp"
 
@@ -263,7 +263,7 @@ int LIS(const vector<T>& a) {
 int main()
 {
     int n; cin >> n;
-    vector<LL> a(n);
+    vector<int64_t> a(n);
     for (int i = 0; i < n; ++i) {
         cin >> a[i];
     }

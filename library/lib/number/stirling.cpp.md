@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/stirling.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 
@@ -70,9 +70,9 @@ layout: default
 //
 // require Comb<Field> GREATER THAN OR EQUAL TO k
 template<typename Field>
-Field Stirling(LL n, LL k, Comb<Field>& comb) {
+Field Stirling(int64_t n, int64_t k, Comb<Field>& comb) {
     Field ret = 0;
-    for (LL l = 0; l <= k; ++l) {
+    for (int64_t l = 0; l <= k; ++l) {
         ret += comb(k, l) * Field(k-l).pow(n) * (l & 1 ? -1 : 1);
     }
     return ret /= comb.fact[k];
@@ -250,12 +250,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "lib/number/combination.cpp"
 
@@ -426,12 +426,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 1 "lib/number/factorial.cpp"
 
@@ -602,12 +602,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 4 "lib/number/factorial.cpp"
 
@@ -655,9 +655,9 @@ struct Comb {
 //
 // require Comb<Field> GREATER THAN OR EQUAL TO k
 template<typename Field>
-Field Stirling(LL n, LL k, Comb<Field>& comb) {
+Field Stirling(int64_t n, int64_t k, Comb<Field>& comb) {
     Field ret = 0;
-    for (LL l = 0; l <= k; ++l) {
+    for (int64_t l = 0; l <= k; ++l) {
         ret += comb(k, l) * Field(k-l).pow(n) * (l & 1 ? -1 : 1);
     }
     return ret /= comb.fact[k];

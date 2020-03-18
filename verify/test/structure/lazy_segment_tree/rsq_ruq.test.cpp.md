@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/rsq_ruq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 17:53:52+09:00
+    - Last commit date: 2020-03-18 20:03:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I</a>
@@ -55,17 +55,17 @@ layout: default
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<LL> rsq_ruq(
-            N, 0, numeric_limits<LL>::max(),
-            [](LL a, LL b){ return a + b; },
-            [](LL a, LL b, int w){ return b*w; },
-            [](LL a, LL b){ return b; }
+    LazySegmentTree<int64_t> rsq_ruq(
+            N, 0, numeric_limits<int64_t>::max(),
+            [](int64_t a, int64_t b){ return a + b; },
+            [](int64_t a, int64_t b, int w){ return b*w; },
+            [](int64_t a, int64_t b){ return b; }
             );
 
     while (Q--) {
         int C; cin >> C;
         if (C == 0) {
-            int S, T; LL X;
+            int S, T; int64_t X;
             cin >> S >> T >> X;
             rsq_ruq.update(S, T+1, X);
         } else {
@@ -251,12 +251,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 #line 2 "test/structure/lazy_segment_tree/../../../lib/structure/lazy_segment_tree.cpp"
 
@@ -346,17 +346,17 @@ struct LazySegmentTree {
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<LL> rsq_ruq(
-            N, 0, numeric_limits<LL>::max(),
-            [](LL a, LL b){ return a + b; },
-            [](LL a, LL b, int w){ return b*w; },
-            [](LL a, LL b){ return b; }
+    LazySegmentTree<int64_t> rsq_ruq(
+            N, 0, numeric_limits<int64_t>::max(),
+            [](int64_t a, int64_t b){ return a + b; },
+            [](int64_t a, int64_t b, int w){ return b*w; },
+            [](int64_t a, int64_t b){ return b; }
             );
 
     while (Q--) {
         int C; cin >> C;
         if (C == 0) {
-            int S, T; LL X;
+            int S, T; int64_t X;
             cin >> S >> T >> X;
             rsq_ruq.update(S, T+1, X);
         } else {
