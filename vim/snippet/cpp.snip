@@ -127,8 +127,8 @@ snippet binary_search
     }
 
 snippet next_combination
-    LL next_combination(LL mask) {
-        LL x = mask & -mask, y = mask + x;
+    long long next_combination(long long mask) {
+        long long x = mask & -mask, y = mask + x;
         return (((mask & ~y) / x) >> 1) | y;
     }
 
@@ -518,8 +518,9 @@ snippet factorial
 
 snippet modint
 
-    template<LL mod>
+    template<long long mod>
     struct modint {
+        using LL = long long;
         LL val;
         modint(LL val=0) : val(((val % mod) + mod) % mod) {}
 
