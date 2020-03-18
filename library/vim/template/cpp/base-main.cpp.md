@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0228fcaedf4e606a4784400ed59fd6ef">vim/template/cpp</a>
 * <a href="{{ site.github.repository_url }}/blob/master/vim/template/cpp/base-main.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-04 09:02:24+00:00
+    - Last commit date: 2020-03-18 11:14:04+00:00
 
 
 
@@ -204,12 +204,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 
 int main()
@@ -393,12 +393,12 @@ struct edge {
     }
 };
 
-using LL = long long;
+using LL = int64_t;
 
 #define fs first
 #define sc second
 
-const LL MOD = 1e9+7;
+const int64_t MOD = 1e9+7;
 
 
 int main()
