@@ -21,7 +21,12 @@ jobs:
         GH_PAT: ${{ secrets.GH_PAT }}
       run: oj-verify all
 
-    - name: Dump snippet and template
+    - name: Generate snippet and template files
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: git checkout master && python3 vim/src/dump.py
+
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@master
+      with:
+        root_file: tex/main.tex
