@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/partition.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-03-19 14:48:57+09:00
 
 
 
@@ -54,10 +54,9 @@ layout: default
 ```cpp
 #include "../template.cpp"
 
-// Partition function
-// Partition(k, n) := the number of cases
-//            to split n balls(not distinguished)
-//            into k boxes(not distinguished)
+// 分割数
+// Partition(k, n) := 区別できないn 個のボールを
+//                    区別できないk 個の箱に入れる場合の数
 template<typename Ring>
 Ring Partition(int k, int n) {
     vector<vector<Ring>> part(k+1, vector<Ring>(n+1));
@@ -255,10 +254,9 @@ const int64_t MOD = 1e9+7;
 
 #line 2 "lib/number/partition.cpp"
 
-// Partition function
-// Partition(k, n) := the number of cases
-//            to split n balls(not distinguished)
-//            into k boxes(not distinguished)
+// 分割数
+// Partition(k, n) := 区別できないn 個のボールを
+//                    区別できないk 個の箱に入れる場合の数
 template<typename Ring>
 Ring Partition(int k, int n) {
     vector<vector<Ring>> part(k+1, vector<Ring>(n+1));

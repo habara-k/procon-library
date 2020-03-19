@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#df8c23d08651db196c1c82ea686faba2">test/number/factorial</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/factorial/factorial.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-03-19 14:48:57+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B</a>
@@ -64,9 +64,9 @@ int main() {
     }
 
     using Int = modint<MOD>;
-    Fact<Int> fact(k);
+    Factorial<Int> fact(k+1);
 
-    cout << fact[k] / fact[k-n] << endl;
+    cout << fact(k) / fact(k-n) << endl;
 }
 
 ```
@@ -511,20 +511,19 @@ const int64_t MOD = 1e9+7;
 #line 4 "test/number/factorial/../../../lib/number/factorial.cpp"
 
 template<typename Ring>
-struct Fact {
-
+struct Factorial {
     vector<Ring> fact;
 
-    Fact(int n) {
-        fact.resize(n+1);
+    Factorial(int n) {
+        fact.resize(n);
         fact[0] = Ring{1};
-        for (int i = 1; i <= n; ++i) {
+        for (int i = 1; i < n; ++i) {
             fact[i] = fact[i-1] * Ring{i};
         }
     }
 
-    Ring operator[](int i) {
-        return fact[i];
+    inline Ring operator()(int i) const {
+        return fact.at(i);
     }
 };
 
@@ -540,9 +539,9 @@ int main() {
     }
 
     using Int = modint<MOD>;
-    Fact<Int> fact(k);
+    Factorial<Int> fact(k+1);
 
-    cout << fact[k] / fact[k-n] << endl;
+    cout << fact(k) / fact(k-n) << endl;
 }
 
 ```

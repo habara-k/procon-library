@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/factorial.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-03-19 14:48:57+09:00
 
 
 
@@ -66,20 +66,19 @@ layout: default
 #include "../template.cpp"
 
 template<typename Ring>
-struct Fact {
-
+struct Factorial {
     vector<Ring> fact;
 
-    Fact(int n) {
-        fact.resize(n+1);
+    Factorial(int n) {
+        fact.resize(n);
         fact[0] = Ring{1};
-        for (int i = 1; i <= n; ++i) {
+        for (int i = 1; i < n; ++i) {
             fact[i] = fact[i-1] * Ring{i};
         }
     }
 
-    Ring operator[](int i) {
-        return fact[i];
+    inline Ring operator()(int i) const {
+        return fact.at(i);
     }
 };
 #endif
@@ -269,20 +268,19 @@ const int64_t MOD = 1e9+7;
 #line 4 "lib/number/factorial.cpp"
 
 template<typename Ring>
-struct Fact {
-
+struct Factorial {
     vector<Ring> fact;
 
-    Fact(int n) {
-        fact.resize(n+1);
+    Factorial(int n) {
+        fact.resize(n);
         fact[0] = Ring{1};
-        for (int i = 1; i <= n; ++i) {
+        for (int i = 1; i < n; ++i) {
             fact[i] = fact[i-1] * Ring{i};
         }
     }
 
-    Ring operator[](int i) {
-        return fact[i];
+    inline Ring operator()(int i) const {
+        return fact.at(i);
     }
 };
 

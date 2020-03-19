@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#88b7a25864ce5c4f4167b1d8c119c43d">test/number/combination</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/combination/combination.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-03-19 14:48:57+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B</a>
@@ -66,10 +66,9 @@ int main() {
     }
 
     using Int = modint<MOD>;
-    Fact<Int> fact(k);
-    Comb<Int> comb(k);
+    Combination<Int> comb(k+1);
 
-    cout << comb(k, n) * fact[n] << endl;
+    cout << comb(k, n) * comb.fact(n) << endl;
 }
 
 ```
@@ -514,20 +513,19 @@ const int64_t MOD = 1e9+7;
 #line 4 "test/number/combination/../../../lib/number/factorial.cpp"
 
 template<typename Ring>
-struct Fact {
-
+struct Factorial {
     vector<Ring> fact;
 
-    Fact(int n) {
-        fact.resize(n+1);
+    Factorial(int n) {
+        fact.resize(n);
         fact[0] = Ring{1};
-        for (int i = 1; i <= n; ++i) {
+        for (int i = 1; i < n; ++i) {
             fact[i] = fact[i-1] * Ring{i};
         }
     }
 
-    Ring operator[](int i) {
-        return fact[i];
+    inline Ring operator()(int i) const {
+        return fact.at(i);
     }
 };
 
@@ -886,36 +884,39 @@ const int64_t MOD = 1e9+7;
 #line 4 "test/number/combination/../../../lib/number/factorial.cpp"
 
 template<typename Ring>
-struct Fact {
-
+struct Factorial {
     vector<Ring> fact;
 
-    Fact(int n) {
-        fact.resize(n+1);
+    Factorial(int n) {
+        fact.resize(n);
         fact[0] = Ring{1};
-        for (int i = 1; i <= n; ++i) {
+        for (int i = 1; i < n; ++i) {
             fact[i] = fact[i-1] * Ring{i};
         }
     }
 
-    Ring operator[](int i) {
-        return fact[i];
+    inline Ring operator()(int i) const {
+        return fact.at(i);
     }
 };
 
 #line 5 "test/number/combination/../../../lib/number/combination.cpp"
 
 template<typename Field>
-struct Comb {
-    Fact<Field> fact;
+struct Combination {
+    Factorial<Field> _fact;
 
-    Comb(int n) : fact(n) {}
+    Combination(int n) : _fact(n) {}
 
-    Field operator()(int n, int r) {
+    inline Field fact(int n) const {
+        return _fact(n);
+    }
+
+    Field operator()(int n, int r) const {
         if (n < 0 || n-r < 0 || r < 0) {
             return Field{0};
         }
-        return fact[n] / (fact[n-r] * fact[r]);
+        return fact(n) / (fact(n-r) * fact(r));
     }
 };
 
@@ -931,10 +932,9 @@ int main() {
     }
 
     using Int = modint<MOD>;
-    Fact<Int> fact(k);
-    Comb<Int> comb(k);
+    Combination<Int> comb(k+1);
 
-    cout << comb(k, n) * fact[n] << endl;
+    cout << comb(k, n) * comb.fact(n) << endl;
 }
 
 ```

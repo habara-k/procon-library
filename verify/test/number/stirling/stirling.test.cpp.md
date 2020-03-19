@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#ddfa6c538fca263880a43dd0fdbf3615">test/number/stirling</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/stirling/stirling.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-03-19 14:48:57+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I</a>
@@ -60,9 +60,8 @@ int main() {
     int64_t n, k; cin >> n >> k;
 
     using Int = modint<MOD>;
-    Comb<Int> comb(k);
 
-    cout << Stirling(n, k, comb) << endl;
+    cout << Stirling<Int>(n, k) << endl;
 }
 
 ```
@@ -856,55 +855,57 @@ const int64_t MOD = 1e9+7;
 #line 4 "test/number/stirling/../../../lib/number/factorial.cpp"
 
 template<typename Ring>
-struct Fact {
-
+struct Factorial {
     vector<Ring> fact;
 
-    Fact(int n) {
-        fact.resize(n+1);
+    Factorial(int n) {
+        fact.resize(n);
         fact[0] = Ring{1};
-        for (int i = 1; i <= n; ++i) {
+        for (int i = 1; i < n; ++i) {
             fact[i] = fact[i-1] * Ring{i};
         }
     }
 
-    Ring operator[](int i) {
-        return fact[i];
+    inline Ring operator()(int i) const {
+        return fact.at(i);
     }
 };
 
 #line 5 "test/number/stirling/../../../lib/number/combination.cpp"
 
 template<typename Field>
-struct Comb {
-    Fact<Field> fact;
+struct Combination {
+    Factorial<Field> _fact;
 
-    Comb(int n) : fact(n) {}
+    Combination(int n) : _fact(n) {}
 
-    Field operator()(int n, int r) {
+    inline Field fact(int n) const {
+        return _fact(n);
+    }
+
+    Field operator()(int n, int r) const {
         if (n < 0 || n-r < 0 || r < 0) {
             return Field{0};
         }
-        return fact[n] / (fact[n-r] * fact[r]);
+        return fact(n) / (fact(n-r) * fact(r));
     }
 };
 
 #line 3 "test/number/stirling/../../../lib/number/stirling.cpp"
 
-// Stirling number
-// Stirling(n, k) := the number of cases
-//            to split n balls(distinguished)
-//            into k boxes(not distinguished)
-//            s.t. each box contains at least one ball.
-//
-// require Comb<Field> GREATER THAN OR EQUAL TO k
+// スターリング数
+// Stirling(n, k) := 区別できるn 個のボールを
+//                   区別できないk 個の箱に入れる場合の数
+//                   (ただし空箱はNG)
 template<typename Field>
-Field Stirling(int64_t n, int64_t k, Comb<Field>& comb) {
+Field Stirling(int64_t n, int k) {
+    Combination<Field> comb(k+1);
+
     Field ret = 0;
-    for (int64_t l = 0; l <= k; ++l) {
-        ret += comb(k, l) * Field(k-l).pow(n) * (l & 1 ? -1 : 1);
+    for (int i = 0; i <= k; ++i) {
+        ret += comb(k, i) * Field{k-i}.pow(n) * (i & 1 ? -1 : 1);
     }
-    return ret /= comb.fact[k];
+    return ret /= comb.fact(k);
 }
 #line 5 "test/number/stirling/stirling.test.cpp"
 
@@ -912,9 +913,8 @@ int main() {
     int64_t n, k; cin >> n >> k;
 
     using Int = modint<MOD>;
-    Comb<Int> comb(k);
 
-    cout << Stirling(n, k, comb) << endl;
+    cout << Stirling<Int>(n, k) << endl;
 }
 
 ```
