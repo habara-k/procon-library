@@ -36,7 +36,7 @@ jobs:
       with:
         root_file: main.tex
         working_directory: tex/
-        args: "-e '\\$latex=platex;\\$pdf_mode=3;'"
+        args: "-e '$latex=platex;$pdf_mode=3;'"
 
 
     - name: Upload PDF
