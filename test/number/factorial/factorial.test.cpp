@@ -13,7 +13,7 @@ int main() {
     }
 
     using Int = modint<MOD>;
-    Fact<Int> fact(k);
+    Factorial<Int> fact(k+1);
 
-    cout << fact[k] / fact[k-n] << endl;
+    cout << fact(k) / fact(k-n) << endl;
 }

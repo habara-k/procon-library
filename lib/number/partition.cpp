@@ -1,9 +1,8 @@
 #include "../template.cpp"
 
-// Partition function
-// Partition(k, n) := the number of cases
-//            to split n balls(not distinguished)
-//            into k boxes(not distinguished)
+// 分割数
+// Partition(k, n) := 区別できないn 個のボールを
+//                    区別できないk 個の箱に入れる場合の数
 template<typename Ring>
 Ring Partition(int k, int n) {
     vector<vector<Ring>> part(k+1, vector<Ring>(n+1));

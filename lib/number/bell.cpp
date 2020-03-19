@@ -2,17 +2,14 @@
 #include "combination.cpp"
 #include "stirling.cpp"
 
-// Bell number
-// Bell(n, k) := the number of cases
-//            to split n balls(distinguished)
-//            into k boxes(not distinguished)
-//
-// require Comb<Field> GREATER THAN OR EQUAL TO k
+// Bell 数
+// Bell(n, k) := 区別できるn 個のボールを,
+//               区別できないk 個の箱に入れる場合の数
 template<typename Field>
-Field Bell(int64_t n, int64_t k, Comb<Field>& comb) {
+Field Bell(int64_t n, int k) {
     Field ret = 0;
-    for (int64_t l = 0; l <= k; ++l) {
-        ret += Stirling(n, l, comb);
+    for (int i = 0; i <= k; ++i) {
+        ret += Stirling<Field>(n, i);
     }
     return ret;
 }

@@ -7,7 +7,6 @@ int main() {
     int64_t n, k; cin >> n >> k;
 
     using Int = modint<MOD>;
-    Comb<Int> comb(k);
 
-    cout << Stirling(n, k, comb) << endl;
+    cout << Stirling<Int>(n, k) << endl;
 }

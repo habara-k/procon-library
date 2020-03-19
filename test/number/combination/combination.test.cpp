@@ -14,8 +14,7 @@ int main() {
     }
 
     using Int = modint<MOD>;
-    Fact<Int> fact(k);
-    Comb<Int> comb(k);
+    Combination<Int> comb(k+1);
 
-    cout << comb(k, n) * fact[n] << endl;
+    cout << comb(k, n) * comb.fact(n) << endl;
 }
