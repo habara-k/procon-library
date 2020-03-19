@@ -30,3 +30,10 @@ jobs:
       uses: xu-cheng/latex-action@master
       with:
         root_file: tex/main.tex
+
+    - name: Upload PDF
+      uses: actions/upload-artifact@master
+      with:
+        name: tex
+        path: tex
+      if: always()
