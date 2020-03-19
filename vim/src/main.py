@@ -10,7 +10,7 @@ def find_all_files(directory):
             yield os.path.join(root, file)
 
 
-def dump_snippet():
+def create_snippet():
     BASE_FILE = 'vim/src/base.cpp.snip'
     SNIP_FILE = 'vim/snippet/cpp.snip'
 
@@ -42,7 +42,7 @@ def dump_snippet():
                     file.write('    ' + row)
 
 
-def dump_template():
+def create_template():
     BASE_FILE = 'vim/src/base-template.cpp'
     TEMPLATE_FILE = 'vim/template/cpp/base-main.cpp'
     SOURCE_FILE = 'lib/template.cpp'
@@ -77,11 +77,11 @@ def push_to_master():
     subprocess.check_call(['git', 'config', '--global', 'user.name', 'GitHub'])
     subprocess.check_call(['git', 'add', 'vim'])
     if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
-        subprocess.check_call(['git', 'commit', '-m', 'Dump snippet and template'])
+        subprocess.check_call(['git', 'commit', '-m', 'Create snippet and template files'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
 
 
 if __name__ == '__main__':
-    dump_snippet()
-    dump_template()
+    create_snippet()
+    create_template()
     push_to_master()
