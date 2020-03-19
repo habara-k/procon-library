@@ -29,7 +29,8 @@ jobs:
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@master
       with:
-        root_file: tex/main.tex
+        root_file: main.tex
+        working_directory: tex/
 
     - name: Upload PDF
       uses: actions/upload-artifact@master
