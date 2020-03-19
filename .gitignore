@@ -1,2 +1,6 @@
 a.out
 __pycache__
+*.aux
+*.dvi
+*.log
+*.pdf
