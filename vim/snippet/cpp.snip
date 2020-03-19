@@ -4,16 +4,14 @@ snippet dump
 snippet cout
     cout << ${1} << endl;${0}
 
-snippet printf
+snippet print
     printf("${1}"${2});${0}
 
 snippet puts
     printf("${1}\n"${2});${0}
 
-snippet space
-    putchar(' ');${0}
 snippet endl
-    putchar('\n');${0}
+    cout << endl;
 
 snippet infty
     numeric_limits<${1:int}>::max()${0}
@@ -151,24 +149,18 @@ snippet topological_sort
         int n = G.size();
         vector<int> num(n), ord;
         for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < G[i].size(); ++j) {
-                ++num[G[i][j]];
-            }
+            for (int u : G[i]) ++num[u];
         }
         stack<int> st;
-        for(int i = 0; i < num.size(); ++i) {
-            if (num[i] == 0) {
-                st.push(i);
-            }
+        for(int i = 0; i < n; ++i) {
+            if (num[i] == 0) st.push(i);
         }
         while (!st.empty()) {
             int i = st.top(); st.pop();
             ord.push_back(i);
-            for(int j = 0; j < G[i].size(); ++j) {
-                --num[G[i][j]];
-                if (num[G[i][j]] == 0) {
-                    st.push(G[i][j]);
-                }
+            for (int u : G[i]) {
+                --num[u];
+                if (num[u] == 0) st.push(u);
             }
         }
         return ord;
@@ -497,16 +489,20 @@ snippet prime_factorize
 snippet combination
 
     template<typename Field>
-    struct Comb {
-        Fact<Field> fact;
+    struct Combination {
+        Factorial<Field> _fact;
 
-        Comb(int n) : fact(n) {}
+        Combination(int n) : _fact(n) {}
 
-        Field operator()(int n, int r) {
+        inline Field fact(int n) const {
+            return _fact(n);
+        }
+
+        Field operator()(int n, int r) const {
             if (n < 0 || n-r < 0 || r < 0) {
                 return Field{0};
             }
-            return fact[n] / (fact[n-r] * fact[r]);
+            return fact(n) / (fact(n-r) * fact(r));
         }
     };
 
@@ -514,20 +510,19 @@ snippet combination
 snippet factorial
 
     template<typename Ring>
-    struct Fact {
-
+    struct Factorial {
         vector<Ring> fact;
 
-        Fact(int n) {
-            fact.resize(n+1);
+        Factorial(int n) {
+            fact.resize(n);
             fact[0] = Ring{1};
-            for (int i = 1; i <= n; ++i) {
+            for (int i = 1; i < n; ++i) {
                 fact[i] = fact[i-1] * Ring{i};
             }
         }
 
-        Ring operator[](int i) {
-            return fact[i];
+        inline Ring operator()(int i) const {
+            return fact.at(i);
         }
     };
 
@@ -634,17 +629,14 @@ snippet modint
 
 snippet bell
 
-    // Bell number
-    // Bell(n, k) := the number of cases
-    //            to split n balls(distinguished)
-    //            into k boxes(not distinguished)
-    //
-    // require Comb<Field> GREATER THAN OR EQUAL TO k
+    // Bell 数
+    // Bell(n, k) := 区別できるn 個のボールを,
+    //               区別できないk 個の箱に入れる場合の数
     template<typename Field>
-    Field Bell(int64_t n, int64_t k, Comb<Field>& comb) {
+    Field Bell(int64_t n, int k) {
         Field ret = 0;
-        for (int64_t l = 0; l <= k; ++l) {
-            ret += Stirling(n, l, comb);
+        for (int i = 0; i <= k; ++i) {
+            ret += Stirling<Field>(n, i);
         }
         return ret;
     }
@@ -652,20 +644,19 @@ snippet bell
 
 snippet stirling
 
-    // Stirling number
-    // Stirling(n, k) := the number of cases
-    //            to split n balls(distinguished)
-    //            into k boxes(not distinguished)
-    //            s.t. each box contains at least one ball.
-    //
-    // require Comb<Field> GREATER THAN OR EQUAL TO k
+    // スターリング数
+    // Stirling(n, k) := 区別できるn 個のボールを
+    //                   区別できないk 個の箱に入れる場合の数
+    //                   (ただし空箱はNG)
     template<typename Field>
-    Field Stirling(int64_t n, int64_t k, Comb<Field>& comb) {
+    Field Stirling(int64_t n, int k) {
+        Combination<Field> comb(k+1);
+
         Field ret = 0;
-        for (int64_t l = 0; l <= k; ++l) {
-            ret += comb(k, l) * Field(k-l).pow(n) * (l & 1 ? -1 : 1);
+        for (int i = 0; i <= k; ++i) {
+            ret += comb(k, i) * Field{k-i}.pow(n) * (i & 1 ? -1 : 1);
         }
-        return ret /= comb.fact[k];
+        return ret /= comb.fact(k);
     }
 
 
@@ -698,10 +689,9 @@ snippet is_prime
 
 snippet partition
 
-    // Partition function
-    // Partition(k, n) := the number of cases
-    //            to split n balls(not distinguished)
-    //            into k boxes(not distinguished)
+    // 分割数
+    // Partition(k, n) := 区別できないn 個のボールを
+    //                    区別できないk 個の箱に入れる場合の数
     template<typename Ring>
     Ring Partition(int k, int n) {
         vector<vector<Ring>> part(k+1, vector<Ring>(n+1));
