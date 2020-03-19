@@ -1,7 +1,145 @@
-\documentclass[a4paper]{article}
+%\documentclass{jsarticle}
+\documentclass[titlepage, landscape, a4paper, twocolumn, 10pt]{jarticle}
+\usepackage[top=15truemm,bottom=15truemm,left=10truemm,right=10truemm]{geometry}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{dkgreen}{rgb}{0,0.5,0}
+\definecolor{purple}{rgb}{0.5,0,0.5}
+\definecolor{comcol}{rgb}{0.8,0.4,0}
+
+\lstset{
+% language={C++},
+  basicstyle={\footnotesize\ttfamily},
+  identifierstyle={\footnotesize},
+  commentstyle={\footnotesize\itshape\color{red}},
+  keywordstyle={\footnotesize\bfseries\color{blue}},
+  ndkeywordstyle={\footnotesize\bfseries\color{comcol}},
+  morekeywords={void, bool, char, int, short, long, double, auto},
+  morekeywords={vector, string, priority\_queue, pair, set, map},
+  morekeywords={Data, Weight, Edge, Edges, Graph, Array, Matrix},
+  morekeywords={ld, P, L, C, VP},
+  morendkeywords={if, else, while, for, do, break, continue, return},
+  morendkeywords={operator, const, struct, class, private, public, typedef},
+  morendkeywords={using, namespace},
+  morendkeywords={REP, ALL},
+  stringstyle={\footnotesize\color{purple}},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0ex,
+  xleftmargin=3ex,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1ex,
+  lineskip=-0.5ex
+}
 
 \begin{document}
 
-Hello World !  % This is your content
+\title{ICPC Library}
+\author{Keigo Habara}
+\date{\today}
+
+\maketitle
+
+
+\section{Template}
+
+\lstinputlisting{../lib/template.cpp}
+
+
+\section{Algorithm}
+
+\subsection{Inversion}
+\lstinputlisting{../lib/algorithm/inversion.cpp}
+
+\subsection{LongestIncreasingSubsequence}
+\lstinputlisting{../lib/algorithm/longest_increasing_subsequence.cpp}
+
+
+\section{Structure}
+
+\subsection{LazySegmentTree}
+\lstinputlisting{../lib/structure/lazy_segment_tree.cpp}
+
+\subsection{UnionFind}
+\lstinputlisting{../lib/structure/union_find.cpp}
+
+\subsection{WeightedUnionFind}
+\lstinputlisting{../lib/structure/weighted_union_find.cpp}
+
+\subsection{BinaryIndexedTree}
+\lstinputlisting{../lib/structure/binary_indexed_tree.cpp}
+
+\subsection{SegmentTree}
+\lstinputlisting{../lib/structure/segment_tree.cpp}
+
+
+\section{String}
+
+\subsection{RollingHash}
+\lstinputlisting{../lib/string/rolling_hash.cpp}
+
+
+\section{Number}
+
+\subsection{PrimeFactorize}
+\lstinputlisting{../lib/number/prime_factorize.cpp}
+
+\subsection{Combination}
+\lstinputlisting{../lib/number/combination.cpp}
+
+\subsection{Factorial}
+\lstinputlisting{../lib/number/factorial.cpp}
+
+\subsection{PrimeTable}
+\lstinputlisting{../lib/number/prime_table.cpp}
+
+\subsection{Modint}
+\lstinputlisting{../lib/number/modint.cpp}
+
+\subsection{Bell}
+\lstinputlisting{../lib/number/bell.cpp}
+
+\subsection{Stirling}
+\lstinputlisting{../lib/number/stirling.cpp}
+
+\subsection{ExtendedGcd}
+\lstinputlisting{../lib/number/extended_gcd.cpp}
+
+\subsection{IsPrime}
+\lstinputlisting{../lib/number/is_prime.cpp}
+
+\subsection{Partition}
+\lstinputlisting{../lib/number/partition.cpp}
+
+
+\section{Graph}
+
+\subsection{LowestCommonAncestor}
+\lstinputlisting{../lib/graph/lowest_common_ancestor.cpp}
+
+\subsection{TopologicalSort}
+\lstinputlisting{../lib/graph/topological_sort.cpp}
+
+\subsection{Kruskal}
+\lstinputlisting{../lib/graph/kruskal.cpp}
+
+\subsection{Dinic}
+\lstinputlisting{../lib/graph/dinic.cpp}
+
+\subsection{Dijkstra}
+\lstinputlisting{../lib/graph/dijkstra.cpp}
+
+\subsection{WarshallFloyd}
+\lstinputlisting{../lib/graph/warshall_floyd.cpp}
+
+\subsection{StronglyConnectedComponents}
+\lstinputlisting{../lib/graph/strongly_connected_components.cpp}
+
 
 \end{document}
