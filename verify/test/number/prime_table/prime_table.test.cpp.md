@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#2b7aa7da66a017dccac965e53f6e606d">test/number/prime_table</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/prime_table/prime_table.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-03-20 02:19:09+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C</a>
@@ -258,7 +258,7 @@ vector<bool> prime_table(int n) {
     prime[0] = prime[1] = false;
     for (int i = 2; i * i <= n; i++) {
         if (!prime[i]) continue;
-        for(int j = 2 * i; j <= n; j += i) {
+        for (int j = 2 * i; j <= n; j += i) {
             prime[j] = false;
         }
     }
