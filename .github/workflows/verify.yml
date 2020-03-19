@@ -36,7 +36,7 @@ jobs:
       with:
         root_file: main.tex
         working_directory: tex/
-        args: "-e \"$pdf_mode=q/3;\""
+        args: '-e "$pdf_mode=q/3;"'
 
     - name: Upload PDF
       uses: actions/upload-artifact@master
