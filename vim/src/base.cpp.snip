@@ -4,16 +4,14 @@ snippet dump
 snippet cout
     cout << ${1} << endl;${0}
 
-snippet printf
+snippet print
     printf("${1}"${2});${0}
 
 snippet puts
     printf("${1}\n"${2});${0}
 
-snippet space
-    putchar(' ');${0}
 snippet endl
-    putchar('\n');${0}
+    cout << endl;
 
 snippet infty
     numeric_limits<${1:int}>::max()${0}
@@ -151,24 +149,18 @@ snippet topological_sort
         int n = G.size();
         vector<int> num(n), ord;
         for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < G[i].size(); ++j) {
-                ++num[G[i][j]];
-            }
+            for (int u : G[i]) ++num[u];
         }
         stack<int> st;
-        for(int i = 0; i < num.size(); ++i) {
-            if (num[i] == 0) {
-                st.push(i);
-            }
+        for(int i = 0; i < n; ++i) {
+            if (num[i] == 0) st.push(i);
         }
         while (!st.empty()) {
             int i = st.top(); st.pop();
             ord.push_back(i);
-            for(int j = 0; j < G[i].size(); ++j) {
-                --num[G[i][j]];
-                if (num[G[i][j]] == 0) {
-                    st.push(G[i][j]);
-                }
+            for (int u : G[i]) {
+                --num[u];
+                if (num[u] == 0) st.push(u);
             }
         }
         return ord;
