@@ -36,7 +36,8 @@ jobs:
       with:
         root_file: main.tex
         working_directory: tex/
-        args: "-e \"\\$latex=q/platex;\\$dvipdf=q/'dvipdfmx %O -o %D %S';\\$pdf_mode=q/3;\""
+        args: "-e '\\$latex=platex;\\$pdf_mode=3;\\$dvipdf=\"dvipdfmx %O %S\";'"
+
 
     - name: Upload PDF
       uses: actions/upload-artifact@master
