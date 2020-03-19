@@ -36,7 +36,6 @@ jobs:
       with:
         root_file: main.tex
         working_directory: tex/
-        compiler: [platex, dvipdfmx]
 
     - name: Upload PDF
       uses: actions/upload-artifact@master
