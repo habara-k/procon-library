@@ -32,12 +32,10 @@ jobs:
       run: git checkout master && python3 tex/src/main.py
 
     - name: Compile LaTeX document
-      uses: xu-cheng/latex-action@master
+      uses: habara-k/uplatex-action@master
       with:
-        root_file: main.tex
+        target_file: main.tex
         working_directory: tex/
-        args: "-e '$latex=platex;$pdf_mode=3;'"
-
 
     - name: Upload PDF
       uses: actions/upload-artifact@master
