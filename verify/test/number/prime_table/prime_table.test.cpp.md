@@ -76,7 +76,7 @@ int main() {
 #line 1 "test/number/prime_table/prime_table.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C"
 
-#line 1 "test/number/prime_table/../../../lib/number/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -249,7 +249,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/number/prime_table/../../../lib/number/prime_table.cpp"
+#line 2 "lib/number/prime_table.cpp"
 
 // O(nloglogn)
 vector<bool> prime_table(int n) {

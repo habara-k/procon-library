@@ -75,7 +75,7 @@ int main() {
 #line 1 "test/structure/segment_tree/rmq.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
 
-#line 1 "test/structure/segment_tree/../../../lib/structure/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -248,7 +248,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/structure/segment_tree/../../../lib/structure/segment_tree.cpp"
+#line 2 "lib/structure/segment_tree.cpp"
 
 template<typename M>
 struct SegmentTree {

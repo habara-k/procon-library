@@ -92,7 +92,7 @@ struct Factorial {
 #line 1 "lib/number/factorial.cpp"
 
 
-#line 1 "lib/number/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>

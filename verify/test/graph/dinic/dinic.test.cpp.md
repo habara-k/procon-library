@@ -73,7 +73,7 @@ int main() {
 #line 1 "test/graph/dinic/dinic.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A"
 
-#line 1 "test/graph/dinic/../../../lib/graph/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -246,7 +246,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/graph/dinic/../../../lib/graph/dinic.cpp"
+#line 2 "lib/graph/dinic.cpp"
 
 template<typename T>
 struct Dinic {

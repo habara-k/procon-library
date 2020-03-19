@@ -81,7 +81,7 @@ int main() {
 #line 1 "test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C"
 
-#line 1 "test/graph/lowest_common_ancestor/../../../lib/graph/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -254,7 +254,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/graph/lowest_common_ancestor/../../../lib/graph/lowest_common_ancestor.cpp"
+#line 2 "lib/graph/lowest_common_ancestor.cpp"
 
 struct LCA {
     int n, log2_n;

@@ -58,6 +58,7 @@ layout: default
 * :heavy_check_mark: <a href="library/lib/graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/strongly_connected_components.cpp.html">lib/graph/strongly_connected_components.cpp</a>
+* :warning: <a href="library/lib/graph/topological_sort.cpp.html">lib/graph/topological_sort.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/warshall_floyd.cpp.html">lib/graph/warshall_floyd.cpp</a>
 
 

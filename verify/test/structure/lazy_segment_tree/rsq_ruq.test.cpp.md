@@ -85,7 +85,7 @@ int main() {
 #line 1 "test/structure/lazy_segment_tree/rsq_ruq.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I"
 
-#line 1 "test/structure/lazy_segment_tree/../../../lib/structure/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -258,7 +258,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/structure/lazy_segment_tree/../../../lib/structure/lazy_segment_tree.cpp"
+#line 2 "lib/structure/lazy_segment_tree.cpp"
 
 template<typename M, typename OM = M>
 struct LazySegmentTree {

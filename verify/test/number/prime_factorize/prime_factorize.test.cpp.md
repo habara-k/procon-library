@@ -76,7 +76,7 @@ int main() {
 #line 1 "test/number/prime_factorize/prime_factorize.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_A"
 
-#line 1 "test/number/prime_factorize/../../../lib/number/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -249,7 +249,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/number/prime_factorize/../../../lib/number/prime_factorize.cpp"
+#line 2 "lib/number/prime_factorize.cpp"
 
 // O(sqrt(n))
 map<int64_t, int> prime_factorize(int64_t n) {

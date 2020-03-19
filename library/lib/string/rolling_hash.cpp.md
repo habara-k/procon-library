@@ -85,7 +85,7 @@ struct RollingHash {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "lib/string/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>

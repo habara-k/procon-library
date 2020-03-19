@@ -68,7 +68,7 @@ int main() {
 #line 1 "test/number/extended_gcd/extended_gcd.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/6/NTL/1/NTL_1_E"
 
-#line 1 "test/number/extended_gcd/../../../lib/number/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -241,7 +241,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/number/extended_gcd/../../../lib/number/extended_gcd.cpp"
+#line 2 "lib/number/extended_gcd.cpp"
 
 template<typename T>
 T extended_gcd(T a, T b, T& x, T& y) {

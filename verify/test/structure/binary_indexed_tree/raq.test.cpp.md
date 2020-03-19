@@ -79,7 +79,7 @@ int main() {
 #line 1 "test/structure/binary_indexed_tree/raq.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
 
-#line 1 "test/structure/binary_indexed_tree/../../../lib/structure/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -252,7 +252,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/structure/binary_indexed_tree/../../../lib/structure/binary_indexed_tree.cpp"
+#line 2 "lib/structure/binary_indexed_tree.cpp"
 
 template<typename T>
 struct BIT {

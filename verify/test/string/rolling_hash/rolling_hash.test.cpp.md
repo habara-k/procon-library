@@ -77,7 +77,7 @@ int main() {
 #line 1 "test/string/rolling_hash/rolling_hash.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B"
 
-#line 1 "test/string/rolling_hash/../../../lib/string/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -250,7 +250,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/string/rolling_hash/../../../lib/string/rolling_hash.cpp"
+#line 2 "lib/string/rolling_hash.cpp"
 
 struct RollingHash {
     const int base = 9973;

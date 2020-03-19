@@ -21,27 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/number/factorial/factorial.test.cpp
+# :warning: lib/graph/topological_sort.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#df8c23d08651db196c1c82ea686faba2">test/number/factorial</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/number/factorial/factorial.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-19 14:48:57+09:00
+* category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/lib/graph/topological_sort.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-03-19 16:23:27+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/number/factorial.cpp.html">lib/number/factorial.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -49,24 +46,28 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B"
+#include "../template.cpp"
 
-#include "../../../lib/number/modint.cpp"
-#include "../../../lib/number/factorial.cpp"
-
-int main() {
-    int64_t n, k;
-    cin >> n >> k;
-
-    if (n > k) {
-        cout << 0 << endl;
-        return 0;
+vector<int> topological_sort(const vector<vector<int>>& G)
+{
+    int n = G.size();
+    vector<int> num(n), ord;
+    for (int i = 0; i < n; ++i) {
+        for (int u : G[i]) ++num[u];
     }
-
-    using Int = modint<MOD>;
-    Factorial<Int> fact(k+1);
-
-    cout << fact(k) / fact(k-n) << endl;
+    stack<int> st;
+    for(int i = 0; i < n; ++i) {
+        if (num[i] == 0) st.push(i);
+    }
+    while (!st.empty()) {
+        int i = st.top(); st.pop();
+        ord.push_back(i);
+        for (int u : G[i]) {
+            --num[u];
+            if (num[u] == 0) st.push(u);
+        }
+    }
+    return ord;
 }
 
 ```
@@ -75,9 +76,6 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/number/factorial/factorial.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B"
-
 #line 1 "lib/template.cpp"
 
 
@@ -251,128 +249,32 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/number/modint.cpp"
+#line 2 "lib/graph/topological_sort.cpp"
 
-template<int64_t mod>
-struct modint {
-    using LL = int64_t;
-    LL val;
-    modint(LL val=0) : val(((val % mod) + mod) % mod) {}
-
-    const modint operator+() const { return *this; }
-    const modint operator-() const { return (-val + mod) % mod; }
-    const modint inv() const { return pow(mod-2); }
-
-    modint& operator+=(const modint& rhs) {
-        (val += rhs.val) %= mod;
-        return *this;
+vector<int> topological_sort(const vector<vector<int>>& G)
+{
+    int n = G.size();
+    vector<int> num(n), ord;
+    for (int i = 0; i < n; ++i) {
+        for (int u : G[i]) ++num[u];
     }
-    modint& operator-=(const modint& rhs) {
-        return *this += -rhs;
+    stack<int> st;
+    for(int i = 0; i < n; ++i) {
+        if (num[i] == 0) st.push(i);
     }
-    modint& operator*=(const modint& rhs) {
-        (val *= rhs.val) %= mod;
-        return *this;
-    }
-    modint& operator/=(const modint& rhs) {
-        return *this *= rhs.inv();
-    }
-
-    const modint operator+(const modint& rhs) const {
-        return modint(*this) += rhs;
-    }
-    const modint operator-(const modint& rhs) const {
-        return modint(*this) -= rhs;
-    }
-    const modint operator*(const modint& rhs) const {
-        return modint(*this) *= rhs;
-    }
-    const modint operator/(const modint& rhs) const {
-        return modint(*this) /= rhs;
-    }
-
-    const modint pow(LL n) const {
-        modint ret = 1, tmp = val;
-        while (n > 0) {
-            if (n & 1) ret *= tmp;
-            tmp *= tmp; n >>= 1;
-        }
-        return ret;
-    }
-
-    bool operator==(const modint& rhs) const { return val == rhs.val; }
-    bool operator!=(const modint& rhs) const { return !(*this == rhs); }
-
-    friend const modint operator+(const LL& lhs, const modint& rhs) {
-        return modint(lhs) + rhs;
-    }
-    friend const modint operator-(const LL& lhs, const modint& rhs) {
-        return modint(lhs) - rhs;
-    }
-    friend const modint operator*(const LL& lhs, const modint& rhs) {
-        return modint(lhs) * rhs;
-    }
-    friend const modint operator/(const LL& lhs, const modint& rhs) {
-        return modint(lhs) / rhs;
-    }
-
-    friend bool operator==(const LL& lhs, const modint& rhs) {
-        return modint(lhs) == rhs;
-    }
-    friend bool operator!=(const LL& lhs, const modint& rhs) {
-        return modint(lhs) != rhs;
-    }
-
-    friend ostream& operator<<(ostream& os, const modint& a) {
-        return os << a.val;
-    }
-    friend istream& operator>>(istream& is, modint& a) {
-        LL tmp; is >> tmp;
-        a = tmp;
-        return is;
-    }
-};
-#line 1 "lib/number/factorial.cpp"
-
-
-#line 4 "lib/number/factorial.cpp"
-
-template<typename Ring>
-struct Factorial {
-    vector<Ring> fact;
-
-    Factorial(int n) {
-        fact.resize(n);
-        fact[0] = Ring{1};
-        for (int i = 1; i < n; ++i) {
-            fact[i] = fact[i-1] * Ring{i};
+    while (!st.empty()) {
+        int i = st.top(); st.pop();
+        ord.push_back(i);
+        for (int u : G[i]) {
+            --num[u];
+            if (num[u] == 0) st.push(u);
         }
     }
-
-    inline Ring operator()(int i) const {
-        return fact.at(i);
-    }
-};
-
-#line 5 "test/number/factorial/factorial.test.cpp"
-
-int main() {
-    int64_t n, k;
-    cin >> n >> k;
-
-    if (n > k) {
-        cout << 0 << endl;
-        return 0;
-    }
-
-    using Int = modint<MOD>;
-    Factorial<Int> fact(k+1);
-
-    cout << fact(k) / fact(k-n) << endl;
+    return ord;
 }
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

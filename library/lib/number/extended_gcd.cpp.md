@@ -70,7 +70,7 @@ T extended_gcd(T a, T b, T& x, T& y) {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "lib/number/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>

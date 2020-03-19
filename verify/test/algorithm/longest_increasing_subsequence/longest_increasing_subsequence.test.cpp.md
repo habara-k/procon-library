@@ -73,7 +73,7 @@ int main()
 #line 1 "test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_D"
 
-#line 1 "test/algorithm/longest_increasing_subsequence/../../../lib/algorithm/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -246,7 +246,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/algorithm/longest_increasing_subsequence/../../../lib/algorithm/longest_increasing_subsequence.cpp"
+#line 2 "lib/algorithm/longest_increasing_subsequence.cpp"
 
 template<typename T>
 int LIS(const vector<T>& a) {

@@ -81,7 +81,7 @@ int main() {
 #line 1 "test/structure/weighted_union_find/weighted_union_find.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_B"
 
-#line 1 "test/structure/weighted_union_find/../../../lib/structure/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -254,7 +254,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/structure/weighted_union_find/../../../lib/structure/weighted_union_find.cpp"
+#line 2 "lib/structure/weighted_union_find.cpp"
 
 template<typename A>
 struct WeightedUnionFind

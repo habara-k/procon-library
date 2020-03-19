@@ -85,7 +85,7 @@ vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "lib/graph/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>

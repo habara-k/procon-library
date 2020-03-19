@@ -78,7 +78,7 @@ int main() {
 #line 1 "test/number/modint/modint.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B"
 
-#line 1 "test/number/modint/../../../lib/number/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -251,7 +251,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/number/modint/../../../lib/number/modint.cpp"
+#line 2 "lib/number/modint.cpp"
 
 template<int64_t mod>
 struct modint {

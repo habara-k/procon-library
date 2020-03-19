@@ -77,7 +77,7 @@ int main() {
 #line 1 "test/graph/dijkstra/dijkstra.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A"
 
-#line 1 "test/graph/dijkstra/../../../lib/graph/../template.cpp"
+#line 1 "lib/template.cpp"
 
 
 #include <bits/stdc++.h>
@@ -250,7 +250,7 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "test/graph/dijkstra/../../../lib/graph/dijkstra.cpp"
+#line 2 "lib/graph/dijkstra.cpp"
 
 template<typename T>
 vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
