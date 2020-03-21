@@ -40,6 +40,6 @@ jobs:
     - name: Upload PDF
       uses: actions/upload-artifact@master
       with:
-        name: tex
-        path: tex
+        name: main.pdf
+        path: tex/main.pdf
       if: always()
