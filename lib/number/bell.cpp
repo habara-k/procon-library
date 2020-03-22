@@ -1,5 +1,4 @@
 #include "../template.cpp"
-#include "combination.cpp"
 #include "stirling.cpp"
 
 // Bell 数

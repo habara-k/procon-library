@@ -11,7 +11,7 @@ Field Stirling(int64_t n, int k) {
 
     Field ret = 0;
     for (int i = 0; i <= k; ++i) {
-        ret += comb(k, i) * Field{k-i}.pow(n) * (i & 1 ? -1 : 1);
+        ret += comb.C(k, i) * Field{k-i}.pow(n) * (i & 1 ? -1 : 1);
     }
     return ret /= comb.fact(k);
 }

@@ -1,7 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B"
 
 #include "../../../lib/number/modint.cpp"
-#include "../../../lib/number/factorial.cpp"
 #include "../../../lib/number/combination.cpp"
 
 int main() {
@@ -16,5 +15,5 @@ int main() {
     using Int = modint<MOD>;
     Combination<Int> comb(k+1);
 
-    cout << comb(k, n) * comb.fact(n) << endl;
+    cout << comb.C(k, n) * comb.fact(n) << endl;
 }
