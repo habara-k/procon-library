@@ -124,6 +124,20 @@ snippet binary_search
         (check(mid) ? ok : ng) = mid;
     }
 
+snippet ternary_search
+    auto f = [&](${1:double} x) {
+        ${2:function}
+    };
+
+    $1 lb = ${3:-1e9}, ub = ${4:1e9};
+    while (abs(lb - ub) > ${5:1e-9}) {
+        double m1 = (2*lb+ub)/3,
+               m2 = (lb+2*ub)/3;
+
+        if (fx(m1) < fx(m2)) lb = m1;
+        else ub = m2;
+    }
+
 snippet next_combination
     int64_t next_combination(int64_t mask) {
         int64_t x = mask & -mask, y = mask + x;
