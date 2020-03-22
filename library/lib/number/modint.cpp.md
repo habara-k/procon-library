@@ -45,7 +45,6 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../verify/test/number/bell/bell.test.cpp.html">test/number/bell/bell.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/number/combination/combination.test.cpp.html">test/number/combination/combination.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/test/number/factorial/factorial.test.cpp.html">test/number/factorial/factorial.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/number/modint/modint.test.cpp.html">test/number/modint/modint.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/number/partition/partition1.test.cpp.html">test/number/partition/partition1.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>

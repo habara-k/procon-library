@@ -31,14 +31,13 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/combination.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-19 14:48:57+09:00
+    - Last commit date: 2020-03-22 13:09:18+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="factorial.cpp.html">lib/number/factorial.cpp</a>
 * :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
@@ -63,23 +62,37 @@ layout: default
 #ifndef COMBINATION
 #define COMBINATION
 #include "../template.cpp"
-#include "factorial.cpp"
 
 template<typename Field>
 struct Combination {
-    Factorial<Field> _fact;
+    vector<Field> _fact, _rfact, _inv;
 
-    Combination(int n) : _fact(n) {}
-
-    inline Field fact(int n) const {
-        return _fact(n);
+    Combination(int n) : _fact(n), _rfact(n), _inv(n) {
+        _fact[0] = _rfact[n-1] = 1;
+        for (int i = 1; i < n; ++i) _fact[i] = _fact[i-1] * i;
+        _rfact[n-1] /= _fact[n-1];
+        for (int i = n-1; i > 0; --i) _rfact[i-1] = _rfact[i] * i;
+        for (int i = 1; i < n; ++i) _inv[i] = _rfact[i] * _fact[i-1];
     }
 
-    Field operator()(int n, int r) const {
-        if (n < 0 || n-r < 0 || r < 0) {
-            return Field{0};
-        }
-        return fact(n) / (fact(n-r) * fact(r));
+    inline Field fact(int k) const { return _fact.at(k); }
+
+    inline Field rfact(int k) const { return _rfact.at(k); }
+
+    inline Field inv(int k) const { assert(k != 0); return _inv.at(k); }
+
+    Field P(int n, int r) const {
+        if (r < 0 || n < r) return 0;
+        return fact(n) * rfact(n-r);
+    }
+
+    Field C(int n, int r) const {
+        if (r < 0 || n < r) return 0;
+        return fact(n) * rfact(r) * rfact(n-r);
+    }
+
+    Field H (int n, int r) const {
+        return (n == 0 && r == 0) ? 1 : C(n+r-1, r);
     }
 };
 #endif
@@ -266,45 +279,38 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 1 "lib/number/factorial.cpp"
-
-
-#line 4 "lib/number/factorial.cpp"
-
-template<typename Ring>
-struct Factorial {
-    vector<Ring> fact;
-
-    Factorial(int n) {
-        fact.resize(n);
-        fact[0] = Ring{1};
-        for (int i = 1; i < n; ++i) {
-            fact[i] = fact[i-1] * Ring{i};
-        }
-    }
-
-    inline Ring operator()(int i) const {
-        return fact.at(i);
-    }
-};
-
-#line 5 "lib/number/combination.cpp"
+#line 4 "lib/number/combination.cpp"
 
 template<typename Field>
 struct Combination {
-    Factorial<Field> _fact;
+    vector<Field> _fact, _rfact, _inv;
 
-    Combination(int n) : _fact(n) {}
-
-    inline Field fact(int n) const {
-        return _fact(n);
+    Combination(int n) : _fact(n), _rfact(n), _inv(n) {
+        _fact[0] = _rfact[n-1] = 1;
+        for (int i = 1; i < n; ++i) _fact[i] = _fact[i-1] * i;
+        _rfact[n-1] /= _fact[n-1];
+        for (int i = n-1; i > 0; --i) _rfact[i-1] = _rfact[i] * i;
+        for (int i = 1; i < n; ++i) _inv[i] = _rfact[i] * _fact[i-1];
     }
 
-    Field operator()(int n, int r) const {
-        if (n < 0 || n-r < 0 || r < 0) {
-            return Field{0};
-        }
-        return fact(n) / (fact(n-r) * fact(r));
+    inline Field fact(int k) const { return _fact.at(k); }
+
+    inline Field rfact(int k) const { return _rfact.at(k); }
+
+    inline Field inv(int k) const { assert(k != 0); return _inv.at(k); }
+
+    Field P(int n, int r) const {
+        if (r < 0 || n < r) return 0;
+        return fact(n) * rfact(n-r);
+    }
+
+    Field C(int n, int r) const {
+        if (r < 0 || n < r) return 0;
+        return fact(n) * rfact(r) * rfact(n-r);
+    }
+
+    Field H (int n, int r) const {
+        return (n == 0 && r == 0) ? 1 : C(n+r-1, r);
     }
 };
 

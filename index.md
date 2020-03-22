@@ -69,8 +69,8 @@ layout: default
 * :heavy_check_mark: <a href="library/lib/number/bell.cpp.html">lib/number/bell.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/combination.cpp.html">lib/number/combination.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/extended_gcd.cpp.html">lib/number/extended_gcd.cpp</a>
-* :heavy_check_mark: <a href="library/lib/number/factorial.cpp.html">lib/number/factorial.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/is_prime.cpp.html">lib/number/is_prime.cpp</a>
+* :warning: <a href="library/lib/number/matrix.cpp.html">lib/number/matrix.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/partition.cpp.html">lib/number/partition.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/prime_factorize.cpp.html">lib/number/prime_factorize.cpp</a>
@@ -123,7 +123,6 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/number/bell/bell.test.cpp.html">test/number/bell/bell.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/combination/combination.test.cpp.html">test/number/combination/combination.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/extended_gcd/extended_gcd.test.cpp.html">test/number/extended_gcd/extended_gcd.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/number/factorial/factorial.test.cpp.html">test/number/factorial/factorial.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/is_prime/is_prime.test.cpp.html">test/number/is_prime/is_prime.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/modint/modint.test.cpp.html">test/number/modint/modint.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/partition/partition1.test.cpp.html">test/number/partition/partition1.test.cpp</a>
