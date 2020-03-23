@@ -16,7 +16,6 @@ vector<T> fast_zeta_transform_1(const vector<T>& f)
     }
     return g;
 }
-
 template<typename T>
 vector<T> fast_zeta_transform_2(const vector<T>& f)
 {

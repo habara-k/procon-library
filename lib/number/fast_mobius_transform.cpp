@@ -17,7 +17,6 @@ vector<T> fast_mobius_transform_1(const vector<T>& g)
     }
     return f;
 }
-
 template<typename T>
 vector<T> fast_mobius_transform_2(const vector<T>& g)
 {
