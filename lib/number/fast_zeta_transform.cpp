@@ -1,8 +1,7 @@
 #include "../template.cpp"
 
 template<typename T>
-vector<T> fast_zeta_transform_1(const vector<T>& f)
-{
+vector<T> fast_zeta_transform_1(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{s \subset t} f(t)
     int n = f.size();
@@ -16,9 +15,9 @@ vector<T> fast_zeta_transform_1(const vector<T>& f)
     }
     return g;
 }
+
 template<typename T>
-vector<T> fast_zeta_transform_2(const vector<T>& f)
-{
+vector<T> fast_zeta_transform_2(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{t \subset s} f(t)
     int n = f.size();

@@ -1,8 +1,7 @@
 #include "../template.cpp"
 
 template<typename T>
-vector<T> fast_mobius_transform_1(const vector<T>& g)
-{
+vector<T> fast_mobius_transform_1(const vector<T>& g) {
     // Return f(s):
     // s.t. g(s) = \sum_{s \subset t} f(t)
     // ( e.g. f(s) = \sum_{s \subset t} (-1)^|t-s| * g(t) )
@@ -17,9 +16,9 @@ vector<T> fast_mobius_transform_1(const vector<T>& g)
     }
     return f;
 }
+
 template<typename T>
-vector<T> fast_mobius_transform_2(const vector<T>& g)
-{
+vector<T> fast_mobius_transform_2(const vector<T>& g) {
     // Return f(s):
     // s.t. g(s) = \sum_{t \subset s} f(t)
     // ( e.g. f(s) = \sum_{t \subset s} (-1)^|t-s| * g(t) )
