@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/fast_zeta_transform.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-23 15:51:50+09:00
+    - Last commit date: 2020-03-23 15:58:48+09:00
 
 
 
@@ -49,8 +49,7 @@ layout: default
 #include "../template.cpp"
 
 template<typename T>
-vector<T> fast_zeta_transform_1(const vector<T>& f)
-{
+vector<T> fast_zeta_transform_1(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{s \subset t} f(t)
     int n = f.size();
@@ -64,9 +63,9 @@ vector<T> fast_zeta_transform_1(const vector<T>& f)
     }
     return g;
 }
+
 template<typename T>
-vector<T> fast_zeta_transform_2(const vector<T>& f)
-{
+vector<T> fast_zeta_transform_2(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{t \subset s} f(t)
     int n = f.size();
@@ -263,8 +262,7 @@ const int64_t MOD = 1e9+7;
 #line 2 "lib/number/fast_zeta_transform.cpp"
 
 template<typename T>
-vector<T> fast_zeta_transform_1(const vector<T>& f)
-{
+vector<T> fast_zeta_transform_1(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{s \subset t} f(t)
     int n = f.size();
@@ -278,9 +276,9 @@ vector<T> fast_zeta_transform_1(const vector<T>& f)
     }
     return g;
 }
+
 template<typename T>
-vector<T> fast_zeta_transform_2(const vector<T>& f)
-{
+vector<T> fast_zeta_transform_2(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{t \subset s} f(t)
     int n = f.size();
