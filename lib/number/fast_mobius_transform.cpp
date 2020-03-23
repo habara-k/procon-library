@@ -21,7 +21,7 @@ template<typename T>
 vector<T> fast_mobius_transform_2(const vector<T>& g) {
     // Return f(s):
     // s.t. g(s) = \sum_{t \subset s} f(t)
-    // ( e.g. f(s) = \sum_{t \subset s} (-1)^|t-s| * g(t) )
+    // ( e.g. f(s) = \sum_{t \subset s} (-1)^|s-t| * g(t) )
     int n = g.size();
     vector<T> f = g;
     for (int i = 0; (1 << i) < n; ++i) {
