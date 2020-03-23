@@ -50,6 +50,8 @@ layout: default
 * :heavy_check_mark: <a href="number/bell.cpp.html">lib/number/bell.cpp</a>
 * :heavy_check_mark: <a href="number/combination.cpp.html">lib/number/combination.cpp</a>
 * :heavy_check_mark: <a href="number/extended_gcd.cpp.html">lib/number/extended_gcd.cpp</a>
+* :warning: <a href="number/fast_mobius_transform.cpp.html">lib/number/fast_mobius_transform.cpp</a>
+* :warning: <a href="number/fast_zeta_transform.cpp.html">lib/number/fast_zeta_transform.cpp</a>
 * :heavy_check_mark: <a href="number/is_prime.cpp.html">lib/number/is_prime.cpp</a>
 * :warning: <a href="number/matrix.cpp.html">lib/number/matrix.cpp</a>
 * :heavy_check_mark: <a href="number/modint.cpp.html">lib/number/modint.cpp</a>
