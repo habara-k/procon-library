@@ -516,8 +516,7 @@ snippet combination
 snippet fast_mobius_transform
 
     template<typename T>
-    vector<T> fast_mobius_transform_1(const vector<T>& g)
-    {
+    vector<T> fast_mobius_transform_1(const vector<T>& g) {
         // Return f(s):
         // s.t. g(s) = \sum_{s \subset t} f(t)
         // ( e.g. f(s) = \sum_{s \subset t} (-1)^|t-s| * g(t) )
@@ -532,9 +531,9 @@ snippet fast_mobius_transform
         }
         return f;
     }
+
     template<typename T>
-    vector<T> fast_mobius_transform_2(const vector<T>& g)
-    {
+    vector<T> fast_mobius_transform_2(const vector<T>& g) {
         // Return f(s):
         // s.t. g(s) = \sum_{t \subset s} f(t)
         // ( e.g. f(s) = \sum_{t \subset s} (-1)^|t-s| * g(t) )
@@ -804,8 +803,7 @@ snippet bell
 snippet fast_zeta_transform
 
     template<typename T>
-    vector<T> fast_zeta_transform_1(const vector<T>& f)
-    {
+    vector<T> fast_zeta_transform_1(const vector<T>& f) {
         // Return g(s):
         // s.t. g(s) = \sum_{s \subset t} f(t)
         int n = f.size();
@@ -819,9 +817,9 @@ snippet fast_zeta_transform
         }
         return g;
     }
+
     template<typename T>
-    vector<T> fast_zeta_transform_2(const vector<T>& f)
-    {
+    vector<T> fast_zeta_transform_2(const vector<T>& f) {
         // Return g(s):
         // s.t. g(s) = \sum_{t \subset s} f(t)
         int n = f.size();
