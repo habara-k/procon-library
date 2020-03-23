@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/fast_mobius_transform.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-23 15:58:48+09:00
+    - Last commit date: 2020-03-23 16:01:30+09:00
 
 
 
@@ -69,7 +69,7 @@ template<typename T>
 vector<T> fast_mobius_transform_2(const vector<T>& g) {
     // Return f(s):
     // s.t. g(s) = \sum_{t \subset s} f(t)
-    // ( e.g. f(s) = \sum_{t \subset s} (-1)^|t-s| * g(t) )
+    // ( e.g. f(s) = \sum_{t \subset s} (-1)^|s-t| * g(t) )
     int n = g.size();
     vector<T> f = g;
     for (int i = 0; (1 << i) < n; ++i) {
@@ -284,7 +284,7 @@ template<typename T>
 vector<T> fast_mobius_transform_2(const vector<T>& g) {
     // Return f(s):
     // s.t. g(s) = \sum_{t \subset s} f(t)
-    // ( e.g. f(s) = \sum_{t \subset s} (-1)^|t-s| * g(t) )
+    // ( e.g. f(s) = \sum_{t \subset s} (-1)^|s-t| * g(t) )
     int n = g.size();
     vector<T> f = g;
     for (int i = 0; (1 << i) < n; ++i) {
