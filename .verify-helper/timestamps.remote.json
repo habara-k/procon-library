@@ -5,6 +5,7 @@
 "test/graph/dinic/dinic.test.cpp": "2020-03-18 20:03:32 +0900",
 "test/graph/kruskal/kruskal.test.cpp": "2020-03-18 20:03:32 +0900",
 "test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp": "2020-03-18 20:03:32 +0900",
+"test/graph/re_rooting/re_rooting.test.cpp": "2020-03-29 12:22:32 +0900",
 "test/graph/strongly_connected_components/strongly_connected_components.test.cpp": "2020-03-18 20:03:32 +0900",
 "test/graph/warshall_floyd/warshall_floyd.test.cpp": "2020-03-18 20:03:32 +0900",
 "test/number/bell/bell.test.cpp": "2020-03-22 13:09:18 +0900",
