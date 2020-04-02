@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/algorithm/inversion/inversion.test.cpp
+# :heavy_check_mark: test/graph/euler_tour/euler_tour.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#1d77d4e5d84f87f3fa383a74eca97ee7">test/algorithm/inversion</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/algorithm/inversion/inversion.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#69fd5ef22b7d7c3c4b992623880b61ab">test/graph/euler_tour</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/graph/euler_tour/euler_tour.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-02 20:41:57+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_D">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_D</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_D">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_D</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/algorithm/inversion.cpp.html">lib/algorithm/inversion.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/euler_tour.cpp.html">lib/graph/euler_tour.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
@@ -49,22 +49,38 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_D"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_D"
 
-#include "../../../lib/algorithm/inversion.cpp"
+#include "../../../lib/graph/euler_tour.cpp"
+#include "../../../lib/structure/binary_indexed_tree.cpp"
 
-int main()
-{
-    int n;
-    cin >> n;
-    vector<int64_t> A(n);
+int main() {
+    int n; cin >> n;
+    vector<vector<int>> G(n);
     for (int i = 0; i < n; ++i) {
-        cin >> A[i];
+        int k; cin >> k; G[i].resize(k);
+        for (int j = 0; j < k; ++j) {
+            cin >> G[i][j];
+        }
     }
 
-    cout << inversion(A) << endl;
+    EulerTour tour(G);
+    tour.build(0);
 
-    return 0;
+    BIT<int> bit(2*n);
+    int q; cin >> q;
+    for (int t = 0; t < q; ++t) {
+        int c; cin >> c;
+        if (c == 1) {
+            int v; cin >> v;
+            cout << bit.sum(tour.ds[v]) << endl;
+        }
+        if (c == 0) {
+            int v, w; cin >> v >> w;
+            bit.add(tour.ds[v], w);
+            bit.add(tour.us[v], -w);
+        }
+    }
 }
 
 ```
@@ -73,8 +89,8 @@ int main()
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/algorithm/inversion/inversion.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_D"
+#line 1 "test/graph/euler_tour/euler_tour.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_D"
 
 #line 1 "lib/template.cpp"
 
@@ -249,6 +265,31 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
+#line 2 "lib/graph/euler_tour.cpp"
+
+struct EulerTour {
+    using G = vector<vector<int>>;
+    const G& g;
+    vector<int> ds, us;
+
+    EulerTour(const G& g) :
+        g(g), ds(g.size()), us(g.size()) {}
+
+    void dfs(int v, int p, int& idx) {
+        for (int u : g[v]) {
+            if (u == p) continue;
+            ds[u] = idx++;
+            dfs(u, v, idx);
+            us[u] = idx++;
+        }
+    }
+
+    void build(int v) {
+        int idx = 1;
+        dfs(v, -1, idx);
+        us[v] = 2 * g.size() - 1;
+    }
+};
 #line 2 "lib/structure/binary_indexed_tree.cpp"
 
 template<typename T>
@@ -273,42 +314,35 @@ struct BIT {
         return s;
     }
 };
-#line 3 "lib/algorithm/inversion.cpp"
+#line 5 "test/graph/euler_tour/euler_tour.test.cpp"
 
-template<typename T>
-int64_t inversion(const vector<T>& A)
-{
-    map<T, int> idx;
-    for (const T& a : A) idx[a] = -1;
-
-    int cnt = 0;
-    for (auto& p : idx) p.second = cnt++;
-
-    assert(cnt == A.size());
-
-    BIT<int> bit(cnt+1);
-    int64_t res = 0;
-    for (int i = 0; i < A.size(); ++i) {
-        res += i - bit.sum(idx[A[i]]);
-        bit.add(idx[A[i]], 1);
-    }
-
-    return res;
-}
-#line 4 "test/algorithm/inversion/inversion.test.cpp"
-
-int main()
-{
-    int n;
-    cin >> n;
-    vector<int64_t> A(n);
+int main() {
+    int n; cin >> n;
+    vector<vector<int>> G(n);
     for (int i = 0; i < n; ++i) {
-        cin >> A[i];
+        int k; cin >> k; G[i].resize(k);
+        for (int j = 0; j < k; ++j) {
+            cin >> G[i][j];
+        }
     }
 
-    cout << inversion(A) << endl;
+    EulerTour tour(G);
+    tour.build(0);
 
-    return 0;
+    BIT<int> bit(2*n);
+    int q; cin >> q;
+    for (int t = 0; t < q; ++t) {
+        int c; cin >> c;
+        if (c == 1) {
+            int v; cin >> v;
+            cout << bit.sum(tour.ds[v]) << endl;
+        }
+        if (c == 0) {
+            int v, w; cin >> v >> w;
+            bit.add(tour.ds[v], w);
+            bit.add(tour.us[v], -w);
+        }
+    }
 }
 
 ```

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/binary_indexed_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-02 20:41:57+09:00
 
 
 
@@ -49,6 +49,7 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
 
@@ -62,19 +63,23 @@ layout: default
 
 template<typename T>
 struct BIT {
-    vector<T> bit;
-    int sz;
-
-    BIT(int n) : sz(n+1), bit(n+1) {}
+    // BIT<T> bit(n);
+    //
+    // bit.add(i,x) for i in [0,n)
+    //   bit[i] += x;
+    //
+    // bit.sum(i) for i in [0,n)
+    //   return bit[0] + ... + bit[i]
+    vector<T> data;
+    BIT(int n) : data(n+1) {}
 
     void add(int i, T x) {
-        i += 1;
-        while (i < sz) { bit[i] += x; i += i & -i; }
+        for (++i; i < data.size(); i += i & -i) data[i] += x;
     }
 
     T sum(int i) {
-        i += 1; T s = 0;
-        while (i > 0) { s += bit[i]; i -= i & -i; }
+        T s = 0;
+        for (++i; i > 0; i -= i & -i) s += data[i];
         return s;
     }
 };
@@ -262,19 +267,23 @@ const int64_t MOD = 1e9+7;
 
 template<typename T>
 struct BIT {
-    vector<T> bit;
-    int sz;
-
-    BIT(int n) : sz(n+1), bit(n+1) {}
+    // BIT<T> bit(n);
+    //
+    // bit.add(i,x) for i in [0,n)
+    //   bit[i] += x;
+    //
+    // bit.sum(i) for i in [0,n)
+    //   return bit[0] + ... + bit[i]
+    vector<T> data;
+    BIT(int n) : data(n+1) {}
 
     void add(int i, T x) {
-        i += 1;
-        while (i < sz) { bit[i] += x; i += i & -i; }
+        for (++i; i < data.size(); i += i & -i) data[i] += x;
     }
 
     T sum(int i) {
-        i += 1; T s = 0;
-        while (i > 0) { s += bit[i]; i -= i & -i; }
+        T s = 0;
+        for (++i; i > 0; i -= i & -i) s += data[i];
         return s;
     }
 };

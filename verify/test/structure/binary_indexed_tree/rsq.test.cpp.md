@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/rsq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-02 20:41:57+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -250,19 +250,23 @@ const int64_t MOD = 1e9+7;
 
 template<typename T>
 struct BIT {
-    vector<T> bit;
-    int sz;
-
-    BIT(int n) : sz(n+1), bit(n+1) {}
+    // BIT<T> bit(n);
+    //
+    // bit.add(i,x) for i in [0,n)
+    //   bit[i] += x;
+    //
+    // bit.sum(i) for i in [0,n)
+    //   return bit[0] + ... + bit[i]
+    vector<T> data;
+    BIT(int n) : data(n+1) {}
 
     void add(int i, T x) {
-        i += 1;
-        while (i < sz) { bit[i] += x; i += i & -i; }
+        for (++i; i < data.size(); i += i & -i) data[i] += x;
     }
 
     T sum(int i) {
-        i += 1; T s = 0;
-        while (i > 0) { s += bit[i]; i -= i & -i; }
+        T s = 0;
+        for (++i; i > 0; i -= i & -i) s += data[i];
         return s;
     }
 };
