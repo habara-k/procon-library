@@ -10,6 +10,11 @@ struct LazySegmentTree {
     const function<M(M,M)> f;
     const function<M(M,OM,int)> g;
     const function<OM(OM,OM)> h;
+    // f: 二つの区間の要素をマージする関数
+    // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
+    // h: 作用素をマージする関数
+    // e: モノイドの単位元
+    // oe: 作用素の単位元
 
     LazySegmentTree(
             int n, const M& e, const OM& oe,
@@ -43,7 +48,7 @@ struct LazySegmentTree {
         lazy[k] = oe;
     }
 
-    M update(int a, int b, const OM &x, int k, int l, int r) {
+    M _update(int a, int b, const OM &x, int k, int l, int r) {
         propagate(k, r - l);
         if (r <= a || b <= l) {
             return data[k];
@@ -53,17 +58,17 @@ struct LazySegmentTree {
             return data[k];
         } else {
             return data[k] = f(
-                update(a, b, x, 2*k,   l, (l+r)/2),
-                update(a, b, x, 2*k+1, (l+r)/2, r));
+                    _update(a, b, x, 2*k,   l, (l+r)/2),
+                    _update(a, b, x, 2*k+1, (l+r)/2, r));
         }
     }
 
     void update(int a, int b, const OM &x) {
         // update [a, b) with x.
-        update(a, b, x, 1, 0, sz);
+        _update(a, b, x, 1, 0, sz);
     }
 
-    M query(int a, int b, int k, int l, int r) {
+    M _query(int a, int b, int k, int l, int r) {
         propagate(k, r - l);
         if (r <= a || b <= l) {
             return e;
@@ -71,13 +76,13 @@ struct LazySegmentTree {
             return data[k];
         } else {
             return f(
-                query(a, b, 2*k,   l, (l+r)/2),
-                query(a, b, 2*k+1, (l+r)/2, r));
+                    _query(a, b, 2*k,   l, (l+r)/2),
+                    _query(a, b, 2*k+1, (l+r)/2, r));
         }
     }
 
     M query(int a, int b) {
         // return f[a, b).
-        return query(a, b, 1, 0, sz);
+        return _query(a, b, 1, 0, sz);
     }
 };
