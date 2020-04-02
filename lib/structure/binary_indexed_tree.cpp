@@ -2,19 +2,23 @@
 
 template<typename T>
 struct BIT {
-    vector<T> bit;
-    int sz;
-
-    BIT(int n) : sz(n+1), bit(n+1) {}
+    // BIT<T> bit(n);
+    //
+    // bit.add(i,x) for i in [0,n)
+    //   bit[i] += x;
+    //
+    // bit.sum(i) for i in [0,n)
+    //   return bit[0] + ... + bit[i]
+    vector<T> data;
+    BIT(int n) : data(n+1) {}
 
     void add(int i, T x) {
-        i += 1;
-        while (i < sz) { bit[i] += x; i += i & -i; }
+        for (++i; i < data.size(); i += i & -i) data[i] += x;
     }
 
     T sum(int i) {
-        i += 1; T s = 0;
-        while (i > 0) { s += bit[i]; i -= i & -i; }
+        T s = 0;
+        for (++i; i > 0; i -= i & -i) s += data[i];
         return s;
     }
 };
