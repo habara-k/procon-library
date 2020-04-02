@@ -25,20 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/lazy_segment_tree/rmq_raq.test.cpp
+# :heavy_check_mark: test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/rmq_raq.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#f108cdd252ebfc58a7b9bc5c4c206374">test/graph/heavy_light_decomposition</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-03 01:52:16+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E</a>
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="../../../../library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
@@ -48,36 +49,49 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E"
 
+#include "../../../lib/graph/heavy_light_decomposition.cpp"
 #include "../../../lib/structure/lazy_segment_tree.cpp"
 
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    LazySegmentTree<int64_t> rmq_raq(
-            N, numeric_limits<int64_t>::max(), 0,
-            [](int64_t a, int64_t b){ return min(a, b); },
-            [](int64_t a, int64_t b, int w){ return a + b; },
-            [](int64_t a, int64_t b){ return a + b; }
-            );
-    for (int i = 0; i < N; ++i) {
-        rmq_raq.set(i, 0);
-    }
-    rmq_raq.build();
-
-    while (Q--) {
-        int C; cin >> C;
-        if (C == 0) {
-            int S, T; int64_t X;
-            cin >> S >> T >> X;
-            rmq_raq.update(S, T+1, X);
-        } else {
-            int S, T;
-            cin >> S >> T;
-            cout << rmq_raq.query(S, T+1) << endl;
+int main()
+{
+    int n; cin >> n;
+    vector<vector<int>> G(n);
+    for (int i = 0; i < n; ++i) {
+        int k; cin >> k;
+        G[i].resize(k);
+        for (int j = 0; j < k; ++j) {
+            cin >> G[i][j];
         }
     }
+
+    HLDecomposition hld(G);
+    hld.build();
+
+    LazySegmentTree<LL> segt(
+            n, 0, 0,
+            [](LL a,LL b){ return a+b; },
+            [](LL a,LL b,int w){ return a+b*w; },
+            [](LL a,LL b){ return a+b; });
+
+    int q; cin >> q;
+    for (int t = 0; t < q; ++t) {
+        int c; cin >> c;
+        if (c == 0) {
+            int v, w; cin >> v >> w;
+            hld.update(0, v, [&](int a,int b){ segt.update(a,b,w); });
+        }
+        if (c == 1) {
+            int v; cin >> v;
+            LL ret = hld.query(0, v,
+                    [&](int a,int b){ return segt.query(a,b); },
+                    [&](LL a,LL b){ return a+b; }, 0LL);
+            cout << ret << endl;
+        }
+    }
+
+    return 0;
 }
 
 ```
@@ -86,8 +100,8 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/lazy_segment_tree/rmq_raq.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H"
+#line 1 "test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E"
 
 #line 1 "lib/template.cpp"
 
@@ -262,6 +276,82 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
+#line 2 "lib/graph/heavy_light_decomposition.cpp"
+
+struct HLDecomposition {
+    const vector<vector<int>>& G;
+    vector<int> par, size, depth, head, vid;
+    // par[v]: parent of v
+    // size[v]: size of subtree[v]
+    // depth[v]: depth of v. depth[root] = 0
+    // head[v]: head of row containing v
+    // vid[v]: index of v when all the rows are aligned.
+
+    void dfs(int v, int p, int d) {
+        par[v] = p; depth[v] = d; size[v] = 1;
+        for (int u : G[v]) {
+            if (u == p) continue;
+            dfs(u, v, d+1);
+            size[v] += size[u];
+        }
+    }
+    void hld(int v, int h, int& k) {
+        head[v] = h; vid[v] = k++;
+        int ma = 0, id = -1;
+        for (int u : G[v]) {
+            if (u == par[v]) continue;
+            if (chmax(ma, size[u])) id = u;
+        }
+        if (id == -1) return;
+        hld(id, h, k);
+        for (int u : G[v]) {
+            if (u == id || u == par[v]) continue;
+            hld(u, u, k);
+        }
+    }
+
+    HLDecomposition(const vector<vector<int>>& g) :
+        G(g), par(g.size()), size(g.size()), depth(g.size()),
+        head(g.size()), vid(g.size()) {}
+
+    void build(int root = 0) {
+        dfs(root, -1, 0);
+        int k = 0;
+        hld(root, root, k);
+    }
+
+    template<typename UpdateQuery>
+    void update(int u, int v, const UpdateQuery& q) {
+        // q(a, b): update [a, b).
+        for (;; v = par[head[v]]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            if (head[u] == head[v]) {
+                if (vid[u] > vid[v]) swap(u, v);
+                q(vid[u], vid[v]+1);
+                break;
+            } else {
+                q(vid[head[v]], vid[v]+1);
+            }
+        }
+    }
+
+    template<typename Query, typename MergeFunc, typename T>
+    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident) {
+        // q(a, b): return f[a, b).
+        // f: 二つの区間の要素をマージする関数
+        // ident: モノイドの単位元
+        T ret = ident;
+        for (;; v = par[head[v]]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            if (head[u] == head[v]) {
+                if (vid[u] > vid[v]) swap(u, v);
+                return f(ret, q(vid[u]+1, vid[v]+1));
+            } else {
+                ret = f(ret, q(vid[head[v]], vid[v]+1));
+            }
+        }
+    }
+};
 #line 2 "lib/structure/lazy_segment_tree.cpp"
 
 template<typename M, typename OM = M>
@@ -350,34 +440,46 @@ struct LazySegmentTree {
         return _query(a, b, 1, 0, sz);
     }
 };
-#line 4 "test/structure/lazy_segment_tree/rmq_raq.test.cpp"
+#line 5 "test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp"
 
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    LazySegmentTree<int64_t> rmq_raq(
-            N, numeric_limits<int64_t>::max(), 0,
-            [](int64_t a, int64_t b){ return min(a, b); },
-            [](int64_t a, int64_t b, int w){ return a + b; },
-            [](int64_t a, int64_t b){ return a + b; }
-            );
-    for (int i = 0; i < N; ++i) {
-        rmq_raq.set(i, 0);
-    }
-    rmq_raq.build();
-
-    while (Q--) {
-        int C; cin >> C;
-        if (C == 0) {
-            int S, T; int64_t X;
-            cin >> S >> T >> X;
-            rmq_raq.update(S, T+1, X);
-        } else {
-            int S, T;
-            cin >> S >> T;
-            cout << rmq_raq.query(S, T+1) << endl;
+int main()
+{
+    int n; cin >> n;
+    vector<vector<int>> G(n);
+    for (int i = 0; i < n; ++i) {
+        int k; cin >> k;
+        G[i].resize(k);
+        for (int j = 0; j < k; ++j) {
+            cin >> G[i][j];
         }
     }
+
+    HLDecomposition hld(G);
+    hld.build();
+
+    LazySegmentTree<LL> segt(
+            n, 0, 0,
+            [](LL a,LL b){ return a+b; },
+            [](LL a,LL b,int w){ return a+b*w; },
+            [](LL a,LL b){ return a+b; });
+
+    int q; cin >> q;
+    for (int t = 0; t < q; ++t) {
+        int c; cin >> c;
+        if (c == 0) {
+            int v, w; cin >> v >> w;
+            hld.update(0, v, [&](int a,int b){ segt.update(a,b,w); });
+        }
+        if (c == 1) {
+            int v; cin >> v;
+            LL ret = hld.query(0, v,
+                    [&](int a,int b){ return segt.query(a,b); },
+                    [&](LL a,LL b){ return a+b; }, 0LL);
+            cout << ret << endl;
+        }
+    }
+
+    return 0;
 }
 
 ```
