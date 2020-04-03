@@ -28,7 +28,9 @@
 "test/structure/lazy_segment_tree/rsq_raq.test.cpp": "2020-04-03 01:52:16 +0900",
 "test/structure/lazy_segment_tree/rsq_ruq.test.cpp": "2020-04-03 01:52:16 +0900",
 "test/structure/lazy_segment_tree/ruq.test.cpp": "2020-04-03 01:52:16 +0900",
-"test/structure/segment_tree/rmq.test.cpp": "2020-03-18 20:03:32 +0900",
+"test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp": "2020-04-03 22:19:34 +0900",
+"test/structure/segment_tree/rmq.test.cpp": "2020-04-03 22:19:14 +0900",
+"test/structure/segment_tree/rsq.test.cpp": "2020-04-03 22:19:14 +0900",
 "test/structure/union_find/union_find.test.cpp": "2020-03-18 20:03:32 +0900",
 "test/structure/weighted_union_find/weighted_union_find.test.cpp": "2020-03-18 20:03:32 +0900"
 }
