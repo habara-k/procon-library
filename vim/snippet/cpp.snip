@@ -243,6 +243,73 @@ snippet weighted_union_find
     };
 
 
+snippet persistent_segment_tree
+
+    template<typename M>
+    struct PersistentSegmentTree {
+        struct Node {
+            Node *l, *r;
+            M data;
+            Node() : l(nullptr), r(nullptr) {}
+        };
+
+        const function<M(M,M)> f;
+        const M e;
+        const int sz;
+
+        PersistentSegmentTree(const function<M(M,M)>& f, const M& e, int sz) :
+            f(f), e(e), sz(sz) {}
+
+        Node* _new(const M& data) {
+            auto t = new Node();
+            t->data = data;
+            return t;
+        }
+
+        Node* _new(Node* l, Node* r) {
+            auto t = new Node();
+            t->l = l, t->r = r, t->data = f(l->data, r->data);
+            return t;
+        }
+
+        Node* _build(int l, int r) {
+            assert(l < r);
+            if (l+1 == r) return _new(e);
+            return _new(_build(l, (l+r)>>1), _build((l+r)>>1, r));
+        }
+
+        Node* build() {
+            return _build(0, sz);
+        }
+
+        template<typename UpdateQuery>
+        Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) {
+            if (pos == l && pos+1 == r) return _new(q(t->data));
+            if (r <= pos || pos < l) return t;
+            return _new(_update(t->l, q, pos, l, (l+r)>>1),
+                        _update(t->r, q, pos, (l+r)>>1, r));
+        }
+
+        template<typename UpdateQuery>
+        Node* update(Node* root, const UpdateQuery& q, int pos) {
+            return _update(root, q, pos, 0, sz);
+        }
+
+        M _query(Node* t, int a, int b, int l, int r) {
+            if (r <= a || b <= l) return e;
+            if (a <= l && r <= b) return t->data;
+            return f(_query(t->l, a, b, l, (l+r)>>1),
+                     _query(t->r, a, b, (l+r)>>1, r));
+        }
+
+        M query(Node* root, int a, int b) {
+            // return f[a,b)
+            return _query(root, a, b, 0, sz);
+        }
+
+    };
+
+
 snippet binary_indexed_tree
 
     template<typename T>
@@ -411,32 +478,29 @@ snippet segment_tree
             data.assign(2*sz, e);
         }
 
-        void update(int k, const M &x) {
+        template<typename UpdateQuery>
+        void update(int k, const UpdateQuery& q) {
             k += sz;
-            data[k] = x;
+            data[k] = q(data[k]);
             while (k >>= 1) {
                 data[k] = f(data[2*k], data[2*k+1]);
             }
         }
 
-        M query(int a, int b, int k, int l, int r) {
-            if (r <= a || b <= l) {
-                return e;
-            } else if (a <= l && r <= b) {
-                return data[k];
-            } else {
-                return f(query(a,b,2*k,  l,(l+r)/2),
-                         query(a,b,2*k+1,(l+r)/2,r));
-            }
+        M _query(int a, int b, int k, int l, int r) {
+            if (r <= a || b <= l) return e;
+            if (a <= l && r <= b) return data[k];
+            return f(_query(a,b,2*k,  l,(l+r)/2),
+                     _query(a,b,2*k+1,(l+r)/2,r));
         }
 
         M query(int a, int b) {
             // return f[a,b)
-            return query(a, b, 1, 0, sz);
+            return _query(a, b, 1, 0, sz);
         }
 
         M operator[](int k) {
-            return data[k + sz];
+            return data.at(k + sz);
         }
     };
 
