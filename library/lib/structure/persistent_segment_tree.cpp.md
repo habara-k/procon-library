@@ -21,26 +21,29 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/segment_tree/rmq.test.cpp
+# :heavy_check_mark: lib/structure/persistent_segment_tree.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#971922f92a29e476633aa9737b609e73">test/structure/segment_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rmq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-03 22:19:14+09:00
+* category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
+* <a href="{{ site.github.repository_url }}/blob/master/lib/structure/persistent_segment_tree.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-03 22:19:34+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../verify/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp.html">test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp</a>
 
 
 ## Code
@@ -48,23 +51,71 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
+#include "../template.cpp"
 
-#include "../../../lib/structure/segment_tree.cpp"
+template<typename M>
+struct PersistentSegmentTree {
+    struct Node {
+        Node *l, *r;
+        M data;
+        Node() : l(nullptr), r(nullptr) {}
+    };
 
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    SegmentTree<int> rmq(
-            N, numeric_limits<int>::max(),
-            [&](int a, int b){ return min(a, b); });
-    while (Q--) {
-        int T, X, Y;
-        cin >> T >> X >> Y;
-        if (T == 0) rmq.update(X, [&](int x){ return Y; });
-        else printf("%d\n", rmq.query(X, Y + 1));
+    const function<M(M,M)> f;
+    const M e;
+    const int sz;
+
+    PersistentSegmentTree(const function<M(M,M)>& f, const M& e, int sz) :
+        f(f), e(e), sz(sz) {}
+
+    Node* _new(const M& data) {
+        auto t = new Node();
+        t->data = data;
+        return t;
     }
-}
+
+    Node* _new(Node* l, Node* r) {
+        auto t = new Node();
+        t->l = l, t->r = r, t->data = f(l->data, r->data);
+        return t;
+    }
+
+    Node* _build(int l, int r) {
+        assert(l < r);
+        if (l+1 == r) return _new(e);
+        return _new(_build(l, (l+r)>>1), _build((l+r)>>1, r));
+    }
+
+    Node* build() {
+        return _build(0, sz);
+    }
+
+    template<typename UpdateQuery>
+    Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) {
+        if (pos == l && pos+1 == r) return _new(q(t->data));
+        if (r <= pos || pos < l) return t;
+        return _new(_update(t->l, q, pos, l, (l+r)>>1),
+                    _update(t->r, q, pos, (l+r)>>1, r));
+    }
+
+    template<typename UpdateQuery>
+    Node* update(Node* root, const UpdateQuery& q, int pos) {
+        return _update(root, q, pos, 0, sz);
+    }
+
+    M _query(Node* t, int a, int b, int l, int r) {
+        if (r <= a || b <= l) return e;
+        if (a <= l && r <= b) return t->data;
+        return f(_query(t->l, a, b, l, (l+r)>>1),
+                 _query(t->r, a, b, (l+r)>>1, r));
+    }
+
+    M query(Node* root, int a, int b) {
+        // return f[a,b)
+        return _query(root, a, b, 0, sz);
+    }
+
+};
 
 ```
 {% endraw %}
@@ -72,9 +123,6 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/segment_tree/rmq.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
-
 #line 1 "lib/template.cpp"
 
 
@@ -248,67 +296,74 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/structure/segment_tree.cpp"
+#line 2 "lib/structure/persistent_segment_tree.cpp"
 
 template<typename M>
-struct SegmentTree {
-    int sz;
-    vector<M> data;
-    const M e;
-    const function<M(M,M)> f;
+struct PersistentSegmentTree {
+    struct Node {
+        Node *l, *r;
+        M data;
+        Node() : l(nullptr), r(nullptr) {}
+    };
 
-    SegmentTree(
-            int n, const M& e,
-            const function<M(M,M)>& f
-            ) : e(e), f(f) {
-        sz = 1;
-        while (sz < n) sz <<= 1;
-        data.assign(2*sz, e);
+    const function<M(M,M)> f;
+    const M e;
+    const int sz;
+
+    PersistentSegmentTree(const function<M(M,M)>& f, const M& e, int sz) :
+        f(f), e(e), sz(sz) {}
+
+    Node* _new(const M& data) {
+        auto t = new Node();
+        t->data = data;
+        return t;
+    }
+
+    Node* _new(Node* l, Node* r) {
+        auto t = new Node();
+        t->l = l, t->r = r, t->data = f(l->data, r->data);
+        return t;
+    }
+
+    Node* _build(int l, int r) {
+        assert(l < r);
+        if (l+1 == r) return _new(e);
+        return _new(_build(l, (l+r)>>1), _build((l+r)>>1, r));
+    }
+
+    Node* build() {
+        return _build(0, sz);
     }
 
     template<typename UpdateQuery>
-    void update(int k, const UpdateQuery& q) {
-        k += sz;
-        data[k] = q(data[k]);
-        while (k >>= 1) {
-            data[k] = f(data[2*k], data[2*k+1]);
-        }
+    Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) {
+        if (pos == l && pos+1 == r) return _new(q(t->data));
+        if (r <= pos || pos < l) return t;
+        return _new(_update(t->l, q, pos, l, (l+r)>>1),
+                    _update(t->r, q, pos, (l+r)>>1, r));
     }
 
-    M _query(int a, int b, int k, int l, int r) {
+    template<typename UpdateQuery>
+    Node* update(Node* root, const UpdateQuery& q, int pos) {
+        return _update(root, q, pos, 0, sz);
+    }
+
+    M _query(Node* t, int a, int b, int l, int r) {
         if (r <= a || b <= l) return e;
-        if (a <= l && r <= b) return data[k];
-        return f(_query(a,b,2*k,  l,(l+r)/2),
-                 _query(a,b,2*k+1,(l+r)/2,r));
+        if (a <= l && r <= b) return t->data;
+        return f(_query(t->l, a, b, l, (l+r)>>1),
+                 _query(t->r, a, b, (l+r)>>1, r));
     }
 
-    M query(int a, int b) {
+    M query(Node* root, int a, int b) {
         // return f[a,b)
-        return _query(a, b, 1, 0, sz);
+        return _query(root, a, b, 0, sz);
     }
 
-    M operator[](int k) {
-        return data.at(k + sz);
-    }
 };
-#line 4 "test/structure/segment_tree/rmq.test.cpp"
-
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    SegmentTree<int> rmq(
-            N, numeric_limits<int>::max(),
-            [&](int a, int b){ return min(a, b); });
-    while (Q--) {
-        int T, X, Y;
-        cin >> T >> X >> Y;
-        if (T == 0) rmq.update(X, [&](int x){ return Y; });
-        else printf("%d\n", rmq.query(X, Y + 1));
-    }
-}
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

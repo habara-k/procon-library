@@ -25,16 +25,16 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/segment_tree/rmq.test.cpp
+# :heavy_check_mark: test/structure/segment_tree/rsq.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#971922f92a29e476633aa9737b609e73">test/structure/segment_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rmq.test.cpp">View this file on GitHub</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rsq.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-03 22:19:14+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
 
 
 ## Depends on
@@ -48,21 +48,20 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B"
 
 #include "../../../lib/structure/segment_tree.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    SegmentTree<int> rmq(
-            N, numeric_limits<int>::max(),
-            [&](int a, int b){ return min(a, b); });
+    SegmentTree<int> segt(
+            N, 0, [](int a,int b){ return a+b; });
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;
-        if (T == 0) rmq.update(X, [&](int x){ return Y; });
-        else printf("%d\n", rmq.query(X, Y + 1));
+        if (T == 0) segt.update(X-1, [&](int a){ return a+Y; });
+        else printf("%d\n", segt.query(X-1, Y));
     }
 }
 
@@ -72,8 +71,8 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/segment_tree/rmq.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A"
+#line 1 "test/structure/segment_tree/rsq.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B"
 
 #line 1 "lib/template.cpp"
 
@@ -291,19 +290,18 @@ struct SegmentTree {
         return data.at(k + sz);
     }
 };
-#line 4 "test/structure/segment_tree/rmq.test.cpp"
+#line 4 "test/structure/segment_tree/rsq.test.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    SegmentTree<int> rmq(
-            N, numeric_limits<int>::max(),
-            [&](int a, int b){ return min(a, b); });
+    SegmentTree<int> segt(
+            N, 0, [](int a,int b){ return a+b; });
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;
-        if (T == 0) rmq.update(X, [&](int x){ return Y; });
-        else printf("%d\n", rmq.query(X, Y + 1));
+        if (T == 0) segt.update(X-1, [&](int a){ return a+Y; });
+        else printf("%d\n", segt.query(X-1, Y));
     }
 }
 
