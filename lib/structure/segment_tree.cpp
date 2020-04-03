@@ -16,31 +16,28 @@ struct SegmentTree {
         data.assign(2*sz, e);
     }
 
-    void update(int k, const M &x) {
+    template<typename UpdateQuery>
+    void update(int k, const UpdateQuery& q) {
         k += sz;
-        data[k] = x;
+        data[k] = q(data[k]);
         while (k >>= 1) {
             data[k] = f(data[2*k], data[2*k+1]);
         }
     }
 
-    M query(int a, int b, int k, int l, int r) {
-        if (r <= a || b <= l) {
-            return e;
-        } else if (a <= l && r <= b) {
-            return data[k];
-        } else {
-            return f(query(a,b,2*k,  l,(l+r)/2),
-                     query(a,b,2*k+1,(l+r)/2,r));
-        }
+    M _query(int a, int b, int k, int l, int r) {
+        if (r <= a || b <= l) return e;
+        if (a <= l && r <= b) return data[k];
+        return f(_query(a,b,2*k,  l,(l+r)/2),
+                 _query(a,b,2*k+1,(l+r)/2,r));
     }
 
     M query(int a, int b) {
         // return f[a,b)
-        return query(a, b, 1, 0, sz);
+        return _query(a, b, 1, 0, sz);
     }
 
     M operator[](int k) {
-        return data[k + sz];
+        return data.at(k + sz);
     }
 };

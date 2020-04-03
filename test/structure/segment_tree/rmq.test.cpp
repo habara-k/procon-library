@@ -11,7 +11,7 @@ int main() {
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;
-        if (T == 0) rmq.update(X, Y);
+        if (T == 0) rmq.update(X, [&](int x){ return Y; });
         else printf("%d\n", rmq.query(X, Y + 1));
     }
 }
