@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/rsq_raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-03 01:52:16+09:00
+    - Last commit date: 2020-04-05 22:50:02+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G</a>
@@ -310,18 +310,16 @@ struct LazySegmentTree {
         lazy[k] = oe;
     }
 
-    M _update(int a, int b, const OM &x, int k, int l, int r) {
+    void _update(int a, int b, const OM &x, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) {
-            return data[k];
-        } else if (a <= l && r <= b) {
+        if (r <= a || b <= l) return;
+        else if (a <= l && r <= b) {
             lazy[k] = h(lazy[k], x);
             propagate(k, r - l);
-            return data[k];
         } else {
-            return data[k] = f(
-                    _update(a, b, x, 2*k,   l, (l+r)/2),
-                    _update(a, b, x, 2*k+1, (l+r)/2, r));
+            _update(a, b, x, 2*k,   l, (l+r)/2);
+            _update(a, b, x, 2*k+1, (l+r)/2, r);
+            data[k] = f(data[2*k], data[2*k+1]);
         }
     }
 
@@ -332,15 +330,11 @@ struct LazySegmentTree {
 
     M _query(int a, int b, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) {
-            return e;
-        } else if (a <= l && r <= b) {
-            return data[k];
-        } else {
-            return f(
-                    _query(a, b, 2*k,   l, (l+r)/2),
-                    _query(a, b, 2*k+1, (l+r)/2, r));
-        }
+        if (r <= a || b <= l) return e;
+        else if (a <= l && r <= b) return data[k];
+        else return f(
+                _query(a, b, 2*k,   l, (l+r)/2),
+                _query(a, b, 2*k+1, (l+r)/2, r));
     }
 
     M query(int a, int b) {

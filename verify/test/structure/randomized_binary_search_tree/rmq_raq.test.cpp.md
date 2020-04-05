@@ -25,12 +25,12 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/lazy_segment_tree/rmq_raq.test.cpp
+# :heavy_check_mark: test/structure/randomized_binary_search_tree/rmq_raq.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/rmq_raq.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#c596028d317fdbd8ee456ffe90ba6e35">test/structure/randomized_binary_search_tree</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/structure/randomized_binary_search_tree/rmq_raq.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-05 22:50:02+09:00
 
 
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/structure/randomized_binary_search_tree.cpp.html">lib/structure/randomized_binary_search_tree.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -50,26 +50,22 @@ layout: default
 ```cpp
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H"
 
-#include "../../../lib/structure/lazy_segment_tree.cpp"
+#include "../../../lib/structure/randomized_binary_search_tree.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int64_t> rmq_raq(
-            N, numeric_limits<int64_t>::max(), 0,
-            [](int64_t a, int64_t b){ return min(a, b); },
-            [](int64_t a, int64_t b, int w){ return a + b; },
-            [](int64_t a, int64_t b){ return a + b; }
-            );
-    for (int i = 0; i < N; ++i) {
-        rmq_raq.set(i, 0);
-    }
-    rmq_raq.build();
+    RandomizedBinarySearchTree<int64_t> rmq_raq(
+            [](int64_t a, int64_t b){ return min(a,b); },
+            [](int64_t a, int64_t b, int w){ return a+b; },
+            [](int64_t a, int64_t b){ return a+b; },
+            numeric_limits<int64_t>::max(), 0);
+    rmq_raq.build(vector<int64_t>(N, 0));
 
     while (Q--) {
         int C; cin >> C;
         if (C == 0) {
-            int S, T; int64_t X;
+            int S, T; int X;
             cin >> S >> T >> X;
             rmq_raq.update(S, T+1, X);
         } else {
@@ -86,7 +82,7 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/lazy_segment_tree/rmq_raq.test.cpp"
+#line 1 "test/structure/randomized_binary_search_tree/rmq_raq.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H"
 
 #line 1 "lib/template.cpp"
@@ -262,108 +258,186 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/structure/lazy_segment_tree.cpp"
+#line 2 "lib/structure/randomized_binary_search_tree.cpp"
 
 template<typename M, typename OM = M>
-struct LazySegmentTree {
-    int sz;
-    vector<M> data;
-    vector<OM> lazy;
-    const M e;
-    const OM oe;
+struct RandomizedBinarySearchTree {
+
+    struct Node {
+        Node *lch, *rch;
+        int sz;
+        M data, sum;
+        OM lazy;
+        Node(const M& data, const OM& lazy) :
+            lch(nullptr), rch(nullptr), sz(1),
+            data(data), sum(data), lazy(lazy) {}
+    };
+
     const function<M(M,M)> f;
     const function<M(M,OM,int)> g;
     const function<OM(OM,OM)> h;
-    // f: 二つの区間の要素をマージする関数
-    // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
-    // h: 作用素をマージする関数
-    // e: モノイドの単位元
-    // oe: 作用素の単位元
+    const M e;
+    const OM oe;
+    std::mt19937 rand;
+    const int SEED = 0;
+    Node* root;
 
-    LazySegmentTree(
-            int n, const M& e, const OM& oe,
+    RandomizedBinarySearchTree(
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
-            const function<OM(OM,OM)>& h
-            ) : e(e), oe(oe), f(f), g(g), h(h) {
-        sz = 1;
-        while (sz < n) sz <<= 1;
-        data.assign(2*sz, e);
-        lazy.assign(2*sz, oe);
+            const function<OM(OM,OM)>& h,
+            const M& e, const OM& oe
+            ) : f(f), g(g), h(h), e(e), oe(oe), rand(SEED), root(nullptr) {}
+
+    Node* _build(const vector<M>& v, int l, int r) {
+        if (l+1 >= r) return _new(v[l]);
+        return merge(_build(v, l, (l+r)>>1),
+                     _build(v, (l+r)>>1, r));
+    }
+    void build(const vector<M>& v) { root = _build(v, 0, v.size()); }
+
+    Node* _build(int l, int r) {
+        if (l+1 >= r) return _new(e);
+        return merge(_build(l, (l+r)>>1),
+                     _build((l+r)>>1, r));
+    }
+    void build(int size) { root = _build(0, size); }
+
+    inline Node* _new(const M& data) { return new Node(data, oe); }
+
+    inline int size(Node* t) const { return t ? t->sz : 0; }
+    inline M sum(Node* t) const { return t ? t->sum : e; }
+    inline OM lazy(Node* t) const { return t ? t->lazy : oe; }
+
+    inline Node* modify(Node *t) {
+        t->sz = size(t->lch) + size(t->rch) + 1;
+        t->sum = f(f(sum(t->lch), t->data), sum(t->rch));
+        return t;
     }
 
-    void set(int i, const M &x) {
-        data[i + sz] = x;
-    }
-
-    void build() {
-        for(int i = sz-1; i > 0; --i) {
-            data[i] = f(data[2*i], data[2*i+1]);
+    // Lazy Segment Tree
+    Node* propagate(Node* t) {
+        if (!t) return t;
+        if (lazy(t) == oe) return t;
+        if (t->lch != nullptr) {
+            t->lch->lazy = h(lazy(t->lch), lazy(t));
+            t->lch->sum = g(sum(t->lch), lazy(t), size(t->lch));
         }
-    }
-
-    void propagate(int k, int len) {
-        if (lazy[k] == oe) return;
-        if (k < sz) {
-            lazy[2*k  ] = h(lazy[2*k  ], lazy[k]);
-            lazy[2*k+1] = h(lazy[2*k+1], lazy[k]);
+        if (t->rch != nullptr) {
+            t->rch->lazy = h(lazy(t->rch), lazy(t));
+            t->rch->sum = g(sum(t->rch), lazy(t), size(t->rch));
         }
-        data[k] = g(data[k], lazy[k], len);
-        lazy[k] = oe;
+        t->data = g(t->data, lazy(t), 1);
+        t->lazy = oe;
+        return modify(t);
     }
 
-    void _update(int a, int b, const OM &x, int k, int l, int r) {
-        propagate(k, r - l);
-        if (r <= a || b <= l) return;
-        else if (a <= l && r <= b) {
-            lazy[k] = h(lazy[k], x);
-            propagate(k, r - l);
-        } else {
-            _update(a, b, x, 2*k,   l, (l+r)/2);
-            _update(a, b, x, 2*k+1, (l+r)/2, r);
-            data[k] = f(data[2*k], data[2*k+1]);
-        }
-    }
-
-    void update(int a, int b, const OM &x) {
-        // update [a, b) with x.
-        _update(a, b, x, 1, 0, sz);
-    }
-
-    M _query(int a, int b, int k, int l, int r) {
-        propagate(k, r - l);
-        if (r <= a || b <= l) return e;
-        else if (a <= l && r <= b) return data[k];
-        else return f(
-                _query(a, b, 2*k,   l, (l+r)/2),
-                _query(a, b, 2*k+1, (l+r)/2, r));
+    void update(int a, int b, const OM& lazy) {
+        // data[a, b) = g(data[a, b), lazy)
+        auto p0 = split(root, a);
+        auto p1 = split(p0.second, b-a);
+        p1.first->lazy = h(p1.first->lazy, lazy);
+        p1.first = propagate(p1.first);
+        root = merge(p0.first, merge(p1.first, p1.second));
     }
 
     M query(int a, int b) {
-        // return f[a, b).
-        return _query(a, b, 1, 0, sz);
+        // return f[a,b)
+        auto p0 = split(root, a);
+        auto p1 = split(p0.second, b-a);
+        p1.first = propagate(p1.first);
+        M ret = sum(p1.first);
+        root = merge(p0.first, merge(p1.first, p1.second));
+        return ret;
+    }
+
+
+    // Binary Search Tree
+    Node* merge(Node *l, Node *r) {
+        if (!l) return r;
+        if (!r) return l;
+        std::uniform_int_distribution<> dist(1,size(l)+size(r));
+        if (dist(rand) > size(l)) {
+            r = propagate(r);
+            r->lch = merge(l, r->lch);
+            return modify(r);
+        } else {
+            l = propagate(l);
+            l->rch = merge(l->rch, r);
+            return modify(l);
+        }
+    }
+
+    pair<Node*, Node*> split(Node* t, int k) {
+        if (!t) return {t, t};
+        t = propagate(t);
+        if (k > size(t->lch)) {
+            auto p = split(t->rch, k-size(t->lch)-1);
+            t->rch = p.first;
+            return {modify(t), p.second};
+        } else {
+            auto p = split(t->lch, k);
+            t->lch = p.second;
+            return {p.first, modify(t)};
+        }
+    }
+
+    void insert(int k, const M& data) {
+        auto q = _new(data);
+        auto p = split(root, k);
+        root = merge(merge(p.first, q), p.second);
+    }
+
+    M erase(int k) {
+        auto p = split(root, k);
+        auto q = split(p.second, 1);
+        M ret = q.first->data;
+        root = merge(p.first, q.second);
+        return ret;
+    }
+
+    void print(Node* t) {
+        if (!t) return;
+        if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
+        cout << t->data;
+        if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
+    }
+    void print_sum(Node* t) {
+        if (!t) return;
+        if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
+        cout << sum(t);
+        if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
+    }
+    void print_lazy(Node* t) {
+        if (!t) return;
+        if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
+        cout << lazy(t);
+        if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
+    }
+
+    friend ostream& operator<<(ostream& os, RandomizedBinarySearchTree& tr) {
+        os << "data: "; tr.print(tr.root); os << endl;
+        os << " sum: "; tr.print_sum(tr.root); os << endl;
+        os << "lazy: "; tr.print_lazy(tr.root); os << endl;
+        return os;
     }
 };
-#line 4 "test/structure/lazy_segment_tree/rmq_raq.test.cpp"
+#line 4 "test/structure/randomized_binary_search_tree/rmq_raq.test.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int64_t> rmq_raq(
-            N, numeric_limits<int64_t>::max(), 0,
-            [](int64_t a, int64_t b){ return min(a, b); },
-            [](int64_t a, int64_t b, int w){ return a + b; },
-            [](int64_t a, int64_t b){ return a + b; }
-            );
-    for (int i = 0; i < N; ++i) {
-        rmq_raq.set(i, 0);
-    }
-    rmq_raq.build();
+    RandomizedBinarySearchTree<int64_t> rmq_raq(
+            [](int64_t a, int64_t b){ return min(a,b); },
+            [](int64_t a, int64_t b, int w){ return a+b; },
+            [](int64_t a, int64_t b){ return a+b; },
+            numeric_limits<int64_t>::max(), 0);
+    rmq_raq.build(vector<int64_t>(N, 0));
 
     while (Q--) {
         int C; cin >> C;
         if (C == 0) {
-            int S, T; int64_t X;
+            int S, T; int X;
             cin >> S >> T >> X;
             rmq_raq.update(S, T+1, X);
         } else {

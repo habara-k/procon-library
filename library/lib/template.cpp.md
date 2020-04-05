@@ -66,6 +66,7 @@ layout: default
 * :heavy_check_mark: <a href="structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
+* :heavy_check_mark: <a href="structure/randomized_binary_search_tree.cpp.html">lib/structure/randomized_binary_search_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
 * :heavy_check_mark: <a href="structure/weighted_union_find.cpp.html">lib/structure/weighted_union_find.cpp</a>
@@ -103,6 +104,11 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/structure/lazy_segment_tree/rsq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rsq_ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/lazy_segment_tree/ruq.test.cpp.html">test/structure/lazy_segment_tree/ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp.html">test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/structure/randomized_binary_search_tree/rmq_raq.test.cpp.html">test/structure/randomized_binary_search_tree/rmq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/structure/randomized_binary_search_tree/rmq_ruq.test.cpp.html">test/structure/randomized_binary_search_tree/rmq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/structure/randomized_binary_search_tree/rsq_raq.test.cpp.html">test/structure/randomized_binary_search_tree/rsq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/structure/randomized_binary_search_tree/rsq_ruq.test.cpp.html">test/structure/randomized_binary_search_tree/rsq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/structure/randomized_binary_search_tree/ruq.test.cpp.html">test/structure/randomized_binary_search_tree/ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/segment_tree/rmq.test.cpp.html">test/structure/segment_tree/rmq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/segment_tree/rsq.test.cpp.html">test/structure/segment_tree/rsq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/union_find/union_find.test.cpp.html">test/structure/union_find/union_find.test.cpp</a>
