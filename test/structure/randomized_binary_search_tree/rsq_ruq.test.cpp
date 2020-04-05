@@ -1,16 +1,16 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_I"
 
-#include "../../../lib/structure/lazy_segment_tree.cpp"
+#include "../../../lib/structure/randomized_binary_search_tree.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int> rsq_ruq(
-            N, 0, numeric_limits<int>::max(),
-            [](int a, int b){ return a + b; },
-            [](int a, int b, int w){ return b*w; },
-            [](int a, int b){ return b; }
-            );
+    RandomizedBinarySearchTree<int64_t> rsq_ruq(
+            [](int64_t a, int64_t b){ return a + b; },
+            [](int64_t a, int64_t b, int w){ return b*w; },
+            [](int64_t a, int64_t b){ return b; },
+            0, numeric_limits<int64_t>::max());
+    rsq_ruq.build(N);
 
     while (Q--) {
         int C; cin >> C;

@@ -48,18 +48,16 @@ struct LazySegmentTree {
         lazy[k] = oe;
     }
 
-    M _update(int a, int b, const OM &x, int k, int l, int r) {
+    void _update(int a, int b, const OM &x, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) {
-            return data[k];
-        } else if (a <= l && r <= b) {
+        if (r <= a || b <= l) return;
+        else if (a <= l && r <= b) {
             lazy[k] = h(lazy[k], x);
             propagate(k, r - l);
-            return data[k];
         } else {
-            return data[k] = f(
-                    _update(a, b, x, 2*k,   l, (l+r)/2),
-                    _update(a, b, x, 2*k+1, (l+r)/2, r));
+            _update(a, b, x, 2*k,   l, (l+r)/2);
+            _update(a, b, x, 2*k+1, (l+r)/2, r);
+            data[k] = f(data[2*k], data[2*k+1]);
         }
     }
 
@@ -70,15 +68,11 @@ struct LazySegmentTree {
 
     M _query(int a, int b, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) {
-            return e;
-        } else if (a <= l && r <= b) {
-            return data[k];
-        } else {
-            return f(
-                    _query(a, b, 2*k,   l, (l+r)/2),
-                    _query(a, b, 2*k+1, (l+r)/2, r));
-        }
+        if (r <= a || b <= l) return e;
+        else if (a <= l && r <= b) return data[k];
+        else return f(
+                _query(a, b, 2*k,   l, (l+r)/2),
+                _query(a, b, 2*k+1, (l+r)/2, r));
     }
 
     M query(int a, int b) {
