@@ -42,23 +42,33 @@ struct HLDecomposition {
         hld(root, root, k);
     }
 
+    int lca(int u, int v) {
+        for (;; v = par[head[v]]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            if (head[u] == head[v]) {
+                if (depth[u] > depth[v]) swap(u, v);
+                return u;
+            }
+        }
+    }
+
     template<typename UpdateQuery>
-    void update(int u, int v, const UpdateQuery& q) {
+    void update(int u, int v, const UpdateQuery& q, bool edge = false) {
         // q(a, b): update [a, b).
         for (;; v = par[head[v]]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
             if (head[u] == head[v]) {
                 if (vid[u] > vid[v]) swap(u, v);
-                q(vid[u], vid[v]+1);
+                q(vid[u] + edge, vid[v] + 1);
                 break;
             } else {
-                q(vid[head[v]], vid[v]+1);
+                q(vid[head[v]], vid[v] + 1);
             }
         }
     }
 
     template<typename Query, typename MergeFunc, typename T>
-    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident) {
+    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident, bool edge = false) {
         // q(a, b): return f[a, b).
         // f: 二つの区間の要素をマージする関数
         // ident: モノイドの単位元
@@ -67,9 +77,9 @@ struct HLDecomposition {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
             if (head[u] == head[v]) {
                 if (vid[u] > vid[v]) swap(u, v);
-                return f(ret, q(vid[u]+1, vid[v]+1));
+                return f(ret, q(vid[u] + edge, vid[v] + 1));
             } else {
-                ret = f(ret, q(vid[head[v]], vid[v]+1));
+                ret = f(ret, q(vid[head[v]], vid[v] + 1));
             }
         }
     }
