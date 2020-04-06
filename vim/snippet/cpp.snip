@@ -709,23 +709,33 @@ snippet heavy_light_decomposition
             hld(root, root, k);
         }
 
+        int lca(int u, int v) {
+            for (;; v = par[head[v]]) {
+                if (depth[head[u]] > depth[head[v]]) swap(u, v);
+                if (head[u] == head[v]) {
+                    if (depth[u] > depth[v]) swap(u, v);
+                    return u;
+                }
+            }
+        }
+
         template<typename UpdateQuery>
-        void update(int u, int v, const UpdateQuery& q) {
+        void update(int u, int v, const UpdateQuery& q, bool edge = false) {
             // q(a, b): update [a, b).
             for (;; v = par[head[v]]) {
                 if (depth[head[u]] > depth[head[v]]) swap(u, v);
                 if (head[u] == head[v]) {
                     if (vid[u] > vid[v]) swap(u, v);
-                    q(vid[u], vid[v]+1);
+                    q(vid[u] + edge, vid[v] + 1);
                     break;
                 } else {
-                    q(vid[head[v]], vid[v]+1);
+                    q(vid[head[v]], vid[v] + 1);
                 }
             }
         }
 
         template<typename Query, typename MergeFunc, typename T>
-        T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident) {
+        T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident, bool edge = false) {
             // q(a, b): return f[a, b).
             // f: 二つの区間の要素をマージする関数
             // ident: モノイドの単位元
@@ -734,9 +744,9 @@ snippet heavy_light_decomposition
                 if (depth[head[u]] > depth[head[v]]) swap(u, v);
                 if (head[u] == head[v]) {
                     if (vid[u] > vid[v]) swap(u, v);
-                    return f(ret, q(vid[u]+1, vid[v]+1));
+                    return f(ret, q(vid[u] + edge, vid[v] + 1));
                 } else {
-                    ret = f(ret, q(vid[head[v]], vid[v]+1));
+                    ret = f(ret, q(vid[head[v]], vid[v] + 1));
                 }
             }
         }
@@ -959,6 +969,42 @@ snippet lowest_common_ancestor
     };
 
 
+snippet two_edge_connected_components
+
+    struct TwoEdgeConnectedComponents {
+        vector<vector<int>> t;
+        vector<int> comp;
+        LowLink lowlink;
+
+        TwoEdgeConnectedComponents(int sz) :
+            comp(sz, -1), lowlink(sz) {}
+
+        void add_edge(int u, int v) { lowlink.add_edge(u, v); }
+
+        void dfs(int v, int p, int& k) {
+            if (p == -1 or lowlink.is_bridge(v, p)) comp[v] = k++;
+            else comp[v] = comp[p];
+            for (const LowLink::edge& e : lowlink.g[v]) {
+                if (comp[e.to] == -1) dfs(e.to, v, k);
+            }
+        }
+
+        void build() {
+            lowlink.build();
+            int k = 0;
+            for (int i = 0; i < comp.size(); ++i) {
+                if (comp[i] == -1) dfs(i, -1, k);
+            }
+            t.resize(k);
+            for (const auto& tp : lowlink.bridges) {
+                int u = comp[tp.first], v = comp[tp.second];
+                t[u].push_back(v);
+                t[v].push_back(u);
+            }
+        }
+    };
+
+
 snippet strongly_connected_components
 
     struct StronglyConnectedComponents {
@@ -1009,37 +1055,64 @@ snippet strongly_connected_components
 snippet lowlink
 
     struct LowLink {
-        const vector<vector<int>> g;
+        struct edge {
+            int to, rev, used;
+            edge(int to, int rev) :
+                to(to), rev(rev), used(0) {}
+        };
+        // e.used: used for down in dfs.
+        vector<vector<edge>> g;
         const int sz;
         vector<int> ord, low, par;
-        vector<int> used, is_articulation, is_bridge;
+        vector<int> used, _is_articulation;
+        vector<int> articulations;
+        vector<pair<int,int>> bridges;
 
-        LowLink(const vector<vector<int>>& g) :
-            g(g), sz(g.size()), ord(sz), low(sz), used(sz),
-            par(sz), is_articulation(sz), is_bridge(sz) {}
+        LowLink(int sz) :
+            sz(sz), g(sz), ord(sz), low(sz), used(sz),
+            par(sz), _is_articulation(sz) {}
 
-        void build(int root) {
-            dfs(root, -1, 0);
+        void add_edge(int u, int v) {
+            g[u].emplace_back(v, (int)g[v].size());
+            g[v].emplace_back(u, (int)g[u].size() - 1);
         }
 
-        void dfs(int v, int p, int k) {
+        void build() {
+            int k = 0;
+            for (int i = 0; i < sz; ++i) {
+                if (!used[i]) dfs(i, -1, k);
+            }
+        }
+
+        void dfs(int v, int p, int& k) {
             used[v] = 1;
             par[v] = p;
             low[v] = ord[v] = k++;
             int cnt = 0;
-            for (int u : g[v]) {
-                if (u == p) continue;
-                if (!used[u]) {
+            for (auto& e : g[v]) {
+                int to = e.to;
+                if (!used[to]) {
+                    e.used = 1;
                     ++cnt;
-                    dfs(u, v, k);
-                    low[v] = min(low[v], low[u]);
-                    is_articulation[v] |= ord[v] <= low[u];
-                    is_bridge[u] |= ord[v] < low[u];
-                } else {
-                    low[v] = min(low[v], ord[u]);
+                    dfs(to, v, k);
+                    low[v] = min(low[v], low[to]);
+                    _is_articulation[v] |= ord[v] <= low[to];
+                    if (ord[v] < low[to]) {
+                        bridges.emplace_back(minmax(to, v));
+                    }
+                } else if (!g[to][e.rev].used) {
+                    low[v] = min(low[v], ord[to]);
                 }
             }
-            if (p == -1) is_articulation[v] = cnt > 1;
+            if (p == -1) _is_articulation[v] = cnt > 1;
+            if (_is_articulation[v]) articulations.push_back(v);
+        }
+
+        bool is_articulation(int v) const { return _is_articulation[v]; }
+        bool is_bridge(int u, int v) const {
+            if (u != par[v] and v != par[u]) return false;
+            if (u == par[v]) swap(u, v);
+            return ord[v] < low[u];
         }
     };
 
