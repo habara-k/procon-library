@@ -40,7 +40,7 @@ layout: default
 
 * :heavy_check_mark: <a href="combination.cpp.html">lib/number/combination.cpp</a>
 * :heavy_check_mark: <a href="stirling.cpp.html">lib/number/stirling.cpp</a>
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with

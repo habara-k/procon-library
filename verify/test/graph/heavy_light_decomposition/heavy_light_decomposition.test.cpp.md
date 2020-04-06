@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp
+# :x: test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#f108cdd252ebfc58a7b9bc5c4c206374">test/graph/heavy_light_decomposition</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-05 22:50:02+09:00
+    - Last commit date: 2020-04-06 20:19:24+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E</a>
@@ -39,9 +39,9 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
+* :question: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -320,23 +320,33 @@ struct HLDecomposition {
         hld(root, root, k);
     }
 
+    int lca(int u, int v) {
+        for (;; v = par[head[v]]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            if (head[u] == head[v]) {
+                if (depth[u] > depth[v]) swap(u, v);
+                return u;
+            }
+        }
+    }
+
     template<typename UpdateQuery>
-    void update(int u, int v, const UpdateQuery& q) {
+    void update(int u, int v, const UpdateQuery& q, bool edge = false) {
         // q(a, b): update [a, b).
         for (;; v = par[head[v]]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
             if (head[u] == head[v]) {
                 if (vid[u] > vid[v]) swap(u, v);
-                q(vid[u], vid[v]+1);
+                q(vid[u] + edge, vid[v] + 1);
                 break;
             } else {
-                q(vid[head[v]], vid[v]+1);
+                q(vid[head[v]], vid[v] + 1);
             }
         }
     }
 
     template<typename Query, typename MergeFunc, typename T>
-    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident) {
+    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident, bool edge = false) {
         // q(a, b): return f[a, b).
         // f: 二つの区間の要素をマージする関数
         // ident: モノイドの単位元
@@ -345,9 +355,9 @@ struct HLDecomposition {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
             if (head[u] == head[v]) {
                 if (vid[u] > vid[v]) swap(u, v);
-                return f(ret, q(vid[u]+1, vid[v]+1));
+                return f(ret, q(vid[u] + edge, vid[v] + 1));
             } else {
-                ret = f(ret, q(vid[head[v]], vid[v]+1));
+                ret = f(ret, q(vid[head[v]], vid[v] + 1));
             }
         }
     }

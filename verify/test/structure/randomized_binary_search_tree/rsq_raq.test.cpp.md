@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/structure/randomized_binary_search_tree.cpp.html">lib/structure/randomized_binary_search_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code

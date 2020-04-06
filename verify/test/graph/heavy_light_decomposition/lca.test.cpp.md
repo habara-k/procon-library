@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/binary_indexed_tree/raq.test.cpp
+# :heavy_check_mark: test/graph/heavy_light_decomposition/lca.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-02 20:41:57+09:00
+* category: <a href="../../../../index.html#f108cdd252ebfc58a7b9bc5c4c206374">test/graph/heavy_light_decomposition</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/graph/heavy_light_decomposition/lca.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-06 20:19:24+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :question: <a href="../../../../library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -48,25 +48,29 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C"
 
-#include "../../../lib/structure/binary_indexed_tree.cpp"
+#include "../../../lib/graph/heavy_light_decomposition.cpp"
 
 int main() {
     int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
+    cin >> N;
+    vector<vector<int>> g(N);
+    for(int i = 0; i < N; i++) {
+        int k; cin >> k;
+        while (k--) {
+            int c; cin >> c;
+            g[i].push_back(c);
         }
+    }
+
+    HLDecomposition hld(g);
+    hld.build(0);
+
+    cin >> Q;
+    while (Q--) {
+        int x, y; cin >> x >> y;
+        printf("%d\n", hld.lca(x, y));
     }
 }
 
@@ -76,8 +80,8 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/binary_indexed_tree/raq.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
+#line 1 "test/graph/heavy_light_decomposition/lca.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C"
 
 #line 1 "lib/template.cpp"
 
@@ -252,47 +256,113 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/structure/binary_indexed_tree.cpp"
+#line 2 "lib/graph/heavy_light_decomposition.cpp"
 
-template<typename T>
-struct BIT {
-    // BIT<T> bit(n);
-    //
-    // bit.add(i,x) for i in [0,n)
-    //   bit[i] += x;
-    //
-    // bit.sum(i) for i in [0,n)
-    //   return bit[0] + ... + bit[i]
-    vector<T> data;
-    BIT(int n) : data(n+1) {}
+struct HLDecomposition {
+    const vector<vector<int>>& G;
+    vector<int> par, size, depth, head, vid;
+    // par[v]: parent of v
+    // size[v]: size of subtree[v]
+    // depth[v]: depth of v. depth[root] = 0
+    // head[v]: head of row containing v
+    // vid[v]: index of v when all the rows are aligned.
 
-    void add(int i, T x) {
-        for (++i; i < data.size(); i += i & -i) data[i] += x;
+    void dfs(int v, int p, int d) {
+        par[v] = p; depth[v] = d; size[v] = 1;
+        for (int u : G[v]) {
+            if (u == p) continue;
+            dfs(u, v, d+1);
+            size[v] += size[u];
+        }
+    }
+    void hld(int v, int h, int& k) {
+        head[v] = h; vid[v] = k++;
+        int ma = 0, id = -1;
+        for (int u : G[v]) {
+            if (u == par[v]) continue;
+            if (chmax(ma, size[u])) id = u;
+        }
+        if (id == -1) return;
+        hld(id, h, k);
+        for (int u : G[v]) {
+            if (u == id || u == par[v]) continue;
+            hld(u, u, k);
+        }
     }
 
-    T sum(int i) {
-        T s = 0;
-        for (++i; i > 0; i -= i & -i) s += data[i];
-        return s;
+    HLDecomposition(const vector<vector<int>>& g) :
+        G(g), par(g.size()), size(g.size()), depth(g.size()),
+        head(g.size()), vid(g.size()) {}
+
+    void build(int root = 0) {
+        dfs(root, -1, 0);
+        int k = 0;
+        hld(root, root, k);
+    }
+
+    int lca(int u, int v) {
+        for (;; v = par[head[v]]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            if (head[u] == head[v]) {
+                if (depth[u] > depth[v]) swap(u, v);
+                return u;
+            }
+        }
+    }
+
+    template<typename UpdateQuery>
+    void update(int u, int v, const UpdateQuery& q, bool edge = false) {
+        // q(a, b): update [a, b).
+        for (;; v = par[head[v]]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            if (head[u] == head[v]) {
+                if (vid[u] > vid[v]) swap(u, v);
+                q(vid[u] + edge, vid[v] + 1);
+                break;
+            } else {
+                q(vid[head[v]], vid[v] + 1);
+            }
+        }
+    }
+
+    template<typename Query, typename MergeFunc, typename T>
+    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident, bool edge = false) {
+        // q(a, b): return f[a, b).
+        // f: 二つの区間の要素をマージする関数
+        // ident: モノイドの単位元
+        T ret = ident;
+        for (;; v = par[head[v]]) {
+            if (depth[head[u]] > depth[head[v]]) swap(u, v);
+            if (head[u] == head[v]) {
+                if (vid[u] > vid[v]) swap(u, v);
+                return f(ret, q(vid[u] + edge, vid[v] + 1));
+            } else {
+                ret = f(ret, q(vid[head[v]], vid[v] + 1));
+            }
+        }
     }
 };
-#line 4 "test/structure/binary_indexed_tree/raq.test.cpp"
+#line 4 "test/graph/heavy_light_decomposition/lca.test.cpp"
 
 int main() {
     int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
+    cin >> N;
+    vector<vector<int>> g(N);
+    for(int i = 0; i < N; i++) {
+        int k; cin >> k;
+        while (k--) {
+            int c; cin >> c;
+            g[i].push_back(c);
         }
+    }
+
+    HLDecomposition hld(g);
+    hld.build(0);
+
+    cin >> Q;
+    while (Q--) {
+        int x, y; cin >> x >> y;
+        printf("%d\n", hld.lca(x, y));
     }
 }
 

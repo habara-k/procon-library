@@ -21,26 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/binary_indexed_tree/raq.test.cpp
+# :warning: lib/graph/two_edge_connected_components.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-02 20:41:57+09:00
+* category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
+* <a href="{{ site.github.repository_url }}/blob/master/lib/graph/two_edge_connected_components.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-06 20:20:01+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -48,27 +46,40 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
+#include "../template.cpp"
 
-#include "../../../lib/structure/binary_indexed_tree.cpp"
+struct TwoEdgeConnectedComponents {
+    vector<vector<int>> t;
+    vector<int> comp;
+    LowLink lowlink;
 
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
+    TwoEdgeConnectedComponents(int sz) :
+        comp(sz, -1), lowlink(sz) {}
+
+    void add_edge(int u, int v) { lowlink.add_edge(u, v); }
+
+    void dfs(int v, int p, int& k) {
+        if (p == -1 or lowlink.is_bridge(v, p)) comp[v] = k++;
+        else comp[v] = comp[p];
+        for (const LowLink::edge& e : lowlink.g[v]) {
+            if (comp[e.to] == -1) dfs(e.to, v, k);
         }
     }
-}
+
+    void build() {
+        lowlink.build();
+        int k = 0;
+        for (int i = 0; i < comp.size(); ++i) {
+            if (comp[i] == -1) dfs(i, -1, k);
+        }
+        t.resize(k);
+        for (const auto& tp : lowlink.bridges) {
+            int u = comp[tp.first], v = comp[tp.second];
+            t[u].push_back(v);
+            t[v].push_back(u);
+        }
+    }
+};
 
 ```
 {% endraw %}
@@ -76,9 +87,6 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/binary_indexed_tree/raq.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
-
 #line 1 "lib/template.cpp"
 
 
@@ -252,52 +260,43 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/structure/binary_indexed_tree.cpp"
+#line 2 "lib/graph/two_edge_connected_components.cpp"
 
-template<typename T>
-struct BIT {
-    // BIT<T> bit(n);
-    //
-    // bit.add(i,x) for i in [0,n)
-    //   bit[i] += x;
-    //
-    // bit.sum(i) for i in [0,n)
-    //   return bit[0] + ... + bit[i]
-    vector<T> data;
-    BIT(int n) : data(n+1) {}
+struct TwoEdgeConnectedComponents {
+    vector<vector<int>> t;
+    vector<int> comp;
+    LowLink lowlink;
 
-    void add(int i, T x) {
-        for (++i; i < data.size(); i += i & -i) data[i] += x;
-    }
+    TwoEdgeConnectedComponents(int sz) :
+        comp(sz, -1), lowlink(sz) {}
 
-    T sum(int i) {
-        T s = 0;
-        for (++i; i > 0; i -= i & -i) s += data[i];
-        return s;
-    }
-};
-#line 4 "test/structure/binary_indexed_tree/raq.test.cpp"
+    void add_edge(int u, int v) { lowlink.add_edge(u, v); }
 
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
+    void dfs(int v, int p, int& k) {
+        if (p == -1 or lowlink.is_bridge(v, p)) comp[v] = k++;
+        else comp[v] = comp[p];
+        for (const LowLink::edge& e : lowlink.g[v]) {
+            if (comp[e.to] == -1) dfs(e.to, v, k);
         }
     }
-}
+
+    void build() {
+        lowlink.build();
+        int k = 0;
+        for (int i = 0; i < comp.size(); ++i) {
+            if (comp[i] == -1) dfs(i, -1, k);
+        }
+        t.resize(k);
+        for (const auto& tp : lowlink.bridges) {
+            int u = comp[tp.first], v = comp[tp.second];
+            t[u].push_back(v);
+            t[v].push_back(u);
+        }
+    }
+};
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
