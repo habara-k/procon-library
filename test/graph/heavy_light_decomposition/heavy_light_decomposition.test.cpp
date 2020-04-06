@@ -29,13 +29,13 @@ int main()
         int c; cin >> c;
         if (c == 0) {
             int v, w; cin >> v >> w;
-            hld.update(0, v, [&](int a,int b){ segt.update(a,b,w); });
+            hld.update(0, v, [&](int a,int b){ segt.update(a,b,w); }, true);
         }
         if (c == 1) {
             int v; cin >> v;
             LL ret = hld.query(0, v,
                     [&](int a,int b){ return segt.query(a,b); },
-                    [&](LL a,LL b){ return a+b; }, 0LL);
+                    [&](LL a,LL b){ return a+b; }, 0LL, true);
             cout << ret << endl;
         }
     }
