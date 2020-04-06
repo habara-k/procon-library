@@ -5,19 +5,16 @@
 int main()
 {
     int V, E; cin >> V >> E;
-    vector<vector<int>> G(V);
+    LowLink lowlink(V);
     for (int i = 0; i < E; ++i) {
         int s, t; cin >> s >> t;
-        G[s].push_back(t);
-        G[t].push_back(s);
+        lowlink.add_edge(s, t);
     }
 
-    LowLink lowlink(G);
-    lowlink.build(0);
+    lowlink.build();
 
-    for (int i = 0; i < V; ++i) {
-        if (lowlink.is_articulation[i]) {
-            cout << i << endl;
-        }
+    sort(lowlink.articulations.begin(), lowlink.articulations.end());
+    for (int v : lowlink.articulations) {
+        cout << v << endl;
     }
 }
