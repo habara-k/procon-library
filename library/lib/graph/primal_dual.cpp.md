@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/graph/dinic.cpp
+# :heavy_check_mark: lib/graph/primal_dual.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
-* <a href="{{ site.github.repository_url }}/blob/master/lib/graph/dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-07 18:20:06+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/lib/graph/primal_dual.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-07 18:23:15+09:00
 
 
 
@@ -43,7 +43,7 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/graph/primal_dual/primal_dual.test.cpp.html">test/graph/primal_dual/primal_dual.test.cpp</a>
 
 
 ## Code
@@ -53,69 +53,88 @@ layout: default
 ```cpp
 #include "../template.cpp"
 
-template<typename T>
-struct Dinic {
-    // O(EV^2)
+template<typename flow_t, typename cost_t>
+struct PrimalDual {
+    // O(FElogV)
     struct edge {
         int to, rev;
-        T cap;
-        edge(int to, T cap, int rev) :
-            to(to), cap(cap), rev(rev) {}
+        flow_t cap;
+        cost_t cost;
+        edge(int to, flow_t cap, cost_t cost, int rev) :
+            to(to), cap(cap), cost(cost), rev(rev) {}
     };
 
     vector<vector<edge>> g;
-    vector<int> level, iter;
-    const T INF;
+    const int sz;
+    const cost_t INF;
 
-    Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
+    PrimalDual(int V) : g(V), sz(V), INF(numeric_limits<cost_t>::max()) {}
 
-    void add_edge(int s, int t, T cap) {
-        g[s].emplace_back(t, cap, (int)g[t].size());
-        g[t].emplace_back(s,   0, (int)g[s].size() - 1);
+    void add_edge(int s, int t, flow_t cap, cost_t cost) {
+        g[s].emplace_back(t, cap,  cost, (int)g[t].size());
+        g[t].emplace_back(s,   0, -cost, (int)g[s].size() - 1);
     }
 
-    bool bfs(int s, int t) {
-        level.assign(g.size(), -1);
-        queue<int> que;
-        level[s] = 0;
-        que.push(s);
+    void dijkstra(
+            vector<cost_t>& dist,
+            vector<int>& prevv,
+            vector<int>& preve,
+            const vector<int>& potential, int s)
+    {
+        dist.assign(sz, INF);
+        prevv.assign(sz, -1);
+        preve.assign(sz, -1);
+        using Pi = pair<cost_t, int>;
+        priority_queue<Pi, vector<Pi>, greater<Pi>> que;
+        que.emplace(0, s);
+        dist[s] = 0;
         while (!que.empty()) {
-            int v = que.front();
+            cost_t cost; int v;
+            std::tie(cost, v) = que.top();
             que.pop();
-            for (auto &e : g[v]) {
-                if (e.cap > 0 and level[e.to] == -1) {
-                    level[e.to] = level[v] + 1;
-                    que.push(e.to);
+            if (dist[v] < cost) continue;
+            for (int i = 0; i < g[v].size(); i++) {
+                edge &e = g[v][i];
+                cost_t nextCost =
+                    dist[v] + e.cost + potential[v] - potential[e.to];
+                if (e.cap > 0 and dist[e.to] > nextCost) {
+                    dist[e.to] = nextCost;
+                    prevv[e.to] = v, preve[e.to] = i;
+                    que.emplace(dist[e.to], e.to);
                 }
             }
         }
-        return level[t] != -1;
     }
 
-    T dfs(int v, const int t, T flow) {
-        if (v == t) return flow;
-        for (int &i = iter[v]; i < g[v].size(); i++) {
-            edge &e = g[v][i];
-            if (e.cap > 0 and level[v] < level[e.to]) {
-                T d = dfs(e.to, t, min(flow, e.cap));
-                if (d > 0) {
-                    e.cap -= d;
-                    g[e.to][e.rev].cap += d;
-                    return d;
-                }
+    cost_t min_cost_flow(int s, int t, flow_t f) {
+        cost_t ret = 0;
+        vector<cost_t> potential(sz, 0);
+
+        while (f > 0)
+        {
+            vector<cost_t> dist;
+            vector<int> prevv, preve;
+            dijkstra(dist, prevv, preve, potential, s);
+
+            if (dist[t] == INF) return -1;
+
+            for (int v = 0; v < sz; v++) potential[v] += dist[v];
+
+            flow_t diff = f;
+            for (int v = t; v != s; v = prevv[v]) {
+                diff = min(diff, g[prevv[v]][preve[v]].cap);
+            }
+            f -= diff;
+            ret += diff * potential[t];
+
+            for (int v = t; v != s; v = prevv[v]) {
+                edge &e = g[prevv[v]][preve[v]];
+                e.cap -= diff;
+                g[v][e.rev].cap += diff;
             }
         }
-        return 0;
-    }
 
-    T max_flow(int s, int t) {
-        T flow = 0;
-        while (bfs(s, t)) {
-            iter.assign(g.size(), 0);
-            T f = 0;
-            while((f = dfs(s, t, INF)) > 0) flow += f;
-        }
-        return flow;
+        return ret;
     }
 };
 
@@ -298,71 +317,90 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/graph/dinic.cpp"
+#line 2 "lib/graph/primal_dual.cpp"
 
-template<typename T>
-struct Dinic {
-    // O(EV^2)
+template<typename flow_t, typename cost_t>
+struct PrimalDual {
+    // O(FElogV)
     struct edge {
         int to, rev;
-        T cap;
-        edge(int to, T cap, int rev) :
-            to(to), cap(cap), rev(rev) {}
+        flow_t cap;
+        cost_t cost;
+        edge(int to, flow_t cap, cost_t cost, int rev) :
+            to(to), cap(cap), cost(cost), rev(rev) {}
     };
 
     vector<vector<edge>> g;
-    vector<int> level, iter;
-    const T INF;
+    const int sz;
+    const cost_t INF;
 
-    Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
+    PrimalDual(int V) : g(V), sz(V), INF(numeric_limits<cost_t>::max()) {}
 
-    void add_edge(int s, int t, T cap) {
-        g[s].emplace_back(t, cap, (int)g[t].size());
-        g[t].emplace_back(s,   0, (int)g[s].size() - 1);
+    void add_edge(int s, int t, flow_t cap, cost_t cost) {
+        g[s].emplace_back(t, cap,  cost, (int)g[t].size());
+        g[t].emplace_back(s,   0, -cost, (int)g[s].size() - 1);
     }
 
-    bool bfs(int s, int t) {
-        level.assign(g.size(), -1);
-        queue<int> que;
-        level[s] = 0;
-        que.push(s);
+    void dijkstra(
+            vector<cost_t>& dist,
+            vector<int>& prevv,
+            vector<int>& preve,
+            const vector<int>& potential, int s)
+    {
+        dist.assign(sz, INF);
+        prevv.assign(sz, -1);
+        preve.assign(sz, -1);
+        using Pi = pair<cost_t, int>;
+        priority_queue<Pi, vector<Pi>, greater<Pi>> que;
+        que.emplace(0, s);
+        dist[s] = 0;
         while (!que.empty()) {
-            int v = que.front();
+            cost_t cost; int v;
+            std::tie(cost, v) = que.top();
             que.pop();
-            for (auto &e : g[v]) {
-                if (e.cap > 0 and level[e.to] == -1) {
-                    level[e.to] = level[v] + 1;
-                    que.push(e.to);
+            if (dist[v] < cost) continue;
+            for (int i = 0; i < g[v].size(); i++) {
+                edge &e = g[v][i];
+                cost_t nextCost =
+                    dist[v] + e.cost + potential[v] - potential[e.to];
+                if (e.cap > 0 and dist[e.to] > nextCost) {
+                    dist[e.to] = nextCost;
+                    prevv[e.to] = v, preve[e.to] = i;
+                    que.emplace(dist[e.to], e.to);
                 }
             }
         }
-        return level[t] != -1;
     }
 
-    T dfs(int v, const int t, T flow) {
-        if (v == t) return flow;
-        for (int &i = iter[v]; i < g[v].size(); i++) {
-            edge &e = g[v][i];
-            if (e.cap > 0 and level[v] < level[e.to]) {
-                T d = dfs(e.to, t, min(flow, e.cap));
-                if (d > 0) {
-                    e.cap -= d;
-                    g[e.to][e.rev].cap += d;
-                    return d;
-                }
+    cost_t min_cost_flow(int s, int t, flow_t f) {
+        cost_t ret = 0;
+        vector<cost_t> potential(sz, 0);
+
+        while (f > 0)
+        {
+            vector<cost_t> dist;
+            vector<int> prevv, preve;
+            dijkstra(dist, prevv, preve, potential, s);
+
+            if (dist[t] == INF) return -1;
+
+            for (int v = 0; v < sz; v++) potential[v] += dist[v];
+
+            flow_t diff = f;
+            for (int v = t; v != s; v = prevv[v]) {
+                diff = min(diff, g[prevv[v]][preve[v]].cap);
+            }
+            f -= diff;
+            ret += diff * potential[t];
+
+            for (int v = t; v != s; v = prevv[v]) {
+                edge &e = g[prevv[v]][preve[v]];
+                e.cap -= diff;
+                g[v][e.rev].cap += diff;
             }
         }
-        return 0;
-    }
 
-    T max_flow(int s, int t) {
-        T flow = 0;
-        while (bfs(s, t)) {
-            iter.assign(g.size(), 0);
-            T f = 0;
-            while((f = dfs(s, t, INF)) > 0) flow += f;
-        }
-        return flow;
+        return ret;
     }
 };
 
