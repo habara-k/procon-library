@@ -821,6 +821,94 @@ snippet kruskal
     }
 
 
+snippet primal_dual
+
+    template<typename flow_t, typename cost_t>
+    struct PrimalDual {
+        // O(FElogV)
+        struct edge {
+            int to, rev;
+            flow_t cap;
+            cost_t cost;
+            edge(int to, flow_t cap, cost_t cost, int rev) :
+                to(to), cap(cap), cost(cost), rev(rev) {}
+        };
+
+        vector<vector<edge>> g;
+        const int sz;
+        const cost_t INF;
+
+        PrimalDual(int V) : g(V), sz(V), INF(numeric_limits<cost_t>::max()) {}
+
+        void add_edge(int s, int t, flow_t cap, cost_t cost) {
+            g[s].emplace_back(t, cap,  cost, (int)g[t].size());
+            g[t].emplace_back(s,   0, -cost, (int)g[s].size() - 1);
+        }
+
+        void dijkstra(
+                vector<cost_t>& dist,
+                vector<int>& prevv,
+                vector<int>& preve,
+                const vector<int>& potential, int s)
+        {
+            dist.assign(sz, INF);
+            prevv.assign(sz, -1);
+            preve.assign(sz, -1);
+            using Pi = pair<cost_t, int>;
+            priority_queue<Pi, vector<Pi>, greater<Pi>> que;
+            que.emplace(0, s);
+            dist[s] = 0;
+            while (!que.empty()) {
+                cost_t cost; int v;
+                std::tie(cost, v) = que.top();
+                que.pop();
+                if (dist[v] < cost) continue;
+                for (int i = 0; i < g[v].size(); i++) {
+                    edge &e = g[v][i];
+                    cost_t nextCost =
+                        dist[v] + e.cost + potential[v] - potential[e.to];
+                    if (e.cap > 0 and dist[e.to] > nextCost) {
+                        dist[e.to] = nextCost;
+                        prevv[e.to] = v, preve[e.to] = i;
+                        que.emplace(dist[e.to], e.to);
+                    }
+                }
+            }
+        }
+
+        cost_t min_cost_flow(int s, int t, flow_t f) {
+            cost_t ret = 0;
+            vector<cost_t> potential(sz, 0);
+
+            while (f > 0)
+            {
+                vector<cost_t> dist;
+                vector<int> prevv, preve;
+                dijkstra(dist, prevv, preve, potential, s);
+
+                if (dist[t] == INF) return -1;
+
+                for (int v = 0; v < sz; v++) potential[v] += dist[v];
+
+                flow_t diff = f;
+                for (int v = t; v != s; v = prevv[v]) {
+                    diff = min(diff, g[prevv[v]][preve[v]].cap);
+                }
+                f -= diff;
+                ret += diff * potential[t];
+
+                for (int v = t; v != s; v = prevv[v]) {
+                    edge &e = g[prevv[v]][preve[v]];
+                    e.cap -= diff;
+                    g[v][e.rev].cap += diff;
+                }
+            }
+
+            return ret;
+        }
+    };
+
+
 snippet euler_tour
 
     struct EulerTour {
@@ -852,23 +940,23 @@ snippet dinic
 
     template<typename T>
     struct Dinic {
-        const T INF;
-
+        // O(EV^2)
         struct edge {
-            int to;
+            int to, rev;
             T cap;
-            int rev;
-            bool isrev;
+            edge(int to, T cap, int rev) :
+                to(to), cap(cap), rev(rev) {}
         };
 
         vector<vector<edge>> g;
         vector<int> level, iter;
+        const T INF;
 
         Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
 
-        void add_edge(int src, int to, T cap) {
-            g[src].push_back({to, cap, (int)g[to].size(), false});
-            g[to].push_back({src, 0, (int)g[src].size()-1, true});
+        void add_edge(int s, int t, T cap) {
+            g[s].emplace_back(t, cap, (int)g[t].size());
+            g[t].emplace_back(s,   0, (int)g[s].size() - 1);
         }
 
         bool bfs(int s, int t) {
@@ -880,7 +968,7 @@ snippet dinic
                 int v = que.front();
                 que.pop();
                 for (auto &e : g[v]) {
-                    if (e.cap > 0 && level[e.to] == -1) {
+                    if (e.cap > 0 and level[e.to] == -1) {
                         level[e.to] = level[v] + 1;
                         que.push(e.to);
                     }
@@ -893,7 +981,7 @@ snippet dinic
             if (v == t) return flow;
             for (int &i = iter[v]; i < g[v].size(); i++) {
                 edge &e = g[v][i];
-                if (e.cap > 0 && level[v] < level[e.to]) {
+                if (e.cap > 0 and level[v] < level[e.to]) {
                     T d = dfs(e.to, t, min(flow, e.cap));
                     if (d > 0) {
                         e.cap -= d;
@@ -1113,6 +1201,58 @@ snippet lowlink
             if (u != par[v] and v != par[u]) return false;
             if (u == par[v]) swap(u, v);
             return ord[v] < low[u];
+        }
+    };
+
+
+snippet ford_fulkerson
+
+    template<typename T>
+    struct FordFulkerson {
+        // O(FE)
+        struct edge {
+            int to, rev;
+            T cap;
+            edge(int to, T cap, int rev) :
+                to(to), cap(cap), rev(rev) {}
+        };
+
+        vector<vector<edge>> g;
+        vector<int> used;
+        const T INF;
+        int timestamp;
+
+        FordFulkerson(int n) :
+            INF(numeric_limits<T>::max()),
+            timestamp(0), g(n), used(n, -1) {}
+
+        void add_edge(int s, int t, T cap) {
+            g[s].emplace_back(t, cap, (int)g[t].size());
+            g[t].emplace_back(s,   0, (int)g[s].size() - 1);
+        }
+
+        T dfs(int v, const int t, T flow) {
+            if (v == t) return flow;
+            used[v] = timestamp;
+            for (edge &e : g[v]) {
+                if (e.cap > 0 and used[e.to] != timestamp) {
+                    T d = dfs(e.to, t, min(flow, e.cap));
+                    if (d > 0) {
+                        e.cap -= d;
+                        g[e.to][e.rev].cap += d;
+                        return d;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        T max_flow(int s, int t) {
+            T flow = 0;
+            for(T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
+                flow += f;
+            }
+            return flow;
         }
     };
 
