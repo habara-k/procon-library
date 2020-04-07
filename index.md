@@ -88,6 +88,13 @@ layout: default
 * :heavy_check_mark: <a href="library/lib/number/stirling.cpp.html">lib/number/stirling.cpp</a>
 
 
+<div id="2fde05eafc6645110721cf5a4d8688d4"></div>
+
+### lib/other
+
+* :heavy_check_mark: <a href="library/lib/other/dice.cpp.html">lib/other/dice.cpp</a>
+
+
 <div id="9a48db5fb6f746df590a3d4604f6478b"></div>
 
 ### lib/string
@@ -151,6 +158,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/number/prime_factorize/prime_factorize.test.cpp.html">test/number/prime_factorize/prime_factorize.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/prime_table/prime_table.test.cpp.html">test/number/prime_table/prime_table.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/other/dice/dice.test.cpp.html">test/other/dice/dice.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
