@@ -48,6 +48,7 @@ layout: default
 * :heavy_check_mark: <a href="graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 * :heavy_check_mark: <a href="graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
 * :heavy_check_mark: <a href="graph/lowlink.cpp.html">lib/graph/lowlink.cpp</a>
+* :heavy_check_mark: <a href="graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
 * :heavy_check_mark: <a href="graph/primal_dual.cpp.html">lib/graph/primal_dual.cpp</a>
 * :heavy_check_mark: <a href="graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
 * :heavy_check_mark: <a href="graph/strongly_connected_components.cpp.html">lib/graph/strongly_connected_components.cpp</a>
@@ -90,6 +91,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp.html">test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowlink/articulation.test.cpp.html">test/graph/lowlink/articulation.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowlink/bridge.test.cpp.html">test/graph/lowlink/bridge.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/graph/maximum_clique/maximum_clique.test.cpp.html">test/graph/maximum_clique/maximum_clique.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/primal_dual/primal_dual.test.cpp.html">test/graph/primal_dual/primal_dual.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/strongly_connected_components/strongly_connected_components.test.cpp.html">test/graph/strongly_connected_components/strongly_connected_components.test.cpp</a>
