@@ -29,4 +29,13 @@ struct UnionFind
     int size(int x) {
         return sz[root(x)];
     }
+
+    friend ostream& operator<<(ostream& os, UnionFind& uf) {
+        os << "[";
+        for (int i = 0; i < uf.n; ++i) {
+            if (i > 0) os << " ";
+            os << uf.root(i);
+        }
+        return os << "]" << endl;
+    }
 };
