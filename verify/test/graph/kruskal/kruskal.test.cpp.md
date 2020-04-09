@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/graph/kruskal/kruskal.test.cpp
+# :heavy_check_mark: test/graph/kruskal/kruskal.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#5783499dee4ed269189fef3427a7d836">test/graph/kruskal</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/kruskal/kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-10 03:30:15+09:00
+    - Last commit date: 2020-04-10 03:39:57+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A</a>
@@ -39,9 +39,9 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
-* :x: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -252,7 +252,8 @@ const int64_t MOD = 1e9+7;
 struct UnionFind
 {
     vector<int> par, sz;
-    UnionFind(int n) : par(n), sz(n, 1) {
+    const int n;
+    UnionFind(int n) : n(n), par(n), sz(n, 1) {
         for (int i = 0; i < n; ++i) par[i] = i;
     }
 
