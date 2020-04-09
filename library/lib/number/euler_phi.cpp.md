@@ -21,26 +21,24 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/binary_indexed_tree/raq.test.cpp
+# :warning: lib/number/euler_phi.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-02 20:41:57+09:00
+* category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
+* <a href="{{ site.github.repository_url }}/blob/master/lib/number/euler_phi.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-09 15:41:36+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -48,26 +46,18 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
+#include "../template.cpp"
 
-#include "../../../lib/structure/binary_indexed_tree.cpp"
-
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
-        }
+// O(sqrt(n))
+int64_t euler_phi(int64_t n) {
+    int64_t ret = n;
+    for (int64_t i = 2; i * i <= n; ++i) {
+        if (n % i != 0) continue;
+        ret -= ret / i;
+        while (n % i == 0) n /= i;
     }
+    if (n > 1) ret -= ret / n;
+    return ret;
 }
 
 ```
@@ -76,9 +66,6 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/binary_indexed_tree/raq.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
-
 #line 1 "lib/template.cpp"
 
 
@@ -252,52 +239,22 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/structure/binary_indexed_tree.cpp"
+#line 2 "lib/number/euler_phi.cpp"
 
-template<typename T>
-struct BIT {
-    // BIT<T> bit(n);
-    //
-    // bit.add(i,x) for i in [0,n)
-    //   bit[i] += x;
-    //
-    // bit.sum(i) for i in [0,n)
-    //   return bit[0] + ... + bit[i]
-    vector<T> data;
-    BIT(int n) : data(n+1) {}
-
-    void add(int i, T x) {
-        for (++i; i < data.size(); i += i & -i) data[i] += x;
+// O(sqrt(n))
+int64_t euler_phi(int64_t n) {
+    int64_t ret = n;
+    for (int64_t i = 2; i * i <= n; ++i) {
+        if (n % i != 0) continue;
+        ret -= ret / i;
+        while (n % i == 0) n /= i;
     }
-
-    T sum(int i) {
-        T s = 0;
-        for (++i; i > 0; i -= i & -i) s += data[i];
-        return s;
-    }
-};
-#line 4 "test/structure/binary_indexed_tree/raq.test.cpp"
-
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
-        }
-    }
+    if (n > 1) ret -= ret / n;
+    return ret;
 }
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

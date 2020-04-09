@@ -25,26 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/graph/kruskal.cpp
+# :x: lib/graph/kruskal.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/kruskal.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-10 03:30:15+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :x: <a href="../structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
+* :x: <a href="../../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
 
 
 ## Code
@@ -287,6 +287,15 @@ struct UnionFind
 
     int size(int x) {
         return sz[root(x)];
+    }
+
+    friend ostream& operator<<(ostream& os, UnionFind& uf) {
+        os << "[";
+        for (int i = 0; i < uf.n; ++i) {
+            if (i > 0) os << " ";
+            os << uf.root(i);
+        }
+        return os << "]" << endl;
     }
 };
 #line 3 "lib/graph/kruskal.cpp"

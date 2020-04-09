@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#c596028d317fdbd8ee456ffe90ba6e35">test/structure/randomized_binary_search_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/randomized_binary_search_tree/rmq_raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-05 22:50:02+09:00
+    - Last commit date: 2020-04-10 03:29:50+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_H</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/structure/randomized_binary_search_tree.cpp.html">lib/structure/randomized_binary_search_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -278,16 +278,15 @@ struct RandomizedBinarySearchTree {
     const function<OM(OM,OM)> h;
     const M e;
     const OM oe;
-    std::mt19937 rand;
-    const int SEED = 0;
     Node* root;
+    std::mt19937 random{std::random_device{}()};
 
     RandomizedBinarySearchTree(
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
             const function<OM(OM,OM)>& h,
             const M& e, const OM& oe
-            ) : f(f), g(g), h(h), e(e), oe(oe), rand(SEED), root(nullptr) {}
+            ) : f(f), g(g), h(h), e(e), oe(oe), root(nullptr) {}
 
     Node* _build(const vector<M>& v, int l, int r) {
         if (l+1 >= r) return _new(v[l]);
@@ -357,7 +356,7 @@ struct RandomizedBinarySearchTree {
         if (!l) return r;
         if (!r) return l;
         std::uniform_int_distribution<> dist(1,size(l)+size(r));
-        if (dist(rand) > size(l)) {
+        if (dist(random) > size(l)) {
             r = propagate(r);
             r->lch = merge(l, r->lch);
             return modify(r);

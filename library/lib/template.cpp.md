@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/template.cpp
+# :question: lib/template.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -45,7 +45,7 @@ layout: default
 * :heavy_check_mark: <a href="graph/euler_tour.cpp.html">lib/graph/euler_tour.cpp</a>
 * :heavy_check_mark: <a href="graph/ford_fulkerson.cpp.html">lib/graph/ford_fulkerson.cpp</a>
 * :heavy_check_mark: <a href="graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
-* :heavy_check_mark: <a href="graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
+* :x: <a href="graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 * :heavy_check_mark: <a href="graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
 * :heavy_check_mark: <a href="graph/lowlink.cpp.html">lib/graph/lowlink.cpp</a>
 * :heavy_check_mark: <a href="graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
@@ -57,6 +57,7 @@ layout: default
 * :heavy_check_mark: <a href="graph/warshall_floyd.cpp.html">lib/graph/warshall_floyd.cpp</a>
 * :heavy_check_mark: <a href="number/bell.cpp.html">lib/number/bell.cpp</a>
 * :heavy_check_mark: <a href="number/combination.cpp.html">lib/number/combination.cpp</a>
+* :warning: <a href="number/euler_phi.cpp.html">lib/number/euler_phi.cpp</a>
 * :heavy_check_mark: <a href="number/extended_gcd.cpp.html">lib/number/extended_gcd.cpp</a>
 * :warning: <a href="number/fast_mobius_transform.cpp.html">lib/number/fast_mobius_transform.cpp</a>
 * :warning: <a href="number/fast_zeta_transform.cpp.html">lib/number/fast_zeta_transform.cpp</a>
@@ -74,7 +75,7 @@ layout: default
 * :heavy_check_mark: <a href="structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/randomized_binary_search_tree.cpp.html">lib/structure/randomized_binary_search_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
-* :heavy_check_mark: <a href="structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :x: <a href="structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
 * :heavy_check_mark: <a href="structure/weighted_union_find.cpp.html">lib/structure/weighted_union_find.cpp</a>
 
 
@@ -88,7 +89,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/graph/ford_fulkerson/ford_fulkerson.test.cpp.html">test/graph/ford_fulkerson/ford_fulkerson.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/heavy_light_decomposition/lca.test.cpp.html">test/graph/heavy_light_decomposition/lca.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
+* :x: <a href="../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp.html">test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowlink/articulation.test.cpp.html">test/graph/lowlink/articulation.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowlink/bridge.test.cpp.html">test/graph/lowlink/bridge.test.cpp</a>
@@ -124,7 +125,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/structure/randomized_binary_search_tree/ruq.test.cpp.html">test/structure/randomized_binary_search_tree/ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/segment_tree/rmq.test.cpp.html">test/structure/segment_tree/rmq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/segment_tree/rsq.test.cpp.html">test/structure/segment_tree/rsq.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/structure/union_find/union_find.test.cpp.html">test/structure/union_find/union_find.test.cpp</a>
+* :x: <a href="../../verify/test/structure/union_find/union_find.test.cpp.html">test/structure/union_find/union_find.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/weighted_union_find/weighted_union_find.test.cpp.html">test/structure/weighted_union_find/weighted_union_find.test.cpp</a>
 
 

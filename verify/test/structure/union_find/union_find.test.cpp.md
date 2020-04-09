@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/union_find/union_find.test.cpp
+# :x: test/structure/union_find/union_find.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#a6ff2114eee69df4e8133581d018ead8">test/structure/union_find</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/union_find/union_find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-10 03:30:15+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :x: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -276,6 +276,15 @@ struct UnionFind
 
     int size(int x) {
         return sz[root(x)];
+    }
+
+    friend ostream& operator<<(ostream& os, UnionFind& uf) {
+        os << "[";
+        for (int i = 0; i < uf.n; ++i) {
+            if (i > 0) os << " ";
+            os << uf.root(i);
+        }
+        return os << "]" << endl;
     }
 };
 #line 4 "test/structure/union_find/union_find.test.cpp"

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#31a4d3622b17b59245712065ac1a2caf">test/string/rolling_hash</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/string/rolling_hash/rolling_hash.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-10 03:27:47+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -56,13 +56,14 @@ int main() {
     string T, P;
     cin >> T >> P;
     int n = T.size(), m = P.size();
-    vector<int> t(T.begin(), T.end()),
-                p(P.begin(), P.end());
 
-    RollingHash rh(t), rh2(p);
+    int64_t base = RollingHash::gen_base();
+
+    RollingHash rht(T, base);
+    RollingHash rhp(P, base);
+
     for (int i = 0; i+m <= n; i++) {
-        if (rh.get(i, i+m) == rh2.get(0, m) &&
-            rh.get(i, i+m, 1) == rh2.get(0, m, 1)) {
+        if (rht.get(i, i+m) == rhp.get(0, m)) {
             cout << i << endl;
         }
     }
@@ -253,28 +254,45 @@ const int64_t MOD = 1e9+7;
 #line 2 "lib/string/rolling_hash.cpp"
 
 struct RollingHash {
-    const int base = 9973;
-    const int mod[2] = {999999937, 1000000007};
-    vector<int> s;
-    vector<int64_t> hash[2], pow[2];
+    using uint = uint64_t;
+    vector<uint> hash, pow;
+    static const uint MASK30 = (1LL<<30)-1,
+                      MASK31 = (1LL<<31)-1,
+                      MASK61 = (1LL<<61)-1;
 
-    RollingHash(const vector<int> &cs) : s(cs) {
+    template<typename S>
+    RollingHash(const S& s, uint base) {
         int n = s.size();
-        for (int id = 0; id < 2; ++id) {
-            hash[id].assign(n+1, 0);
-            pow[id].assign(n+1, 1);
-            for (int i = 0; i < n; ++i) {
-                hash[id][i+1] = (hash[id][i] * base + s[i]) % mod[id];
-                pow[id][i+1] = pow[id][i] * base % mod[id];
-            }
+        hash.assign(n+1, 0);
+        pow.assign(n+1, 1);
+        for (int i = 0; i < n; ++i) {
+            hash[i+1] = _mod(_mul(hash[i], base) + s[i]);
+            pow[i+1] = _mul(pow[i], base);
         }
     }
 
-    // get hash of s[l:r)
-    int64_t get(int l, int r, int id = 0) {
-        int64_t res = hash[id][r] - hash[id][l] * pow[id][r-l] % mod[id];
-        if (res < 0) res += mod[id];
-        return res;
+    uint get(int l, int r) const {
+        return _mod(hash[r] + MASK61 - _mul(hash[l], pow[r - l]));
+    }
+
+    static uint _mul(uint a, uint b) {
+        uint au = a >> 31, ad = a & MASK31,
+             bu = b >> 31, bd = b & MASK31;
+        uint m = au * bd + ad * bu;
+        uint mu = m >> 30, md = m & MASK30;
+
+        return _mod(au*bu*2 + mu + (md<<31) + ad*bd);
+    }
+    static uint _mod(uint x) {
+        uint xu = x >> 61, xd = x & MASK61;
+        uint ret = xu + xd;
+        if (ret >= MASK61) ret -= MASK61;
+        return ret;
+    }
+    static uint gen_base() {
+        mt19937 random{random_device{}()};
+        uniform_int_distribution<uint> dist(2, MASK61-2);
+        return dist(random);
     }
 };
 #line 4 "test/string/rolling_hash/rolling_hash.test.cpp"
@@ -283,13 +301,14 @@ int main() {
     string T, P;
     cin >> T >> P;
     int n = T.size(), m = P.size();
-    vector<int> t(T.begin(), T.end()),
-                p(P.begin(), P.end());
 
-    RollingHash rh(t), rh2(p);
+    int64_t base = RollingHash::gen_base();
+
+    RollingHash rht(T, base);
+    RollingHash rhp(P, base);
+
     for (int i = 0; i+m <= n; i++) {
-        if (rh.get(i, i+m) == rh2.get(0, m) &&
-            rh.get(i, i+m, 1) == rh2.get(0, m, 1)) {
+        if (rht.get(i, i+m) == rhp.get(0, m)) {
             cout << i << endl;
         }
     }
