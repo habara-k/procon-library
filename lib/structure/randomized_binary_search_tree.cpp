@@ -18,16 +18,15 @@ struct RandomizedBinarySearchTree {
     const function<OM(OM,OM)> h;
     const M e;
     const OM oe;
-    std::mt19937 rand;
-    const int SEED = 0;
     Node* root;
+    std::mt19937 random{std::random_device{}()};
 
     RandomizedBinarySearchTree(
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
             const function<OM(OM,OM)>& h,
             const M& e, const OM& oe
-            ) : f(f), g(g), h(h), e(e), oe(oe), rand(SEED), root(nullptr) {}
+            ) : f(f), g(g), h(h), e(e), oe(oe), root(nullptr) {}
 
     Node* _build(const vector<M>& v, int l, int r) {
         if (l+1 >= r) return _new(v[l]);
@@ -97,7 +96,7 @@ struct RandomizedBinarySearchTree {
         if (!l) return r;
         if (!r) return l;
         std::uniform_int_distribution<> dist(1,size(l)+size(r));
-        if (dist(rand) > size(l)) {
+        if (dist(random) > size(l)) {
             r = propagate(r);
             r->lch = merge(l, r->lch);
             return modify(r);
