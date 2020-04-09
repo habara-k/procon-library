@@ -156,3 +156,23 @@ snippet clock
             return static_cast<double>(clock() - start) / CLOCKS_PER_SEC;
         }
     };
+
+snippet parser
+    using State = string::const_iterator;
+    class ParseError {};
+
+snippet powmod
+    int64_t powmod(int64_t a, int64_t n, int64_t mod) {
+        int64_t ret = 1, tmp = a;
+        while (n) {
+            if (n & 1) (ret *= tmp) %= mod;
+            (tmp *= tmp) %= mod;
+            n >>= 1;
+        }
+        return ret;
+    }
+
+snippet __lcm
+    int64_t __lcm(int64_t a, int64_t b) {
+        return a / __gcd(a, b) * b;
+    }
