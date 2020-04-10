@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/topological_sort.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-19 16:23:27+09:00
+    - Last commit date: 2020-04-10 13:23:44+09:00
 
 
 
@@ -56,7 +56,7 @@ vector<int> topological_sort(const vector<vector<int>>& G)
         for (int u : G[i]) ++num[u];
     }
     stack<int> st;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         if (num[i] == 0) st.push(i);
     }
     while (!st.empty()) {
@@ -259,7 +259,7 @@ vector<int> topological_sort(const vector<vector<int>>& G)
         for (int u : G[i]) ++num[u];
     }
     stack<int> st;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         if (num[i] == 0) st.push(i);
     }
     while (!st.empty()) {
