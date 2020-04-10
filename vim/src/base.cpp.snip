@@ -176,3 +176,21 @@ snippet __lcm
     int64_t __lcm(int64_t a, int64_t b) {
         return a / __gcd(a, b) * b;
     }
+
+snippet two_pointers
+    int l = 0, r = 0;
+    auto check = [&]() {
+        ${1:condition}
+    };
+
+    while (l < ${2:n}) {
+        assert(l <= r);
+        while (r < $2 and !check()) {
+            ++r;
+        }
+        if (!check()) {
+            break;
+        }
+        // [l, r) satisfies the condition.
+        ++l;
+    }

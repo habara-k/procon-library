@@ -8,7 +8,7 @@ vector<int> topological_sort(const vector<vector<int>>& G)
         for (int u : G[i]) ++num[u];
     }
     stack<int> st;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         if (num[i] == 0) st.push(i);
     }
     while (!st.empty()) {
