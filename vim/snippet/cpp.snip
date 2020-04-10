@@ -130,11 +130,11 @@ snippet ternary_search
     };
 
     $1 lb = ${3:-1e9}, ub = ${4:1e9};
-    while (abs(lb - ub) > ${5:1e-9}) {
-        double m1 = (2*lb+ub)/3,
-               m2 = (lb+2*ub)/3;
+    while (abs(f(lb) - f(ub)) > ${5:1e-9}) {
+        double m1 = (2 * lb + ub) / 3,
+               m2 = (lb + 2 * ub) / 3;
 
-        if (fx(m1) < fx(m2)) lb = m1;
+        if (f(m1) < f(m2)) lb = m1;
         else ub = m2;
     }
 
