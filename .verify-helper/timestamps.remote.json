@@ -7,7 +7,7 @@
 "test/graph/ford_fulkerson/ford_fulkerson.test.cpp": "2020-04-07 18:23:02 +0900",
 "test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp": "2020-04-06 21:22:46 +0900",
 "test/graph/heavy_light_decomposition/lca.test.cpp": "2020-04-06 20:19:24 +0900",
-"test/graph/kruskal/kruskal.test.cpp": "2020-03-18 20:03:32 +0900",
+"test/graph/kruskal/kruskal.test.cpp": "2020-04-10 03:39:57 +0900",
 "test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp": "2020-03-18 20:03:32 +0900",
 "test/graph/lowlink/articulation.test.cpp": "2020-04-06 20:19:45 +0900",
 "test/graph/lowlink/bridge.test.cpp": "2020-04-06 20:19:45 +0900",
@@ -43,6 +43,6 @@
 "test/structure/randomized_binary_search_tree/ruq.test.cpp": "2020-04-10 03:29:50 +0900",
 "test/structure/segment_tree/rmq.test.cpp": "2020-04-03 22:19:14 +0900",
 "test/structure/segment_tree/rsq.test.cpp": "2020-04-03 22:19:14 +0900",
-"test/structure/union_find/union_find.test.cpp": "2020-03-18 20:03:32 +0900",
+"test/structure/union_find/union_find.test.cpp": "2020-04-10 03:39:57 +0900",
 "test/structure/weighted_union_find/weighted_union_find.test.cpp": "2020-03-18 20:03:32 +0900"
 }
