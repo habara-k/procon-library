@@ -1,6 +1,9 @@
 {
 "test/algorithm/inversion/inversion.test.cpp": "2020-04-02 20:41:57 +0900",
 "test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp": "2020-03-18 20:03:32 +0900",
+"test/geometry/template/counter_clockwise.test.cpp": "2020-04-11 20:14:31 +0900",
+"test/geometry/template/intersection.test.cpp": "2020-04-11 20:14:31 +0900",
+"test/geometry/template/parallel_orthogonal.test.cpp": "2020-04-11 20:14:31 +0900",
 "test/graph/dijkstra/dijkstra.test.cpp": "2020-03-18 20:03:32 +0900",
 "test/graph/dinic/dinic.test.cpp": "2020-04-07 18:20:06 +0900",
 "test/graph/euler_tour/euler_tour.test.cpp": "2020-04-02 20:41:57 +0900",
