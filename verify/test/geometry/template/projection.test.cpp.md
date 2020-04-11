@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/geometry/template/projection.test.cpp
+# :heavy_check_mark: test/geometry/template/projection.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#a79aedaaed5c1b5c37445aecc90bb581">test/geometry/template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/geometry/template/projection.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-11 20:26:19+09:00
+    - Last commit date: 2020-04-11 20:37:55+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../library/lib/geometry/template.cpp.html">lib/geometry/template.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/geometry/template.cpp.html">lib/geometry/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -49,6 +49,7 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A"
+#define ERROR "1e-8"
 
 #include "../../../lib/geometry/template.cpp"
 
@@ -78,6 +79,7 @@ int main()
 ```cpp
 #line 1 "test/geometry/template/projection.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A"
+#define ERROR "1e-8"
 
 #line 1 "lib/template.cpp"
 
@@ -422,7 +424,7 @@ double distance(const Segment3D &l, const Point3D &p) {
     if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
     return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
 }
-#line 4 "test/geometry/template/projection.test.cpp"
+#line 5 "test/geometry/template/projection.test.cpp"
 
 int main()
 {

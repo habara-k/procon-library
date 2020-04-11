@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: lib/geometry/template.cpp
+# :heavy_check_mark: lib/geometry/template.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,17 +38,17 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../verify/test/geometry/template/counter_clockwise.test.cpp.html">test/geometry/template/counter_clockwise.test.cpp</a>
-* :x: <a href="../../../verify/test/geometry/template/crosspoint.test.cpp.html">test/geometry/template/crosspoint.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/template/crosspoint.test.cpp.html">test/geometry/template/crosspoint.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/template/distance.test.cpp.html">test/geometry/template/distance.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/template/intersection.test.cpp.html">test/geometry/template/intersection.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/template/parallel_orthogonal.test.cpp.html">test/geometry/template/parallel_orthogonal.test.cpp</a>
-* :x: <a href="../../../verify/test/geometry/template/projection.test.cpp.html">test/geometry/template/projection.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/template/projection.test.cpp.html">test/geometry/template/projection.test.cpp</a>
 
 
 ## Code
