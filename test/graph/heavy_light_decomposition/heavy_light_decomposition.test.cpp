@@ -19,10 +19,11 @@ int main()
     hld.build();
 
     LazySegmentTree<LL> segt(
-            n, 0, 0,
+            n,
             [](LL a,LL b){ return a+b; },
             [](LL a,LL b,int w){ return a+b*w; },
-            [](LL a,LL b){ return a+b; });
+            [](LL a,LL b){ return a+b; },
+            0, 0);
 
     int q; cin >> q;
     for (int t = 0; t < q; ++t) {
