@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/template.cpp
+# :question: lib/template.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -40,6 +40,7 @@ layout: default
 
 * :heavy_check_mark: <a href="algorithm/inversion.cpp.html">lib/algorithm/inversion.cpp</a>
 * :heavy_check_mark: <a href="algorithm/longest_increasing_subsequence.cpp.html">lib/algorithm/longest_increasing_subsequence.cpp</a>
+* :question: <a href="geometry/template.cpp.html">lib/geometry/template.cpp</a>
 * :heavy_check_mark: <a href="graph/dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
 * :heavy_check_mark: <a href="graph/dinic.cpp.html">lib/graph/dinic.cpp</a>
 * :heavy_check_mark: <a href="graph/euler_tour.cpp.html">lib/graph/euler_tour.cpp</a>
@@ -83,6 +84,12 @@ layout: default
 
 * :heavy_check_mark: <a href="../../verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp.html">test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/template/counter_clockwise.test.cpp.html">test/geometry/template/counter_clockwise.test.cpp</a>
+* :x: <a href="../../verify/test/geometry/template/crosspoint.test.cpp.html">test/geometry/template/crosspoint.test.cpp</a>
+* :x: <a href="../../verify/test/geometry/template/distance.test.cpp.html">test/geometry/template/distance.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/template/intersection.test.cpp.html">test/geometry/template/intersection.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/template/parallel_orthogonal.test.cpp.html">test/geometry/template/parallel_orthogonal.test.cpp</a>
+* :x: <a href="../../verify/test/geometry/template/projection.test.cpp.html">test/geometry/template/projection.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>

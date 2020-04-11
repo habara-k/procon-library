@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/binary_indexed_tree/raq.test.cpp
+# :x: test/geometry/template/crosspoint.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-02 20:41:57+09:00
+* category: <a href="../../../../index.html#a79aedaaed5c1b5c37445aecc90bb581">test/geometry/template</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/geometry/template/crosspoint.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-11 20:14:31+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :question: <a href="../../../../library/lib/geometry/template.cpp.html">lib/geometry/template.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -48,26 +48,24 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C"
 
-#include "../../../lib/structure/binary_indexed_tree.cpp"
+#include "../../../lib/geometry/template.cpp"
 
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
-        }
+int main()
+{
+    int q; cin >> q;
+    while (q--) {
+        double x1, y1, x2, y2, x3, y3, x4, y4;
+        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
+        Segment l1{Point{x1, y1}, Point{x2, y2}},
+                l2{Point{x3, y3}, Point{x4, y4}};
+
+        Point c = crosspoint(l1, l2);
+        cout << c.real() << " " << c.imag() << endl;
     }
+
+    return 0;
 }
 
 ```
@@ -76,8 +74,8 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/structure/binary_indexed_tree/raq.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E"
+#line 1 "test/geometry/template/crosspoint.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C"
 
 #line 1 "lib/template.cpp"
 
@@ -252,48 +250,131 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/structure/binary_indexed_tree.cpp"
+#line 2 "lib/geometry/template.cpp"
 
-template<typename T>
-struct BIT {
-    // BIT<T> bit(n);
-    //
-    // bit.add(i,x) for i in [0,n)
-    //   bit[i] += x;
-    //
-    // bit.sum(i) for i in [0,n)
-    //   return bit[0] + ... + bit[i]
-    vector<T> data;
-    BIT(int n) : data(n+1) {}
+using Real = double;
+Real EPS = 1e-8;
 
-    void add(int i, T x) {
-        for (++i; i < data.size(); i += i & -i) data[i] += x;
-    }
+// 2-dim
 
-    T sum(int i) {
-        T s = 0;
-        for (++i; i > 0; i -= i & -i) s += data[i];
-        return s;
+using Point =  complex<Real>;
+struct Segment {
+    Point a, b;
+    Segment() {}
+    Segment(const Point& a, const Point& b) : a(a), b(b) {}
+    friend ostream &operator<<(ostream &os, Segment &l) {
+        return os << "[" << l.a << "," << l.b << "]";
     }
 };
-#line 4 "test/structure/binary_indexed_tree/raq.test.cpp"
 
-int main() {
-    int N, Q;
-    cin >> N >> Q;
-    BIT<int> bit(N);
-    while (Q--) {
-        int q; cin >> q;
-        if (q == 0) {
-            int s, t, X;
-            cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
-        } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
-        }
+inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
+
+Real radian_to_degree(Real r) {
+    return r * 180.0 / M_PI;
+}
+
+Real degree_to_radian(Real d) {
+    return d * M_PI / 180.0;
+}
+
+Point rotate(const Point &p, Real theta) {
+    return p * polar(1., theta);
+}
+
+Real cross(const Point& a, const Point& b) {
+    return a.real() * b.imag() - a.imag() * b.real();
+}
+
+Real dot(const Point& a, const Point& b) {
+    return a.real() * b.real() + a.imag() * b.imag();
+}
+
+Point projection(const Segment& l, const Point& p) {
+    Real A = dot(l.b - l.a, p - l.a),
+         B = dot(l.a - l.b, p - l.b);
+    return (A * l.b + B * l.a) / (A + B);
+}
+
+bool parallel(
+        const Point &a1, const Point &b1,
+        const Point &a2, const Point &b2) {
+    return eq(cross(a1-b1, a2-b2), 0.);
+}
+
+bool parallel(const Segment& l1, const Segment& l2) {
+    return parallel(l1.a, l1.b, l2.a, l2.b);
+}
+
+bool orthogonal(
+        const Point &a1, const Point &b1,
+        const Point &a2, const Point &b2) {
+    return eq(dot(a1-b1, a2-b2), 0.);
+}
+
+bool orthogonal(const Segment& l1, const Segment& l2) {
+    return orthogonal(l1.a, l1.b, l2.a, l2.b);
+}
+
+const int COUNTER_CLOCKWISE = 1,
+          CLOCKWISE = -1,
+          ONLINE_BACK = 2,
+          ONLINE_FRONT = -2,
+          ON_SEGMENT = 0;
+int ccw(const Point& a, Point b, Point c) {
+    b = b - a, c = c - a;
+    if (cross(b, c) > EPS) return COUNTER_CLOCKWISE;
+    if (cross(b, c) < -EPS) return CLOCKWISE;
+    if (dot(b, c) < 0) return ONLINE_BACK;
+    if (norm(b) < norm(c)) return ONLINE_FRONT;
+    return ON_SEGMENT;
+}
+
+bool intersected(
+        const Point& a1, const Point& b1,
+        const Point& a2, const Point& b2) {
+    return ccw(a1, b1, a2) * ccw(a1, b1, b2) <= 0 and
+           ccw(a2, b2, a1) * ccw(a2, b2, b1) <= 0;
+}
+
+bool intersected(const Segment& l1, const Segment& l2) {
+    return intersected(l1.a, l1.b, l2.a, l2.b);
+}
+
+
+
+Real distance(const Segment& l, const Point& p) {
+    if (dot(l.b - l.a, p - l.a) < EPS) return abs(p - l.a);
+    if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
+    return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
+}
+
+Real distance(const Segment& l, const Segment& m) {
+    if (intersected(l, m)) return 0.;
+    return min({ distance(l, m.a), distance(l, m.b),
+                 distance(m, l.a), distance(m, l.b) });
+}
+
+Point crosspoint(const Segment& l, const Segment& m) {
+    Real A = cross(m.a - l.a, m.b - l.a),
+         B = cross(m.b - l.b, m.a - l.b);
+    return (A * l.b + B * l.a) / (A + B);
+}
+#line 4 "test/geometry/template/crosspoint.test.cpp"
+
+int main()
+{
+    int q; cin >> q;
+    while (q--) {
+        double x1, y1, x2, y2, x3, y3, x4, y4;
+        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
+        Segment l1{Point{x1, y1}, Point{x2, y2}},
+                l2{Point{x3, y3}, Point{x4, y4}};
+
+        Point c = crosspoint(l1, l2);
+        cout << c.real() << " " << c.imag() << endl;
     }
+
+    return 0;
 }
 
 ```
