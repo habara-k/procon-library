@@ -4,6 +4,8 @@
 
 int main()
 {
+    cout << fixed << setprecision(10);
+
     int q; cin >> q;
     while (q--) {
         double x1, y1, x2, y2, x3, y3, x4, y4;

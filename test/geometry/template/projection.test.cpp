@@ -4,6 +4,8 @@
 
 int main()
 {
+    cout << fixed << setprecision(10);
+
     double x1, y1, x2, y2;
     cin >> x1 >> y1 >> x2 >> y2;
     Segment l{Point{x1, y1}, Point{x2, y2}};
