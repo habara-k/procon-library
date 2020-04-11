@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :question: lib/template.cpp
+# :heavy_check_mark: lib/template.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -44,7 +44,7 @@ layout: default
 * :heavy_check_mark: <a href="graph/dinic.cpp.html">lib/graph/dinic.cpp</a>
 * :heavy_check_mark: <a href="graph/euler_tour.cpp.html">lib/graph/euler_tour.cpp</a>
 * :heavy_check_mark: <a href="graph/ford_fulkerson.cpp.html">lib/graph/ford_fulkerson.cpp</a>
-* :question: <a href="graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
+* :heavy_check_mark: <a href="graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
 * :heavy_check_mark: <a href="graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 * :heavy_check_mark: <a href="graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
 * :heavy_check_mark: <a href="graph/lowlink.cpp.html">lib/graph/lowlink.cpp</a>
@@ -71,7 +71,7 @@ layout: default
 * :heavy_check_mark: <a href="other/dice.cpp.html">lib/other/dice.cpp</a>
 * :heavy_check_mark: <a href="string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
 * :heavy_check_mark: <a href="structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
-* :question: <a href="structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
+* :heavy_check_mark: <a href="structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/randomized_binary_search_tree.cpp.html">lib/structure/randomized_binary_search_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
@@ -87,7 +87,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/ford_fulkerson/ford_fulkerson.test.cpp.html">test/graph/ford_fulkerson/ford_fulkerson.test.cpp</a>
-* :x: <a href="../../verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/heavy_light_decomposition/lca.test.cpp.html">test/graph/heavy_light_decomposition/lca.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp.html">test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp</a>
