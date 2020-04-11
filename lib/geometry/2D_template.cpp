@@ -3,14 +3,19 @@
 using Real = double;
 Real EPS = 1e-8;
 
-using Point =  complex<Real>;
-struct Segment {
+using Point = complex<Real>;
+struct Line {
     Point a, b;
-    Segment() {}
-    Segment(const Point& a, const Point& b) : a(a), b(b) {}
-    friend ostream &operator<<(ostream &os, Segment &l) {
+    Line() {}
+    Line(const Point& a, const Point& b) : a(a), b(b) {}
+    friend ostream& operator<<(ostream& os, Line& l) {
         return os << "[" << l.a << "," << l.b << "]";
     }
+};
+struct Segment : Line {
+    Segment() = default;
+
+    Segment(const Point& a, const Point& b) : Line(a, b) {}
 };
 
 inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
@@ -35,30 +40,18 @@ Real dot(const Point& a, const Point& b) {
     return a.real() * b.real() + a.imag() * b.imag();
 }
 
-Point projection(const Segment& l, const Point& p) {
+Point projection(const Line& l, const Point& p) {
     Real A = dot(l.b - l.a, p - l.a),
          B = dot(l.a - l.b, p - l.b);
     return (A * l.b + B * l.a) / (A + B);
 }
 
-bool parallel(
-        const Point &a1, const Point &b1,
-        const Point &a2, const Point &b2) {
-    return eq(cross(a1-b1, a2-b2), 0.);
+bool parallel(const Line& l1, const Line& l2) {
+    return eq(cross(l1.a - l1.b, l2.a - l2.b), 0.0);
 }
 
-bool parallel(const Segment& l1, const Segment& l2) {
-    return parallel(l1.a, l1.b, l2.a, l2.b);
-}
-
-bool orthogonal(
-        const Point &a1, const Point &b1,
-        const Point &a2, const Point &b2) {
-    return eq(dot(a1-b1, a2-b2), 0.);
-}
-
-bool orthogonal(const Segment& l1, const Segment& l2) {
-    return orthogonal(l1.a, l1.b, l2.a, l2.b);
+bool orthogonal(const Line& l1, const Line& l2) {
+    return eq(dot(l1.a - l1.b, l2.a - l2.b), 0.0);
 }
 
 const int COUNTER_CLOCKWISE = 1,
@@ -75,31 +68,46 @@ int ccw(const Point& a, Point b, Point c) {
     return ON_SEGMENT;
 }
 
-bool intersected(
-        const Point& a1, const Point& b1,
-        const Point& a2, const Point& b2) {
-    return ccw(a1, b1, a2) * ccw(a1, b1, b2) <= 0 and
-           ccw(a2, b2, a1) * ccw(a2, b2, b1) <= 0;
+bool intersected(const Line& l, const Point& p) {
+    return abs(ccw(l.a, l.b, p)) != 1;
 }
 
-bool intersected(const Segment& l1, const Segment& l2) {
-    return intersected(l1.a, l1.b, l2.a, l2.b);
+bool intersected(const Segment& s, const Point& p) {
+    return ccw(s.a, s.b, p) == 0;
 }
 
-Real distance(const Segment& l, const Point& p) {
-    if (dot(l.b - l.a, p - l.a) < EPS) return abs(p - l.a);
-    if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
-    return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
+bool intersected(const Line& l, const Segment& s) {
+    return cross(l.b - l.a, s.a - l.a) * cross(l.b - l.a, s.b - l.a) < EPS;
 }
 
-Real distance(const Segment& l, const Segment& m) {
-    if (intersected(l, m)) return 0.;
-    return min({ distance(l, m.a), distance(l, m.b),
-                 distance(m, l.a), distance(m, l.b) });
+bool intersected(const Segment& s1, const Segment& s2) {
+    return ccw(s1.a, s1.b, s2.a) * ccw(s1.a, s1.b, s2.b) <= 0 and
+           ccw(s2.a, s2.b, s1.a) * ccw(s2.a, s2.b, s1.b) <= 0;
 }
 
-Point crosspoint(const Segment& l, const Segment& m) {
-    Real A = cross(m.a - l.a, m.b - l.a),
-         B = cross(m.b - l.b, m.a - l.b);
-    return (A * l.b + B * l.a) / (A + B);
+Real distance(const Line& l, const Point& p) {
+    return abs(p - projection(l, p));
+}
+
+Real distance(const Segment& s, const Point& p) {
+    Point r = projection(s, p);
+    if (intersected(s, r)) return abs(r - p);
+    return min(abs(s.a - p), abs(s.b - p));
+}
+
+Real distance(const Line &l, const Segment &s) {
+    if (intersected(l, s)) return 0;
+    return min(distance(l, s.a), distance(l, s.b));
+}
+
+Real distance(const Segment& s1, const Segment& s2) {
+    if (intersected(s1, s2)) return 0.0;
+    return min({ distance(s1, s2.a), distance(s1, s2.b),
+                 distance(s2, s1.a), distance(s2, s1.b) });
+}
+
+Point crosspoint(const Line& l1, const Line& l2) {
+    Real A = cross(l2.a - l1.a, l2.b - l1.a),
+         B = cross(l2.b - l1.b, l2.a - l1.b);
+    return (A * l1.b + B * l1.a) / (A + B);
 }
