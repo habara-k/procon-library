@@ -53,7 +53,8 @@ layout: default
 
 ### lib/geometry
 
-* :heavy_check_mark: <a href="library/lib/geometry/template.cpp.html">lib/geometry/template.cpp</a>
+* :heavy_check_mark: <a href="library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
+* :warning: <a href="library/lib/geometry/3D_template.cpp.html">lib/geometry/3D_template.cpp</a>
 
 
 <div id="6e267a37887a7dcb68cbf7008d6c7e48"></div>
@@ -141,12 +142,12 @@ layout: default
 
 * :heavy_check_mark: <a href="verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp.html">test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/geometry/template/counter_clockwise.test.cpp.html">test/geometry/template/counter_clockwise.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/geometry/template/crosspoint.test.cpp.html">test/geometry/template/crosspoint.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/geometry/template/distance.test.cpp.html">test/geometry/template/distance.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/geometry/template/intersection.test.cpp.html">test/geometry/template/intersection.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/geometry/template/parallel_orthogonal.test.cpp.html">test/geometry/template/parallel_orthogonal.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/geometry/template/projection.test.cpp.html">test/geometry/template/projection.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/2D_template/counter_clockwise.test.cpp.html">test/geometry/2D_template/counter_clockwise.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/2D_template/crosspoint.test.cpp.html">test/geometry/2D_template/crosspoint.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/2D_template/distance.test.cpp.html">test/geometry/2D_template/distance.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/2D_template/intersection.test.cpp.html">test/geometry/2D_template/intersection.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/2D_template/parallel_orthogonal.test.cpp.html">test/geometry/2D_template/parallel_orthogonal.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/2D_template/projection.test.cpp.html">test/geometry/2D_template/projection.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>

@@ -25,21 +25,21 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/geometry/template/crosspoint.test.cpp
+# :heavy_check_mark: test/geometry/2D_template/projection.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#a79aedaaed5c1b5c37445aecc90bb581">test/geometry/template</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/geometry/template/crosspoint.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-11 20:37:55+09:00
+* category: <a href="../../../../index.html#a2c5f8fc0f05060a960f2bd934b33f5f">test/geometry/2D_template</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/geometry/2D_template/projection.test.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-11 23:45:15+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/geometry/template.cpp.html">lib/geometry/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -48,23 +48,23 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A"
 #define ERROR "1e-8"
 
-#include "../../../lib/geometry/template.cpp"
+#include "../../../lib/geometry/2D_template.cpp"
 
 int main()
 {
     cout << fixed << setprecision(10);
 
+    double x1, y1, x2, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
+    Segment l{Point{x1, y1}, Point{x2, y2}};
     int q; cin >> q;
     while (q--) {
-        double x1, y1, x2, y2, x3, y3, x4, y4;
-        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-        Segment l1{Point{x1, y1}, Point{x2, y2}},
-                l2{Point{x3, y3}, Point{x4, y4}};
-
-        Point c = crosspoint(l1, l2);
+        double x, y; cin >> x >> y;
+        Point p{x, y};
+        Point c = projection(l, p);
         cout << c.real() << " " << c.imag() << endl;
     }
 
@@ -77,8 +77,8 @@ int main()
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/geometry/template/crosspoint.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_C"
+#line 1 "test/geometry/2D_template/projection.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A"
 #define ERROR "1e-8"
 
 #line 1 "lib/template.cpp"
@@ -254,21 +254,24 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/geometry/template.cpp"
+#line 2 "lib/geometry/2D_template.cpp"
 
 using Real = double;
 Real EPS = 1e-8;
 
-// 2-dim
-
-using Point =  complex<Real>;
-struct Segment {
+using Point = complex<Real>;
+struct Line {
     Point a, b;
-    Segment() {}
-    Segment(const Point& a, const Point& b) : a(a), b(b) {}
-    friend ostream &operator<<(ostream &os, Segment &l) {
+    Line() {}
+    Line(const Point& a, const Point& b) : a(a), b(b) {}
+    friend ostream& operator<<(ostream& os, Line& l) {
         return os << "[" << l.a << "," << l.b << "]";
     }
+};
+struct Segment : Line {
+    Segment() = default;
+
+    Segment(const Point& a, const Point& b) : Line(a, b) {}
 };
 
 inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
@@ -293,30 +296,18 @@ Real dot(const Point& a, const Point& b) {
     return a.real() * b.real() + a.imag() * b.imag();
 }
 
-Point projection(const Segment& l, const Point& p) {
+Point projection(const Line& l, const Point& p) {
     Real A = dot(l.b - l.a, p - l.a),
          B = dot(l.a - l.b, p - l.b);
     return (A * l.b + B * l.a) / (A + B);
 }
 
-bool parallel(
-        const Point &a1, const Point &b1,
-        const Point &a2, const Point &b2) {
-    return eq(cross(a1-b1, a2-b2), 0.);
+bool parallel(const Line& l1, const Line& l2) {
+    return eq(cross(l1.a - l1.b, l2.a - l2.b), 0.0);
 }
 
-bool parallel(const Segment& l1, const Segment& l2) {
-    return parallel(l1.a, l1.b, l2.a, l2.b);
-}
-
-bool orthogonal(
-        const Point &a1, const Point &b1,
-        const Point &a2, const Point &b2) {
-    return eq(dot(a1-b1, a2-b2), 0.);
-}
-
-bool orthogonal(const Segment& l1, const Segment& l2) {
-    return orthogonal(l1.a, l1.b, l2.a, l2.b);
+bool orthogonal(const Line& l1, const Line& l2) {
+    return eq(dot(l1.a - l1.b, l2.a - l2.b), 0.0);
 }
 
 const int COUNTER_CLOCKWISE = 1,
@@ -333,111 +324,63 @@ int ccw(const Point& a, Point b, Point c) {
     return ON_SEGMENT;
 }
 
-bool intersected(
-        const Point& a1, const Point& b1,
-        const Point& a2, const Point& b2) {
-    return ccw(a1, b1, a2) * ccw(a1, b1, b2) <= 0 and
-           ccw(a2, b2, a1) * ccw(a2, b2, b1) <= 0;
+bool intersected(const Line& l, const Point& p) {
+    return abs(ccw(l.a, l.b, p)) != 1;
 }
 
-bool intersected(const Segment& l1, const Segment& l2) {
-    return intersected(l1.a, l1.b, l2.a, l2.b);
+bool intersected(const Segment& s, const Point& p) {
+    return ccw(s.a, s.b, p) == 0;
 }
 
-Real distance(const Segment& l, const Point& p) {
-    if (dot(l.b - l.a, p - l.a) < EPS) return abs(p - l.a);
-    if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
-    return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
+bool intersected(const Line& l, const Segment& s) {
+    return cross(l.b - l.a, s.a - l.a) * cross(l.b - l.a, s.b - l.a) < EPS;
 }
 
-Real distance(const Segment& l, const Segment& m) {
-    if (intersected(l, m)) return 0.;
-    return min({ distance(l, m.a), distance(l, m.b),
-                 distance(m, l.a), distance(m, l.b) });
+bool intersected(const Segment& s1, const Segment& s2) {
+    return ccw(s1.a, s1.b, s2.a) * ccw(s1.a, s1.b, s2.b) <= 0 and
+           ccw(s2.a, s2.b, s1.a) * ccw(s2.a, s2.b, s1.b) <= 0;
 }
 
-Point crosspoint(const Segment& l, const Segment& m) {
-    Real A = cross(m.a - l.a, m.b - l.a),
-         B = cross(m.b - l.b, m.a - l.b);
-    return (A * l.b + B * l.a) / (A + B);
+Real distance(const Line& l, const Point& p) {
+    return abs(p - projection(l, p));
 }
 
-// 3-dim
-
-struct Point3D {
-    double x, y, z;
-    Point3D() {}
-    Point3D(double x, double y, double z) : x(x), y(y), z(z) {}
-    Point3D operator+(const Point3D& b) const {
-        return Point3D(x + b.x, y + b.y, z + b.z);
-    }
-    Point3D operator-(const Point3D& b) const {
-        return Point3D(x - b.x, y - b.y, z - b.z);
-    }
-    friend double norm(const Point3D& p) {
-        return p.x * p.x + p.y * p.y + p.z * p.z;
-    };
-    friend double abs(const Point3D& p) { return sqrt(norm(p)); }
-
-    friend ostream &operator<<(ostream &os, Point3D &p) {
-        return os << "(" << p.x << "," << p.y << "," << p.z << ")";
-    }
-    friend istream &operator>>(istream &is, Point3D &p) {
-        return is >> p.x >> p.y >> p.z;
-    }
-};
-struct Segment3D {
-    Point3D a, b;
-    Segment3D() {}
-    Segment3D(const Point3D& a, const Point3D& b) : a(a), b(b) {}
-    friend ostream &operator<<(ostream &os, Segment3D &l) {
-        return os << "[" << l.a << "," << l.b << "]";
-    }
-    friend istream &operator>>(istream &is, Segment3D &l) {
-        return is >> l.a >> l.b;
-    }
-};
-
-double dot(const Point3D &a, const Point3D &b) {
-    return a.x * b.x + a.y * b.y + a.z * b.z;
+Real distance(const Segment& s, const Point& p) {
+    Point r = projection(s, p);
+    if (intersected(s, r)) return abs(r - p);
+    return min(abs(s.a - p), abs(s.b - p));
 }
 
-Point3D cross(const Point3D &a, const Point3D &b) {
-    double x = a.y * b.z - a.z * b.y,
-           y = a.z * b.x - a.x * b.z,
-           z = a.x * b.y - a.y * b.x;
-    return Point3D(x, y, z);
+Real distance(const Line &l, const Segment &s) {
+    if (intersected(l, s)) return 0;
+    return min(distance(l, s.a), distance(l, s.b));
 }
 
-bool parallel(
-        const Point3D &a1, const Point3D &a2,
-        const Point3D &b1, const Point3D &b2) {
-    return eq(abs(cross(a1-b1, a2-b2)), 0.);
+Real distance(const Segment& s1, const Segment& s2) {
+    if (intersected(s1, s2)) return 0.0;
+    return min({ distance(s1, s2.a), distance(s1, s2.b),
+                 distance(s2, s1.a), distance(s2, s1.b) });
 }
 
-bool parallel(const Segment3D& l1, const Segment3D& l2) {
-    return parallel(l1.a, l1.b, l2.a, l2.b);
+Point crosspoint(const Line& l1, const Line& l2) {
+    Real A = cross(l2.a - l1.a, l2.b - l1.a),
+         B = cross(l2.b - l1.b, l2.a - l1.b);
+    return (A * l1.b + B * l1.a) / (A + B);
 }
-
-double distance(const Segment3D &l, const Point3D &p) {
-    if (dot(l.b - l.a, p - l.a) < EPS) return abs(p - l.a);
-    if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
-    return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
-}
-#line 5 "test/geometry/template/crosspoint.test.cpp"
+#line 5 "test/geometry/2D_template/projection.test.cpp"
 
 int main()
 {
     cout << fixed << setprecision(10);
 
+    double x1, y1, x2, y2;
+    cin >> x1 >> y1 >> x2 >> y2;
+    Segment l{Point{x1, y1}, Point{x2, y2}};
     int q; cin >> q;
     while (q--) {
-        double x1, y1, x2, y2, x3, y3, x4, y4;
-        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-        Segment l1{Point{x1, y1}, Point{x2, y2}},
-                l2{Point{x3, y3}, Point{x4, y4}};
-
-        Point c = crosspoint(l1, l2);
+        double x, y; cin >> x >> y;
+        Point p{x, y};
+        Point c = projection(l, p);
         cout << c.real() << " " << c.imag() << endl;
     }
 
