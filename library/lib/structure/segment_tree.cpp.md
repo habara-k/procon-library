@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-03 22:19:14+09:00
+    - Last commit date: 2020-04-11 13:35:37+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
@@ -58,13 +58,14 @@ template<typename M>
 struct SegmentTree {
     int sz;
     vector<M> data;
-    const M e;
     const function<M(M,M)> f;
+    const M e;
 
     SegmentTree(
-            int n, const M& e,
-            const function<M(M,M)>& f
-            ) : e(e), f(f) {
+            int n,
+            const function<M(M,M)>& f,
+            const M& e
+            ) : f(f), e(e) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
@@ -281,13 +282,14 @@ template<typename M>
 struct SegmentTree {
     int sz;
     vector<M> data;
-    const M e;
     const function<M(M,M)> f;
+    const M e;
 
     SegmentTree(
-            int n, const M& e,
-            const function<M(M,M)>& f
-            ) : e(e), f(f) {
+            int n,
+            const function<M(M,M)>& f,
+            const M& e
+            ) : f(f), e(e) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);

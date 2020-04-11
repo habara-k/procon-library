@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp
+# :x: test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#f108cdd252ebfc58a7b9bc5c4c206374">test/graph/heavy_light_decomposition</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-06 21:22:46+09:00
+    - Last commit date: 2020-04-11 13:35:37+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E</a>
@@ -39,9 +39,9 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
+* :question: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -369,11 +369,11 @@ struct LazySegmentTree {
     int sz;
     vector<M> data;
     vector<OM> lazy;
-    const M e;
-    const OM oe;
     const function<M(M,M)> f;
     const function<M(M,OM,int)> g;
     const function<OM(OM,OM)> h;
+    const M e;
+    const OM oe;
     // f: 二つの区間の要素をマージする関数
     // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
     // h: 作用素をマージする関数
@@ -381,23 +381,24 @@ struct LazySegmentTree {
     // oe: 作用素の単位元
 
     LazySegmentTree(
-            int n, const M& e, const OM& oe,
+            int n,
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
-            const function<OM(OM,OM)>& h
-            ) : e(e), oe(oe), f(f), g(g), h(h) {
+            const function<OM(OM,OM)>& h,
+            const M& e, const OM& oe
+            ) : f(f), g(g), h(h), e(e), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
         lazy.assign(2*sz, oe);
     }
 
-    void set(int i, const M &x) {
-        data[i + sz] = x;
-    }
-
-    void build() {
-        for(int i = sz-1; i > 0; --i) {
+    void build(const vector<M>& v) {
+        assert(v.size() <= sz);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
             data[i] = f(data[2*i], data[2*i+1]);
         }
     }

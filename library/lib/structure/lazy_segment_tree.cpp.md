@@ -25,25 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/structure/lazy_segment_tree.cpp
+# :question: lib/structure/lazy_segment_tree.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/lazy_segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-05 22:50:02+09:00
+    - Last commit date: 2020-04-11 13:35:37+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
+* :x: <a href="../../../verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/lazy_segment_tree/rmq_raq.test.cpp.html">test/structure/lazy_segment_tree/rmq_raq.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/lazy_segment_tree/rmq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rmq_ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/lazy_segment_tree/rsq_raq.test.cpp.html">test/structure/lazy_segment_tree/rsq_raq.test.cpp</a>
@@ -63,11 +63,11 @@ struct LazySegmentTree {
     int sz;
     vector<M> data;
     vector<OM> lazy;
-    const M e;
-    const OM oe;
     const function<M(M,M)> f;
     const function<M(M,OM,int)> g;
     const function<OM(OM,OM)> h;
+    const M e;
+    const OM oe;
     // f: 二つの区間の要素をマージする関数
     // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
     // h: 作用素をマージする関数
@@ -75,23 +75,24 @@ struct LazySegmentTree {
     // oe: 作用素の単位元
 
     LazySegmentTree(
-            int n, const M& e, const OM& oe,
+            int n,
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
-            const function<OM(OM,OM)>& h
-            ) : e(e), oe(oe), f(f), g(g), h(h) {
+            const function<OM(OM,OM)>& h,
+            const M& e, const OM& oe
+            ) : f(f), g(g), h(h), e(e), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
         lazy.assign(2*sz, oe);
     }
 
-    void set(int i, const M &x) {
-        data[i + sz] = x;
-    }
-
-    void build() {
-        for(int i = sz-1; i > 0; --i) {
+    void build(const vector<M>& v) {
+        assert(v.size() <= sz);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
             data[i] = f(data[2*i], data[2*i+1]);
         }
     }
@@ -325,11 +326,11 @@ struct LazySegmentTree {
     int sz;
     vector<M> data;
     vector<OM> lazy;
-    const M e;
-    const OM oe;
     const function<M(M,M)> f;
     const function<M(M,OM,int)> g;
     const function<OM(OM,OM)> h;
+    const M e;
+    const OM oe;
     // f: 二つの区間の要素をマージする関数
     // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
     // h: 作用素をマージする関数
@@ -337,23 +338,24 @@ struct LazySegmentTree {
     // oe: 作用素の単位元
 
     LazySegmentTree(
-            int n, const M& e, const OM& oe,
+            int n,
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
-            const function<OM(OM,OM)>& h
-            ) : e(e), oe(oe), f(f), g(g), h(h) {
+            const function<OM(OM,OM)>& h,
+            const M& e, const OM& oe
+            ) : f(f), g(g), h(h), e(e), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
         lazy.assign(2*sz, oe);
     }
 
-    void set(int i, const M &x) {
-        data[i + sz] = x;
-    }
-
-    void build() {
-        for(int i = sz-1; i > 0; --i) {
+    void build(const vector<M>& v) {
+        assert(v.size() <= sz);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
             data[i] = f(data[2*i], data[2*i+1]);
         }
     }

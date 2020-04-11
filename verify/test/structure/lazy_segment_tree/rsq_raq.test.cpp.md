@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/rsq_raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-05 22:50:02+09:00
+    - Last commit date: 2020-04-11 13:35:37+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -56,10 +56,11 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     LazySegmentTree<int64_t> raq_rsq(
-            N, 0, 0,
+            N,
             [](int64_t a, int64_t b){ return a + b; },
             [](int64_t a, int64_t b, int w){ return a + b*w; },
-            [](int64_t a, int64_t b){ return a + b; }
+            [](int64_t a, int64_t b){ return a + b; },
+            0, 0
             );
 
     while (Q--) {
@@ -267,11 +268,11 @@ struct LazySegmentTree {
     int sz;
     vector<M> data;
     vector<OM> lazy;
-    const M e;
-    const OM oe;
     const function<M(M,M)> f;
     const function<M(M,OM,int)> g;
     const function<OM(OM,OM)> h;
+    const M e;
+    const OM oe;
     // f: 二つの区間の要素をマージする関数
     // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
     // h: 作用素をマージする関数
@@ -279,23 +280,24 @@ struct LazySegmentTree {
     // oe: 作用素の単位元
 
     LazySegmentTree(
-            int n, const M& e, const OM& oe,
+            int n,
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
-            const function<OM(OM,OM)>& h
-            ) : e(e), oe(oe), f(f), g(g), h(h) {
+            const function<OM(OM,OM)>& h,
+            const M& e, const OM& oe
+            ) : f(f), g(g), h(h), e(e), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
         lazy.assign(2*sz, oe);
     }
 
-    void set(int i, const M &x) {
-        data[i + sz] = x;
-    }
-
-    void build() {
-        for(int i = sz-1; i > 0; --i) {
+    void build(const vector<M>& v) {
+        assert(v.size() <= sz);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
             data[i] = f(data[2*i], data[2*i+1]);
         }
     }
@@ -348,10 +350,11 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     LazySegmentTree<int64_t> raq_rsq(
-            N, 0, 0,
+            N,
             [](int64_t a, int64_t b){ return a + b; },
             [](int64_t a, int64_t b, int w){ return a + b*w; },
-            [](int64_t a, int64_t b){ return a + b; }
+            [](int64_t a, int64_t b){ return a + b; },
+            0, 0
             );
 
     while (Q--) {

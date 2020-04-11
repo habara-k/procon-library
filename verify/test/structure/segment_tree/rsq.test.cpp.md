@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#971922f92a29e476633aa9737b609e73">test/structure/segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rsq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-03 22:19:14+09:00
+    - Last commit date: 2020-04-11 13:35:37+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -56,7 +56,7 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     SegmentTree<int> segt(
-            N, 0, [](int a,int b){ return a+b; });
+            N, [](int a,int b){ return a+b; }, 0);
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;
@@ -253,13 +253,14 @@ template<typename M>
 struct SegmentTree {
     int sz;
     vector<M> data;
-    const M e;
     const function<M(M,M)> f;
+    const M e;
 
     SegmentTree(
-            int n, const M& e,
-            const function<M(M,M)>& f
-            ) : e(e), f(f) {
+            int n,
+            const function<M(M,M)>& f,
+            const M& e
+            ) : f(f), e(e) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
@@ -296,7 +297,7 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     SegmentTree<int> segt(
-            N, 0, [](int a,int b){ return a+b; });
+            N, [](int a,int b){ return a+b; }, 0);
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;
