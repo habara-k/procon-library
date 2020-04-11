@@ -6,10 +6,11 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     LazySegmentTree<int64_t> raq_rsq(
-            N, 0, 0,
+            N,
             [](int64_t a, int64_t b){ return a + b; },
             [](int64_t a, int64_t b, int w){ return a + b*w; },
-            [](int64_t a, int64_t b){ return a + b; }
+            [](int64_t a, int64_t b){ return a + b; },
+            0, 0
             );
 
     while (Q--) {

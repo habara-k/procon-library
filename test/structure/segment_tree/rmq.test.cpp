@@ -6,8 +6,9 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     SegmentTree<int> rmq(
-            N, numeric_limits<int>::max(),
-            [&](int a, int b){ return min(a, b); });
+            N,
+            [&](int a, int b){ return min(a, b); },
+            numeric_limits<int>::max());
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;

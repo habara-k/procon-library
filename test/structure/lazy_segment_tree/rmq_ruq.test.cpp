@@ -6,11 +6,12 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     LazySegmentTree<int> ruq(
-            N, numeric_limits<int>::max(),
-            numeric_limits<int>::max(),
+            N,
             [](int64_t a, int64_t b){ return min(a, b); },
             [](int64_t a, int64_t b, int w){ return b; },
-            [](int64_t a, int64_t b){ return b; }
+            [](int64_t a, int64_t b){ return b; },
+            numeric_limits<int>::max(),
+            numeric_limits<int>::max()
             );
 
     while (Q--) {

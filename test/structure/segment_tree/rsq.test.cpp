@@ -6,7 +6,7 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     SegmentTree<int> segt(
-            N, 0, [](int a,int b){ return a+b; });
+            N, [](int a,int b){ return a+b; }, 0);
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;

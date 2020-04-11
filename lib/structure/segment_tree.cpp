@@ -4,13 +4,14 @@ template<typename M>
 struct SegmentTree {
     int sz;
     vector<M> data;
-    const M e;
     const function<M(M,M)> f;
+    const M e;
 
     SegmentTree(
-            int n, const M& e,
-            const function<M(M,M)>& f
-            ) : e(e), f(f) {
+            int n,
+            const function<M(M,M)>& f,
+            const M& e
+            ) : f(f), e(e) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);

@@ -5,11 +5,11 @@ struct LazySegmentTree {
     int sz;
     vector<M> data;
     vector<OM> lazy;
-    const M e;
-    const OM oe;
     const function<M(M,M)> f;
     const function<M(M,OM,int)> g;
     const function<OM(OM,OM)> h;
+    const M e;
+    const OM oe;
     // f: 二つの区間の要素をマージする関数
     // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
     // h: 作用素をマージする関数
@@ -17,23 +17,24 @@ struct LazySegmentTree {
     // oe: 作用素の単位元
 
     LazySegmentTree(
-            int n, const M& e, const OM& oe,
+            int n,
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
-            const function<OM(OM,OM)>& h
-            ) : e(e), oe(oe), f(f), g(g), h(h) {
+            const function<OM(OM,OM)>& h,
+            const M& e, const OM& oe
+            ) : f(f), g(g), h(h), e(e), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
         lazy.assign(2*sz, oe);
     }
 
-    void set(int i, const M &x) {
-        data[i + sz] = x;
-    }
-
-    void build() {
-        for(int i = sz-1; i > 0; --i) {
+    void build(const vector<M>& v) {
+        assert(v.size() <= sz);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
             data[i] = f(data[2*i], data[2*i+1]);
         }
     }

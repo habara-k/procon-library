@@ -6,15 +6,16 @@ int main() {
     int N, Q;
     cin >> N >> Q;
     LazySegmentTree<int64_t> rmq_raq(
-            N, numeric_limits<int64_t>::max(), 0,
+            N,
             [](int64_t a, int64_t b){ return min(a, b); },
             [](int64_t a, int64_t b, int w){ return a + b; },
-            [](int64_t a, int64_t b){ return a + b; }
+            [](int64_t a, int64_t b){ return a + b; },
+            numeric_limits<int64_t>::max(), 0
             );
-    for (int i = 0; i < N; ++i) {
-        rmq_raq.set(i, 0);
-    }
-    rmq_raq.build();
+    //for (int i = 0; i < N; ++i) {
+    //    rmq_raq.set(i, 0);
+    //}
+    rmq_raq.build(vector<int64_t>(N, 0));
 
     while (Q--) {
         int C; cin >> C;
