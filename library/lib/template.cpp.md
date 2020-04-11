@@ -86,7 +86,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp.html">test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/geometry/template/counter_clockwise.test.cpp.html">test/geometry/template/counter_clockwise.test.cpp</a>
 * :x: <a href="../../verify/test/geometry/template/crosspoint.test.cpp.html">test/geometry/template/crosspoint.test.cpp</a>
-* :x: <a href="../../verify/test/geometry/template/distance.test.cpp.html">test/geometry/template/distance.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/template/distance.test.cpp.html">test/geometry/template/distance.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/geometry/template/intersection.test.cpp.html">test/geometry/template/intersection.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/geometry/template/parallel_orthogonal.test.cpp.html">test/geometry/template/parallel_orthogonal.test.cpp</a>
 * :x: <a href="../../verify/test/geometry/template/projection.test.cpp.html">test/geometry/template/projection.test.cpp</a>
