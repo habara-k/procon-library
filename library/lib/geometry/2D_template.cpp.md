@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7096d029078708cdbb96f2303d66dee8">lib/geometry</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/geometry/2D_template.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:25:45+09:00
+    - Last commit date: 2020-04-12 20:29:10+09:00
 
 
 
@@ -70,7 +70,7 @@ layout: default
 #include "../template.cpp"
 
 using Real = double;
-Real EPS = 1e-8;
+const Real EPS = 1e-8, PI = acos(-1);
 
 using Point = complex<Real>;
 namespace std {
@@ -96,11 +96,11 @@ struct Segment : Line {
 inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
 
 Real radian_to_degree(Real r) {
-    return r * 180.0 / M_PI;
+    return r * 180.0 / PI;
 }
 
 Real degree_to_radian(Real d) {
-    return d * M_PI / 180.0;
+    return d * PI / 180.0;
 }
 
 Point rotate(const Point &p, Real theta) {
@@ -369,7 +369,7 @@ const int64_t MOD = 1e9+7;
 #line 2 "lib/geometry/2D_template.cpp"
 
 using Real = double;
-Real EPS = 1e-8;
+const Real EPS = 1e-8, PI = acos(-1);
 
 using Point = complex<Real>;
 namespace std {
@@ -395,11 +395,11 @@ struct Segment : Line {
 inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
 
 Real radian_to_degree(Real r) {
-    return r * 180.0 / M_PI;
+    return r * 180.0 / PI;
 }
 
 Real degree_to_radian(Real d) {
-    return d * M_PI / 180.0;
+    return d * PI / 180.0;
 }
 
 Point rotate(const Point &p, Real theta) {

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#a2c5f8fc0f05060a960f2bd934b33f5f">test/geometry/2D_template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/geometry/2D_template/intersection.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:25:45+09:00
+    - Last commit date: 2020-04-12 20:29:10+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_B</a>
@@ -256,7 +256,7 @@ const int64_t MOD = 1e9+7;
 #line 2 "lib/geometry/2D_template.cpp"
 
 using Real = double;
-Real EPS = 1e-8;
+const Real EPS = 1e-8, PI = acos(-1);
 
 using Point = complex<Real>;
 namespace std {
@@ -282,11 +282,11 @@ struct Segment : Line {
 inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
 
 Real radian_to_degree(Real r) {
-    return r * 180.0 / M_PI;
+    return r * 180.0 / PI;
 }
 
 Real degree_to_radian(Real d) {
-    return d * M_PI / 180.0;
+    return d * PI / 180.0;
 }
 
 Point rotate(const Point &p, Real theta) {

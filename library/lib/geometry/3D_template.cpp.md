@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7096d029078708cdbb96f2303d66dee8">lib/geometry</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/geometry/3D_template.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-11 22:26:40+09:00
+    - Last commit date: 2020-04-12 20:29:10+09:00
 
 
 
@@ -49,7 +49,7 @@ layout: default
 #include "../template.cpp"
 
 using Real = double;
-Real EPS = 1e-8;
+const Real EPS = 1e-8, PI = acos(-1);
 
 struct Point3D {
     double x, y, z;
@@ -294,7 +294,7 @@ const int64_t MOD = 1e9+7;
 #line 2 "lib/geometry/3D_template.cpp"
 
 using Real = double;
-Real EPS = 1e-8;
+const Real EPS = 1e-8, PI = acos(-1);
 
 struct Point3D {
     double x, y, z;
