@@ -355,17 +355,17 @@ snippet combination
         inline Field inv(int k) const { assert(k != 0); return _inv.at(k); }
 
         Field P(int n, int r) const {
-            if (r < 0 || n < r) return 0;
+            if (r < 0 or n < r) return 0;
             return fact(n) * rfact(n-r);
         }
 
         Field C(int n, int r) const {
-            if (r < 0 || n < r) return 0;
+            if (r < 0 or n < r) return 0;
             return fact(n) * rfact(r) * rfact(n-r);
         }
 
         Field H (int n, int r) const {
-            return (n == 0 && r == 0) ? 1 : C(n+r-1, r);
+            return (n == 0 and r == 0) ? 1 : C(n+r-1, r);
         }
     };
 
@@ -433,7 +433,7 @@ snippet matrix
 
         Matrix& operator+=(const Matrix& B) {
             size_t n = height(), m = width();
-            assert(n == B.height() && m == B.width());
+            assert(n == B.height() and m == B.width());
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                     A[i][j] += B[i][j];
@@ -1021,8 +1021,8 @@ snippet persistent_segment_tree
 
         template<typename UpdateQuery>
         Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) {
-            if (pos == l && pos+1 == r) return _new(q(t->data));
-            if (r <= pos || pos < l) return t;
+            if (pos == l and pos+1 == r) return _new(q(t->data));
+            if (r <= pos or pos < l) return t;
             return _new(_update(t->l, q, pos, l, (l+r)>>1),
                         _update(t->r, q, pos, (l+r)>>1, r));
         }
@@ -1033,8 +1033,8 @@ snippet persistent_segment_tree
         }
 
         M _query(Node* t, int a, int b, int l, int r) {
-            if (r <= a || b <= l) return e;
-            if (a <= l && r <= b) return t->data;
+            if (r <= a or b <= l) return e;
+            if (a <= l and r <= b) return t->data;
             return f(_query(t->l, a, b, l, (l+r)>>1),
                      _query(t->r, a, b, (l+r)>>1, r));
         }
@@ -1100,8 +1100,8 @@ snippet lazy_segment_tree
 
         void _update(int a, int b, const OM &x, int k, int l, int r) {
             propagate(k, r - l);
-            if (r <= a || b <= l) return;
-            else if (a <= l && r <= b) {
+            if (r <= a or b <= l) return;
+            else if (a <= l and r <= b) {
                 lazy[k] = h(lazy[k], x);
                 propagate(k, r - l);
             } else {
@@ -1118,8 +1118,8 @@ snippet lazy_segment_tree
 
         M _query(int a, int b, int k, int l, int r) {
             propagate(k, r - l);
-            if (r <= a || b <= l) return e;
-            else if (a <= l && r <= b) return data[k];
+            if (r <= a or b <= l) return e;
+            else if (a <= l and r <= b) return data[k];
             else return f(
                     _query(a, b, 2*k,   l, (l+r)/2),
                     _query(a, b, 2*k+1, (l+r)/2, r));
@@ -1208,8 +1208,8 @@ snippet segment_tree
         }
 
         M _query(int a, int b, int k, int l, int r) {
-            if (r <= a || b <= l) return e;
-            if (a <= l && r <= b) return data[k];
+            if (r <= a or b <= l) return e;
+            if (a <= l and r <= b) return data[k];
             return f(_query(a,b,2*k,  l,(l+r)/2),
                      _query(a,b,2*k+1,(l+r)/2,r));
         }
@@ -1805,7 +1805,7 @@ snippet heavy_light_decomposition
             if (id == -1) return;
             hld(id, h, k);
             for (int u : G[v]) {
-                if (u == id || u == par[v]) continue;
+                if (u == id or u == par[v]) continue;
                 hld(u, u, k);
             }
         }
@@ -2140,7 +2140,7 @@ snippet warshall_floyd
         for(int k = 0; k < n; k++) {
             for(int i = 0; i < n; i++) {
                 for(int j = 0; j < n; j++) {
-                    if(g[i][k] == INF || g[k][j] == INF) continue;
+                    if(g[i][k] == INF or g[k][j] == INF) continue;
                     g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
                 }
             }
@@ -2256,7 +2256,7 @@ snippet maximum_clique
             vector<int> neighbor;
             if (u != -1) neighbor.push_back(u);
             for (int v = 0; v < n; ++v) if (!used[v]) {
-                if (u == -1 || G[u][v]) {
+                if (u == -1 or G[u][v]) {
                     neighbor.push_back(v);
                 }
             }
