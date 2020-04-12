@@ -1,7 +1,7 @@
 #include "../template.cpp"
 
 using Real = double;
-Real EPS = 1e-8;
+const Real EPS = 1e-8, PI = acos(-1);
 
 struct Point3D {
     double x, y, z;

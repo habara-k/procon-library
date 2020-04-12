@@ -1,7 +1,7 @@
 #include "../template.cpp"
 
 using Real = double;
-Real EPS = 1e-8;
+const Real EPS = 1e-8, PI = acos(-1);
 
 using Point = complex<Real>;
 namespace std {
@@ -27,11 +27,11 @@ struct Segment : Line {
 inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
 
 Real radian_to_degree(Real r) {
-    return r * 180.0 / M_PI;
+    return r * 180.0 / PI;
 }
 
 Real degree_to_radian(Real d) {
-    return d * M_PI / 180.0;
+    return d * PI / 180.0;
 }
 
 Point rotate(const Point &p, Real theta) {
