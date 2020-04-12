@@ -7,7 +7,7 @@ void warshall_floyd(vector<vector<T>> &g) {
     for(int k = 0; k < n; k++) {
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
-                if(g[i][k] == INF || g[k][j] == INF) continue;
+                if(g[i][k] == INF or g[k][j] == INF) continue;
                 g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
             }
         }

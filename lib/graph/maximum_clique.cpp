@@ -37,7 +37,7 @@ T maximum_clique(
         vector<int> neighbor;
         if (u != -1) neighbor.push_back(u);
         for (int v = 0; v < n; ++v) if (!used[v]) {
-            if (u == -1 || G[u][v]) {
+            if (u == -1 or G[u][v]) {
                 neighbor.push_back(v);
             }
         }

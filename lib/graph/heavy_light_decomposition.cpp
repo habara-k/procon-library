@@ -27,7 +27,7 @@ struct HLDecomposition {
         if (id == -1) return;
         hld(id, h, k);
         for (int u : G[v]) {
-            if (u == id || u == par[v]) continue;
+            if (u == id or u == par[v]) continue;
             hld(u, u, k);
         }
     }

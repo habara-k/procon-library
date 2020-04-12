@@ -27,8 +27,8 @@ struct SegmentTree {
     }
 
     M _query(int a, int b, int k, int l, int r) {
-        if (r <= a || b <= l) return e;
-        if (a <= l && r <= b) return data[k];
+        if (r <= a or b <= l) return e;
+        if (a <= l and r <= b) return data[k];
         return f(_query(a,b,2*k,  l,(l+r)/2),
                  _query(a,b,2*k+1,(l+r)/2,r));
     }

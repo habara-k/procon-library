@@ -43,7 +43,7 @@ struct Matrix {
 
     Matrix& operator+=(const Matrix& B) {
         size_t n = height(), m = width();
-        assert(n == B.height() && m == B.width());
+        assert(n == B.height() and m == B.width());
         for (int i = 0; i < n; i++)
             for (int j = 0; j < m; j++)
                 A[i][j] += B[i][j];

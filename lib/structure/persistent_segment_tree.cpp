@@ -39,8 +39,8 @@ struct PersistentSegmentTree {
 
     template<typename UpdateQuery>
     Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) {
-        if (pos == l && pos+1 == r) return _new(q(t->data));
-        if (r <= pos || pos < l) return t;
+        if (pos == l and pos+1 == r) return _new(q(t->data));
+        if (r <= pos or pos < l) return t;
         return _new(_update(t->l, q, pos, l, (l+r)>>1),
                     _update(t->r, q, pos, (l+r)>>1, r));
     }
@@ -51,8 +51,8 @@ struct PersistentSegmentTree {
     }
 
     M _query(Node* t, int a, int b, int l, int r) {
-        if (r <= a || b <= l) return e;
-        if (a <= l && r <= b) return t->data;
+        if (r <= a or b <= l) return e;
+        if (a <= l and r <= b) return t->data;
         return f(_query(t->l, a, b, l, (l+r)>>1),
                  _query(t->r, a, b, (l+r)>>1, r));
     }
