@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#971922f92a29e476633aa9737b609e73">test/structure/segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rmq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-11 13:35:37+09:00
+    - Last commit date: 2020-04-12 12:38:19+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A</a>
@@ -278,8 +278,8 @@ struct SegmentTree {
     }
 
     M _query(int a, int b, int k, int l, int r) {
-        if (r <= a || b <= l) return e;
-        if (a <= l && r <= b) return data[k];
+        if (r <= a or b <= l) return e;
+        if (a <= l and r <= b) return data[k];
         return f(_query(a,b,2*k,  l,(l+r)/2),
                  _query(a,b,2*k+1,(l+r)/2,r));
     }

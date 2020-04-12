@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#76b7967922953d4ccde5920efa72b35a">test/graph/maximum_clique</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/maximum_clique/maximum_clique.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-07 19:51:34+09:00
+    - Last commit date: 2020-04-12 12:38:19+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306</a>
@@ -304,7 +304,7 @@ T maximum_clique(
         vector<int> neighbor;
         if (u != -1) neighbor.push_back(u);
         for (int v = 0; v < n; ++v) if (!used[v]) {
-            if (u == -1 || G[u][v]) {
+            if (u == -1 or G[u][v]) {
                 neighbor.push_back(v);
             }
         }

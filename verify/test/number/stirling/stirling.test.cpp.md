@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#ddfa6c538fca263880a43dd0fdbf3615">test/number/stirling</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/stirling/stirling.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-22 13:09:18+09:00
+    - Last commit date: 2020-04-12 12:38:19+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I</a>
@@ -350,17 +350,17 @@ struct Combination {
     inline Field inv(int k) const { assert(k != 0); return _inv.at(k); }
 
     Field P(int n, int r) const {
-        if (r < 0 || n < r) return 0;
+        if (r < 0 or n < r) return 0;
         return fact(n) * rfact(n-r);
     }
 
     Field C(int n, int r) const {
-        if (r < 0 || n < r) return 0;
+        if (r < 0 or n < r) return 0;
         return fact(n) * rfact(r) * rfact(n-r);
     }
 
     Field H (int n, int r) const {
-        return (n == 0 && r == 0) ? 1 : C(n+r-1, r);
+        return (n == 0 and r == 0) ? 1 : C(n+r-1, r);
     }
 };
 

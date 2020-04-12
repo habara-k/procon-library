@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/matrix.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-21 20:32:08+09:00
+    - Last commit date: 2020-04-12 12:38:19+09:00
 
 
 
@@ -91,7 +91,7 @@ struct Matrix {
 
     Matrix& operator+=(const Matrix& B) {
         size_t n = height(), m = width();
-        assert(n == B.height() && m == B.width());
+        assert(n == B.height() and m == B.width());
         for (int i = 0; i < n; i++)
             for (int j = 0; j < m; j++)
                 A[i][j] += B[i][j];
@@ -404,7 +404,7 @@ struct Matrix {
 
     Matrix& operator+=(const Matrix& B) {
         size_t n = height(), m = width();
-        assert(n == B.height() && m == B.width());
+        assert(n == B.height() and m == B.width());
         for (int i = 0; i < n; i++)
             for (int j = 0; j < m; j++)
                 A[i][j] += B[i][j];

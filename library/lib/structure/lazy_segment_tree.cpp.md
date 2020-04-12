@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/lazy_segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-11 13:35:37+09:00
+    - Last commit date: 2020-04-12 12:38:19+09:00
 
 
 
@@ -109,8 +109,8 @@ struct LazySegmentTree {
 
     void _update(int a, int b, const OM &x, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) return;
-        else if (a <= l && r <= b) {
+        if (r <= a or b <= l) return;
+        else if (a <= l and r <= b) {
             lazy[k] = h(lazy[k], x);
             propagate(k, r - l);
         } else {
@@ -127,8 +127,8 @@ struct LazySegmentTree {
 
     M _query(int a, int b, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) return e;
-        else if (a <= l && r <= b) return data[k];
+        if (r <= a or b <= l) return e;
+        else if (a <= l and r <= b) return data[k];
         else return f(
                 _query(a, b, 2*k,   l, (l+r)/2),
                 _query(a, b, 2*k+1, (l+r)/2, r));
@@ -372,8 +372,8 @@ struct LazySegmentTree {
 
     void _update(int a, int b, const OM &x, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) return;
-        else if (a <= l && r <= b) {
+        if (r <= a or b <= l) return;
+        else if (a <= l and r <= b) {
             lazy[k] = h(lazy[k], x);
             propagate(k, r - l);
         } else {
@@ -390,8 +390,8 @@ struct LazySegmentTree {
 
     M _query(int a, int b, int k, int l, int r) {
         propagate(k, r - l);
-        if (r <= a || b <= l) return e;
-        else if (a <= l && r <= b) return data[k];
+        if (r <= a or b <= l) return e;
+        else if (a <= l and r <= b) return data[k];
         else return f(
                 _query(a, b, 2*k,   l, (l+r)/2),
                 _query(a, b, 2*k+1, (l+r)/2, r));

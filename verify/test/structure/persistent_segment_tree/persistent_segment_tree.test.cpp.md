@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#930708ccd228402100db5e002260e5b2">test/structure/persistent_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-03 22:19:34+09:00
+    - Last commit date: 2020-04-12 12:38:19+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270</a>
@@ -364,8 +364,8 @@ struct PersistentSegmentTree {
 
     template<typename UpdateQuery>
     Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) {
-        if (pos == l && pos+1 == r) return _new(q(t->data));
-        if (r <= pos || pos < l) return t;
+        if (pos == l and pos+1 == r) return _new(q(t->data));
+        if (r <= pos or pos < l) return t;
         return _new(_update(t->l, q, pos, l, (l+r)>>1),
                     _update(t->r, q, pos, (l+r)>>1, r));
     }
@@ -376,8 +376,8 @@ struct PersistentSegmentTree {
     }
 
     M _query(Node* t, int a, int b, int l, int r) {
-        if (r <= a || b <= l) return e;
-        if (a <= l && r <= b) return t->data;
+        if (r <= a or b <= l) return e;
+        if (a <= l and r <= b) return t->data;
         return f(_query(t->l, a, b, l, (l+r)>>1),
                  _query(t->r, a, b, (l+r)>>1, r));
     }

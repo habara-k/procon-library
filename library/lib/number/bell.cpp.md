@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/bell.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-22 13:09:18+09:00
+    - Last commit date: 2020-04-12 12:38:19+09:00
 
 
 
@@ -271,17 +271,17 @@ struct Combination {
     inline Field inv(int k) const { assert(k != 0); return _inv.at(k); }
 
     Field P(int n, int r) const {
-        if (r < 0 || n < r) return 0;
+        if (r < 0 or n < r) return 0;
         return fact(n) * rfact(n-r);
     }
 
     Field C(int n, int r) const {
-        if (r < 0 || n < r) return 0;
+        if (r < 0 or n < r) return 0;
         return fact(n) * rfact(r) * rfact(n-r);
     }
 
     Field H (int n, int r) const {
-        return (n == 0 && r == 0) ? 1 : C(n+r-1, r);
+        return (n == 0 and r == 0) ? 1 : C(n+r-1, r);
     }
 };
 
