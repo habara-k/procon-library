@@ -4,6 +4,12 @@ using Real = double;
 Real EPS = 1e-8;
 
 using Point = complex<Real>;
+namespace std {
+    bool operator<(const Point& a, const Point& b) {
+        if (a.real() == b.real()) return a.imag() < b.imag();
+        return a.real() < b.real();
+    }
+}
 struct Line {
     Point a, b;
     Line() {}
