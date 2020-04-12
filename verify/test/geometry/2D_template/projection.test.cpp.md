@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#a2c5f8fc0f05060a960f2bd934b33f5f">test/geometry/2D_template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/geometry/2D_template/projection.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-11 23:45:15+09:00
+    - Last commit date: 2020-04-12 12:25:45+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A</a>
@@ -260,6 +260,12 @@ using Real = double;
 Real EPS = 1e-8;
 
 using Point = complex<Real>;
+namespace std {
+    bool operator<(const Point& a, const Point& b) {
+        if (a.real() == b.real()) return a.imag() < b.imag();
+        return a.real() < b.real();
+    }
+}
 struct Line {
     Point a, b;
     Line() {}

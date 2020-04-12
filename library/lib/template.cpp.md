@@ -42,6 +42,7 @@ layout: default
 * :heavy_check_mark: <a href="algorithm/longest_increasing_subsequence.cpp.html">lib/algorithm/longest_increasing_subsequence.cpp</a>
 * :heavy_check_mark: <a href="geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
 * :warning: <a href="geometry/3D_template.cpp.html">lib/geometry/3D_template.cpp</a>
+* :heavy_check_mark: <a href="geometry/polygon.cpp.html">lib/geometry/polygon.cpp</a>
 * :heavy_check_mark: <a href="graph/dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
 * :heavy_check_mark: <a href="graph/dinic.cpp.html">lib/graph/dinic.cpp</a>
 * :heavy_check_mark: <a href="graph/euler_tour.cpp.html">lib/graph/euler_tour.cpp</a>
@@ -91,6 +92,12 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/geometry/2D_template/intersection.test.cpp.html">test/geometry/2D_template/intersection.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/geometry/2D_template/parallel_orthogonal.test.cpp.html">test/geometry/2D_template/parallel_orthogonal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/geometry/2D_template/projection.test.cpp.html">test/geometry/2D_template/projection.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/polygon/area.test.cpp.html">test/geometry/polygon/area.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/polygon/contains.test.cpp.html">test/geometry/polygon/contains.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/polygon/convex_cut.test.cpp.html">test/geometry/polygon/convex_cut.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/polygon/convex_hull.test.cpp.html">test/geometry/polygon/convex_hull.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/polygon/diameter.test.cpp.html">test/geometry/polygon/diameter.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/geometry/polygon/is_convex.test.cpp.html">test/geometry/polygon/is_convex.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>

@@ -25,21 +25,22 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/geometry/2D_template/parallel_orthogonal.test.cpp
+# :heavy_check_mark: test/geometry/polygon/is_convex.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#a2c5f8fc0f05060a960f2bd934b33f5f">test/geometry/2D_template</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/geometry/2D_template/parallel_orthogonal.test.cpp">View this file on GitHub</a>
+* category: <a href="../../../../index.html#c10cfff06167ed9a9fdd4e718d03bca1">test/geometry/polygon</a>
+* <a href="{{ site.github.repository_url }}/blob/master/test/geometry/polygon/is_convex.test.cpp">View this file on GitHub</a>
     - Last commit date: 2020-04-12 12:25:45+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A</a>
+* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/3/CGL_3_B">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/3/CGL_3_B</a>
 
 
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/geometry/polygon.cpp.html">lib/geometry/polygon.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
@@ -48,27 +49,20 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/3/CGL_3_B"
 
-#include "../../../lib/geometry/2D_template.cpp"
+#include "../../../lib/geometry/polygon.cpp"
 
 int main()
 {
-    int q; cin >> q;
-    while (q--) {
-        double x1, y1, x2, y2, x3, y3, x4, y4;
-        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-        Segment l1{Point{x1, y1}, Point{x2, y2}},
-                l2{Point{x3, y3}, Point{x4, y4}};
-
-        if (parallel(l1, l2)) {
-            cout << 2 << endl;
-        } else if (orthogonal(l1, l2)) {
-            cout << 1 << endl;
-        } else {
-            cout << 0 << endl;
-        }
+    int n; cin >> n;
+    vector<Point> p(n);
+    for (int i = 0; i < n; ++i) {
+        double x, y; cin >> x >> y;
+        p[i] = { x, y };
     }
+
+    cout << is_convex(p) << endl;
 
     return 0;
 }
@@ -79,8 +73,8 @@ int main()
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/geometry/2D_template/parallel_orthogonal.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A"
+#line 1 "test/geometry/polygon/is_convex.test.cpp"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/3/CGL_3_B"
 
 #line 1 "lib/template.cpp"
 
@@ -374,25 +368,110 @@ Point crosspoint(const Line& l1, const Line& l2) {
          B = cross(l2.b - l1.b, l2.a - l1.b);
     return (A * l1.b + B * l1.a) / (A + B);
 }
-#line 4 "test/geometry/2D_template/parallel_orthogonal.test.cpp"
+#line 2 "lib/geometry/polygon.cpp"
+
+using Polygon = vector<Point>;
+
+Real area(const Polygon& U) {
+    Real area = 0;
+    for (int i = 0; i < U.size(); ++i) {
+        area += cross(U[i], U[(i + 1) % U.size()]);
+    }
+    return area / 2.0;
+}
+
+bool is_convex(const Polygon &U) {
+    int n = U.size();
+    for (int i = 0; i < n; i++) {
+        if (ccw(U[i], U[(i + 1) % n], U[(i + 2) % n]) == -1) return false;
+    }
+    return true;
+}
+
+const int OUT = 0,
+          ON = 1,
+          IN = 2;
+int contains(const Polygon &U, const Point &p) {
+    int in = 0;
+    for(int i = 0; i < U.size(); i++) {
+        Point a = U[i] - p, b = U[(i + 1) % U.size()] - p;
+        if (cross(a, b) == 0 and dot(a, b) <= 0) return ON;
+        if (a.imag() > b.imag()) swap(a, b);
+        if (a.imag() <= 0 and 0 < b.imag() and cross(a, b) < 0) in ^= 1;
+    }
+    return in ? IN : OUT;
+}
+
+vector<Point> convex_hull(vector<Point>& p) {
+    int n = p.size(), k = 0;
+    if (n <= 2) return p;
+    sort(p.begin(), p.end());
+    vector<Point> ch(n * 2);
+    for (int i = 0; i < n; ch[k++] = p[i++]) {
+        while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+    }
+    for (int i = n-2, t = k+1; i >= 0; ch[k++] = p[i--]) {
+        while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+    }
+    ch.resize(k-1);
+    return ch;
+}
+
+Real convex_diameter(const Polygon &U) {
+    int n = U.size();
+    int is = 0, js = 0;
+    for (int i = 1; i < n; i++) {
+        if (U[i].imag() > U[is].imag()) is = i;
+        if (U[i].imag() < U[js].imag()) js = i;
+    }
+    Real maxnorm = norm(U[is] - U[js]);
+
+    int i = is, j = js;
+    do {
+        if (cross(U[(i+1) % n] - U[i], U[(j+1) % n] - U[j]) >= 0) {
+            j = (j+1) % n;
+        } else {
+            i = (i+1) % n;
+        }
+        if (norm(U[i] - U[j]) > maxnorm) {
+            maxnorm = norm(U[i] - U[j]);
+        }
+    } while (i != is or j != js);
+    return sqrt(maxnorm);
+}
+
+Polygon convex_cut(const Polygon& U, const Line& l) {
+    Polygon ret;
+    for (int i = 0; i < U.size(); i++) {
+        Point now = U[i], nxt = U[(i + 1) % U.size()];
+        if (ccw(l.a, l.b, now) != -1) ret.push_back(now);
+        if (ccw(l.a, l.b, now) * ccw(l.a, l.b, nxt) == -1) {
+            ret.push_back(crosspoint(Line{ now, nxt }, l));
+        }
+    }
+    return ret;
+}
+
+Polygon voronoi_cell(const Point& c, const vector<Point>& ps, Polygon outer) {
+    for (const Point& p : ps) {
+        Point m = (p + c) / 2.0;
+        outer = convex_cut(outer,
+                    Line{ m, m + rotate(p - c, M_PI / 2) });
+    }
+    return outer;
+}
+#line 4 "test/geometry/polygon/is_convex.test.cpp"
 
 int main()
 {
-    int q; cin >> q;
-    while (q--) {
-        double x1, y1, x2, y2, x3, y3, x4, y4;
-        cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-        Segment l1{Point{x1, y1}, Point{x2, y2}},
-                l2{Point{x3, y3}, Point{x4, y4}};
-
-        if (parallel(l1, l2)) {
-            cout << 2 << endl;
-        } else if (orthogonal(l1, l2)) {
-            cout << 1 << endl;
-        } else {
-            cout << 0 << endl;
-        }
+    int n; cin >> n;
+    vector<Point> p(n);
+    for (int i = 0; i < n; ++i) {
+        double x, y; cin >> x >> y;
+        p[i] = { x, y };
     }
+
+    cout << is_convex(p) << endl;
 
     return 0;
 }

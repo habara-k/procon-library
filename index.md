@@ -55,6 +55,7 @@ layout: default
 
 * :heavy_check_mark: <a href="library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
 * :warning: <a href="library/lib/geometry/3D_template.cpp.html">lib/geometry/3D_template.cpp</a>
+* :heavy_check_mark: <a href="library/lib/geometry/polygon.cpp.html">lib/geometry/polygon.cpp</a>
 
 
 <div id="6e267a37887a7dcb68cbf7008d6c7e48"></div>
@@ -148,6 +149,12 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/geometry/2D_template/intersection.test.cpp.html">test/geometry/2D_template/intersection.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/geometry/2D_template/parallel_orthogonal.test.cpp.html">test/geometry/2D_template/parallel_orthogonal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/geometry/2D_template/projection.test.cpp.html">test/geometry/2D_template/projection.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/polygon/area.test.cpp.html">test/geometry/polygon/area.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/polygon/contains.test.cpp.html">test/geometry/polygon/contains.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/polygon/convex_cut.test.cpp.html">test/geometry/polygon/convex_cut.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/polygon/convex_hull.test.cpp.html">test/geometry/polygon/convex_hull.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/polygon/diameter.test.cpp.html">test/geometry/polygon/diameter.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/geometry/polygon/is_convex.test.cpp.html">test/geometry/polygon/is_convex.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>

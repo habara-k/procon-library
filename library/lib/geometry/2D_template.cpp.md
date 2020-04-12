@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7096d029078708cdbb96f2303d66dee8">lib/geometry</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/geometry/2D_template.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-11 23:45:15+09:00
+    - Last commit date: 2020-04-12 12:25:45+09:00
 
 
 
@@ -39,6 +39,11 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+
+
+## Required by
+
+* :heavy_check_mark: <a href="polygon.cpp.html">lib/geometry/polygon.cpp</a>
 
 
 ## Verified with
@@ -49,6 +54,12 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/intersection.test.cpp.html">test/geometry/2D_template/intersection.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/parallel_orthogonal.test.cpp.html">test/geometry/2D_template/parallel_orthogonal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/projection.test.cpp.html">test/geometry/2D_template/projection.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/area.test.cpp.html">test/geometry/polygon/area.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/contains.test.cpp.html">test/geometry/polygon/contains.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/convex_cut.test.cpp.html">test/geometry/polygon/convex_cut.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/convex_hull.test.cpp.html">test/geometry/polygon/convex_hull.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/diameter.test.cpp.html">test/geometry/polygon/diameter.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/is_convex.test.cpp.html">test/geometry/polygon/is_convex.test.cpp</a>
 
 
 ## Code
@@ -62,6 +73,12 @@ using Real = double;
 Real EPS = 1e-8;
 
 using Point = complex<Real>;
+namespace std {
+    bool operator<(const Point& a, const Point& b) {
+        if (a.real() == b.real()) return a.imag() < b.imag();
+        return a.real() < b.real();
+    }
+}
 struct Line {
     Point a, b;
     Line() {}
@@ -355,6 +372,12 @@ using Real = double;
 Real EPS = 1e-8;
 
 using Point = complex<Real>;
+namespace std {
+    bool operator<(const Point& a, const Point& b) {
+        if (a.real() == b.real()) return a.imag() < b.imag();
+        return a.real() < b.real();
+    }
+}
 struct Line {
     Point a, b;
     Line() {}
