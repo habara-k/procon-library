@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#76b7967922953d4ccde5920efa72b35a">test/graph/maximum_clique</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/maximum_clique/maximum_clique.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306</a>
@@ -311,8 +311,8 @@ T maximum_clique(
 
         int sz = neighbor.size();
         vector<int> bit(sz);
-        for (int i = 0; i < sz; i++) {
-            for (int j = 0; j < sz; j++) {
+        for (int i = 0; i < sz; ++i) {
+            for (int j = 0; j < sz; ++j) {
                 if (G[neighbor[i]][neighbor[j]]) {
                     bit[i] |= 1 << j;
                 }

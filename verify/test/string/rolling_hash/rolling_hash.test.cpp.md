@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#31a4d3622b17b59245712065ac1a2caf">test/string/rolling_hash</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/string/rolling_hash/rolling_hash.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-10 03:27:47+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B</a>
@@ -62,7 +62,7 @@ int main() {
     RollingHash rht(T, base);
     RollingHash rhp(P, base);
 
-    for (int i = 0; i+m <= n; i++) {
+    for (int i = 0; i+m <= n; ++i) {
         if (rht.get(i, i+m) == rhp.get(0, m)) {
             cout << i << endl;
         }
@@ -307,7 +307,7 @@ int main() {
     RollingHash rht(T, base);
     RollingHash rhp(P, base);
 
-    for (int i = 0; i+m <= n; i++) {
+    for (int i = 0; i+m <= n; ++i) {
         if (rht.get(i, i+m) == rhp.get(0, m)) {
             cout << i << endl;
         }

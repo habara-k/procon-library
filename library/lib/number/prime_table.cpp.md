@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/prime_table.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-20 02:19:09+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 
@@ -58,7 +58,7 @@ vector<bool> prime_table(int n) {
     n = max(n, 1);
     vector<bool> prime(n+1, true);
     prime[0] = prime[1] = false;
-    for (int i = 2; i * i <= n; i++) {
+    for (int i = 2; i * i <= n; ++i) {
         if (!prime[i]) continue;
         for (int j = 2 * i; j <= n; j += i) {
             prime[j] = false;
@@ -253,7 +253,7 @@ vector<bool> prime_table(int n) {
     n = max(n, 1);
     vector<bool> prime(n+1, true);
     prime[0] = prime[1] = false;
-    for (int i = 2; i * i <= n; i++) {
+    for (int i = 2; i * i <= n; ++i) {
         if (!prime[i]) continue;
         for (int j = 2 * i; j <= n; j += i) {
             prime[j] = false;

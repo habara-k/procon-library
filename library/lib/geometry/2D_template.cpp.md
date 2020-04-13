@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#7096d029078708cdbb96f2303d66dee8">lib/geometry</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/geometry/2D_template.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 20:29:10+09:00
+    - Last commit date: 2020-04-13 13:33:45+09:00
 
 
 
@@ -104,7 +104,7 @@ Real degree_to_radian(Real d) {
 }
 
 Point rotate(const Point &p, Real theta) {
-    return p * polar(1., theta);
+    return p * polar((Real)1.0, theta);
 }
 
 Real cross(const Point& a, const Point& b) {
@@ -403,7 +403,7 @@ Real degree_to_radian(Real d) {
 }
 
 Point rotate(const Point &p, Real theta) {
-    return p * polar(1., theta);
+    return p * polar((Real)1.0, theta);
 }
 
 Real cross(const Point& a, const Point& b) {

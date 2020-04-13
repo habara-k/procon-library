@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/dinic.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-07 18:20:06+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 
@@ -94,7 +94,7 @@ struct Dinic {
 
     T dfs(int v, const int t, T flow) {
         if (v == t) return flow;
-        for (int &i = iter[v]; i < g[v].size(); i++) {
+        for (int &i = iter[v]; i < g[v].size(); ++i) {
             edge &e = g[v][i];
             if (e.cap > 0 and level[v] < level[e.to]) {
                 T d = dfs(e.to, t, min(flow, e.cap));
@@ -113,7 +113,7 @@ struct Dinic {
         while (bfs(s, t)) {
             iter.assign(g.size(), 0);
             T f = 0;
-            while((f = dfs(s, t, INF)) > 0) flow += f;
+            while ((f = dfs(s, t, INF)) > 0) flow += f;
         }
         return flow;
     }
@@ -341,7 +341,7 @@ struct Dinic {
 
     T dfs(int v, const int t, T flow) {
         if (v == t) return flow;
-        for (int &i = iter[v]; i < g[v].size(); i++) {
+        for (int &i = iter[v]; i < g[v].size(); ++i) {
             edge &e = g[v][i];
             if (e.cap > 0 and level[v] < level[e.to]) {
                 T d = dfs(e.to, t, min(flow, e.cap));
@@ -360,7 +360,7 @@ struct Dinic {
         while (bfs(s, t)) {
             iter.assign(g.size(), 0);
             T f = 0;
-            while((f = dfs(s, t, INF)) > 0) flow += f;
+            while ((f = dfs(s, t, INF)) > 0) flow += f;
         }
         return flow;
     }

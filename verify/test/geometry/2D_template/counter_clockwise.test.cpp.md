@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#a2c5f8fc0f05060a960f2bd934b33f5f">test/geometry/2D_template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/geometry/2D_template/counter_clockwise.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 20:29:10+09:00
+    - Last commit date: 2020-04-13 13:33:45+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_C</a>
@@ -302,7 +302,7 @@ Real degree_to_radian(Real d) {
 }
 
 Point rotate(const Point &p, Real theta) {
-    return p * polar(1., theta);
+    return p * polar((Real)1.0, theta);
 }
 
 Real cross(const Point& a, const Point& b) {

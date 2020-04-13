@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/prime_factorize.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 
@@ -56,7 +56,7 @@ layout: default
 // O(sqrt(n))
 map<int64_t, int> prime_factorize(int64_t n) {
     map<int64_t, int> ret;
-    for (int64_t i = 2; i * i <= n; i++) {
+    for (int64_t i = 2; i * i <= n; ++i) {
         while (n % i == 0) {
             ret[i]++;
             n /= i;
@@ -250,7 +250,7 @@ const int64_t MOD = 1e9+7;
 // O(sqrt(n))
 map<int64_t, int> prime_factorize(int64_t n) {
     map<int64_t, int> ret;
-    for (int64_t i = 2; i * i <= n; i++) {
+    for (int64_t i = 2; i * i <= n; ++i) {
         while (n % i == 0) {
             ret[i]++;
             n /= i;

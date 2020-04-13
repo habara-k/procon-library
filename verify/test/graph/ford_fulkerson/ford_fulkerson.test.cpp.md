@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#f8803830fe6dcd35d4845ac97ce72214">test/graph/ford_fulkerson</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/ford_fulkerson/ford_fulkerson.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-07 18:23:02+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A</a>
@@ -56,7 +56,7 @@ int main() {
     int V, E;
     cin >> V >> E;
     FordFulkerson<int> g(V);
-    for(int i = 0; i < E; i++) {
+    for (int i = 0; i < E; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
         g.add_edge(a, b, c);
@@ -290,7 +290,7 @@ struct FordFulkerson {
 
     T max_flow(int s, int t) {
         T flow = 0;
-        for(T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
+        for (T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
             flow += f;
         }
         return flow;
@@ -302,7 +302,7 @@ int main() {
     int V, E;
     cin >> V >> E;
     FordFulkerson<int> g(V);
-    for(int i = 0; i < E; i++) {
+    for (int i = 0; i < E; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
         g.add_edge(a, b, c);

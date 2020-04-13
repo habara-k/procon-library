@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/matrix.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 
@@ -76,7 +76,7 @@ struct Matrix {
 
     static Matrix I(size_t n) {
         Matrix B(n);
-        for (int i = 0; i < n; i++) B[i][i] = 1;
+        for (int i = 0; i < n; ++i) B[i][i] = 1;
         return (B);
     }
 
@@ -92,8 +92,8 @@ struct Matrix {
     Matrix& operator+=(const Matrix& B) {
         size_t n = height(), m = width();
         assert(n == B.height() and m == B.width());
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
                 A[i][j] += B[i][j];
         return (*this);
     }
@@ -106,9 +106,9 @@ struct Matrix {
         size_t n = height(), m = B.width(), p = width();
         assert(p == B.height());
         Matrix C(n, m);
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < m; j++)
-                for(int k = 0; k < p; k++)
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                for (int k = 0; k < p; ++k)
                     C[i][j] += A[i][k] * B[k][j];
         A.swap(C.A);
         return (*this);
@@ -169,9 +169,9 @@ struct Matrix {
 
     friend ostream& operator<<(ostream& os, Matrix& B) {
         size_t n = B.height(), m = B.width();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; ++i) {
             os << (i == 0 ? "[" : " ");
-            for(int j = 0; j < m; j++) {
+            for (int j = 0; j < m; ++j) {
                 os << B[i][j] << (j == m-1 ? "]" : ",");
             }
             os << (i == n-1 ? "]\n" : ",\n");
@@ -389,7 +389,7 @@ struct Matrix {
 
     static Matrix I(size_t n) {
         Matrix B(n);
-        for (int i = 0; i < n; i++) B[i][i] = 1;
+        for (int i = 0; i < n; ++i) B[i][i] = 1;
         return (B);
     }
 
@@ -405,8 +405,8 @@ struct Matrix {
     Matrix& operator+=(const Matrix& B) {
         size_t n = height(), m = width();
         assert(n == B.height() and m == B.width());
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
                 A[i][j] += B[i][j];
         return (*this);
     }
@@ -419,9 +419,9 @@ struct Matrix {
         size_t n = height(), m = B.width(), p = width();
         assert(p == B.height());
         Matrix C(n, m);
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < m; j++)
-                for(int k = 0; k < p; k++)
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j)
+                for (int k = 0; k < p; ++k)
                     C[i][j] += A[i][k] * B[k][j];
         A.swap(C.A);
         return (*this);
@@ -482,9 +482,9 @@ struct Matrix {
 
     friend ostream& operator<<(ostream& os, Matrix& B) {
         size_t n = B.height(), m = B.width();
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; ++i) {
             os << (i == 0 ? "[" : " ");
-            for(int j = 0; j < m; j++) {
+            for (int j = 0; j < m; ++j) {
                 os << B[i][j] << (j == m-1 ? "]" : ",");
             }
             os << (i == n-1 ? "]\n" : ",\n");

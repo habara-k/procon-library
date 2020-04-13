@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#06a2e32a774c9bde5c2eb0511cf0cc0a">test/number/is_prime</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/is_prime/is_prime.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:18:01+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/1/ALDS1_1_C</a>
@@ -253,7 +253,7 @@ const int64_t MOD = 1e9+7;
 bool is_prime(int64_t n) {
     assert(n > 0);
     if (n == 1) return false;
-    for (int64_t i = 2; i * i <= n; i++) {
+    for (int64_t i = 2; i * i <= n; ++i) {
         if (n % i == 0) return false;
     }
     return true;

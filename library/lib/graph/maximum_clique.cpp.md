@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/maximum_clique.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 
@@ -97,8 +97,8 @@ T maximum_clique(
 
         int sz = neighbor.size();
         vector<int> bit(sz);
-        for (int i = 0; i < sz; i++) {
-            for (int j = 0; j < sz; j++) {
+        for (int i = 0; i < sz; ++i) {
+            for (int j = 0; j < sz; ++j) {
                 if (G[neighbor[i]][neighbor[j]]) {
                     bit[i] |= 1 << j;
                 }
@@ -355,8 +355,8 @@ T maximum_clique(
 
         int sz = neighbor.size();
         vector<int> bit(sz);
-        for (int i = 0; i < sz; i++) {
-            for (int j = 0; j < sz; j++) {
+        for (int i = 0; i < sz; ++i) {
+            for (int j = 0; j < sz; ++j) {
                 if (G[neighbor[i]][neighbor[j]]) {
                     bit[i] |= 1 << j;
                 }

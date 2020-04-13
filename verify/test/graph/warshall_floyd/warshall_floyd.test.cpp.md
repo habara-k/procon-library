@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7c505010898c1988cd7f9f1bd5d139cc">test/graph/warshall_floyd</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/warshall_floyd/warshall_floyd.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_C</a>
@@ -270,10 +270,10 @@ template<typename T>
 void warshall_floyd(vector<vector<T>> &g) {
     const auto INF = numeric_limits<T>::max();
     int n = g.size();
-    for(int k = 0; k < n; k++) {
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if(g[i][k] == INF or g[k][j] == INF) continue;
+    for (int k = 0; k < n; ++k) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (g[i][k] == INF or g[k][j] == INF) continue;
                 g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
             }
         }

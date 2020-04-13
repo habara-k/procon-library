@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#86cae120d42a0d43d0c5d09d870524dd">test/graph/strongly_connected_components</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/strongly_connected_components/strongly_connected_components.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C</a>
@@ -263,7 +263,7 @@ struct StronglyConnectedComponents {
     StronglyConnectedComponents(const vector<vector<int>>& g) :
         g(g), rg(g.size()), comp(g.size(), -1), used(g.size())
     {
-        for (int i = 0; i < g.size(); i++) {
+        for (int i = 0; i < g.size(); ++i) {
             for (int to : g[i]) {
                 rg[to].push_back(i);
             }
@@ -284,13 +284,13 @@ struct StronglyConnectedComponents {
     }
 
     void build() {
-        for (int i = 0; i < g.size(); i++) dfs(i);
+        for (int i = 0; i < g.size(); ++i) dfs(i);
         reverse(ord.begin(), ord.end());
         int ptr = 0;
         for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
 
         t.resize(ptr);
-        for (int i = 0; i < g.size(); i++) {
+        for (int i = 0; i < g.size(); ++i) {
             for (int to : g[i]) {
                 int x = comp[i], y = comp[to];
                 if (x == y) continue;

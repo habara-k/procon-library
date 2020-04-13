@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#cbce7cddb224a7f20c1a5382c41bc938">test/graph/primal_dual</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/primal_dual/primal_dual.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-07 18:23:15+09:00
+    - Last commit date: 2020-04-13 13:44:03+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_B</a>
@@ -287,7 +287,7 @@ struct PrimalDual {
             std::tie(cost, v) = que.top();
             que.pop();
             if (dist[v] < cost) continue;
-            for (int i = 0; i < g[v].size(); i++) {
+            for (int i = 0; i < g[v].size(); ++i) {
                 edge &e = g[v][i];
                 cost_t nextCost =
                     dist[v] + e.cost + potential[v] - potential[e.to];
@@ -312,7 +312,7 @@ struct PrimalDual {
 
             if (dist[t] == INF) return -1;
 
-            for (int v = 0; v < sz; v++) potential[v] += dist[v];
+            for (int v = 0; v < sz; ++v) potential[v] += dist[v];
 
             flow_t diff = f;
             for (int v = t; v != s; v = prevv[v]) {

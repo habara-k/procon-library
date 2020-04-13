@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/ford_fulkerson.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-07 18:23:02+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 
@@ -95,7 +95,7 @@ struct FordFulkerson {
 
     T max_flow(int s, int t) {
         T flow = 0;
-        for(T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
+        for (T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
             flow += f;
         }
         return flow;
@@ -325,7 +325,7 @@ struct FordFulkerson {
 
     T max_flow(int s, int t) {
         T flow = 0;
-        for(T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
+        for (T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
             flow += f;
         }
         return flow;

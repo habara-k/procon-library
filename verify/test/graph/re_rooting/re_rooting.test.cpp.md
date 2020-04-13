@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#201475acb17386f13f3e53190e3bcecc">test/graph/re_rooting</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/re_rooting/re_rooting.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-29 12:22:32+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A</a>
@@ -76,7 +76,7 @@ int main() {
     }
 
     int ans = 0;
-    for (auto &p : tr.solve()) {
+    for (auto& p : tr.solve()) {
         chmax(ans, p.fs);
     }
 
@@ -314,14 +314,14 @@ struct ReRooting {
     }
 
     vector<T> solve() {
-        for (int i = 0; i < g.size(); i++) {
+        for (int i = 0; i < g.size(); ++i) {
             ldp[i].assign(g[i].size()+1, init);
             rdp[i].assign(g[i].size()+1, init);
             lptr[i] = 0;
             rptr[i] = (int)g[i].size()-1;
         }
         vector<T> ret(g.size());
-        for(int i = 0; i < g.size(); i++) {
+        for (int i = 0; i < g.size(); ++i) {
             ret[i] = dfs(i, -1);
         }
         return ret;
@@ -353,7 +353,7 @@ int main() {
     }
 
     int ans = 0;
-    for (auto &p : tr.solve()) {
+    for (auto& p : tr.solve()) {
         chmax(ans, p.fs);
     }
 

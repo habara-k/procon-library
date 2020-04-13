@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#4d1507e39791d999ac151eacb3fb1788">test/graph/lowest_common_ancestor</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_C</a>
@@ -56,7 +56,7 @@ int main() {
     int N, Q;
     cin >> N;
     vector<vector<int>> g(N);
-    for(int i = 0; i < N; i++) {
+    for (int i = 0; i < N; ++i) {
         int k; cin >> k;
         while (k--) {
             int c; cin >> c;
@@ -310,7 +310,7 @@ int main() {
     int N, Q;
     cin >> N;
     vector<vector<int>> g(N);
-    for(int i = 0; i < N; i++) {
+    for (int i = 0; i < N; ++i) {
         int k; cin >> k;
         while (k--) {
             int c; cin >> c;

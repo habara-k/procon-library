@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#c10cfff06167ed9a9fdd4e718d03bca1">test/geometry/polygon</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/geometry/polygon/convex_hull.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 20:29:10+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/4/CGL_4_A">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/4/CGL_4_A</a>
@@ -64,7 +64,7 @@ int main()
         p[i] = { x, y };
     }
 
-    p = convex_hull(p);
+    p = convex_hull(p, true);
     int m = p.size();
 
     Point s = p[0];
@@ -304,7 +304,7 @@ Real degree_to_radian(Real d) {
 }
 
 Point rotate(const Point &p, Real theta) {
-    return p * polar(1., theta);
+    return p * polar((Real)1.0, theta);
 }
 
 Real cross(const Point& a, const Point& b) {
@@ -400,7 +400,7 @@ Real area(const Polygon& U) {
 
 bool is_convex(const Polygon &U) {
     int n = U.size();
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; ++i) {
         if (ccw(U[i], U[(i + 1) % n], U[(i + 2) % n]) == -1) return false;
     }
     return true;
@@ -411,7 +411,7 @@ const int OUT = 0,
           IN = 2;
 int contains(const Polygon &U, const Point &p) {
     int in = 0;
-    for(int i = 0; i < U.size(); i++) {
+    for (int i = 0; i < U.size(); ++i) {
         Point a = U[i] - p, b = U[(i + 1) % U.size()] - p;
         if (cross(a, b) == 0 and dot(a, b) <= 0) return ON;
         if (a.imag() > b.imag()) swap(a, b);
@@ -420,16 +420,17 @@ int contains(const Polygon &U, const Point &p) {
     return in ? IN : OUT;
 }
 
-vector<Point> convex_hull(vector<Point>& p) {
+vector<Point> convex_hull(vector<Point>& p, bool includeOnLine = false) {
     int n = p.size(), k = 0;
     if (n <= 2) return p;
     sort(p.begin(), p.end());
     vector<Point> ch(n * 2);
+    const Real BOUND = includeOnLine ? -EPS : EPS;
     for (int i = 0; i < n; ch[k++] = p[i++]) {
-        while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+        while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
     }
     for (int i = n-2, t = k+1; i >= 0; ch[k++] = p[i--]) {
-        while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+        while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
     }
     ch.resize(k-1);
     return ch;
@@ -438,7 +439,7 @@ vector<Point> convex_hull(vector<Point>& p) {
 Real convex_diameter(const Polygon &U) {
     int n = U.size();
     int is = 0, js = 0;
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < n; ++i) {
         if (U[i].imag() > U[is].imag()) is = i;
         if (U[i].imag() < U[js].imag()) js = i;
     }
@@ -460,7 +461,7 @@ Real convex_diameter(const Polygon &U) {
 
 Polygon convex_cut(const Polygon& U, const Line& l) {
     Polygon ret;
-    for (int i = 0; i < U.size(); i++) {
+    for (int i = 0; i < U.size(); ++i) {
         Point now = U[i], nxt = U[(i + 1) % U.size()];
         if (ccw(l.a, l.b, now) != -1) ret.push_back(now);
         if (ccw(l.a, l.b, now) * ccw(l.a, l.b, nxt) == -1) {
@@ -491,7 +492,7 @@ int main()
         p[i] = { x, y };
     }
 
-    p = convex_hull(p);
+    p = convex_hull(p, true);
     int m = p.size();
 
     Point s = p[0];

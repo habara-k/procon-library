@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#5783499dee4ed269189fef3427a7d836">test/graph/kruskal</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/kruskal/kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-10 03:39:57+09:00
+    - Last commit date: 2020-04-13 13:47:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A</a>
@@ -57,7 +57,7 @@ int main() {
     int V, E;
     cin >> V >> E;
     vector<edge<int>> edges;
-    for(int i = 0; i < E; i++) {
+    for (int i = 0; i < E; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
         edges.push_back({a, b, c});
@@ -319,7 +319,7 @@ int main() {
     int V, E;
     cin >> V >> E;
     vector<edge<int>> edges;
-    for(int i = 0; i < E; i++) {
+    for (int i = 0; i < E; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
         edges.push_back({a, b, c});
