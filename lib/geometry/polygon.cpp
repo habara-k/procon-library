@@ -32,16 +32,17 @@ int contains(const Polygon &U, const Point &p) {
     return in ? IN : OUT;
 }
 
-vector<Point> convex_hull(vector<Point>& p) {
+vector<Point> convex_hull(vector<Point>& p, bool includeOnLine = false) {
     int n = p.size(), k = 0;
     if (n <= 2) return p;
     sort(p.begin(), p.end());
     vector<Point> ch(n * 2);
+    const Real BOUND = includeOnLine ? -EPS : EPS;
     for (int i = 0; i < n; ch[k++] = p[i++]) {
-        while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+        while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
     }
     for (int i = n-2, t = k+1; i >= 0; ch[k++] = p[i--]) {
-        while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+        while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
     }
     ch.resize(k-1);
     return ch;

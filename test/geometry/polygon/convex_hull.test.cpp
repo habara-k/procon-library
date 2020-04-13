@@ -13,7 +13,7 @@ int main()
         p[i] = { x, y };
     }
 
-    p = convex_hull(p);
+    p = convex_hull(p, true);
     int m = p.size();
 
     Point s = p[0];

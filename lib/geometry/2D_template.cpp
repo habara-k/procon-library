@@ -35,7 +35,7 @@ Real degree_to_radian(Real d) {
 }
 
 Point rotate(const Point &p, Real theta) {
-    return p * polar(1., theta);
+    return p * polar((Real)1.0, theta);
 }
 
 Real cross(const Point& a, const Point& b) {
