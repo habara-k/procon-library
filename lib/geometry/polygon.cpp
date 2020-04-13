@@ -23,7 +23,7 @@ const int OUT = 0,
           IN = 2;
 int contains(const Polygon &U, const Point &p) {
     int in = 0;
-    for(int i = 0; i < U.size(); ++i) {
+    for (int i = 0; i < U.size(); ++i) {
         Point a = U[i] - p, b = U[(i + 1) % U.size()] - p;
         if (cross(a, b) == 0 and dot(a, b) <= 0) return ON;
         if (a.imag() > b.imag()) swap(a, b);

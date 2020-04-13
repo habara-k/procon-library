@@ -60,7 +60,7 @@ struct Dinic {
         while (bfs(s, t)) {
             iter.assign(g.size(), 0);
             T f = 0;
-            while((f = dfs(s, t, INF)) > 0) flow += f;
+            while ((f = dfs(s, t, INF)) > 0) flow += f;
         }
         return flow;
     }

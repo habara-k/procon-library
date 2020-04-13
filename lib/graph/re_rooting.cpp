@@ -54,7 +54,7 @@ struct ReRooting {
             rptr[i] = (int)g[i].size()-1;
         }
         vector<T> ret(g.size());
-        for(int i = 0; i < g.size(); ++i) {
+        for (int i = 0; i < g.size(); ++i) {
             ret[i] = dfs(i, -1);
         }
         return ret;

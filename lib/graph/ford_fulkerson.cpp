@@ -42,7 +42,7 @@ struct FordFulkerson {
 
     T max_flow(int s, int t) {
         T flow = 0;
-        for(T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
+        for (T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
             flow += f;
         }
         return flow;
