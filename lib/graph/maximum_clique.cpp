@@ -44,8 +44,8 @@ T maximum_clique(
 
         int sz = neighbor.size();
         vector<int> bit(sz);
-        for (int i = 0; i < sz; i++) {
-            for (int j = 0; j < sz; j++) {
+        for (int i = 0; i < sz; ++i) {
+            for (int j = 0; j < sz; ++j) {
                 if (G[neighbor[i]][neighbor[j]]) {
                     bit[i] |= 1 << j;
                 }

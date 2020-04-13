@@ -6,7 +6,7 @@ int main() {
     int N, Q;
     cin >> N;
     vector<vector<int>> g(N);
-    for(int i = 0; i < N; i++) {
+    for(int i = 0; i < N; ++i) {
         int k; cin >> k;
         while (k--) {
             int c; cin >> c;

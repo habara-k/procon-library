@@ -47,14 +47,14 @@ struct ReRooting {
     }
 
     vector<T> solve() {
-        for (int i = 0; i < g.size(); i++) {
+        for (int i = 0; i < g.size(); ++i) {
             ldp[i].assign(g[i].size()+1, init);
             rdp[i].assign(g[i].size()+1, init);
             lptr[i] = 0;
             rptr[i] = (int)g[i].size()-1;
         }
         vector<T> ret(g.size());
-        for(int i = 0; i < g.size(); i++) {
+        for(int i = 0; i < g.size(); ++i) {
             ret[i] = dfs(i, -1);
         }
         return ret;

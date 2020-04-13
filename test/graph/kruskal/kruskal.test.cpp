@@ -6,7 +6,7 @@ int main() {
     int V, E;
     cin >> V >> E;
     vector<edge<int>> edges;
-    for(int i = 0; i < E; i++) {
+    for(int i = 0; i < E; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
         edges.push_back({a, b, c});

@@ -41,7 +41,7 @@ struct Dinic {
 
     T dfs(int v, const int t, T flow) {
         if (v == t) return flow;
-        for (int &i = iter[v]; i < g[v].size(); i++) {
+        for (int &i = iter[v]; i < g[v].size(); ++i) {
             edge &e = g[v][i];
             if (e.cap > 0 and level[v] < level[e.to]) {
                 T d = dfs(e.to, t, min(flow, e.cap));

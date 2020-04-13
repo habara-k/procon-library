@@ -7,7 +7,7 @@ struct StronglyConnectedComponents {
     StronglyConnectedComponents(const vector<vector<int>>& g) :
         g(g), rg(g.size()), comp(g.size(), -1), used(g.size())
     {
-        for (int i = 0; i < g.size(); i++) {
+        for (int i = 0; i < g.size(); ++i) {
             for (int to : g[i]) {
                 rg[to].push_back(i);
             }
@@ -28,13 +28,13 @@ struct StronglyConnectedComponents {
     }
 
     void build() {
-        for (int i = 0; i < g.size(); i++) dfs(i);
+        for (int i = 0; i < g.size(); ++i) dfs(i);
         reverse(ord.begin(), ord.end());
         int ptr = 0;
         for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
 
         t.resize(ptr);
-        for (int i = 0; i < g.size(); i++) {
+        for (int i = 0; i < g.size(); ++i) {
             for (int to : g[i]) {
                 int x = comp[i], y = comp[to];
                 if (x == y) continue;

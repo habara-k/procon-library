@@ -40,7 +40,7 @@ struct PrimalDual {
             std::tie(cost, v) = que.top();
             que.pop();
             if (dist[v] < cost) continue;
-            for (int i = 0; i < g[v].size(); i++) {
+            for (int i = 0; i < g[v].size(); ++i) {
                 edge &e = g[v][i];
                 cost_t nextCost =
                     dist[v] + e.cost + potential[v] - potential[e.to];
@@ -65,7 +65,7 @@ struct PrimalDual {
 
             if (dist[t] == INF) return -1;
 
-            for (int v = 0; v < sz; v++) potential[v] += dist[v];
+            for (int v = 0; v < sz; ++v) potential[v] += dist[v];
 
             flow_t diff = f;
             for (int v = t; v != s; v = prevv[v]) {

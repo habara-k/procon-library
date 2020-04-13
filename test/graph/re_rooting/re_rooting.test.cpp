@@ -26,7 +26,7 @@ int main() {
     }
 
     int ans = 0;
-    for (auto &p : tr.solve()) {
+    for (auto& p : tr.solve()) {
         chmax(ans, p.fs);
     }
 

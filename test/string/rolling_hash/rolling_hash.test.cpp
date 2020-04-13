@@ -12,7 +12,7 @@ int main() {
     RollingHash rht(T, base);
     RollingHash rhp(P, base);
 
-    for (int i = 0; i+m <= n; i++) {
+    for (int i = 0; i+m <= n; ++i) {
         if (rht.get(i, i+m) == rhp.get(0, m)) {
             cout << i << endl;
         }

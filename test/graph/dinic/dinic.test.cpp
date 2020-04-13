@@ -6,7 +6,7 @@ int main() {
     int V, E;
     cin >> V >> E;
     Dinic<int> g(V);
-    for(int i = 0; i < E; i++) {
+    for(int i = 0; i < E; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
         g.add_edge(a, b, c);
