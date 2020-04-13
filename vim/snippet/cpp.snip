@@ -273,6 +273,7 @@ snippet euler_phi
 
 snippet fast_zeta_transform
 
+    // O(NlogN)
     template<typename T>
     vector<T> fast_zeta_transform_1(const vector<T>& f) {
         // Return g(s):
@@ -289,6 +290,7 @@ snippet fast_zeta_transform
         return g;
     }
 
+    // O(NlogN)
     template<typename T>
     vector<T> fast_zeta_transform_2(const vector<T>& f) {
         // Return g(s):
@@ -305,6 +307,43 @@ snippet fast_zeta_transform
         return g;
     }
 
+    // O(NloglogN)
+    template<typename T>
+    vector<T> fast_zeta_transform_prime_1(const vector<T>& f) {
+        // Return g(d):
+        // s.t. g(d) = \sum_{d | n} f(n)
+        int n = f.size();
+        vector<T> g = f;
+        vector<bool> sieve(n, true);
+        for (int p = 2; p < n; ++p) {
+            if (!sieve[p]) continue;
+            for (int i = (n - 1) / p; i > 0; --i) {
+                sieve[i * p] = false;
+                g[i] += g[i * p];
+            }
+        }
+        return g;
+    }
+
+    // O(NloglogN)
+    template<typename T>
+    vector<T> fast_zeta_transform_prime_2(const vector<T>& f) {
+        // Return g(n):
+        // s.t. g(n) = \sum_{d | n} f(d)
+        int n = f.size();
+        vector<T> g = f;
+        vector<bool> sieve(n, true);
+        for (int p = 2; p < n; ++p) {
+            if (!sieve[p]) continue;
+            for (int i = 1; i * p < n; ++i) {
+                sieve[i * p] = false;
+                g[i * p] += g[i];
+            }
+        }
+        return g;
+    }
+
+
 
 snippet is_prime
 
@@ -312,7 +351,7 @@ snippet is_prime
     bool is_prime(int64_t n) {
         assert(n > 0);
         if (n == 1) return false;
-        for (int64_t i = 2; i * i <= n; i++) {
+        for (int64_t i = 2; i * i <= n; ++i) {
             if (n % i == 0) return false;
         }
         return true;
@@ -418,7 +457,7 @@ snippet matrix
 
         static Matrix I(size_t n) {
             Matrix B(n);
-            for (int i = 0; i < n; i++) B[i][i] = 1;
+            for (int i = 0; i < n; ++i) B[i][i] = 1;
             return (B);
         }
 
@@ -434,8 +473,8 @@ snippet matrix
         Matrix& operator+=(const Matrix& B) {
             size_t n = height(), m = width();
             assert(n == B.height() and m == B.width());
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < m; j++)
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < m; ++j)
                     A[i][j] += B[i][j];
             return (*this);
         }
@@ -448,9 +487,9 @@ snippet matrix
             size_t n = height(), m = B.width(), p = width();
             assert(p == B.height());
             Matrix C(n, m);
-            for(int i = 0; i < n; i++)
-                for(int j = 0; j < m; j++)
-                    for(int k = 0; k < p; k++)
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < m; ++j)
+                    for (int k = 0; k < p; ++k)
                         C[i][j] += A[i][k] * B[k][j];
             A.swap(C.A);
             return (*this);
@@ -511,9 +550,9 @@ snippet matrix
 
         friend ostream& operator<<(ostream& os, Matrix& B) {
             size_t n = B.height(), m = B.width();
-            for(int i = 0; i < n; i++) {
+            for (int i = 0; i < n; ++i) {
                 os << (i == 0 ? "[" : " ");
-                for(int j = 0; j < m; j++) {
+                for (int j = 0; j < m; ++j) {
                     os << B[i][j] << (j == m-1 ? "]" : ",");
                 }
                 os << (i == n-1 ? "]\n" : ",\n");
@@ -525,6 +564,7 @@ snippet matrix
 
 snippet fast_mobius_transform
 
+    // O(NlogN)
     template<typename T>
     vector<T> fast_mobius_transform_1(const vector<T>& g) {
         // Return f(s):
@@ -542,6 +582,7 @@ snippet fast_mobius_transform
         return f;
     }
 
+    // O(NlogN)
     template<typename T>
     vector<T> fast_mobius_transform_2(const vector<T>& g) {
         // Return f(s):
@@ -559,13 +600,51 @@ snippet fast_mobius_transform
         return f;
     }
 
+    // O(NloglogN)
+    template<typename T>
+    vector<T> fast_mobius_transform_prime_1(const vector<T>& g) {
+        // Return f(d):
+        // s.t. g(d) = \sum_{d | n} f(n)
+        // ( e.g. f(d) = \sum_{d | n} mu(n / d) * g(n) )
+        int n = g.size();
+        vector<T> f = g;
+        vector<bool> sieve(n, true);
+        for (int p = 2; p < n; ++p) {
+            if (!sieve[p]) continue;
+            for (int i = 1; i * p < n; ++i) {
+                sieve[i * p] = false;
+                f[i] -= f[i * p];
+            }
+        }
+        return f;
+    }
+
+    // O(NloglogN)
+    template<typename T>
+    vector<T> fast_mobius_transform_prime_2(const vector<T>& g) {
+        // Return f(n):
+        // s.t. g(n) = \sum_{d | n} f(d)
+        // ( e.g. f(n) = \sum_{d | n} mu(n / d) * g(d) )
+        int n = g.size();
+        vector<T> f = g;
+        vector<bool> sieve(n, true);
+        for (int p = 2; p < n; ++p) {
+            if (!sieve[p]) continue;
+            for (int i = (n - 1) / p; i > 0; --i) {
+                sieve[i * p] = false;
+                f[i * p] -= f[i];
+            }
+        }
+        return f;
+    }
+
 
 snippet prime_factorize
 
     // O(sqrt(n))
     map<int64_t, int> prime_factorize(int64_t n) {
         map<int64_t, int> ret;
-        for (int64_t i = 2; i * i <= n; i++) {
+        for (int64_t i = 2; i * i <= n; ++i) {
             while (n % i == 0) {
                 ret[i]++;
                 n /= i;
@@ -605,7 +684,7 @@ snippet prime_table
         n = max(n, 1);
         vector<bool> prime(n+1, true);
         prime[0] = prime[1] = false;
-        for (int i = 2; i * i <= n; i++) {
+        for (int i = 2; i * i <= n; ++i) {
             if (!prime[i]) continue;
             for (int j = 2 * i; j <= n; j += i) {
                 prime[j] = false;
@@ -735,7 +814,7 @@ snippet 2D_template
     }
 
     Point rotate(const Point &p, Real theta) {
-        return p * polar(1., theta);
+        return p * polar((Real)1.0, theta);
     }
 
     Real cross(const Point& a, const Point& b) {
@@ -833,7 +912,7 @@ snippet polygon
 
     bool is_convex(const Polygon &U) {
         int n = U.size();
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; ++i) {
             if (ccw(U[i], U[(i + 1) % n], U[(i + 2) % n]) == -1) return false;
         }
         return true;
@@ -844,7 +923,7 @@ snippet polygon
               IN = 2;
     int contains(const Polygon &U, const Point &p) {
         int in = 0;
-        for(int i = 0; i < U.size(); i++) {
+        for (int i = 0; i < U.size(); ++i) {
             Point a = U[i] - p, b = U[(i + 1) % U.size()] - p;
             if (cross(a, b) == 0 and dot(a, b) <= 0) return ON;
             if (a.imag() > b.imag()) swap(a, b);
@@ -853,16 +932,17 @@ snippet polygon
         return in ? IN : OUT;
     }
 
-    vector<Point> convex_hull(vector<Point>& p) {
+    vector<Point> convex_hull(vector<Point>& p, bool includeOnLine = false) {
         int n = p.size(), k = 0;
         if (n <= 2) return p;
         sort(p.begin(), p.end());
         vector<Point> ch(n * 2);
+        const Real BOUND = includeOnLine ? -EPS : EPS;
         for (int i = 0; i < n; ch[k++] = p[i++]) {
-            while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+            while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
         }
         for (int i = n-2, t = k+1; i >= 0; ch[k++] = p[i--]) {
-            while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < -EPS) --k;
+            while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
         }
         ch.resize(k-1);
         return ch;
@@ -871,7 +951,7 @@ snippet polygon
     Real convex_diameter(const Polygon &U) {
         int n = U.size();
         int is = 0, js = 0;
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; i < n; ++i) {
             if (U[i].imag() > U[is].imag()) is = i;
             if (U[i].imag() < U[js].imag()) js = i;
         }
@@ -893,7 +973,7 @@ snippet polygon
 
     Polygon convex_cut(const Polygon& U, const Line& l) {
         Polygon ret;
-        for (int i = 0; i < U.size(); i++) {
+        for (int i = 0; i < U.size(); ++i) {
             Point now = U[i], nxt = U[(i + 1) % U.size()];
             if (ccw(l.a, l.b, now) != -1) ret.push_back(now);
             if (ccw(l.a, l.b, now) * ccw(l.a, l.b, nxt) == -1) {
@@ -1574,7 +1654,7 @@ snippet primal_dual
                 std::tie(cost, v) = que.top();
                 que.pop();
                 if (dist[v] < cost) continue;
-                for (int i = 0; i < g[v].size(); i++) {
+                for (int i = 0; i < g[v].size(); ++i) {
                     edge &e = g[v][i];
                     cost_t nextCost =
                         dist[v] + e.cost + potential[v] - potential[e.to];
@@ -1599,7 +1679,7 @@ snippet primal_dual
 
                 if (dist[t] == INF) return -1;
 
-                for (int v = 0; v < sz; v++) potential[v] += dist[v];
+                for (int v = 0; v < sz; ++v) potential[v] += dist[v];
 
                 flow_t diff = f;
                 for (int v = t; v != s; v = prevv[v]) {
@@ -1761,14 +1841,14 @@ snippet re_rooting
         }
 
         vector<T> solve() {
-            for (int i = 0; i < g.size(); i++) {
+            for (int i = 0; i < g.size(); ++i) {
                 ldp[i].assign(g[i].size()+1, init);
                 rdp[i].assign(g[i].size()+1, init);
                 lptr[i] = 0;
                 rptr[i] = (int)g[i].size()-1;
             }
             vector<T> ret(g.size());
-            for(int i = 0; i < g.size(); i++) {
+            for (int i = 0; i < g.size(); ++i) {
                 ret[i] = dfs(i, -1);
             }
             return ret;
@@ -1873,7 +1953,7 @@ snippet strongly_connected_components
         StronglyConnectedComponents(const vector<vector<int>>& g) :
             g(g), rg(g.size()), comp(g.size(), -1), used(g.size())
         {
-            for (int i = 0; i < g.size(); i++) {
+            for (int i = 0; i < g.size(); ++i) {
                 for (int to : g[i]) {
                     rg[to].push_back(i);
                 }
@@ -1894,13 +1974,13 @@ snippet strongly_connected_components
         }
 
         void build() {
-            for (int i = 0; i < g.size(); i++) dfs(i);
+            for (int i = 0; i < g.size(); ++i) dfs(i);
             reverse(ord.begin(), ord.end());
             int ptr = 0;
             for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
 
             t.resize(ptr);
-            for (int i = 0; i < g.size(); i++) {
+            for (int i = 0; i < g.size(); ++i) {
                 for (int to : g[i]) {
                     int x = comp[i], y = comp[to];
                     if (x == y) continue;
@@ -2069,7 +2149,7 @@ snippet ford_fulkerson
 
         T max_flow(int s, int t) {
             T flow = 0;
-            for(T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
+            for (T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
                 flow += f;
             }
             return flow;
@@ -2137,10 +2217,10 @@ snippet warshall_floyd
     void warshall_floyd(vector<vector<T>> &g) {
         const auto INF = numeric_limits<T>::max();
         int n = g.size();
-        for(int k = 0; k < n; k++) {
-            for(int i = 0; i < n; i++) {
-                for(int j = 0; j < n; j++) {
-                    if(g[i][k] == INF or g[k][j] == INF) continue;
+        for (int k = 0; k < n; ++k) {
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    if (g[i][k] == INF or g[k][j] == INF) continue;
                     g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
                 }
             }
@@ -2191,7 +2271,7 @@ snippet dinic
 
         T dfs(int v, const int t, T flow) {
             if (v == t) return flow;
-            for (int &i = iter[v]; i < g[v].size(); i++) {
+            for (int &i = iter[v]; i < g[v].size(); ++i) {
                 edge &e = g[v][i];
                 if (e.cap > 0 and level[v] < level[e.to]) {
                     T d = dfs(e.to, t, min(flow, e.cap));
@@ -2210,7 +2290,7 @@ snippet dinic
             while (bfs(s, t)) {
                 iter.assign(g.size(), 0);
                 T f = 0;
-                while((f = dfs(s, t, INF)) > 0) flow += f;
+                while ((f = dfs(s, t, INF)) > 0) flow += f;
             }
             return flow;
         }
@@ -2263,8 +2343,8 @@ snippet maximum_clique
 
             int sz = neighbor.size();
             vector<int> bit(sz);
-            for (int i = 0; i < sz; i++) {
-                for (int j = 0; j < sz; j++) {
+            for (int i = 0; i < sz; ++i) {
+                for (int j = 0; j < sz; ++j) {
                     if (G[neighbor[i]][neighbor[j]]) {
                         bit[i] |= 1 << j;
                     }
