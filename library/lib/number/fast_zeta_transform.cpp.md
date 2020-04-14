@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/fast_zeta_transform.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-13 13:34:26+09:00
+    - Last commit date: 2020-04-14 15:48:49+09:00
 
 
 
@@ -50,7 +50,7 @@ layout: default
 
 // O(NlogN)
 template<typename T>
-vector<T> fast_zeta_transform_1(const vector<T>& f) {
+vector<T> fast_zeta_transform(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{s \subset t} f(t)
     int n = f.size();
@@ -65,26 +65,9 @@ vector<T> fast_zeta_transform_1(const vector<T>& f) {
     return g;
 }
 
-// O(NlogN)
-template<typename T>
-vector<T> fast_zeta_transform_2(const vector<T>& f) {
-    // Return g(s):
-    // s.t. g(s) = \sum_{t \subset s} f(t)
-    int n = f.size();
-    vector<T> g = f;
-    for (int i = 0; (1 << i) < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (j >> i & 1) {
-                g[j] += g[j & ~(1<<i)];
-            }
-        }
-    }
-    return g;
-}
-
 // O(NloglogN)
 template<typename T>
-vector<T> fast_zeta_transform_prime_1(const vector<T>& f) {
+vector<T> fast_zeta_transform_prime(const vector<T>& f) {
     // Return g(d):
     // s.t. g(d) = \sum_{d | n} f(n)
     int n = f.size();
@@ -99,25 +82,6 @@ vector<T> fast_zeta_transform_prime_1(const vector<T>& f) {
     }
     return g;
 }
-
-// O(NloglogN)
-template<typename T>
-vector<T> fast_zeta_transform_prime_2(const vector<T>& f) {
-    // Return g(n):
-    // s.t. g(n) = \sum_{d | n} f(d)
-    int n = f.size();
-    vector<T> g = f;
-    vector<bool> sieve(n, true);
-    for (int p = 2; p < n; ++p) {
-        if (!sieve[p]) continue;
-        for (int i = 1; i * p < n; ++i) {
-            sieve[i * p] = false;
-            g[i * p] += g[i];
-        }
-    }
-    return g;
-}
-
 
 ```
 {% endraw %}
@@ -302,7 +266,7 @@ const int64_t MOD = 1e9+7;
 
 // O(NlogN)
 template<typename T>
-vector<T> fast_zeta_transform_1(const vector<T>& f) {
+vector<T> fast_zeta_transform(const vector<T>& f) {
     // Return g(s):
     // s.t. g(s) = \sum_{s \subset t} f(t)
     int n = f.size();
@@ -317,26 +281,9 @@ vector<T> fast_zeta_transform_1(const vector<T>& f) {
     return g;
 }
 
-// O(NlogN)
-template<typename T>
-vector<T> fast_zeta_transform_2(const vector<T>& f) {
-    // Return g(s):
-    // s.t. g(s) = \sum_{t \subset s} f(t)
-    int n = f.size();
-    vector<T> g = f;
-    for (int i = 0; (1 << i) < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (j >> i & 1) {
-                g[j] += g[j & ~(1<<i)];
-            }
-        }
-    }
-    return g;
-}
-
 // O(NloglogN)
 template<typename T>
-vector<T> fast_zeta_transform_prime_1(const vector<T>& f) {
+vector<T> fast_zeta_transform_prime(const vector<T>& f) {
     // Return g(d):
     // s.t. g(d) = \sum_{d | n} f(n)
     int n = f.size();
@@ -351,25 +298,6 @@ vector<T> fast_zeta_transform_prime_1(const vector<T>& f) {
     }
     return g;
 }
-
-// O(NloglogN)
-template<typename T>
-vector<T> fast_zeta_transform_prime_2(const vector<T>& f) {
-    // Return g(n):
-    // s.t. g(n) = \sum_{d | n} f(d)
-    int n = f.size();
-    vector<T> g = f;
-    vector<bool> sieve(n, true);
-    for (int p = 2; p < n; ++p) {
-        if (!sieve[p]) continue;
-        for (int i = 1; i * p < n; ++i) {
-            sieve[i * p] = false;
-            g[i * p] += g[i];
-        }
-    }
-    return g;
-}
-
 
 ```
 {% endraw %}
