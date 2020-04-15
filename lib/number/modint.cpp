@@ -40,7 +40,7 @@ struct modint {
 
     const modint pow(LL n) const {
         modint ret = 1, tmp = val;
-        while (n > 0) {
+        while (n) {
             if (n & 1) ret *= tmp;
             tmp *= tmp; n >>= 1;
         }

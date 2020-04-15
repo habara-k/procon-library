@@ -18,11 +18,11 @@ struct Matrix {
         return (A[0].size());
     }
 
-    inline const vector<T> &operator[](int k) const {
+    inline const vector<T>& operator[](int k) const {
         return (A.at(k));
     }
 
-    inline vector<T> &operator[](int k) {
+    inline vector<T>& operator[](int k) {
         return (A.at(k));
     }
 
@@ -68,10 +68,9 @@ struct Matrix {
 
     Matrix pow(int64_t k) {
         Matrix B = Matrix::I(height()), tmp = *this;
-        while (k > 0) {
+        while (k) {
             if (k & 1) B *= tmp;
-            tmp *= tmp;
-            k >>= 1LL;
+            tmp *= tmp; k >>= 1;
         }
         return (B);
     }
