@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/matrix.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-13 13:47:25+09:00
+    - Last commit date: 2020-04-15 15:28:33+09:00
 
 
 
@@ -66,11 +66,11 @@ struct Matrix {
         return (A[0].size());
     }
 
-    inline const vector<T> &operator[](int k) const {
+    inline const vector<T>& operator[](int k) const {
         return (A.at(k));
     }
 
-    inline vector<T> &operator[](int k) {
+    inline vector<T>& operator[](int k) {
         return (A.at(k));
     }
 
@@ -116,10 +116,9 @@ struct Matrix {
 
     Matrix pow(int64_t k) {
         Matrix B = Matrix::I(height()), tmp = *this;
-        while (k > 0) {
+        while (k) {
             if (k & 1) B *= tmp;
-            tmp *= tmp;
-            k >>= 1LL;
+            tmp *= tmp; k >>= 1;
         }
         return (B);
     }
@@ -379,11 +378,11 @@ struct Matrix {
         return (A[0].size());
     }
 
-    inline const vector<T> &operator[](int k) const {
+    inline const vector<T>& operator[](int k) const {
         return (A.at(k));
     }
 
-    inline vector<T> &operator[](int k) {
+    inline vector<T>& operator[](int k) {
         return (A.at(k));
     }
 
@@ -429,10 +428,9 @@ struct Matrix {
 
     Matrix pow(int64_t k) {
         Matrix B = Matrix::I(height()), tmp = *this;
-        while (k > 0) {
+        while (k) {
             if (k & 1) B *= tmp;
-            tmp *= tmp;
-            k >>= 1LL;
+            tmp *= tmp; k >>= 1;
         }
         return (B);
     }

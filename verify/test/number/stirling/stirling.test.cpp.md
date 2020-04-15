@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#ddfa6c538fca263880a43dd0fdbf3615">test/number/stirling</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/stirling/stirling.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-15 15:28:33+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I</a>
@@ -287,7 +287,7 @@ struct modint {
 
     const modint pow(LL n) const {
         modint ret = 1, tmp = val;
-        while (n > 0) {
+        while (n) {
             if (n & 1) ret *= tmp;
             tmp *= tmp; n >>= 1;
         }

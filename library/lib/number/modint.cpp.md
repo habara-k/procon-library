@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/number/modint.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-18 20:03:32+09:00
+    - Last commit date: 2020-04-15 15:28:33+09:00
 
 
 
@@ -98,7 +98,7 @@ struct modint {
 
     const modint pow(LL n) const {
         modint ret = 1, tmp = val;
-        while (n > 0) {
+        while (n) {
             if (n & 1) ret *= tmp;
             tmp *= tmp; n >>= 1;
         }
@@ -359,7 +359,7 @@ struct modint {
 
     const modint pow(LL n) const {
         modint ret = 1, tmp = val;
-        while (n > 0) {
+        while (n) {
             if (n & 1) ret *= tmp;
             tmp *= tmp; n >>= 1;
         }

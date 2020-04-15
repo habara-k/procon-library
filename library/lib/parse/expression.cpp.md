@@ -31,13 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#d5a7e858759ffb3607787a875b4d16db">lib/parse</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/parse/expression.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-14 23:21:34+09:00
+    - Last commit date: 2020-04-15 15:27:32+09:00
 
 
 
 
 ## Depends on
 
+* :heavy_check_mark: <a href="parser.cpp.html">lib/parse/parser.cpp</a>
 * :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
@@ -51,10 +52,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "../template.cpp"
-
-using State = string::const_iterator;
-class ParseError {};
+#include "./parser.cpp"
 
 int number(State& begin) {
     int ret = 0;
@@ -293,10 +291,11 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/parse/expression.cpp"
+#line 2 "lib/parse/parser.cpp"
 
 using State = string::const_iterator;
 class ParseError {};
+#line 2 "lib/parse/expression.cpp"
 
 int number(State& begin) {
     int ret = 0;

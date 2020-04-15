@@ -21,26 +21,29 @@ layout: default
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-balloon-js@1.1.2/jquery.balloon.min.js" integrity="sha256-ZEYs9VrgAeNuPvs15E39OsyOJaIkXEEt10fzxJ20+2I=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="../../../../assets/js/copy-button.js"></script>
-<link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
+<script type="text/javascript" src="../../../assets/js/copy-button.js"></script>
+<link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/number/modint/modint.test.cpp
+# :heavy_check_mark: lib/number/permutation.cpp
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 
-* category: <a href="../../../../index.html#b82c94848a9ea5c8a0e34523c4c1bc6e">test/number/modint</a>
-* <a href="{{ site.github.repository_url }}/blob/master/test/number/modint/modint.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-15 15:28:33+09:00
+* category: <a href="../../../index.html#12cd94d703d26487f7477e7dcce25e7f">lib/number</a>
+* <a href="{{ site.github.repository_url }}/blob/master/lib/number/permutation.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-15 15:26:45+09:00
 
 
-* see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B</a>
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+
+
+## Verified with
+
+* :heavy_check_mark: <a href="../../../verify/test/number/permutation/permutation.test.cpp.html">test/number/permutation/permutation.test.cpp</a>
 
 
 ## Code
@@ -48,26 +51,45 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B"
+#include "../template.cpp"
 
-#include "../../../lib/number/modint.cpp"
-
-int main() {
-    int64_t n, k;
-    cin >> n >> k;
-
-    if (n > k) {
-        cout << 0 << endl;
-        return 0;
+struct Permutation {
+    vector<int> perm;
+    Permutation() {}
+    Permutation(int sz) : perm(sz) {
+        iota(perm.begin(), perm.end(), 0);
     }
-
-    using Int = modint<MOD>;
-    Int ans = 1;
-    for (int64_t i = 0; i < n; ++i) {
-        ans *= (k - i);
+    Permutation(initializer_list<int> init) : perm(init.begin(), init.end()) {}
+    size_t size() const {
+        return (perm.size());
     }
-    cout << ans << endl;
-}
+    inline int operator [](int k) const {
+        return (perm.at(k));
+    }
+    inline int& operator [](int k) {
+        return (perm.at(k));
+    }
+    Permutation& operator*=(const Permutation& rhs) {
+        assert(size() == rhs.size());
+        Permutation tmp(size());
+        for (int i = 0; i < size(); ++i) {
+            tmp[i] = perm[rhs[i]];
+        }
+        perm.swap(tmp.perm);
+        return (*this);
+    }
+    const Permutation operator*(const Permutation& rhs) const {
+        return (Permutation(*this) *= rhs);
+    }
+    Permutation pow(int64_t k) {
+        Permutation ret(size()), tmp = *this;
+        while (k) {
+            if (k & 1) ret *= tmp;
+            tmp *= tmp; k >>= 1;
+        }
+        return (ret);
+    }
+};
 
 ```
 {% endraw %}
@@ -75,9 +97,6 @@ int main() {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "test/number/modint/modint.test.cpp"
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_B"
-
 #line 1 "lib/template.cpp"
 
 
@@ -251,108 +270,48 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/number/modint.cpp"
+#line 2 "lib/number/permutation.cpp"
 
-template<int64_t mod>
-struct modint {
-    using LL = int64_t;
-    LL val;
-    modint(LL val=0) : val(((val % mod) + mod) % mod) {}
-
-    const modint operator+() const { return *this; }
-    const modint operator-() const { return (-val + mod) % mod; }
-    const modint inv() const { return pow(mod-2); }
-
-    modint& operator+=(const modint& rhs) {
-        (val += rhs.val) %= mod;
-        return *this;
+struct Permutation {
+    vector<int> perm;
+    Permutation() {}
+    Permutation(int sz) : perm(sz) {
+        iota(perm.begin(), perm.end(), 0);
     }
-    modint& operator-=(const modint& rhs) {
-        return *this += -rhs;
+    Permutation(initializer_list<int> init) : perm(init.begin(), init.end()) {}
+    size_t size() const {
+        return (perm.size());
     }
-    modint& operator*=(const modint& rhs) {
-        (val *= rhs.val) %= mod;
-        return *this;
+    inline int operator [](int k) const {
+        return (perm.at(k));
     }
-    modint& operator/=(const modint& rhs) {
-        return *this *= rhs.inv();
+    inline int& operator [](int k) {
+        return (perm.at(k));
     }
-
-    const modint operator+(const modint& rhs) const {
-        return modint(*this) += rhs;
-    }
-    const modint operator-(const modint& rhs) const {
-        return modint(*this) -= rhs;
-    }
-    const modint operator*(const modint& rhs) const {
-        return modint(*this) *= rhs;
-    }
-    const modint operator/(const modint& rhs) const {
-        return modint(*this) /= rhs;
-    }
-
-    const modint pow(LL n) const {
-        modint ret = 1, tmp = val;
-        while (n) {
-            if (n & 1) ret *= tmp;
-            tmp *= tmp; n >>= 1;
+    Permutation& operator*=(const Permutation& rhs) {
+        assert(size() == rhs.size());
+        Permutation tmp(size());
+        for (int i = 0; i < size(); ++i) {
+            tmp[i] = perm[rhs[i]];
         }
-        return ret;
+        perm.swap(tmp.perm);
+        return (*this);
     }
-
-    bool operator==(const modint& rhs) const { return val == rhs.val; }
-    bool operator!=(const modint& rhs) const { return !(*this == rhs); }
-
-    friend const modint operator+(const LL& lhs, const modint& rhs) {
-        return modint(lhs) + rhs;
+    const Permutation operator*(const Permutation& rhs) const {
+        return (Permutation(*this) *= rhs);
     }
-    friend const modint operator-(const LL& lhs, const modint& rhs) {
-        return modint(lhs) - rhs;
-    }
-    friend const modint operator*(const LL& lhs, const modint& rhs) {
-        return modint(lhs) * rhs;
-    }
-    friend const modint operator/(const LL& lhs, const modint& rhs) {
-        return modint(lhs) / rhs;
-    }
-
-    friend bool operator==(const LL& lhs, const modint& rhs) {
-        return modint(lhs) == rhs;
-    }
-    friend bool operator!=(const LL& lhs, const modint& rhs) {
-        return modint(lhs) != rhs;
-    }
-
-    friend ostream& operator<<(ostream& os, const modint& a) {
-        return os << a.val;
-    }
-    friend istream& operator>>(istream& is, modint& a) {
-        LL tmp; is >> tmp;
-        a = tmp;
-        return is;
+    Permutation pow(int64_t k) {
+        Permutation ret(size()), tmp = *this;
+        while (k) {
+            if (k & 1) ret *= tmp;
+            tmp *= tmp; k >>= 1;
+        }
+        return (ret);
     }
 };
-#line 4 "test/number/modint/modint.test.cpp"
-
-int main() {
-    int64_t n, k;
-    cin >> n >> k;
-
-    if (n > k) {
-        cout << 0 << endl;
-        return 0;
-    }
-
-    using Int = modint<MOD>;
-    Int ans = 1;
-    for (int64_t i = 0; i < n; ++i) {
-        ans *= (k - i);
-    }
-    cout << ans << endl;
-}
 
 ```
 {% endraw %}
 
-<a href="../../../../index.html">Back to top page</a>
+<a href="../../../index.html">Back to top page</a>
 

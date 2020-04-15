@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#48198b7eaf65467b49c6ef390bc37e8f">test/number/partition</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/partition/partition2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-03-19 14:48:57+09:00
+    - Last commit date: 2020-04-15 15:28:33+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_L">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_L</a>
@@ -285,7 +285,7 @@ struct modint {
 
     const modint pow(LL n) const {
         modint ret = 1, tmp = val;
-        while (n > 0) {
+        while (n) {
             if (n & 1) ret *= tmp;
             tmp *= tmp; n >>= 1;
         }
