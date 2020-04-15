@@ -14,7 +14,7 @@ snippet endl
     cout << endl;
 
 snippet infty
-    numeric_limits<${1:int}>::max()${0}
+    numeric_limits<${1:int}>::${2:max}()${0}
 
 snippet iota
     iota(${1:a}.begin(), $1.end(), ${2:0});${0}
@@ -68,8 +68,12 @@ snippet rsort
 snippet fill
     fill(${1:c}.begin(), $1.end(), ${2:x});${0}
 
-snippet each
-    for (${1:auto} ${2:e} : ${3:c}) {
+snippet auto
+    for (auto& ${1:e} : ${2:c}) {
+        ${0}
+    }
+snippet cauto
+    for (const auto& ${1:e} : ${2:c}) {
         ${0}
     }
 
@@ -79,15 +83,9 @@ snippet lb
 snippet ub
     upper_bound(${1:c}.begin(), $1.end(), ${2:x})${0}
 
-snippet count
-    upper_bound(${1:c}.begin(), $1.end(), ${2:x}) - lower_bound($1.begin(), $1.end(), $2)${0}
-
 snippet unique
     sort(${1:c}.begin(), $1.end());
     $1.erase(unique($1.begin(), $1.end()), $1.end());
-
-snippet copy
-    copy(${1:src}.begin(), $1.end(), ${2:dst}.begin());${0}
 
 snippet exist
     ${1:st}.find(${2:elem}) != $1.end()${0}
@@ -157,10 +155,6 @@ snippet clock
         }
     };
 
-snippet parser
-    using State = string::const_iterator;
-    class ParseError {};
-
 snippet powmod
     int64_t powmod(int64_t a, int64_t n, int64_t mod) {
         int64_t ret = 1, tmp = a;
@@ -193,6 +187,12 @@ snippet two_pointers
         }
         // [l, r) satisfies the condition.
         ++l;
+    }
+
+snippet brute_forth
+    vector<int> a(${1:n}+1);
+    while (!a[$1]) {
+        for (int i = 0; ++a[i] == ${2:k}; ++i) a[i] = 0;
     }
 
 
@@ -337,6 +337,47 @@ snippet bell
     }
 
 
+snippet permutation
+
+    struct Permutation {
+        vector<int> perm;
+        Permutation() {}
+        Permutation(int sz) : perm(sz) {
+            iota(perm.begin(), perm.end(), 0);
+        }
+        Permutation(initializer_list<int> init) : perm(init.begin(), init.end()) {}
+        size_t size() const {
+            return (perm.size());
+        }
+        inline int operator [](int k) const {
+            return (perm.at(k));
+        }
+        inline int& operator [](int k) {
+            return (perm.at(k));
+        }
+        Permutation& operator*=(const Permutation& rhs) {
+            assert(size() == rhs.size());
+            Permutation tmp(size());
+            for (int i = 0; i < size(); ++i) {
+                tmp[i] = perm[rhs[i]];
+            }
+            perm.swap(tmp.perm);
+            return (*this);
+        }
+        const Permutation operator*(const Permutation& rhs) const {
+            return (Permutation(*this) *= rhs);
+        }
+        Permutation pow(int64_t k) {
+            Permutation ret(size()), tmp = *this;
+            while (k) {
+                if (k & 1) ret *= tmp;
+                tmp *= tmp; k >>= 1;
+            }
+            return (ret);
+        }
+    };
+
+
 snippet combination
 
     template<typename Field>
@@ -411,11 +452,11 @@ snippet matrix
             return (A[0].size());
         }
 
-        inline const vector<T> &operator[](int k) const {
+        inline const vector<T>& operator[](int k) const {
             return (A.at(k));
         }
 
-        inline vector<T> &operator[](int k) {
+        inline vector<T>& operator[](int k) {
             return (A.at(k));
         }
 
@@ -461,10 +502,9 @@ snippet matrix
 
         Matrix pow(int64_t k) {
             Matrix B = Matrix::I(height()), tmp = *this;
-            while (k > 0) {
+            while (k) {
                 if (k & 1) B *= tmp;
-                tmp *= tmp;
-                k >>= 1LL;
+                tmp *= tmp; k >>= 1;
             }
             return (B);
         }
@@ -663,7 +703,7 @@ snippet modint
 
         const modint pow(LL n) const {
             modint ret = 1, tmp = val;
-            while (n > 0) {
+            while (n) {
                 if (n & 1) ret *= tmp;
                 tmp *= tmp; n >>= 1;
             }
@@ -1507,9 +1547,6 @@ snippet inversion
 
 snippet expression
 
-    using State = string::const_iterator;
-    class ParseError {};
-
     int number(State& begin) {
         int ret = 0;
         while ('0' <= *begin and *begin <= '9') {
@@ -1567,6 +1604,12 @@ snippet expression
             }
         }
     }
+
+
+snippet parser
+
+    using State = string::const_iterator;
+    class ParseError {};
 
 
 snippet dice
