@@ -1,7 +1,4 @@
-#include "../template.cpp"
-
-using State = string::const_iterator;
-class ParseError {};
+#include "./parser.cpp"
 
 int number(State& begin) {
     int ret = 0;
