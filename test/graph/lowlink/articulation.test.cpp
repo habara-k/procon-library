@@ -5,11 +5,13 @@
 int main()
 {
     int V, E; cin >> V >> E;
-    LowLink lowlink(V);
+    vector<vector<int>> G(V);
     for (int i = 0; i < E; ++i) {
         int s, t; cin >> s >> t;
-        lowlink.add_edge(s, t);
+        G[s].push_back(t);
+        G[t].push_back(s);
     }
+    LowLink lowlink(G);
 
     lowlink.build();
 
