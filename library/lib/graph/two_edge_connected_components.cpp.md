@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/two_edge_connected_components.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-06 20:20:01+09:00
+    - Last commit date: 2020-04-16 16:42:41+09:00
 
 
 
@@ -49,20 +49,19 @@ layout: default
 #include "../template.cpp"
 
 struct TwoEdgeConnectedComponents {
+    // require: undirected simple graph
     vector<vector<int>> t;
     vector<int> comp;
     LowLink lowlink;
 
-    TwoEdgeConnectedComponents(int sz) :
-        comp(sz, -1), lowlink(sz) {}
-
-    void add_edge(int u, int v) { lowlink.add_edge(u, v); }
+    TwoEdgeConnectedComponents(const vector<vector<int>>& g) :
+        lowlink(g), comp(g.size(), -1) {}
 
     void dfs(int v, int p, int& k) {
         if (p == -1 or lowlink.is_bridge(v, p)) comp[v] = k++;
         else comp[v] = comp[p];
-        for (const LowLink::edge& e : lowlink.g[v]) {
-            if (comp[e.to] == -1) dfs(e.to, v, k);
+        for (int to : lowlink.g[v]) {
+            if (comp[to] == -1) dfs(to, v, k);
         }
     }
 
@@ -263,20 +262,19 @@ const int64_t MOD = 1e9+7;
 #line 2 "lib/graph/two_edge_connected_components.cpp"
 
 struct TwoEdgeConnectedComponents {
+    // require: undirected simple graph
     vector<vector<int>> t;
     vector<int> comp;
     LowLink lowlink;
 
-    TwoEdgeConnectedComponents(int sz) :
-        comp(sz, -1), lowlink(sz) {}
-
-    void add_edge(int u, int v) { lowlink.add_edge(u, v); }
+    TwoEdgeConnectedComponents(const vector<vector<int>>& g) :
+        lowlink(g), comp(g.size(), -1) {}
 
     void dfs(int v, int p, int& k) {
         if (p == -1 or lowlink.is_bridge(v, p)) comp[v] = k++;
         else comp[v] = comp[p];
-        for (const LowLink::edge& e : lowlink.g[v]) {
-            if (comp[e.to] == -1) dfs(e.to, v, k);
+        for (int to : lowlink.g[v]) {
+            if (comp[to] == -1) dfs(to, v, k);
         }
     }
 

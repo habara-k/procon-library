@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/lowlink.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-06 20:19:45+09:00
+    - Last commit date: 2020-04-16 16:42:41+09:00
 
 
 
@@ -55,27 +55,17 @@ layout: default
 #include "../template.cpp"
 
 struct LowLink {
-    struct edge {
-        int to, rev, used;
-        edge(int to, int rev) :
-            to(to), rev(rev), used(0) {}
-    };
-    // e.used: used for down in dfs.
-    vector<vector<edge>> g;
+    // require: undirected simple graph
+    vector<vector<int>> g;
     const int sz;
     vector<int> ord, low, par;
     vector<int> used, _is_articulation;
     vector<int> articulations;
     vector<pair<int,int>> bridges;
 
-    LowLink(int sz) :
-        sz(sz), g(sz), ord(sz), low(sz), used(sz),
+    LowLink(const vector<vector<int>>& g) :
+        g(g), sz(g.size()), ord(sz), low(sz), used(sz),
         par(sz), _is_articulation(sz) {}
-
-    void add_edge(int u, int v) {
-        g[u].emplace_back(v, (int)g[v].size());
-        g[v].emplace_back(u, (int)g[u].size() - 1);
-    }
 
     void build() {
         int k = 0;
@@ -89,10 +79,8 @@ struct LowLink {
         par[v] = p;
         low[v] = ord[v] = k++;
         int cnt = 0;
-        for (auto& e : g[v]) {
-            int to = e.to;
+        for (int to : g[v]) {
             if (!used[to]) {
-                e.used = 1;
                 ++cnt;
                 dfs(to, v, k);
                 low[v] = min(low[v], low[to]);
@@ -100,7 +88,7 @@ struct LowLink {
                 if (ord[v] < low[to]) {
                     bridges.emplace_back(minmax(to, v));
                 }
-            } else if (!g[to][e.rev].used) {
+            } else if (to != p) {
                 low[v] = min(low[v], ord[to]);
             }
         }
@@ -298,27 +286,17 @@ const int64_t MOD = 1e9+7;
 #line 2 "lib/graph/lowlink.cpp"
 
 struct LowLink {
-    struct edge {
-        int to, rev, used;
-        edge(int to, int rev) :
-            to(to), rev(rev), used(0) {}
-    };
-    // e.used: used for down in dfs.
-    vector<vector<edge>> g;
+    // require: undirected simple graph
+    vector<vector<int>> g;
     const int sz;
     vector<int> ord, low, par;
     vector<int> used, _is_articulation;
     vector<int> articulations;
     vector<pair<int,int>> bridges;
 
-    LowLink(int sz) :
-        sz(sz), g(sz), ord(sz), low(sz), used(sz),
+    LowLink(const vector<vector<int>>& g) :
+        g(g), sz(g.size()), ord(sz), low(sz), used(sz),
         par(sz), _is_articulation(sz) {}
-
-    void add_edge(int u, int v) {
-        g[u].emplace_back(v, (int)g[v].size());
-        g[v].emplace_back(u, (int)g[u].size() - 1);
-    }
 
     void build() {
         int k = 0;
@@ -332,10 +310,8 @@ struct LowLink {
         par[v] = p;
         low[v] = ord[v] = k++;
         int cnt = 0;
-        for (auto& e : g[v]) {
-            int to = e.to;
+        for (int to : g[v]) {
             if (!used[to]) {
-                e.used = 1;
                 ++cnt;
                 dfs(to, v, k);
                 low[v] = min(low[v], low[to]);
@@ -343,7 +319,7 @@ struct LowLink {
                 if (ord[v] < low[to]) {
                     bridges.emplace_back(minmax(to, v));
                 }
-            } else if (!g[to][e.rev].used) {
+            } else if (to != p) {
                 low[v] = min(low[v], ord[to]);
             }
         }
