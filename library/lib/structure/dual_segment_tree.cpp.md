@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/structure/segment_tree.cpp
+# :heavy_check_mark: lib/structure/dual_segment_tree.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
-* <a href="{{ site.github.repository_url }}/blob/master/lib/structure/segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-17 14:56:17+09:00
+* <a href="{{ site.github.repository_url }}/blob/master/lib/structure/dual_segment_tree.cpp">View this file on GitHub</a>
+    - Last commit date: 2020-04-17 14:55:35+09:00
 
 
 
@@ -43,8 +43,7 @@ layout: default
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/structure/segment_tree/rmq.test.cpp.html">test/structure/segment_tree/rmq.test.cpp</a>
-* :heavy_check_mark: <a href="../../../verify/test/structure/segment_tree/rsq.test.cpp.html">test/structure/segment_tree/rsq.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/structure/dual_segment_tree/ruq.test.cpp.html">test/structure/dual_segment_tree/ruq.test.cpp</a>
 
 
 ## Code
@@ -54,49 +53,74 @@ layout: default
 ```cpp
 #include "../template.cpp"
 
-template<typename M>
-struct SegmentTree {
+template<typename OM>
+struct DualSegmentTree {
     int sz;
-    vector<M> data;
-    const function<M(M,M)> f;
-    const M e;
+    vector<OM> lazy;
+    const function<OM(OM,OM)> h;
+    const OM oe;
+    // h: 作用素をマージする関数
+    // oe: 作用素の単位元
 
-    SegmentTree(
+    DualSegmentTree(
             int n,
-            const function<M(M,M)>& f,
-            const M& e
-            ) : f(f), e(e) {
+            const function<OM(OM,OM)>& h,
+            const OM& oe
+            ) : h(h), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
-        data.assign(2*sz, e);
+        lazy.assign(2*sz, oe);
     }
 
-    template<typename UpdateQuery>
-    void update(int k, const UpdateQuery& q) {
-        k += sz;
-        data[k] = q(data[k]);
-        while (k >>= 1) {
-            data[k] = f(data[2*k], data[2*k+1]);
+    void set(int i, const OM& x) {
+        lazy.at(i + sz) = x;
+    }
+
+    OM merge(const OM& a, const OM& b) {
+        if (a == oe) return b;
+        if (b == oe) return a;
+        return h(a, b);
+    }
+
+    void propagate(int k, int len) {
+        if (lazy[k] == oe) return;
+        if (k < sz) {
+            lazy[2*k  ] = merge(lazy[2*k  ], lazy[k]);
+            lazy[2*k+1] = merge(lazy[2*k+1], lazy[k]);
+            lazy[k] = oe;
         }
     }
 
-    M _query(int a, int b, int k, int l, int r) {
-        if (r <= a or b <= l) return e;
-        if (a <= l and r <= b) return data[k];
-        return f(_query(a,b,2*k,  l,(l+r)/2),
-                 _query(a,b,2*k+1,(l+r)/2,r));
+    void _update(int a, int b, const OM& x, int k, int l, int r) {
+        propagate(k, r - l);
+        if (r <= a or b <= l) return;
+        else if (a <= l and r <= b) {
+            lazy[k] = merge(lazy[k], x);
+            propagate(k, r - l);
+        } else {
+            _update(a, b, x, 2*k,   l, (l+r)/2);
+            _update(a, b, x, 2*k+1, (l+r)/2, r);
+        }
     }
 
-    M query(int a, int b) {
-        // return f[a,b)
-        return _query(a, b, 1, 0, sz);
+    void update(int a, int b, const OM& x) {
+        // update [a, b) with x.
+        _update(a, b, x, 1, 0, sz);
     }
 
-    M operator[](int i) {
-        return data.at(i + sz);
+    OM _query(int i, int k, int l, int r) {
+        if (l+1 == r) return lazy[l + sz];
+        propagate(k, r - l);
+        int m = (l+r)/2;
+        if (i < m) return _query(i, 2*k,   l, m);
+        else       return _query(i, 2*k+1, m, r);
     }
 
-    friend ostream& operator<<(ostream& os, const SegmentTree& s) {
+    OM operator[](int i) {
+        return _query(i, 1, 0, sz);
+    }
+
+    friend ostream& operator<<(ostream& os, const DualSegmentTree& s) {
         os << "[";
         for (int i = 0; i < s.sz; ++i) {
             if (i) os << " ";
@@ -285,51 +309,76 @@ using LL = int64_t;
 
 const int64_t MOD = 1e9+7;
 
-#line 2 "lib/structure/segment_tree.cpp"
+#line 2 "lib/structure/dual_segment_tree.cpp"
 
-template<typename M>
-struct SegmentTree {
+template<typename OM>
+struct DualSegmentTree {
     int sz;
-    vector<M> data;
-    const function<M(M,M)> f;
-    const M e;
+    vector<OM> lazy;
+    const function<OM(OM,OM)> h;
+    const OM oe;
+    // h: 作用素をマージする関数
+    // oe: 作用素の単位元
 
-    SegmentTree(
+    DualSegmentTree(
             int n,
-            const function<M(M,M)>& f,
-            const M& e
-            ) : f(f), e(e) {
+            const function<OM(OM,OM)>& h,
+            const OM& oe
+            ) : h(h), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
-        data.assign(2*sz, e);
+        lazy.assign(2*sz, oe);
     }
 
-    template<typename UpdateQuery>
-    void update(int k, const UpdateQuery& q) {
-        k += sz;
-        data[k] = q(data[k]);
-        while (k >>= 1) {
-            data[k] = f(data[2*k], data[2*k+1]);
+    void set(int i, const OM& x) {
+        lazy.at(i + sz) = x;
+    }
+
+    OM merge(const OM& a, const OM& b) {
+        if (a == oe) return b;
+        if (b == oe) return a;
+        return h(a, b);
+    }
+
+    void propagate(int k, int len) {
+        if (lazy[k] == oe) return;
+        if (k < sz) {
+            lazy[2*k  ] = merge(lazy[2*k  ], lazy[k]);
+            lazy[2*k+1] = merge(lazy[2*k+1], lazy[k]);
+            lazy[k] = oe;
         }
     }
 
-    M _query(int a, int b, int k, int l, int r) {
-        if (r <= a or b <= l) return e;
-        if (a <= l and r <= b) return data[k];
-        return f(_query(a,b,2*k,  l,(l+r)/2),
-                 _query(a,b,2*k+1,(l+r)/2,r));
+    void _update(int a, int b, const OM& x, int k, int l, int r) {
+        propagate(k, r - l);
+        if (r <= a or b <= l) return;
+        else if (a <= l and r <= b) {
+            lazy[k] = merge(lazy[k], x);
+            propagate(k, r - l);
+        } else {
+            _update(a, b, x, 2*k,   l, (l+r)/2);
+            _update(a, b, x, 2*k+1, (l+r)/2, r);
+        }
     }
 
-    M query(int a, int b) {
-        // return f[a,b)
-        return _query(a, b, 1, 0, sz);
+    void update(int a, int b, const OM& x) {
+        // update [a, b) with x.
+        _update(a, b, x, 1, 0, sz);
     }
 
-    M operator[](int i) {
-        return data.at(i + sz);
+    OM _query(int i, int k, int l, int r) {
+        if (l+1 == r) return lazy[l + sz];
+        propagate(k, r - l);
+        int m = (l+r)/2;
+        if (i < m) return _query(i, 2*k,   l, m);
+        else       return _query(i, 2*k+1, m, r);
     }
 
-    friend ostream& operator<<(ostream& os, const SegmentTree& s) {
+    OM operator[](int i) {
+        return _query(i, 1, 0, sz);
+    }
+
+    friend ostream& operator<<(ostream& os, const DualSegmentTree& s) {
         os << "[";
         for (int i = 0; i < s.sz; ++i) {
             if (i) os << " ";

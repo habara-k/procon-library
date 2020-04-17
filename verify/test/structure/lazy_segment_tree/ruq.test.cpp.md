@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/ruq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-17 14:56:17+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D</a>
@@ -311,7 +311,7 @@ struct LazySegmentTree {
         lazy[k] = oe;
     }
 
-    void _update(int a, int b, const OM &x, int k, int l, int r) {
+    void _update(int a, int b, const OM& x, int k, int l, int r) {
         propagate(k, r - l);
         if (r <= a or b <= l) return;
         else if (a <= l and r <= b) {
@@ -324,7 +324,7 @@ struct LazySegmentTree {
         }
     }
 
-    void update(int a, int b, const OM &x) {
+    void update(int a, int b, const OM& x) {
         // update [a, b) with x.
         _update(a, b, x, 1, 0, sz);
     }

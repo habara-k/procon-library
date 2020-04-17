@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/lazy_segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-17 14:56:17+09:00
 
 
 
@@ -107,7 +107,7 @@ struct LazySegmentTree {
         lazy[k] = oe;
     }
 
-    void _update(int a, int b, const OM &x, int k, int l, int r) {
+    void _update(int a, int b, const OM& x, int k, int l, int r) {
         propagate(k, r - l);
         if (r <= a or b <= l) return;
         else if (a <= l and r <= b) {
@@ -120,7 +120,7 @@ struct LazySegmentTree {
         }
     }
 
-    void update(int a, int b, const OM &x) {
+    void update(int a, int b, const OM& x) {
         // update [a, b) with x.
         _update(a, b, x, 1, 0, sz);
     }
@@ -370,7 +370,7 @@ struct LazySegmentTree {
         lazy[k] = oe;
     }
 
-    void _update(int a, int b, const OM &x, int k, int l, int r) {
+    void _update(int a, int b, const OM& x, int k, int l, int r) {
         propagate(k, r - l);
         if (r <= a or b <= l) return;
         else if (a <= l and r <= b) {
@@ -383,7 +383,7 @@ struct LazySegmentTree {
         }
     }
 
-    void update(int a, int b, const OM &x) {
+    void update(int a, int b, const OM& x) {
         // update [a, b) with x.
         _update(a, b, x, 1, 0, sz);
     }

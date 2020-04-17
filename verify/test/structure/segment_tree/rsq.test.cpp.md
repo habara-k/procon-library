@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#971922f92a29e476633aa9737b609e73">test/structure/segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rsq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-17 14:56:17+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -287,8 +287,17 @@ struct SegmentTree {
         return _query(a, b, 1, 0, sz);
     }
 
-    M operator[](int k) {
-        return data.at(k + sz);
+    M operator[](int i) {
+        return data.at(i + sz);
+    }
+
+    friend ostream& operator<<(ostream& os, const SegmentTree& s) {
+        os << "[";
+        for (int i = 0; i < s.sz; ++i) {
+            if (i) os << " ";
+            os << s[i];
+        }
+        return os << "]";
     }
 };
 #line 4 "test/structure/segment_tree/rsq.test.cpp"

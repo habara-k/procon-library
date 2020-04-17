@@ -77,6 +77,7 @@ layout: default
 * :heavy_check_mark: <a href="parse/parser.cpp.html">lib/parse/parser.cpp</a>
 * :heavy_check_mark: <a href="string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
 * :heavy_check_mark: <a href="structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :heavy_check_mark: <a href="structure/dual_segment_tree.cpp.html">lib/structure/dual_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/randomized_binary_search_tree.cpp.html">lib/structure/randomized_binary_search_tree.cpp</a>
@@ -132,6 +133,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
+* :heavy_check_mark: <a href="../../verify/test/structure/dual_segment_tree/ruq.test.cpp.html">test/structure/dual_segment_tree/ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/lazy_segment_tree/rmq_raq.test.cpp.html">test/structure/lazy_segment_tree/rmq_raq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/lazy_segment_tree/rmq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rmq_ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/lazy_segment_tree/rsq_raq.test.cpp.html">test/structure/lazy_segment_tree/rsq_raq.test.cpp</a>
