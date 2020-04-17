@@ -192,5 +192,11 @@ snippet two_pointers
 snippet brute_forth
     vector<int> a(${1:n}+1);
     while (!a[$1]) {
+        ${0}
         for (int i = 0; ++a[i] == ${2:k}; ++i) a[i] = 0;
     }
+
+snippet dfs
+    function<${1:void}(${2:int,int})> dfs = [&](${3:int v, int p}){
+        ${0}
+    };
