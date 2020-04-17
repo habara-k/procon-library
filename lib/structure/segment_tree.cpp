@@ -38,7 +38,16 @@ struct SegmentTree {
         return _query(a, b, 1, 0, sz);
     }
 
-    M operator[](int k) {
-        return data.at(k + sz);
+    M operator[](int i) {
+        return data.at(i + sz);
+    }
+
+    friend ostream& operator<<(ostream& os, const SegmentTree& s) {
+        os << "[";
+        for (int i = 0; i < s.sz; ++i) {
+            if (i) os << " ";
+            os << s[i];
+        }
+        return os << "]";
     }
 };
