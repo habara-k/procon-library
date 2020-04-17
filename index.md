@@ -118,7 +118,9 @@ layout: default
 
 ### lib/string
 
+* :heavy_check_mark: <a href="library/lib/string/aho_corasick.cpp.html">lib/string/aho_corasick.cpp</a>
 * :heavy_check_mark: <a href="library/lib/string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
+* :heavy_check_mark: <a href="library/lib/string/trie.cpp.html">lib/string/trie.cpp</a>
 
 
 <div id="c4d905b3311a5371af1ce28a5d3ead13"></div>
@@ -193,6 +195,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/other/dice/dice.test.cpp.html">test/other/dice/dice.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/parse/expression/expression.test.cpp.html">test/parse/expression/expression.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/string/aho_corasick/aho_corasick.test.cpp.html">test/string/aho_corasick/aho_corasick.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
