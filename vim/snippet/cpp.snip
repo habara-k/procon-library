@@ -1391,19 +1391,19 @@ snippet segment_tree
             }
         }
 
-        M _query(int a, int b, int k, int l, int r) {
+        M _query(int a, int b, int k, int l, int r) const {
             if (r <= a or b <= l) return e;
             if (a <= l and r <= b) return data[k];
             return f(_query(a,b,2*k,  l,(l+r)/2),
                      _query(a,b,2*k+1,(l+r)/2,r));
         }
 
-        M query(int a, int b) {
+        M query(int a, int b) const {
             // return f[a,b)
             return _query(a, b, 1, 0, sz);
         }
 
-        M operator[](int i) {
+        M operator[](int i) const {
             return data.at(i + sz);
         }
 
@@ -1466,24 +1466,32 @@ snippet binary_indexed_tree
 
     template<typename T>
     struct BIT {
-        // BIT<T> bit(n);
-        //
-        // bit.add(i,x) for i in [0,n)
-        //   bit[i] += x;
-        //
-        // bit.sum(i) for i in [0,n)
-        //   return bit[0] + ... + bit[i]
         vector<T> data;
-        BIT(int n) : data(n+1) {}
+        int sz;
+        BIT(int sz) : sz(sz), data(sz+1) {}
 
         void add(int i, T x) {
+            // v[i] += x;
+            assert(0 <= i and i < sz);
             for (++i; i < data.size(); i += i & -i) data[i] += x;
         }
 
-        T sum(int i) {
+        T sum(int i) const {
+            // return v[0] + v[1] + ... + v[i]
+            if (i < 0) return 0;
+            assert(i < sz);
             T s = 0;
             for (++i; i > 0; i -= i & -i) s += data[i];
             return s;
+        }
+
+        friend ostream& operator<<(ostream& os, const BIT& b) {
+            os << "[";
+            for (int i = 0; i < b.sz; ++i) {
+                if (i) os << " ";
+                os << b.sum(i) - b.sum(i-1);
+            }
+            return os << "]";
         }
     };
 
