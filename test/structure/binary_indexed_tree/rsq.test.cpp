@@ -5,7 +5,7 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    BIT<int> bit(N);
+    BIT<int> bit(N+1);
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;

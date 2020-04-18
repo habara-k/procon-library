@@ -26,19 +26,19 @@ struct SegmentTree {
         }
     }
 
-    M _query(int a, int b, int k, int l, int r) {
+    M _query(int a, int b, int k, int l, int r) const {
         if (r <= a or b <= l) return e;
         if (a <= l and r <= b) return data[k];
         return f(_query(a,b,2*k,  l,(l+r)/2),
                  _query(a,b,2*k+1,(l+r)/2,r));
     }
 
-    M query(int a, int b) {
+    M query(int a, int b) const {
         // return f[a,b)
         return _query(a, b, 1, 0, sz);
     }
 
-    M operator[](int i) {
+    M operator[](int i) const {
         return data.at(i + sz);
     }
 

@@ -5,17 +5,17 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    BIT<int> bit(N);
+    BIT<int> bit(N+1);
     while (Q--) {
         int q; cin >> q;
         if (q == 0) {
-            int s, t, X;
+            int s, t, X; --s, --t;
             cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
+            bit.add(s, X);
+            bit.add(t+1, -X);
         } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
+            int i; cin >> i; --i;
+            cout << bit.sum(i) << endl;
         }
     }
 }
