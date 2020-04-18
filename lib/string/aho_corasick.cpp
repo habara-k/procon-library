@@ -46,7 +46,7 @@ struct AhoCorasick {
         }
     }
 
-    map<int,int> match(const string& str) {
+    map<int,int> match(const string& str) const {
         map<int,int> ret;
         int now = trie.root;
         for (char c : str) {

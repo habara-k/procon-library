@@ -23,7 +23,7 @@ struct DualSegmentTree {
         lazy.at(i + sz) = x;
     }
 
-    OM merge(const OM& a, const OM& b) {
+    OM merge(const OM& a, const OM& b) const {
         if (a == oe) return b;
         if (b == oe) return a;
         return h(a, b);

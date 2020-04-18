@@ -27,7 +27,7 @@ struct LCA {
         }
     }
 
-    int query(int u, int v) {
+    int query(int u, int v) const {
         if (depth[u] > depth[v]) swap(u, v);
 
         // align the depth of u and v

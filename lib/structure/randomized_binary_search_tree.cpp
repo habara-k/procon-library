@@ -42,7 +42,7 @@ struct RandomizedBinarySearchTree {
     }
     void build(int size) { root = _build(0, size); }
 
-    inline Node* _new(const M& data) { return new Node(data, oe); }
+    inline Node* _new(const M& data) const { return new Node(data, oe); }
 
     inline int size(Node* t) const { return t ? t->sz : 0; }
     inline M sum(Node* t) const { return t ? t->sum : e; }
@@ -135,26 +135,27 @@ struct RandomizedBinarySearchTree {
         return ret;
     }
 
-    void print(Node* t) {
+    void print(Node* t) const {
         if (!t) return;
         if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
         cout << t->data;
         if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
     }
-    void print_sum(Node* t) {
+    void print_sum(Node* t) const {
         if (!t) return;
         if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
         cout << sum(t);
         if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
     }
-    void print_lazy(Node* t) {
+    void print_lazy(Node* t) const {
         if (!t) return;
         if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
         cout << lazy(t);
         if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
     }
 
-    friend ostream& operator<<(ostream& os, RandomizedBinarySearchTree& tr) {
+    friend ostream& operator<<(ostream& os,
+            const RandomizedBinarySearchTree& tr) {
         os << "data: "; tr.print(tr.root); os << endl;
         os << " sum: "; tr.print_sum(tr.root); os << endl;
         os << "lazy: "; tr.print_lazy(tr.root); os << endl;
