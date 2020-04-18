@@ -29,33 +29,33 @@ int main() {
         }
         aho.build();
 
-        using Node = AhoCorasick<26,'A'>::Node;
+        using Node = int;
 
-        queue<tuple<int,int,int,Node*>> que;
+        queue<tuple<int,int,int,Node>> que;
         que.emplace(si, sj, 0, aho.trie.root);
-        map<tuple<int,int,Node*>,bool> used;
+        map<tuple<int,int,Node>,bool> used;
         used[make_tuple(si, sj, aho.trie.root)] = true;
 
         int ans = -1;
 
         while (!que.empty()) {
-            int i, j, d; Node* now;
+            int i, j, d; Node now;
             tie(i, j, d, now) = que.front(); que.pop();
             if (board[i][j] == 'G') {
                 ans = d;
                 break;
             }
             for (char dir : { 'U', 'R', 'D', 'L' }) {
-                Node* tmp = now;
+                Node tmp = now;
                 int y = i + dy[dir], x = j + dx[dir];
                 if (y < 0 or n <= y or x < 0 or m <= x or
                         board[y][x] == '#') continue;
 
-                while (tmp->next[dir - 'A'] == nullptr) {
-                    tmp = tmp->next[26];
+                while (aho[tmp].next[dir - 'A'] == -1) {
+                    tmp = aho[tmp].next[aho.FAIL];
                 }
-                tmp = tmp->next[dir - 'A'];
-                if (tmp->accept.size()) {
+                tmp = aho[tmp].next[dir - 'A'];
+                if (aho[tmp].accept.size()) {
                     continue;
                 }
                 if (!used[make_tuple(y, x, tmp)]) {
@@ -64,8 +64,8 @@ int main() {
                 }
             }
         }
+
         cout << ans << endl;
     }
-
     return 0;
 }
