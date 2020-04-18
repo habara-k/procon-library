@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-17 14:56:17+09:00
+    - Last commit date: 2020-04-18 20:20:45+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
@@ -80,19 +80,19 @@ struct SegmentTree {
         }
     }
 
-    M _query(int a, int b, int k, int l, int r) {
+    M _query(int a, int b, int k, int l, int r) const {
         if (r <= a or b <= l) return e;
         if (a <= l and r <= b) return data[k];
         return f(_query(a,b,2*k,  l,(l+r)/2),
                  _query(a,b,2*k+1,(l+r)/2,r));
     }
 
-    M query(int a, int b) {
+    M query(int a, int b) const {
         // return f[a,b)
         return _query(a, b, 1, 0, sz);
     }
 
-    M operator[](int i) {
+    M operator[](int i) const {
         return data.at(i + sz);
     }
 
@@ -313,19 +313,19 @@ struct SegmentTree {
         }
     }
 
-    M _query(int a, int b, int k, int l, int r) {
+    M _query(int a, int b, int k, int l, int r) const {
         if (r <= a or b <= l) return e;
         if (a <= l and r <= b) return data[k];
         return f(_query(a,b,2*k,  l,(l+r)/2),
                  _query(a,b,2*k+1,(l+r)/2,r));
     }
 
-    M query(int a, int b) {
+    M query(int a, int b) const {
         // return f[a,b)
         return _query(a, b, 1, 0, sz);
     }
 
-    M operator[](int i) {
+    M operator[](int i) const {
         return data.at(i + sz);
     }
 

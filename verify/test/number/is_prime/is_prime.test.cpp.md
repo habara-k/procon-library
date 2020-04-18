@@ -40,7 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/number/is_prime.cpp.html">lib/number/is_prime.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code

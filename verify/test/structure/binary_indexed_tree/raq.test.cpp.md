@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: test/structure/binary_indexed_tree/raq.test.cpp
+# :x: test/structure/binary_indexed_tree/raq.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-02 20:41:57+09:00
+    - Last commit date: 2020-04-18 20:20:45+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -55,17 +55,17 @@ layout: default
 int main() {
     int N, Q;
     cin >> N >> Q;
-    BIT<int> bit(N);
+    BIT<int> bit(N+1);
     while (Q--) {
         int q; cin >> q;
         if (q == 0) {
-            int s, t, X;
+            int s, t, X; --s, --t;
             cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
+            bit.add(s, X);
+            bit.add(t+1, -X);
         } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
+            int i; cin >> i; --i;
+            cout << bit.sum(i) << endl;
         }
     }
 }
@@ -256,24 +256,32 @@ const int64_t MOD = 1e9+7;
 
 template<typename T>
 struct BIT {
-    // BIT<T> bit(n);
-    //
-    // bit.add(i,x) for i in [0,n)
-    //   bit[i] += x;
-    //
-    // bit.sum(i) for i in [0,n)
-    //   return bit[0] + ... + bit[i]
     vector<T> data;
-    BIT(int n) : data(n+1) {}
+    int sz;
+    BIT(int sz) : sz(sz), data(sz+1) {}
 
     void add(int i, T x) {
+        // v[i] += x;
+        assert(0 <= i and i < sz);
         for (++i; i < data.size(); i += i & -i) data[i] += x;
     }
 
-    T sum(int i) {
+    T sum(int i) const {
+        // return v[0] + v[1] + ... + v[i]
+        if (i < 0) return 0;
+        assert(i < sz);
         T s = 0;
         for (++i; i > 0; i -= i & -i) s += data[i];
         return s;
+    }
+
+    friend ostream& operator<<(ostream& os, const BIT& b) {
+        os << "[";
+        for (int i = 0; i < b.sz; ++i) {
+            if (i) os << " ";
+            os << b.sum(i) - b.sum(i-1);
+        }
+        return os << "]";
     }
 };
 #line 4 "test/structure/binary_indexed_tree/raq.test.cpp"
@@ -281,17 +289,17 @@ struct BIT {
 int main() {
     int N, Q;
     cin >> N >> Q;
-    BIT<int> bit(N);
+    BIT<int> bit(N+1);
     while (Q--) {
         int q; cin >> q;
         if (q == 0) {
-            int s, t, X;
+            int s, t, X; --s, --t;
             cin >> s >> t >> X;
-            bit.add(s-1, X);
-            bit.add(t, -X);
+            bit.add(s, X);
+            bit.add(t+1, -X);
         } else {
-            int i; cin >> i;
-            cout << bit.sum(i-1) << endl;
+            int i; cin >> i; --i;
+            cout << bit.sum(i) << endl;
         }
     }
 }

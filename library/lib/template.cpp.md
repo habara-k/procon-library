@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/template.cpp
+# :question: lib/template.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -78,7 +78,7 @@ layout: default
 * :heavy_check_mark: <a href="string/aho_corasick.cpp.html">lib/string/aho_corasick.cpp</a>
 * :heavy_check_mark: <a href="string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
 * :heavy_check_mark: <a href="string/trie.cpp.html">lib/string/trie.cpp</a>
-* :heavy_check_mark: <a href="structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :question: <a href="structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/dual_segment_tree.cpp.html">lib/structure/dual_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
@@ -134,7 +134,7 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/parse/expression/expression.test.cpp.html">test/parse/expression/expression.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/string/aho_corasick/aho_corasick.test.cpp.html">test/string/aho_corasick/aho_corasick.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
+* :x: <a href="../../verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/dual_segment_tree/ruq.test.cpp.html">test/structure/dual_segment_tree/ruq.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/structure/lazy_segment_tree/rmq_raq.test.cpp.html">test/structure/lazy_segment_tree/rmq_raq.test.cpp</a>

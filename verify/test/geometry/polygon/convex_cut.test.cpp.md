@@ -41,7 +41,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../../library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/geometry/polygon.cpp.html">lib/geometry/polygon.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
