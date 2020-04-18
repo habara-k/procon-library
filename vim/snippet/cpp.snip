@@ -2,16 +2,13 @@ snippet dump
     DUMP(${1});${0}
 
 snippet cout
-    cout << ${1} << endl;${0}
-
-snippet print
-    printf("${1}"${2});${0}
+    cout << ${1} << "\n";${0}
 
 snippet puts
-    printf("${1}\n"${2});${0}
+    cout << "${1}" << "\n";${0}
 
 snippet endl
-    cout << endl;
+    cout << "\n";
 
 snippet infty
     numeric_limits<${1:int}>::${2:max}()${0}
@@ -250,7 +247,7 @@ snippet aho_corasick
             }
         }
 
-        map<int,int> match(const string& str) {
+        map<int,int> match(const string& str) const {
             map<int,int> ret;
             int now = trie.root;
             for (char c : str) {
@@ -1181,30 +1178,30 @@ snippet persistent_segment_tree
         PersistentSegmentTree(const function<M(M,M)>& f, const M& e, int sz) :
             f(f), e(e), sz(sz) {}
 
-        Node* _new(const M& data) {
+        Node* _new(const M& data) const {
             auto t = new Node();
             t->data = data;
             return t;
         }
 
-        Node* _new(Node* l, Node* r) {
+        Node* _new(Node* l, Node* r) const {
             auto t = new Node();
             t->l = l, t->r = r, t->data = f(l->data, r->data);
             return t;
         }
 
-        Node* _build(int l, int r) {
+        Node* _build(int l, int r) const {
             assert(l < r);
             if (l+1 == r) return _new(e);
             return _new(_build(l, (l+r)>>1), _build((l+r)>>1, r));
         }
 
-        Node* build() {
+        Node* build() const {
             return _build(0, sz);
         }
 
         template<typename UpdateQuery>
-        Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) {
+        Node* _update(Node* t, const UpdateQuery& q, int pos, int l, int r) const {
             if (pos == l and pos+1 == r) return _new(q(t->data));
             if (r <= pos or pos < l) return t;
             return _new(_update(t->l, q, pos, l, (l+r)>>1),
@@ -1212,18 +1209,18 @@ snippet persistent_segment_tree
         }
 
         template<typename UpdateQuery>
-        Node* update(Node* root, const UpdateQuery& q, int pos) {
+        Node* update(Node* root, const UpdateQuery& q, int pos) const {
             return _update(root, q, pos, 0, sz);
         }
 
-        M _query(Node* t, int a, int b, int l, int r) {
+        M _query(Node* t, int a, int b, int l, int r) const {
             if (r <= a or b <= l) return e;
             if (a <= l and r <= b) return t->data;
             return f(_query(t->l, a, b, l, (l+r)>>1),
                      _query(t->r, a, b, (l+r)>>1, r));
         }
 
-        M query(Node* root, int a, int b) {
+        M query(Node* root, int a, int b) const {
             // return f[a,b)
             return _query(root, a, b, 0, sz);
         }
@@ -1540,7 +1537,7 @@ snippet randomized_binary_search_tree
         }
         void build(int size) { root = _build(0, size); }
 
-        inline Node* _new(const M& data) { return new Node(data, oe); }
+        inline Node* _new(const M& data) const { return new Node(data, oe); }
 
         inline int size(Node* t) const { return t ? t->sz : 0; }
         inline M sum(Node* t) const { return t ? t->sum : e; }
@@ -1633,26 +1630,27 @@ snippet randomized_binary_search_tree
             return ret;
         }
 
-        void print(Node* t) {
+        void print(Node* t) const {
             if (!t) return;
             if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
             cout << t->data;
             if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
         }
-        void print_sum(Node* t) {
+        void print_sum(Node* t) const {
             if (!t) return;
             if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
             cout << sum(t);
             if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
         }
-        void print_lazy(Node* t) {
+        void print_lazy(Node* t) const {
             if (!t) return;
             if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
             cout << lazy(t);
             if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
         }
 
-        friend ostream& operator<<(ostream& os, RandomizedBinarySearchTree& tr) {
+        friend ostream& operator<<(ostream& os,
+                const RandomizedBinarySearchTree& tr) {
             os << "data: "; tr.print(tr.root); os << endl;
             os << " sum: "; tr.print_sum(tr.root); os << endl;
             os << "lazy: "; tr.print_lazy(tr.root); os << endl;
@@ -1686,7 +1684,7 @@ snippet dual_segment_tree
             lazy.at(i + sz) = x;
         }
 
-        OM merge(const OM& a, const OM& b) {
+        OM merge(const OM& a, const OM& b) const {
             if (a == oe) return b;
             if (b == oe) return a;
             return h(a, b);
@@ -2156,7 +2154,7 @@ snippet heavy_light_decomposition
             hld(root, root, k);
         }
 
-        int lca(int u, int v) {
+        int lca(int u, int v) const {
             for (;; v = par[head[v]]) {
                 if (depth[head[u]] > depth[head[v]]) swap(u, v);
                 if (head[u] == head[v]) {
@@ -2167,7 +2165,7 @@ snippet heavy_light_decomposition
         }
 
         template<typename UpdateQuery>
-        void update(int u, int v, const UpdateQuery& q, bool edge = false) {
+        void update(int u, int v, const UpdateQuery& q, bool edge = false) const {
             // q(a, b): update [a, b).
             for (;; v = par[head[v]]) {
                 if (depth[head[u]] > depth[head[v]]) swap(u, v);
@@ -2182,7 +2180,9 @@ snippet heavy_light_decomposition
         }
 
         template<typename Query, typename MergeFunc, typename T>
-        T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident, bool edge = false) {
+        T query(int u, int v,
+                const Query& q, const MergeFunc& f,
+                const T& ident, bool edge = false) const {
             // q(a, b): return f[a, b).
             // f: 二つの区間の要素をマージする関数
             // ident: モノイドの単位元
@@ -2276,7 +2276,7 @@ snippet lowest_common_ancestor
             }
         }
 
-        int query(int u, int v) {
+        int query(int u, int v) const {
             if (depth[u] > depth[v]) swap(u, v);
 
             // align the depth of u and v
