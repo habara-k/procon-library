@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0af9586de21ee7fea49aa629a8bd3e9a">test/string/aho_corasick</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/string/aho_corasick/aho_corasick.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 04:27:22+09:00
+    - Last commit date: 2020-04-18 19:58:08+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2212">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2212</a>
@@ -80,33 +80,33 @@ int main() {
         }
         aho.build();
 
-        using Node = AhoCorasick<26,'A'>::Node;
+        using Node = int;
 
-        queue<tuple<int,int,int,Node*>> que;
+        queue<tuple<int,int,int,Node>> que;
         que.emplace(si, sj, 0, aho.trie.root);
-        map<tuple<int,int,Node*>,bool> used;
+        map<tuple<int,int,Node>,bool> used;
         used[make_tuple(si, sj, aho.trie.root)] = true;
 
         int ans = -1;
 
         while (!que.empty()) {
-            int i, j, d; Node* now;
+            int i, j, d; Node now;
             tie(i, j, d, now) = que.front(); que.pop();
             if (board[i][j] == 'G') {
                 ans = d;
                 break;
             }
             for (char dir : { 'U', 'R', 'D', 'L' }) {
-                Node* tmp = now;
+                Node tmp = now;
                 int y = i + dy[dir], x = j + dx[dir];
                 if (y < 0 or n <= y or x < 0 or m <= x or
                         board[y][x] == '#') continue;
 
-                while (tmp->next[dir - 'A'] == nullptr) {
-                    tmp = tmp->next[26];
+                while (aho[tmp].next[dir - 'A'] == -1) {
+                    tmp = aho[tmp].next[aho.FAIL];
                 }
-                tmp = tmp->next[dir - 'A'];
-                if (tmp->accept.size()) {
+                tmp = aho[tmp].next[dir - 'A'];
+                if (aho[tmp].accept.size()) {
                     continue;
                 }
                 if (!used[make_tuple(y, x, tmp)]) {
@@ -115,9 +115,9 @@ int main() {
                 }
             }
         }
+
         cout << ans << endl;
     }
-
     return 0;
 }
 
@@ -308,40 +308,47 @@ const int64_t MOD = 1e9+7;
 template<int char_size, int margin>
 struct Trie {
     struct Node {
-        vector<Node*> next;
-        vector<int> accept;
-        int depth;
-        Node(int depth) : next(char_size, nullptr), depth(depth) {}
-        friend ostream& operator<<(ostream& os, const Node* t) {
+        vector<int> next, accept;
+        Node() : next(char_size, -1) {}
+    };
+
+    vector<Node> nodes;
+    int root;
+    Trie() : root(0) { nodes.push_back(Node()); }
+
+    inline Node operator[](int k) const { return nodes[k]; }
+    inline Node& operator[](int k) { return nodes[k]; }
+
+    void add(const string& s, int id = 0) {
+        int now = root;
+        for (char c : s) {
+            if (nodes[now].next[c - margin] == -1) {
+                nodes[now].next[c - margin] = nodes.size();
+                nodes.push_back(Node());
+            }
+            now = nodes[now].next[c - margin];
+        }
+        nodes[now].accept.push_back(id);
+    }
+
+    friend ostream& operator<<(ostream& os, const Trie& trie) {
+        function<void(int)> dfs = [&](int now) {
             os << "{";
             bool a = 0;
             for (int i = 0; i < char_size; ++i) {
-                if (t->next[i] == nullptr) continue;
-                if (a) os << ", "; a = 1;
-                os << (char)(i + margin);
-                if (t->next[i]->depth > t->depth) os << ": " << t->next[i];
+                int nxt = trie[now].next[i];
+                if (nxt != -1) {
+                    if (a) os << ", "; a = 1;
+                    os << (char)(i + margin) << ": ";
+                    dfs(nxt);
+                }
             }
-            return os << "}";
-        }
-    };
-
-    Node* root;
-    Trie() { root = new Node(0); }
-
-    void add(const string& s, int id = 0) {
-        Node* now = root;
-        for (char c : s) {
-            if (now->next[c - margin] == nullptr) {
-                now->next[c - margin] = new Node(now->depth + 1);
-            }
-            now = now->next[c - margin];
-        }
-        now->accept.push_back(id);
+            os << "}";
+        };
+        dfs(trie.root);
+        return os;
     }
 
-    friend ostream& operator<<(ostream& os, const Trie& t) {
-        return os << t.root;
-    }
 };
 #line 2 "lib/string/aho_corasick.cpp"
 
@@ -352,55 +359,75 @@ struct AhoCorasick {
 
     AhoCorasick() : trie() {}
 
+    using Node = typename Trie<char_size + 1, margin>::Node;
+
+    inline Node operator[](int k) const { return trie[k]; }
+    inline Node& operator[](int k) { return trie[k]; }
+
     void add(const string& s, int id = 0) {
         trie.add(s, id);
     }
 
-    using Node = typename Trie<char_size + 1, margin>::Node;
-
     void build() {
-        queue<Node*> que;
+        queue<int> que;
         for (int i = 0; i < char_size; ++i) {
-            if (trie.root->next[i]) {
-                que.push(trie.root->next[i]);
-                trie.root->next[i]->next[FAIL] = trie.root;
+            if (trie[trie.root].next[i] == -1) {
+                trie[trie.root].next[i] = trie.root;
             } else {
-                trie.root->next[i] = trie.root;
+                que.push(trie[trie.root].next[i]);
+                trie[trie[trie.root].next[i]].next[FAIL] = trie.root;
             }
         }
         while (!que.empty()) {
-            Node* now = que.front(); que.pop();
+            int now = que.front(); que.pop();
             for (int i = 0; i < char_size; ++i) {
-                if (now->next[i] == nullptr) continue;
-                Node* fail = now->next[FAIL];
-                while (fail->next[i] == nullptr) {
-                    fail = fail->next[FAIL];
+                if (trie[now].next[i] == -1) continue;
+                int fail = trie[now].next[FAIL];
+                while (trie[fail].next[i] == -1) {
+                    fail = trie[fail].next[FAIL];
                 }
-                now->next[i]->next[FAIL] = fail->next[i];
-                auto &u = now->next[i]->accept;
-                auto &v = fail->next[i]->accept;
+                trie[trie[now].next[i]].next[FAIL] = trie[fail].next[i];
+                auto &u = trie[trie[now].next[i]].accept;
+                auto &v = trie[trie[fail].next[i]].accept;
                 vector<int> accept;
                 set_union(u.begin(), u.end(), v.begin(), v.end(),
                         back_inserter(accept));
                 u = accept;
-                que.push(now->next[i]);
+                que.push(trie[now].next[i]);
             }
         }
     }
 
     map<int,int> match(const string& str) {
         map<int,int> ret;
-        Node* now = trie.root;
+        int now = trie.root;
         for (char c : str) {
-            while (now->next[c - margin] == nullptr) now = now->next[FAIL];
-            now = now->next[c - margin];
-            for (int id : now->accept) ++ret[id];
+            while (trie[now].next[c - margin] == -1) now = trie[now].next[FAIL];
+            now = trie[now].next[c - margin];
+            for (int id : trie[now].accept) ++ret[id];
         }
         return ret;
     }
 
-    friend ostream& operator<<(ostream& os, const AhoCorasick& a) {
-        return os << a.trie;
+    friend ostream& operator<<(ostream& os, const AhoCorasick& aho) {
+        const int n = aho.trie.nodes.size();
+        vector<bool> used(n);
+        function<void(int)> dfs = [&](int now) {
+            used[now] = true;
+            os << "{" << now << " " << "#:" << aho[now].next[aho.FAIL];
+            for (int i = 0; i < char_size; ++i) {
+                int nxt = aho[now].next[i];
+                if (nxt != -1) {
+                    os << ", " << (char)(i + margin) << ":";
+                    if (!used[nxt]) dfs(nxt);
+                    else os << nxt;
+                }
+            }
+
+            os << "}";
+        };
+        dfs(aho.trie.root);
+        return os;
     }
 };
 #line 4 "test/string/aho_corasick/aho_corasick.test.cpp"
@@ -432,33 +459,33 @@ int main() {
         }
         aho.build();
 
-        using Node = AhoCorasick<26,'A'>::Node;
+        using Node = int;
 
-        queue<tuple<int,int,int,Node*>> que;
+        queue<tuple<int,int,int,Node>> que;
         que.emplace(si, sj, 0, aho.trie.root);
-        map<tuple<int,int,Node*>,bool> used;
+        map<tuple<int,int,Node>,bool> used;
         used[make_tuple(si, sj, aho.trie.root)] = true;
 
         int ans = -1;
 
         while (!que.empty()) {
-            int i, j, d; Node* now;
+            int i, j, d; Node now;
             tie(i, j, d, now) = que.front(); que.pop();
             if (board[i][j] == 'G') {
                 ans = d;
                 break;
             }
             for (char dir : { 'U', 'R', 'D', 'L' }) {
-                Node* tmp = now;
+                Node tmp = now;
                 int y = i + dy[dir], x = j + dx[dir];
                 if (y < 0 or n <= y or x < 0 or m <= x or
                         board[y][x] == '#') continue;
 
-                while (tmp->next[dir - 'A'] == nullptr) {
-                    tmp = tmp->next[26];
+                while (aho[tmp].next[dir - 'A'] == -1) {
+                    tmp = aho[tmp].next[aho.FAIL];
                 }
-                tmp = tmp->next[dir - 'A'];
-                if (tmp->accept.size()) {
+                tmp = aho[tmp].next[dir - 'A'];
+                if (aho[tmp].accept.size()) {
                     continue;
                 }
                 if (!used[make_tuple(y, x, tmp)]) {
@@ -467,9 +494,9 @@ int main() {
                 }
             }
         }
+
         cout << ans << endl;
     }
-
     return 0;
 }
 
