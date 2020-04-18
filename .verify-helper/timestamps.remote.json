@@ -41,6 +41,7 @@
 "test/number/stirling/stirling.test.cpp": "2020-04-15 15:28:33 +0900",
 "test/other/dice/dice.test.cpp": "2020-04-08 01:47:54 +0900",
 "test/parse/expression/expression.test.cpp": "2020-04-15 15:27:32 +0900",
+"test/string/aho_corasick/aho_corasick.test.cpp": "2020-04-18 04:27:22 +0900",
 "test/string/rolling_hash/rolling_hash.test.cpp": "2020-04-13 13:44:03 +0900",
 "test/structure/binary_indexed_tree/raq.test.cpp": "2020-04-02 20:41:57 +0900",
 "test/structure/binary_indexed_tree/rsq.test.cpp": "2020-04-02 20:41:57 +0900",
