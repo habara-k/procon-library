@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/structure/binary_indexed_tree/raq.test.cpp
+# :heavy_check_mark: test/structure/binary_indexed_tree/raq.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#c98f9d8027be2db52afee4d44085094d">test/structure/binary_indexed_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/binary_indexed_tree/raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 20:20:45+09:00
+    - Last commit date: 2020-04-18 20:29:49+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_E</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -59,8 +59,8 @@ int main() {
     while (Q--) {
         int q; cin >> q;
         if (q == 0) {
-            int s, t, X; --s, --t;
-            cin >> s >> t >> X;
+            int s, t, X;
+            cin >> s >> t >> X; --s, --t;
             bit.add(s, X);
             bit.add(t+1, -X);
         } else {
@@ -293,8 +293,8 @@ int main() {
     while (Q--) {
         int q; cin >> q;
         if (q == 0) {
-            int s, t, X; --s, --t;
-            cin >> s >> t >> X;
+            int s, t, X;
+            cin >> s >> t >> X; --s, --t;
             bit.add(s, X);
             bit.add(t+1, -X);
         } else {

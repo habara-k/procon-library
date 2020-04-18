@@ -41,7 +41,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../../library/lib/number/combination.cpp.html">lib/number/combination.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code

@@ -38,7 +38,7 @@ layout: default
 
 ### lib
 
-* :question: <a href="library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 <div id="77c6183086c03e38260b57f4d8fbb66c"></div>
@@ -127,7 +127,7 @@ layout: default
 
 ### lib/structure
 
-* :question: <a href="library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
 * :heavy_check_mark: <a href="library/lib/structure/dual_segment_tree.cpp.html">lib/structure/dual_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="library/lib/structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
@@ -197,7 +197,7 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/parse/expression/expression.test.cpp.html">test/parse/expression/expression.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/string/aho_corasick/aho_corasick.test.cpp.html">test/string/aho_corasick/aho_corasick.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
-* :x: <a href="verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/dual_segment_tree/ruq.test.cpp.html">test/structure/dual_segment_tree/ruq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rmq_raq.test.cpp.html">test/structure/lazy_segment_tree/rmq_raq.test.cpp</a>
