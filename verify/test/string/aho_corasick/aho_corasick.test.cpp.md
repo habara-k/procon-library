@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#0af9586de21ee7fea49aa629a8bd3e9a">test/string/aho_corasick</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/string/aho_corasick/aho_corasick.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 19:58:08+09:00
+    - Last commit date: 2020-04-18 20:37:16+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2212">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2212</a>
@@ -398,7 +398,7 @@ struct AhoCorasick {
         }
     }
 
-    map<int,int> match(const string& str) {
+    map<int,int> match(const string& str) const {
         map<int,int> ret;
         int now = trie.root;
         for (char c : str) {

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/dual_segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-17 14:55:35+09:00
+    - Last commit date: 2020-04-18 20:37:16+09:00
 
 
 
@@ -76,7 +76,7 @@ struct DualSegmentTree {
         lazy.at(i + sz) = x;
     }
 
-    OM merge(const OM& a, const OM& b) {
+    OM merge(const OM& a, const OM& b) const {
         if (a == oe) return b;
         if (b == oe) return a;
         return h(a, b);
@@ -334,7 +334,7 @@ struct DualSegmentTree {
         lazy.at(i + sz) = x;
     }
 
-    OM merge(const OM& a, const OM& b) {
+    OM merge(const OM& a, const OM& b) const {
         if (a == oe) return b;
         if (b == oe) return a;
         return h(a, b);

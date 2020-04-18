@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/heavy_light_decomposition.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-12 12:38:19+09:00
+    - Last commit date: 2020-04-18 20:37:16+09:00
 
 
 
@@ -96,7 +96,7 @@ struct HLDecomposition {
         hld(root, root, k);
     }
 
-    int lca(int u, int v) {
+    int lca(int u, int v) const {
         for (;; v = par[head[v]]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
             if (head[u] == head[v]) {
@@ -107,7 +107,7 @@ struct HLDecomposition {
     }
 
     template<typename UpdateQuery>
-    void update(int u, int v, const UpdateQuery& q, bool edge = false) {
+    void update(int u, int v, const UpdateQuery& q, bool edge = false) const {
         // q(a, b): update [a, b).
         for (;; v = par[head[v]]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
@@ -122,7 +122,9 @@ struct HLDecomposition {
     }
 
     template<typename Query, typename MergeFunc, typename T>
-    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident, bool edge = false) {
+    T query(int u, int v,
+            const Query& q, const MergeFunc& f,
+            const T& ident, bool edge = false) const {
         // q(a, b): return f[a, b).
         // f: 二つの区間の要素をマージする関数
         // ident: モノイドの単位元
@@ -362,7 +364,7 @@ struct HLDecomposition {
         hld(root, root, k);
     }
 
-    int lca(int u, int v) {
+    int lca(int u, int v) const {
         for (;; v = par[head[v]]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
             if (head[u] == head[v]) {
@@ -373,7 +375,7 @@ struct HLDecomposition {
     }
 
     template<typename UpdateQuery>
-    void update(int u, int v, const UpdateQuery& q, bool edge = false) {
+    void update(int u, int v, const UpdateQuery& q, bool edge = false) const {
         // q(a, b): update [a, b).
         for (;; v = par[head[v]]) {
             if (depth[head[u]] > depth[head[v]]) swap(u, v);
@@ -388,7 +390,9 @@ struct HLDecomposition {
     }
 
     template<typename Query, typename MergeFunc, typename T>
-    T query(int u, int v, const Query& q, const MergeFunc& f, const T& ident, bool edge = false) {
+    T query(int u, int v,
+            const Query& q, const MergeFunc& f,
+            const T& ident, bool edge = false) const {
         // q(a, b): return f[a, b).
         // f: 二つの区間の要素をマージする関数
         // ident: モノイドの単位元

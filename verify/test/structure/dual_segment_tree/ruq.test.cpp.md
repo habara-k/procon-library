@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#2c8f1b307d6170fc434ffd952e95ccaf">test/structure/dual_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/dual_segment_tree/ruq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-17 14:55:35+09:00
+    - Last commit date: 2020-04-18 20:37:16+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D</a>
@@ -282,7 +282,7 @@ struct DualSegmentTree {
         lazy.at(i + sz) = x;
     }
 
-    OM merge(const OM& a, const OM& b) {
+    OM merge(const OM& a, const OM& b) const {
         if (a == oe) return b;
         if (b == oe) return a;
         return h(a, b);

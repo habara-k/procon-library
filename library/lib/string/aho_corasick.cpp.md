@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#9a48db5fb6f746df590a3d4604f6478b">lib/string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/string/aho_corasick.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 19:58:08+09:00
+    - Last commit date: 2020-04-18 20:37:16+09:00
 
 
 
@@ -100,7 +100,7 @@ struct AhoCorasick {
         }
     }
 
-    map<int,int> match(const string& str) {
+    map<int,int> match(const string& str) const {
         map<int,int> ret;
         int now = trie.root;
         for (char c : str) {
@@ -407,7 +407,7 @@ struct AhoCorasick {
         }
     }
 
-    map<int,int> match(const string& str) {
+    map<int,int> match(const string& str) const {
         map<int,int> ret;
         int now = trie.root;
         for (char c : str) {
