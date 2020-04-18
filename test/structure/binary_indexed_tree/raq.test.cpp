@@ -9,8 +9,8 @@ int main() {
     while (Q--) {
         int q; cin >> q;
         if (q == 0) {
-            int s, t, X; --s, --t;
-            cin >> s >> t >> X;
+            int s, t, X;
+            cin >> s >> t >> X; --s, --t;
             bit.add(s, X);
             bit.add(t+1, -X);
         } else {
