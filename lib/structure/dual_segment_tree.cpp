@@ -2,7 +2,7 @@
 
 template<typename OM>
 struct DualSegmentTree {
-    int sz;
+    int n, sz;
     vector<OM> lazy;
     const function<OM(OM,OM)> h;
     const OM oe;
@@ -13,7 +13,7 @@ struct DualSegmentTree {
             int n,
             const function<OM(OM,OM)>& h,
             const OM& oe
-            ) : h(h), oe(oe) {
+            ) : n(n), h(h), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         lazy.assign(2*sz, oe);
@@ -67,9 +67,9 @@ struct DualSegmentTree {
         return _query(i, 1, 0, sz);
     }
 
-    friend ostream& operator<<(ostream& os, const DualSegmentTree& s) {
+    friend ostream& operator<<(ostream& os, DualSegmentTree& s) {
         os << "[";
-        for (int i = 0; i < s.sz; ++i) {
+        for (int i = 0; i < s.n; ++i) {
             if (i) os << " ";
             os << s[i];
         }

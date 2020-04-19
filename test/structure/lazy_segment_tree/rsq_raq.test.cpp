@@ -5,7 +5,7 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int64_t> raq_rsq(
+    LazySegmentTree<int64_t> tr(
             N,
             [](int64_t a, int64_t b){ return a + b; },
             [](int64_t a, int64_t b, int w){ return a + b*w; },
@@ -19,12 +19,12 @@ int main() {
             int S, T; int64_t X;
             cin >> S >> T >> X;
             --S, --T;
-            raq_rsq.update(S, T+1, X);
+            tr.update(S, T+1, X);
         } else {
             int S, T;
             cin >> S >> T;
             --S, --T;
-            cout << raq_rsq.query(S, T+1) << endl;
+            cout << tr.query(S, T+1) << endl;
         }
     }
 }

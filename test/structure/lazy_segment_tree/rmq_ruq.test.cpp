@@ -5,7 +5,7 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int> ruq(
+    LazySegmentTree<int> tr(
             N,
             [](int64_t a, int64_t b){ return min(a, b); },
             [](int64_t a, int64_t b, int w){ return b; },
@@ -19,11 +19,11 @@ int main() {
         if (C == 0) {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.update(s, t+1, x);
+            tr.update(s, t+1, x);
         } else {
             int s, t;
             cin >> s >> t;
-            cout << ruq.query(s, t+1) << endl;
+            cout << tr.query(s, t+1) << endl;
         }
     }
 }

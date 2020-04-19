@@ -2,7 +2,7 @@
 
 template<typename M, typename OM = M>
 struct LazySegmentTree {
-    int sz;
+    int n, sz;
     vector<M> data;
     vector<OM> lazy;
     const function<M(M,M)> f;
@@ -22,7 +22,7 @@ struct LazySegmentTree {
             const function<M(M,OM,int)>& g,
             const function<OM(OM,OM)>& h,
             const M& e, const OM& oe
-            ) : f(f), g(g), h(h), e(e), oe(oe) {
+            ) : n(n), f(f), g(g), h(h), e(e), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
@@ -79,5 +79,18 @@ struct LazySegmentTree {
     M query(int a, int b) {
         // return f[a, b).
         return _query(a, b, 1, 0, sz);
+    }
+
+    M operator[](int i) {
+        return query(i, i+1);
+    }
+
+    friend ostream& operator<<(ostream& os, LazySegmentTree& s) {
+        os << "[";
+        for (int i = 0; i < s.n; ++i) {
+            if (i) os << " ";
+            os << s[i];
+        }
+        return os << "]";
     }
 };

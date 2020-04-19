@@ -5,7 +5,7 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    DualSegmentTree<int> ruq(
+    DualSegmentTree<int> tr(
             N,
             [](int64_t a, int64_t b){ return b; },
             numeric_limits<int>::max()
@@ -16,11 +16,11 @@ int main() {
         if (C == 0) {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.update(s, t+1, x);
+            tr.update(s, t+1, x);
         } else {
             int i;
             cin >> i;
-            cout << ruq[i] << endl;
+            cout << tr[i] << endl;
         }
     }
 }

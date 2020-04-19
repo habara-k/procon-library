@@ -5,7 +5,7 @@
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int> rsq_ruq(
+    LazySegmentTree<int> tr(
             N,
             [](int a, int b){ return a + b; },
             [](int a, int b, int w){ return b*w; },
@@ -18,11 +18,11 @@ int main() {
         if (C == 0) {
             int S, T; int X;
             cin >> S >> T >> X;
-            rsq_ruq.update(S, T+1, X);
+            tr.update(S, T+1, X);
         } else {
             int S, T;
             cin >> S >> T;
-            cout << rsq_ruq.query(S, T+1) << endl;
+            cout << tr.query(S, T+1) << endl;
         }
     }
 }
