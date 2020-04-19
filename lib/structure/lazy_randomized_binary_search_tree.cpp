@@ -1,7 +1,7 @@
 #include "../template.cpp"
 
 template<typename M, typename OM = M>
-struct RandomizedBinarySearchTree {
+struct LazyRandomizedBinarySearchTree {
 
     struct Node {
         Node *lch, *rch;
@@ -21,7 +21,7 @@ struct RandomizedBinarySearchTree {
     Node* root;
     std::mt19937 random{std::random_device{}()};
 
-    RandomizedBinarySearchTree(
+    LazyRandomizedBinarySearchTree(
             const function<M(M,M)>& f,
             const function<M(M,OM,int)>& g,
             const function<OM(OM,OM)>& h,
@@ -135,30 +135,17 @@ struct RandomizedBinarySearchTree {
         return ret;
     }
 
-    void print(Node* t) const {
-        if (!t) return;
-        if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
-        cout << t->data;
-        if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
-    }
-    void print_sum(Node* t) const {
-        if (!t) return;
-        if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
-        cout << sum(t);
-        if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
-    }
-    void print_lazy(Node* t) const {
-        if (!t) return;
-        if (t->lch) { cout << "("; print(t->lch); cout << ")"; }
-        cout << lazy(t);
-        if (t->rch) { cout << "("; print(t->rch); cout << ")"; }
+    M operator[](int i) {
+        return query(i, i+1);
     }
 
     friend ostream& operator<<(ostream& os,
-            const RandomizedBinarySearchTree& tr) {
-        os << "data: "; tr.print(tr.root); os << endl;
-        os << " sum: "; tr.print_sum(tr.root); os << endl;
-        os << "lazy: "; tr.print_lazy(tr.root); os << endl;
-        return os;
+            LazyRandomizedBinarySearchTree& tr) {
+        os << "[";
+        for (int i = 0; i < tr.root->sz; ++i) {
+            if (i) os << " ";
+            os << tr[i];
+        }
+        return os << "]";
     }
 };

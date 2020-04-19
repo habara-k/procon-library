@@ -30,7 +30,7 @@ struct LazySegmentTree {
     }
 
     void build(const vector<M>& v) {
-        assert(v.size() <= sz);
+        assert(v.size() <= n);
         for (int i = 0; i < v.size(); ++i) {
             data[i + sz] = v[i];
         }
