@@ -204,7 +204,6 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rmq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rmq_ruq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rsq_raq.test.cpp.html">test/structure/lazy_segment_tree/rsq_raq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rsq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rsq_ruq.test.cpp</a>
-* :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/ruq.test.cpp.html">test/structure/lazy_segment_tree/ruq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp.html">test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/randomized_binary_search_tree/rmq_raq.test.cpp.html">test/structure/randomized_binary_search_tree/rmq_raq.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/structure/randomized_binary_search_tree/rmq_ruq.test.cpp.html">test/structure/randomized_binary_search_tree/rmq_ruq.test.cpp</a>

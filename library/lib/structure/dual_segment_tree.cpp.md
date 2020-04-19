@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/dual_segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 20:37:16+09:00
+    - Last commit date: 2020-04-20 00:07:27+09:00
 
 
 
@@ -55,7 +55,7 @@ layout: default
 
 template<typename OM>
 struct DualSegmentTree {
-    int sz;
+    int n, sz;
     vector<OM> lazy;
     const function<OM(OM,OM)> h;
     const OM oe;
@@ -66,7 +66,7 @@ struct DualSegmentTree {
             int n,
             const function<OM(OM,OM)>& h,
             const OM& oe
-            ) : h(h), oe(oe) {
+            ) : n(n), h(h), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         lazy.assign(2*sz, oe);
@@ -120,9 +120,9 @@ struct DualSegmentTree {
         return _query(i, 1, 0, sz);
     }
 
-    friend ostream& operator<<(ostream& os, const DualSegmentTree& s) {
+    friend ostream& operator<<(ostream& os, DualSegmentTree& s) {
         os << "[";
-        for (int i = 0; i < s.sz; ++i) {
+        for (int i = 0; i < s.n; ++i) {
             if (i) os << " ";
             os << s[i];
         }
@@ -313,7 +313,7 @@ const int64_t MOD = 1e9+7;
 
 template<typename OM>
 struct DualSegmentTree {
-    int sz;
+    int n, sz;
     vector<OM> lazy;
     const function<OM(OM,OM)> h;
     const OM oe;
@@ -324,7 +324,7 @@ struct DualSegmentTree {
             int n,
             const function<OM(OM,OM)>& h,
             const OM& oe
-            ) : h(h), oe(oe) {
+            ) : n(n), h(h), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         lazy.assign(2*sz, oe);
@@ -378,9 +378,9 @@ struct DualSegmentTree {
         return _query(i, 1, 0, sz);
     }
 
-    friend ostream& operator<<(ostream& os, const DualSegmentTree& s) {
+    friend ostream& operator<<(ostream& os, DualSegmentTree& s) {
         os << "[";
-        for (int i = 0; i < s.sz; ++i) {
+        for (int i = 0; i < s.n; ++i) {
             if (i) os << " ";
             os << s[i];
         }

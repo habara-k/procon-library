@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 20:20:45+09:00
+    - Last commit date: 2020-04-20 00:07:27+09:00
 
 
 
@@ -56,7 +56,7 @@ layout: default
 
 template<typename M>
 struct SegmentTree {
-    int sz;
+    int n, sz;
     vector<M> data;
     const function<M(M,M)> f;
     const M e;
@@ -65,10 +65,20 @@ struct SegmentTree {
             int n,
             const function<M(M,M)>& f,
             const M& e
-            ) : f(f), e(e) {
+            ) : n(n), f(f), e(e) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
+    }
+
+    void build(const vector<M>& v) {
+        assert(v.size() <= n);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
+            data[i] = f(data[2*i], data[2*i+1]);
+        }
     }
 
     template<typename UpdateQuery>
@@ -98,7 +108,7 @@ struct SegmentTree {
 
     friend ostream& operator<<(ostream& os, const SegmentTree& s) {
         os << "[";
-        for (int i = 0; i < s.sz; ++i) {
+        for (int i = 0; i < s.n; ++i) {
             if (i) os << " ";
             os << s[i];
         }
@@ -289,7 +299,7 @@ const int64_t MOD = 1e9+7;
 
 template<typename M>
 struct SegmentTree {
-    int sz;
+    int n, sz;
     vector<M> data;
     const function<M(M,M)> f;
     const M e;
@@ -298,10 +308,20 @@ struct SegmentTree {
             int n,
             const function<M(M,M)>& f,
             const M& e
-            ) : f(f), e(e) {
+            ) : n(n), f(f), e(e) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
+    }
+
+    void build(const vector<M>& v) {
+        assert(v.size() <= n);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
+            data[i] = f(data[2*i], data[2*i+1]);
+        }
     }
 
     template<typename UpdateQuery>
@@ -331,7 +351,7 @@ struct SegmentTree {
 
     friend ostream& operator<<(ostream& os, const SegmentTree& s) {
         os << "[";
-        for (int i = 0; i < s.sz; ++i) {
+        for (int i = 0; i < s.n; ++i) {
             if (i) os << " ";
             os << s[i];
         }

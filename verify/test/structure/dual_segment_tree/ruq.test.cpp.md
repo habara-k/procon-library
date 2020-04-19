@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#2c8f1b307d6170fc434ffd952e95ccaf">test/structure/dual_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/dual_segment_tree/ruq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 20:37:16+09:00
+    - Last commit date: 2020-04-20 00:07:27+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_D</a>
@@ -55,7 +55,7 @@ layout: default
 int main() {
     int N, Q;
     cin >> N >> Q;
-    DualSegmentTree<int> ruq(
+    DualSegmentTree<int> tr(
             N,
             [](int64_t a, int64_t b){ return b; },
             numeric_limits<int>::max()
@@ -66,11 +66,11 @@ int main() {
         if (C == 0) {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.update(s, t+1, x);
+            tr.update(s, t+1, x);
         } else {
             int i;
             cin >> i;
-            cout << ruq[i] << endl;
+            cout << tr[i] << endl;
         }
     }
 }
@@ -261,7 +261,7 @@ const int64_t MOD = 1e9+7;
 
 template<typename OM>
 struct DualSegmentTree {
-    int sz;
+    int n, sz;
     vector<OM> lazy;
     const function<OM(OM,OM)> h;
     const OM oe;
@@ -272,7 +272,7 @@ struct DualSegmentTree {
             int n,
             const function<OM(OM,OM)>& h,
             const OM& oe
-            ) : h(h), oe(oe) {
+            ) : n(n), h(h), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         lazy.assign(2*sz, oe);
@@ -326,9 +326,9 @@ struct DualSegmentTree {
         return _query(i, 1, 0, sz);
     }
 
-    friend ostream& operator<<(ostream& os, const DualSegmentTree& s) {
+    friend ostream& operator<<(ostream& os, DualSegmentTree& s) {
         os << "[";
-        for (int i = 0; i < s.sz; ++i) {
+        for (int i = 0; i < s.n; ++i) {
             if (i) os << " ";
             os << s[i];
         }
@@ -340,7 +340,7 @@ struct DualSegmentTree {
 int main() {
     int N, Q;
     cin >> N >> Q;
-    DualSegmentTree<int> ruq(
+    DualSegmentTree<int> tr(
             N,
             [](int64_t a, int64_t b){ return b; },
             numeric_limits<int>::max()
@@ -351,11 +351,11 @@ int main() {
         if (C == 0) {
             int s, t, x;
             cin >> s >> t >> x;
-            ruq.update(s, t+1, x);
+            tr.update(s, t+1, x);
         } else {
             int i;
             cin >> i;
-            cout << ruq[i] << endl;
+            cout << tr[i] << endl;
         }
     }
 }

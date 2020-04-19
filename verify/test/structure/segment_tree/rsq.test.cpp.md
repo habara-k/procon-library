@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#971922f92a29e476633aa9737b609e73">test/structure/segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/segment_tree/rsq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-18 20:20:45+09:00
+    - Last commit date: 2020-04-20 00:07:27+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B</a>
@@ -55,13 +55,13 @@ layout: default
 int main() {
     int N, Q;
     cin >> N >> Q;
-    SegmentTree<int> segt(
+    SegmentTree<int> tr(
             N, [](int a,int b){ return a+b; }, 0);
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;
-        if (T == 0) segt.update(X-1, [&](int a){ return a+Y; });
-        else printf("%d\n", segt.query(X-1, Y));
+        if (T == 0) tr.update(X-1, [&](int a){ return a+Y; });
+        else printf("%d\n", tr.query(X-1, Y));
     }
 }
 
@@ -251,7 +251,7 @@ const int64_t MOD = 1e9+7;
 
 template<typename M>
 struct SegmentTree {
-    int sz;
+    int n, sz;
     vector<M> data;
     const function<M(M,M)> f;
     const M e;
@@ -260,10 +260,20 @@ struct SegmentTree {
             int n,
             const function<M(M,M)>& f,
             const M& e
-            ) : f(f), e(e) {
+            ) : n(n), f(f), e(e) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
+    }
+
+    void build(const vector<M>& v) {
+        assert(v.size() <= n);
+        for (int i = 0; i < v.size(); ++i) {
+            data[i + sz] = v[i];
+        }
+        for (int i = sz-1; i > 0; --i) {
+            data[i] = f(data[2*i], data[2*i+1]);
+        }
     }
 
     template<typename UpdateQuery>
@@ -293,7 +303,7 @@ struct SegmentTree {
 
     friend ostream& operator<<(ostream& os, const SegmentTree& s) {
         os << "[";
-        for (int i = 0; i < s.sz; ++i) {
+        for (int i = 0; i < s.n; ++i) {
             if (i) os << " ";
             os << s[i];
         }
@@ -305,13 +315,13 @@ struct SegmentTree {
 int main() {
     int N, Q;
     cin >> N >> Q;
-    SegmentTree<int> segt(
+    SegmentTree<int> tr(
             N, [](int a,int b){ return a+b; }, 0);
     while (Q--) {
         int T, X, Y;
         cin >> T >> X >> Y;
-        if (T == 0) segt.update(X-1, [&](int a){ return a+Y; });
-        else printf("%d\n", segt.query(X-1, Y));
+        if (T == 0) tr.update(X-1, [&](int a){ return a+Y; });
+        else printf("%d\n", tr.query(X-1, Y));
     }
 }
 

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#7ce88e86f4e3cb938a6b6902ad70b7ea">test/structure/lazy_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/lazy_segment_tree/rsq_raq.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-17 14:56:17+09:00
+    - Last commit date: 2020-04-20 00:07:27+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_G</a>
@@ -55,7 +55,7 @@ layout: default
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int64_t> raq_rsq(
+    LazySegmentTree<int64_t> tr(
             N,
             [](int64_t a, int64_t b){ return a + b; },
             [](int64_t a, int64_t b, int w){ return a + b*w; },
@@ -69,12 +69,12 @@ int main() {
             int S, T; int64_t X;
             cin >> S >> T >> X;
             --S, --T;
-            raq_rsq.update(S, T+1, X);
+            tr.update(S, T+1, X);
         } else {
             int S, T;
             cin >> S >> T;
             --S, --T;
-            cout << raq_rsq.query(S, T+1) << endl;
+            cout << tr.query(S, T+1) << endl;
         }
     }
 }
@@ -265,7 +265,7 @@ const int64_t MOD = 1e9+7;
 
 template<typename M, typename OM = M>
 struct LazySegmentTree {
-    int sz;
+    int n, sz;
     vector<M> data;
     vector<OM> lazy;
     const function<M(M,M)> f;
@@ -285,7 +285,7 @@ struct LazySegmentTree {
             const function<M(M,OM,int)>& g,
             const function<OM(OM,OM)>& h,
             const M& e, const OM& oe
-            ) : f(f), g(g), h(h), e(e), oe(oe) {
+            ) : n(n), f(f), g(g), h(h), e(e), oe(oe) {
         sz = 1;
         while (sz < n) sz <<= 1;
         data.assign(2*sz, e);
@@ -343,13 +343,26 @@ struct LazySegmentTree {
         // return f[a, b).
         return _query(a, b, 1, 0, sz);
     }
+
+    M operator[](int i) {
+        return query(i, i+1);
+    }
+
+    friend ostream& operator<<(ostream& os, LazySegmentTree& s) {
+        os << "[";
+        for (int i = 0; i < s.n; ++i) {
+            if (i) os << " ";
+            os << s[i];
+        }
+        return os << "]";
+    }
 };
 #line 4 "test/structure/lazy_segment_tree/rsq_raq.test.cpp"
 
 int main() {
     int N, Q;
     cin >> N >> Q;
-    LazySegmentTree<int64_t> raq_rsq(
+    LazySegmentTree<int64_t> tr(
             N,
             [](int64_t a, int64_t b){ return a + b; },
             [](int64_t a, int64_t b, int w){ return a + b*w; },
@@ -363,12 +376,12 @@ int main() {
             int S, T; int64_t X;
             cin >> S >> T >> X;
             --S, --T;
-            raq_rsq.update(S, T+1, X);
+            tr.update(S, T+1, X);
         } else {
             int S, T;
             cin >> S >> T;
             --S, --T;
-            cout << raq_rsq.query(S, T+1) << endl;
+            cout << tr.query(S, T+1) << endl;
         }
     }
 }
