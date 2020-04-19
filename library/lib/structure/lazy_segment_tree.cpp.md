@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/lazy_segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 00:07:27+09:00
+    - Last commit date: 2020-04-20 00:26:32+09:00
 
 
 
@@ -87,7 +87,7 @@ struct LazySegmentTree {
     }
 
     void build(const vector<M>& v) {
-        assert(v.size() <= sz);
+        assert(v.size() <= n);
         for (int i = 0; i < v.size(); ++i) {
             data[i + sz] = v[i];
         }
@@ -363,7 +363,7 @@ struct LazySegmentTree {
     }
 
     void build(const vector<M>& v) {
-        assert(v.size() <= sz);
+        assert(v.size() <= n);
         for (int i = 0; i < v.size(); ++i) {
             data[i + sz] = v[i];
         }

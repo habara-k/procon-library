@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#f108cdd252ebfc58a7b9bc5c4c206374">test/graph/heavy_light_decomposition</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 00:07:27+09:00
+    - Last commit date: 2020-04-20 00:26:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E</a>
@@ -397,7 +397,7 @@ struct LazySegmentTree {
     }
 
     void build(const vector<M>& v) {
-        assert(v.size() <= sz);
+        assert(v.size() <= n);
         for (int i = 0; i < v.size(); ++i) {
             data[i + sz] = v[i];
         }
