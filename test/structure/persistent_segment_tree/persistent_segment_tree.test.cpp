@@ -21,7 +21,10 @@ int main()
 {
     int N, Q;
     cin >> N >> Q;
-    vector<int> x(N); cin >> x;
+    vector<int> x(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> x[i];
+    }
 
     vector<vector<int>> G(N);
     for (int i = 0; i < N-1; ++i) {
@@ -36,10 +39,10 @@ int main()
     for (auto X : x) comp[X] = -1;
     int comp_size = 0;
     for (auto &p : comp) {
-        p.sc = comp_size++;
+        p.second = comp_size++;
     }
     for (auto p : comp) {
-        comp_inv[p.sc] = p.fs;
+        comp_inv[p.second] = p.first;
     }
 
     vector<int> par(N, -1);

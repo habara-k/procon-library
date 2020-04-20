@@ -8,8 +8,8 @@ int main()
         int n; cin >> n;
         if (n == 0) break;
 
-        auto h = make_v<int>(2*n+1, 2*n+1),
-             v = make_v<int>(2*n+1, 2*n+1);
+        vector<vector<int>> h(2*n+1, vector<int>(2*n+1));
+        vector<vector<int>> v(2*n+1, vector<int>(2*n+1));
 
         for (int k = 0; k < n; ++k) {
             int t, f; cin >> t >> f;
