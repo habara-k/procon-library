@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: lib/number/modint.cpp
+# :heavy_check_mark: lib/number/modint.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -47,8 +47,8 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/test/number/combination/combination.test.cpp.html">test/number/combination/combination.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/number/modint/modint.test.cpp.html">test/number/modint/modint.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/number/partition/partition1.test.cpp.html">test/number/partition/partition1.test.cpp</a>
-* :x: <a href="../../../verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>
-* :x: <a href="../../../verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
 
 
 ## Code

@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: lib/parse/parser.cpp
+# :heavy_check_mark: lib/parse/parser.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -43,13 +43,13 @@ layout: default
 
 ## Required by
 
-* :x: <a href="expression.cpp.html">lib/parse/expression.cpp</a>
+* :heavy_check_mark: <a href="expression.cpp.html">lib/parse/expression.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/number/permutation/permutation.test.cpp.html">test/number/permutation/permutation.test.cpp</a>
-* :x: <a href="../../../verify/test/parse/expression/expression.test.cpp.html">test/parse/expression/expression.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/number/permutation/permutation.test.cpp.html">test/number/permutation/permutation.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/parse/expression/expression.test.cpp.html">test/parse/expression/expression.test.cpp</a>
 
 
 ## Code

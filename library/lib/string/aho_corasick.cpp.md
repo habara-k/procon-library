@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: lib/string/aho_corasick.cpp
+# :heavy_check_mark: lib/string/aho_corasick.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,13 +38,13 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="trie.cpp.html">lib/string/trie.cpp</a>
+* :heavy_check_mark: <a href="trie.cpp.html">lib/string/trie.cpp</a>
 * :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/string/aho_corasick/aho_corasick.test.cpp.html">test/string/aho_corasick/aho_corasick.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/string/aho_corasick/aho_corasick.test.cpp.html">test/string/aho_corasick/aho_corasick.test.cpp</a>
 
 
 ## Code

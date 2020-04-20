@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/string/rolling_hash/rolling_hash.test.cpp
+# :heavy_check_mark: test/string/rolling_hash/rolling_hash.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 

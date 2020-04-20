@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/graph/re_rooting/re_rooting.test.cpp
+# :heavy_check_mark: test/graph/re_rooting/re_rooting.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#201475acb17386f13f3e53190e3bcecc">test/graph/re_rooting</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/re_rooting/re_rooting.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 19:11:05+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A</a>
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
 * :question: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
@@ -62,12 +62,12 @@ int main() {
     ReRooting<int,P> tr(
             n,
             [](P a, P b){
-                vector<int> v{a.fs,a.sc,b.fs,b.sc};
+                vector<int> v{a.first,a.second,b.first,b.second};
                 sort(v.rbegin(),v.rend());
                 return make_pair(v[0],v[1]);
                 },
             [](P a, int w){
-                return make_pair(a.fs+w, 0);
+                return make_pair(a.first+w, 0);
                 },
             P{0,0});
 
@@ -78,7 +78,7 @@ int main() {
 
     int ans = 0;
     for (auto& p : tr.solve()) {
-        chmax(ans, p.fs);
+        chmax(ans, p.first);
     }
 
     cout << ans << endl;
@@ -257,12 +257,12 @@ int main() {
     ReRooting<int,P> tr(
             n,
             [](P a, P b){
-                vector<int> v{a.fs,a.sc,b.fs,b.sc};
+                vector<int> v{a.first,a.second,b.first,b.second};
                 sort(v.rbegin(),v.rend());
                 return make_pair(v[0],v[1]);
                 },
             [](P a, int w){
-                return make_pair(a.fs+w, 0);
+                return make_pair(a.first+w, 0);
                 },
             P{0,0});
 
@@ -273,7 +273,7 @@ int main() {
 
     int ans = 0;
     for (auto& p : tr.solve()) {
-        chmax(ans, p.fs);
+        chmax(ans, p.first);
     }
 
     cout << ans << endl;

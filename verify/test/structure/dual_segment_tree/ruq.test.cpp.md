@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/structure/dual_segment_tree/ruq.test.cpp
+# :heavy_check_mark: test/structure/dual_segment_tree/ruq.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/structure/dual_segment_tree.cpp.html">lib/structure/dual_segment_tree.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/structure/dual_segment_tree.cpp.html">lib/structure/dual_segment_tree.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 

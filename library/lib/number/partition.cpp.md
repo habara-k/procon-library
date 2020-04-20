@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: lib/number/partition.cpp
+# :heavy_check_mark: lib/number/partition.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -44,7 +44,7 @@ layout: default
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../verify/test/number/partition/partition1.test.cpp.html">test/number/partition/partition1.test.cpp</a>
-* :x: <a href="../../../verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>
 
 
 ## Code

@@ -66,13 +66,13 @@ layout: default
 * :heavy_check_mark: <a href="library/lib/graph/dinic.cpp.html">lib/graph/dinic.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/euler_tour.cpp.html">lib/graph/euler_tour.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/ford_fulkerson.cpp.html">lib/graph/ford_fulkerson.cpp</a>
-* :question: <a href="library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
+* :heavy_check_mark: <a href="library/lib/graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 * :question: <a href="library/lib/graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/lowlink.cpp.html">lib/graph/lowlink.cpp</a>
-* :x: <a href="library/lib/graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
+* :heavy_check_mark: <a href="library/lib/graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/primal_dual.cpp.html">lib/graph/primal_dual.cpp</a>
-* :x: <a href="library/lib/graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
+* :heavy_check_mark: <a href="library/lib/graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
 * :heavy_check_mark: <a href="library/lib/graph/strongly_connected_components.cpp.html">lib/graph/strongly_connected_components.cpp</a>
 * :question: <a href="library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
 * :warning: <a href="library/lib/graph/topological_sort.cpp.html">lib/graph/topological_sort.cpp</a>
@@ -85,19 +85,19 @@ layout: default
 ### lib/number
 
 * :heavy_check_mark: <a href="library/lib/number/bell.cpp.html">lib/number/bell.cpp</a>
-* :question: <a href="library/lib/number/combination.cpp.html">lib/number/combination.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/combination.cpp.html">lib/number/combination.cpp</a>
 * :warning: <a href="library/lib/number/euler_phi.cpp.html">lib/number/euler_phi.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/extended_gcd.cpp.html">lib/number/extended_gcd.cpp</a>
 * :warning: <a href="library/lib/number/fast_mobius_transform.cpp.html">lib/number/fast_mobius_transform.cpp</a>
 * :warning: <a href="library/lib/number/fast_zeta_transform.cpp.html">lib/number/fast_zeta_transform.cpp</a>
 * :heavy_check_mark: <a href="library/lib/number/is_prime.cpp.html">lib/number/is_prime.cpp</a>
 * :warning: <a href="library/lib/number/matrix.cpp.html">lib/number/matrix.cpp</a>
-* :question: <a href="library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
-* :question: <a href="library/lib/number/partition.cpp.html">lib/number/partition.cpp</a>
-* :x: <a href="library/lib/number/permutation.cpp.html">lib/number/permutation.cpp</a>
-* :x: <a href="library/lib/number/prime_factorize.cpp.html">lib/number/prime_factorize.cpp</a>
-* :x: <a href="library/lib/number/prime_table.cpp.html">lib/number/prime_table.cpp</a>
-* :question: <a href="library/lib/number/stirling.cpp.html">lib/number/stirling.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/partition.cpp.html">lib/number/partition.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/permutation.cpp.html">lib/number/permutation.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/prime_factorize.cpp.html">lib/number/prime_factorize.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/prime_table.cpp.html">lib/number/prime_table.cpp</a>
+* :heavy_check_mark: <a href="library/lib/number/stirling.cpp.html">lib/number/stirling.cpp</a>
 
 
 <div id="2fde05eafc6645110721cf5a4d8688d4"></div>
@@ -111,31 +111,31 @@ layout: default
 
 ### lib/parse
 
-* :x: <a href="library/lib/parse/expression.cpp.html">lib/parse/expression.cpp</a>
-* :x: <a href="library/lib/parse/parser.cpp.html">lib/parse/parser.cpp</a>
+* :heavy_check_mark: <a href="library/lib/parse/expression.cpp.html">lib/parse/expression.cpp</a>
+* :heavy_check_mark: <a href="library/lib/parse/parser.cpp.html">lib/parse/parser.cpp</a>
 
 
 <div id="9a48db5fb6f746df590a3d4604f6478b"></div>
 
 ### lib/string
 
-* :x: <a href="library/lib/string/aho_corasick.cpp.html">lib/string/aho_corasick.cpp</a>
-* :x: <a href="library/lib/string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
-* :x: <a href="library/lib/string/trie.cpp.html">lib/string/trie.cpp</a>
+* :heavy_check_mark: <a href="library/lib/string/aho_corasick.cpp.html">lib/string/aho_corasick.cpp</a>
+* :heavy_check_mark: <a href="library/lib/string/rolling_hash.cpp.html">lib/string/rolling_hash.cpp</a>
+* :heavy_check_mark: <a href="library/lib/string/trie.cpp.html">lib/string/trie.cpp</a>
 
 
 <div id="c4d905b3311a5371af1ce28a5d3ead13"></div>
 
 ### lib/structure
 
-* :question: <a href="library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
-* :x: <a href="library/lib/structure/dual_segment_tree.cpp.html">lib/structure/dual_segment_tree.cpp</a>
-* :x: <a href="library/lib/structure/lazy_randomized_binary_search_tree.cpp.html">lib/structure/lazy_randomized_binary_search_tree.cpp</a>
-* :x: <a href="library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/binary_indexed_tree.cpp.html">lib/structure/binary_indexed_tree.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/dual_segment_tree.cpp.html">lib/structure/dual_segment_tree.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/lazy_randomized_binary_search_tree.cpp.html">lib/structure/lazy_randomized_binary_search_tree.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :x: <a href="library/lib/structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
-* :x: <a href="library/lib/structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
-* :question: <a href="library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
-* :x: <a href="library/lib/structure/weighted_union_find.cpp.html">lib/structure/weighted_union_find.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :heavy_check_mark: <a href="library/lib/structure/weighted_union_find.cpp.html">lib/structure/weighted_union_find.cpp</a>
 
 
 <div id="1e45766cad4fc615f4b62c4dd8d0991f"></div>
@@ -172,15 +172,15 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/ford_fulkerson/ford_fulkerson.test.cpp.html">test/graph/ford_fulkerson/ford_fulkerson.test.cpp</a>
-* :x: <a href="verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/heavy_light_decomposition/lca.test.cpp.html">test/graph/heavy_light_decomposition/lca.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp.html">test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/lowlink/articulation.test.cpp.html">test/graph/lowlink/articulation.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/lowlink/bridge.test.cpp.html">test/graph/lowlink/bridge.test.cpp</a>
-* :x: <a href="verify/test/graph/maximum_clique/maximum_clique.test.cpp.html">test/graph/maximum_clique/maximum_clique.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/graph/maximum_clique/maximum_clique.test.cpp.html">test/graph/maximum_clique/maximum_clique.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/primal_dual/primal_dual.test.cpp.html">test/graph/primal_dual/primal_dual.test.cpp</a>
-* :x: <a href="verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/strongly_connected_components/strongly_connected_components.test.cpp.html">test/graph/strongly_connected_components/strongly_connected_components.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/graph/warshall_floyd/warshall_floyd.test.cpp.html">test/graph/warshall_floyd/warshall_floyd.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/bell/bell.test.cpp.html">test/number/bell/bell.test.cpp</a>
@@ -189,31 +189,31 @@ layout: default
 * :heavy_check_mark: <a href="verify/test/number/is_prime/is_prime.test.cpp.html">test/number/is_prime/is_prime.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/modint/modint.test.cpp.html">test/number/modint/modint.test.cpp</a>
 * :heavy_check_mark: <a href="verify/test/number/partition/partition1.test.cpp.html">test/number/partition/partition1.test.cpp</a>
-* :x: <a href="verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>
-* :x: <a href="verify/test/number/permutation/permutation.test.cpp.html">test/number/permutation/permutation.test.cpp</a>
-* :x: <a href="verify/test/number/prime_factorize/prime_factorize.test.cpp.html">test/number/prime_factorize/prime_factorize.test.cpp</a>
-* :x: <a href="verify/test/number/prime_table/prime_table.test.cpp.html">test/number/prime_table/prime_table.test.cpp</a>
-* :x: <a href="verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/partition/partition2.test.cpp.html">test/number/partition/partition2.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/permutation/permutation.test.cpp.html">test/number/permutation/permutation.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/prime_factorize/prime_factorize.test.cpp.html">test/number/prime_factorize/prime_factorize.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/prime_table/prime_table.test.cpp.html">test/number/prime_table/prime_table.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
 * :x: <a href="verify/test/other/dice/dice.test.cpp.html">test/other/dice/dice.test.cpp</a>
-* :x: <a href="verify/test/parse/expression/expression.test.cpp.html">test/parse/expression/expression.test.cpp</a>
-* :x: <a href="verify/test/string/aho_corasick/aho_corasick.test.cpp.html">test/string/aho_corasick/aho_corasick.test.cpp</a>
-* :x: <a href="verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
-* :x: <a href="verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
-* :x: <a href="verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
-* :x: <a href="verify/test/structure/dual_segment_tree/ruq.test.cpp.html">test/structure/dual_segment_tree/ruq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_segment_tree/rmq_raq.test.cpp.html">test/structure/lazy_segment_tree/rmq_raq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_segment_tree/rmq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rmq_ruq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_segment_tree/rsq_raq.test.cpp.html">test/structure/lazy_segment_tree/rsq_raq.test.cpp</a>
-* :x: <a href="verify/test/structure/lazy_segment_tree/rsq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rsq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/parse/expression/expression.test.cpp.html">test/parse/expression/expression.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/string/aho_corasick/aho_corasick.test.cpp.html">test/string/aho_corasick/aho_corasick.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/string/rolling_hash/rolling_hash.test.cpp.html">test/string/rolling_hash/rolling_hash.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/raq.test.cpp.html">test/structure/binary_indexed_tree/raq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/binary_indexed_tree/rsq.test.cpp.html">test/structure/binary_indexed_tree/rsq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/dual_segment_tree/ruq.test.cpp.html">test/structure/dual_segment_tree/ruq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rmq_raq.test.cpp.html">test/structure/lazy_segment_tree/rmq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rmq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rmq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rsq_raq.test.cpp.html">test/structure/lazy_segment_tree/rsq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/lazy_segment_tree/rsq_ruq.test.cpp.html">test/structure/lazy_segment_tree/rsq_ruq.test.cpp</a>
 * :x: <a href="verify/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp.html">test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp</a>
-* :x: <a href="verify/test/structure/segment_tree/rmq.test.cpp.html">test/structure/segment_tree/rmq.test.cpp</a>
-* :x: <a href="verify/test/structure/segment_tree/rsq.test.cpp.html">test/structure/segment_tree/rsq.test.cpp</a>
-* :x: <a href="verify/test/structure/union_find/union_find.test.cpp.html">test/structure/union_find/union_find.test.cpp</a>
-* :x: <a href="verify/test/structure/weighted_union_find/weighted_union_find.test.cpp.html">test/structure/weighted_union_find/weighted_union_find.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/segment_tree/rmq.test.cpp.html">test/structure/segment_tree/rmq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/segment_tree/rsq.test.cpp.html">test/structure/segment_tree/rsq.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/union_find/union_find.test.cpp.html">test/structure/union_find/union_find.test.cpp</a>
+* :heavy_check_mark: <a href="verify/test/structure/weighted_union_find/weighted_union_find.test.cpp.html">test/structure/weighted_union_find/weighted_union_find.test.cpp</a>
 
 

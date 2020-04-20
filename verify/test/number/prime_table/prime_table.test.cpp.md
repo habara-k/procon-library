@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/number/prime_table/prime_table.test.cpp
+# :heavy_check_mark: test/number/prime_table/prime_table.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/number/prime_table.cpp.html">lib/number/prime_table.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/number/prime_table.cpp.html">lib/number/prime_table.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 

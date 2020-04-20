@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/graph/maximum_clique/maximum_clique.test.cpp
+# :heavy_check_mark: test/graph/maximum_clique/maximum_clique.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#76b7967922953d4ccde5920efa72b35a">test/graph/maximum_clique</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/maximum_clique/maximum_clique.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 19:11:05+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306</a>
@@ -39,7 +39,7 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
 * :question: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
@@ -56,17 +56,17 @@ layout: default
 int main()
 {
     int n, m; cin >> n >> m;
-    auto G = make_v<bool>(n, n);
+    vector<vector<bool>> G(n, vector<bool>(n));
     for (int i = 0; i < n; ++i) G[i][i] = true;
 
-    auto g = make_v<int>(n, n);
+    vector<vector<int>> g(n, vector<int>(n));
     for (int i = 0; i < m; ++i) {
         int u, v, f; cin >> u >> v >> f; --u, --v;
         G[u][v] = G[v][u] = 1;
         g[u][v] = g[v][u] = f;
     }
 
-    function<int(const vector<int>&)> f = [&](const vector<int>& vs){
+    auto f = [&](const vector<int>& vs){
         int ret = 0;
         for (int i : vs) {
             int mi = 0;
@@ -267,17 +267,17 @@ T maximum_clique(
 int main()
 {
     int n, m; cin >> n >> m;
-    auto G = make_v<bool>(n, n);
+    vector<vector<bool>> G(n, vector<bool>(n));
     for (int i = 0; i < n; ++i) G[i][i] = true;
 
-    auto g = make_v<int>(n, n);
+    vector<vector<int>> g(n, vector<int>(n));
     for (int i = 0; i < m; ++i) {
         int u, v, f; cin >> u >> v >> f; --u, --v;
         G[u][v] = G[v][u] = 1;
         g[u][v] = g[v][u] = f;
     }
 
-    function<int(const vector<int>&)> f = [&](const vector<int>& vs){
+    auto f = [&](const vector<int>& vs){
         int ret = 0;
         for (int i : vs) {
             int mi = 0;

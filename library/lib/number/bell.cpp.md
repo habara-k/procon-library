@@ -38,8 +38,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="combination.cpp.html">lib/number/combination.cpp</a>
-* :question: <a href="stirling.cpp.html">lib/number/stirling.cpp</a>
+* :heavy_check_mark: <a href="combination.cpp.html">lib/number/combination.cpp</a>
+* :heavy_check_mark: <a href="stirling.cpp.html">lib/number/stirling.cpp</a>
 * :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 

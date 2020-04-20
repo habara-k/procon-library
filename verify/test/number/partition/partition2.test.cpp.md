@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/number/partition/partition2.test.cpp
+# :heavy_check_mark: test/number/partition/partition2.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
-* :question: <a href="../../../../library/lib/number/partition.cpp.html">lib/number/partition.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/number/modint.cpp.html">lib/number/modint.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/number/partition.cpp.html">lib/number/partition.cpp</a>
 * :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 

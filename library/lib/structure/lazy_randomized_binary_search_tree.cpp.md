@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: lib/structure/lazy_randomized_binary_search_tree.cpp
+# :heavy_check_mark: lib/structure/lazy_randomized_binary_search_tree.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -43,11 +43,11 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp</a>
-* :x: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp</a>
-* :x: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp</a>
-* :x: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp</a>
-* :x: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rmq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_raq.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/rsq_ruq.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp.html">test/structure/lazy_randomized_binary_search_tree/ruq.test.cpp</a>
 
 
 ## Code

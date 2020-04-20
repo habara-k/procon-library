@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: lib/number/combination.cpp
+# :heavy_check_mark: lib/number/combination.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -44,14 +44,14 @@ layout: default
 ## Required by
 
 * :heavy_check_mark: <a href="bell.cpp.html">lib/number/bell.cpp</a>
-* :question: <a href="stirling.cpp.html">lib/number/stirling.cpp</a>
+* :heavy_check_mark: <a href="stirling.cpp.html">lib/number/stirling.cpp</a>
 
 
 ## Verified with
 
 * :heavy_check_mark: <a href="../../../verify/test/number/bell/bell.test.cpp.html">test/number/bell/bell.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/number/combination/combination.test.cpp.html">test/number/combination/combination.test.cpp</a>
-* :x: <a href="../../../verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/number/stirling/stirling.test.cpp.html">test/number/stirling/stirling.test.cpp</a>
 
 
 ## Code
