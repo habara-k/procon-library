@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/graph/re_rooting/re_rooting.test.cpp
+# :heavy_check_mark: test/graph/re_rooting/re_rooting.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#201475acb17386f13f3e53190e3bcecc">test/graph/re_rooting</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/re_rooting/re_rooting.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 20:05:03+09:00
+    - Last commit date: 2020-04-20 20:18:25+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A</a>
@@ -39,8 +39,9 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/edge.cpp.html">lib/graph/edge.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -50,6 +51,7 @@ layout: default
 ```cpp
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A"
 
+#include "../../../lib/graph/edge.cpp"
 #include "../../../lib/graph/re_rooting.cpp"
 
 int main() {
@@ -91,6 +93,9 @@ int main() {
 ```cpp
 #line 1 "test/graph/re_rooting/re_rooting.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A"
+
+#line 1 "lib/graph/edge.cpp"
+
 
 #line 1 "lib/template.cpp"
 
@@ -163,6 +168,23 @@ const ld EPS = 1e-9;
 // }}}
 
 
+#line 4 "lib/graph/edge.cpp"
+
+template<typename T>
+struct edge {
+    int src, to;
+    T cost;
+
+    edge() {}
+    edge(int to, T cost) : src(-1), to(to), cost(cost) {}
+    edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
+
+    friend ostream& operator<<(ostream& os, const edge& e) {
+        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
+    }
+};
+
+
 #line 2 "lib/graph/re_rooting.cpp"
 
 template<typename Data, typename T>
@@ -225,7 +247,7 @@ struct ReRooting {
         return ret;
     }
 };
-#line 4 "test/graph/re_rooting/re_rooting.test.cpp"
+#line 5 "test/graph/re_rooting/re_rooting.test.cpp"
 
 int main() {
     int n; cin >> n;
