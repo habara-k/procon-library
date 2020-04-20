@@ -5,17 +5,17 @@
 int main()
 {
     int n, m; cin >> n >> m;
-    auto G = make_v<bool>(n, n);
+    vector<vector<bool>> G(n, vector<bool>(n));
     for (int i = 0; i < n; ++i) G[i][i] = true;
 
-    auto g = make_v<int>(n, n);
+    vector<vector<int>> g(n, vector<int>(n));
     for (int i = 0; i < m; ++i) {
         int u, v, f; cin >> u >> v >> f; --u, --v;
         G[u][v] = G[v][u] = 1;
         g[u][v] = g[v][u] = f;
     }
 
-    function<int(const vector<int>&)> f = [&](const vector<int>& vs){
+    auto f = [&](const vector<int>& vs){
         int ret = 0;
         for (int i : vs) {
             int mi = 0;

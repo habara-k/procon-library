@@ -11,12 +11,12 @@ int main() {
     ReRooting<int,P> tr(
             n,
             [](P a, P b){
-                vector<int> v{a.fs,a.sc,b.fs,b.sc};
+                vector<int> v{a.first,a.second,b.first,b.second};
                 sort(v.rbegin(),v.rend());
                 return make_pair(v[0],v[1]);
                 },
             [](P a, int w){
-                return make_pair(a.fs+w, 0);
+                return make_pair(a.first+w, 0);
                 },
             P{0,0});
 
@@ -27,7 +27,7 @@ int main() {
 
     int ans = 0;
     for (auto& p : tr.solve()) {
-        chmax(ans, p.fs);
+        chmax(ans, p.first);
     }
 
     cout << ans << endl;

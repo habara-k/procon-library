@@ -18,11 +18,11 @@ int main()
     HLDecomposition hld(G);
     hld.build();
 
-    LazySegmentTree<LL> segt(
+    LazySegmentTree<int64_t> segt(
             n,
-            [](LL a,LL b){ return a+b; },
-            [](LL a,LL b,int w){ return a+b*w; },
-            [](LL a,LL b){ return a+b; },
+            [](int64_t a,int64_t b){ return a+b; },
+            [](int64_t a,int64_t b,int w){ return a+b*w; },
+            [](int64_t a,int64_t b){ return a+b; },
             0, 0);
 
     int q; cin >> q;
@@ -30,13 +30,13 @@ int main()
         int c; cin >> c;
         if (c == 0) {
             int v, w; cin >> v >> w;
-            hld.update(0, v, [&](int a,int b){ segt.update(a,b,w); }, true);
+            hld.update(0, v, [&](int64_t a,int64_t b){ segt.update(a,b,w); }, true);
         }
         if (c == 1) {
             int v; cin >> v;
-            LL ret = hld.query(0, v,
-                    [&](int a,int b){ return segt.query(a,b); },
-                    [&](LL a,LL b){ return a+b; }, 0LL, true);
+            int64_t ret = hld.query(0, v,
+                    [&](int64_t a,int64_t b){ return segt.query(a,b); },
+                    [&](int64_t a,int64_t b){ return a+b; }, 0LL, true);
             cout << ret << endl;
         }
     }
