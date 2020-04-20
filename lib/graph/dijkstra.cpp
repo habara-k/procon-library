@@ -1,4 +1,4 @@
-#include "../template.cpp"
+#include "./template.cpp"
 
 template<typename T>
 vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {

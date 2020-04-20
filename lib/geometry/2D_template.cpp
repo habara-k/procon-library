@@ -1,7 +1,7 @@
 #include "../template.cpp"
 
 using Real = double;
-const Real EPS = 1e-8, PI = acos(-1);
+const Real PI = acos(-1);
 
 using Point = complex<Real>;
 namespace std {

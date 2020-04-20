@@ -1,4 +1,4 @@
-#include "../template.cpp"
+#include "./template.cpp"
 
 template<typename flow_t, typename cost_t>
 struct PrimalDual {

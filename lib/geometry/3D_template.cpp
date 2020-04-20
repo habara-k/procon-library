@@ -1,7 +1,7 @@
 #include "../template.cpp"
 
 using Real = double;
-const Real EPS = 1e-8, PI = acos(-1);
+const Real PI = acos(-1);
 
 struct Point3D {
     double x, y, z;
@@ -36,6 +36,8 @@ struct Segment3D {
         return is >> l.a >> l.b;
     }
 };
+
+inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
 
 double dot(const Point3D &a, const Point3D &b) {
     return a.x * b.x + a.y * b.y + a.z * b.z;

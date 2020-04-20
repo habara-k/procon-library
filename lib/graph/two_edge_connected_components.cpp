@@ -1,4 +1,4 @@
-#include "../template.cpp"
+#include "./lowlink.cpp"
 
 struct TwoEdgeConnectedComponents {
     // require: undirected simple graph
