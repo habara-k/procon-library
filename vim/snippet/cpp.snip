@@ -20,22 +20,22 @@ snippet next_permutation
     next_permutation(${1:a}.begin(), $1.end())${0}
 
 snippet rep
-    REP (${1:i},${2:n}) {
+    REP (${1:i}, ${2:n}) {
         ${0}
     }
 
 snippet rrep
-    RREP (${1:i},${2:n}) {
+    RREP (${1:i}, ${2:n}) {
         ${0}
     }
 
 snippet for
-    FOR (${1:i},${2:0},${3:n}) {
+    FOR (${1:i}, ${2:0}, ${3:n}) {
         ${0}
     }
 
 snippet rfor
-    RFOR (${1:i},${2:0},${3:n}) {
+    RFOR (${1:i}, ${2:0}, ${3:n}) {
         ${0}
     }
 
@@ -1949,6 +1949,24 @@ snippet primal_dual
             return ret;
         }
     };
+
+
+snippet edge
+
+    template<typename T>
+    struct edge {
+        int src, to;
+        T cost;
+
+        edge() {}
+        edge(int to, T cost) : src(-1), to(to), cost(cost) {}
+        edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
+
+        friend ostream& operator<<(ostream& os, const edge& e) {
+            return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
+        }
+    };
+
 
 
 snippet euler_tour
