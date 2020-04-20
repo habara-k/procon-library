@@ -31,15 +31,15 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 20:05:03+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="template.cpp.html">lib/graph/template.cpp</a>
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="edge.cpp.html">lib/graph/edge.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
@@ -52,7 +52,8 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "./template.cpp"
+#include "../template.cpp"
+#include "./edge.cpp"
 
 template<typename T>
 vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
@@ -86,9 +87,6 @@ vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "lib/graph/template.cpp"
-
-
 #line 1 "lib/template.cpp"
 
 
@@ -160,7 +158,9 @@ const ld EPS = 1e-9;
 // }}}
 
 
-#line 4 "lib/graph/template.cpp"
+#line 1 "lib/graph/edge.cpp"
+
+
 
 template<typename T>
 struct edge {
@@ -177,7 +177,7 @@ struct edge {
 };
 
 
-#line 2 "lib/graph/dijkstra.cpp"
+#line 3 "lib/graph/dijkstra.cpp"
 
 template<typename T>
 vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {

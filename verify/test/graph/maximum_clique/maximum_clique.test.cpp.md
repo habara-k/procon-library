@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#76b7967922953d4ccde5920efa72b35a">test/graph/maximum_clique</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/maximum_clique/maximum_clique.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 19:11:05+09:00
+    - Last commit date: 2020-04-20 20:05:03+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306</a>
@@ -40,8 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -92,9 +91,6 @@ int main()
 ```cpp
 #line 1 "test/graph/maximum_clique/maximum_clique.test.cpp"
 #define PROBLEM "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2306"
-
-#line 1 "lib/graph/template.cpp"
-
 
 #line 1 "lib/template.cpp"
 
@@ -165,23 +161,6 @@ bool chmin(T& a, const T& b) {
 const ll MOD = 1e9+7;
 const ld EPS = 1e-9;
 // }}}
-
-
-#line 4 "lib/graph/template.cpp"
-
-template<typename T>
-struct edge {
-    int src, to;
-    T cost;
-
-    edge() {}
-    edge(int to, T cost) : src(-1), to(to), cost(cost) {}
-    edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
-
-    friend ostream& operator<<(ostream& os, const edge& e) {
-        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
-    }
-};
 
 
 #line 2 "lib/graph/maximum_clique.cpp"

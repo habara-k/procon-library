@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#d2a63e0baffa309a1127d6e740b99c90">test/graph/dinic</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/dinic/dinic.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 20:05:03+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A</a>
@@ -40,8 +40,7 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/graph/dinic.cpp.html">lib/graph/dinic.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -73,9 +72,6 @@ int main() {
 ```cpp
 #line 1 "test/graph/dinic/dinic.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/6/GRL_6_A"
-
-#line 1 "lib/graph/template.cpp"
-
 
 #line 1 "lib/template.cpp"
 
@@ -146,23 +142,6 @@ bool chmin(T& a, const T& b) {
 const ll MOD = 1e9+7;
 const ld EPS = 1e-9;
 // }}}
-
-
-#line 4 "lib/graph/template.cpp"
-
-template<typename T>
-struct edge {
-    int src, to;
-    T cost;
-
-    edge() {}
-    edge(int to, T cost) : src(-1), to(to), cost(cost) {}
-    edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
-
-    friend ostream& operator<<(ostream& os, const edge& e) {
-        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
-    }
-};
 
 
 #line 2 "lib/graph/dinic.cpp"

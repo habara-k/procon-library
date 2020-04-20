@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#44397479ec27b867fc95e0f72cb70728">test/graph/dijkstra</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/dijkstra/dijkstra.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 20:05:03+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A</a>
@@ -40,8 +40,8 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/graph/dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/edge.cpp.html">lib/graph/edge.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -77,9 +77,6 @@ int main() {
 ```cpp
 #line 1 "test/graph/dijkstra/dijkstra.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A"
-
-#line 1 "lib/graph/template.cpp"
-
 
 #line 1 "lib/template.cpp"
 
@@ -152,7 +149,9 @@ const ld EPS = 1e-9;
 // }}}
 
 
-#line 4 "lib/graph/template.cpp"
+#line 1 "lib/graph/edge.cpp"
+
+
 
 template<typename T>
 struct edge {
@@ -169,7 +168,7 @@ struct edge {
 };
 
 
-#line 2 "lib/graph/dijkstra.cpp"
+#line 3 "lib/graph/dijkstra.cpp"
 
 template<typename T>
 vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {

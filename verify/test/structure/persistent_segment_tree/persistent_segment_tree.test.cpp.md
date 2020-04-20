@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#930708ccd228402100db5e002260e5b2">test/structure/persistent_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 19:29:30+09:00
+    - Last commit date: 2020-04-20 20:05:03+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270</a>
@@ -40,9 +40,8 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -290,26 +289,6 @@ struct PersistentSegmentTree {
     }
 
 };
-#line 1 "lib/graph/template.cpp"
-
-
-#line 4 "lib/graph/template.cpp"
-
-template<typename T>
-struct edge {
-    int src, to;
-    T cost;
-
-    edge() {}
-    edge(int to, T cost) : src(-1), to(to), cost(cost) {}
-    edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
-
-    friend ostream& operator<<(ostream& os, const edge& e) {
-        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
-    }
-};
-
-
 #line 2 "lib/graph/lowest_common_ancestor.cpp"
 
 struct LCA {

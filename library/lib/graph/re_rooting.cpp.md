@@ -25,26 +25,25 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/graph/re_rooting.cpp
+# :x: lib/graph/re_rooting.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/re_rooting.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 20:05:03+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="template.cpp.html">lib/graph/template.cpp</a>
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
+* :x: <a href="../../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
 
 
 ## Code
@@ -52,7 +51,7 @@ layout: default
 <a id="unbundled"></a>
 {% raw %}
 ```cpp
-#include "./template.cpp"
+#include "../template.cpp"
 
 template<typename Data, typename T>
 struct ReRooting {
@@ -121,9 +120,6 @@ struct ReRooting {
 <a id="bundled"></a>
 {% raw %}
 ```cpp
-#line 1 "lib/graph/template.cpp"
-
-
 #line 1 "lib/template.cpp"
 
 
@@ -193,23 +189,6 @@ bool chmin(T& a, const T& b) {
 const ll MOD = 1e9+7;
 const ld EPS = 1e-9;
 // }}}
-
-
-#line 4 "lib/graph/template.cpp"
-
-template<typename T>
-struct edge {
-    int src, to;
-    T cost;
-
-    edge() {}
-    edge(int to, T cost) : src(-1), to(to), cost(cost) {}
-    edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
-
-    friend ostream& operator<<(ostream& os, const edge& e) {
-        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
-    }
-};
 
 
 #line 2 "lib/graph/re_rooting.cpp"
