@@ -1,5 +1,8 @@
 snippet dump
-    DUMP(${1});${0}
+    dump(${1});${0}
+
+snippet debug
+    debug(${1});${0}
 
 snippet cout
     cout << ${1} << endl;${0}
@@ -10,60 +13,39 @@ snippet puts
 snippet endl
     cout << endl;
 
-snippet infty
-    numeric_limits<${1:int}>::${2:max}()${0}
-
 snippet iota
     iota(${1:a}.begin(), $1.end(), ${2:0});${0}
 
 snippet next_permutation
     next_permutation(${1:a}.begin(), $1.end())${0}
 
-
-snippet for
-    for (int ${1:i} = ${2:0}; $1 < ${3:n}; ++$1) {
-        ${0}
-    }
-
-snippet fore
-    for (int ${1:i} = ${2:0}; $1 <= ${3:n}; ++$1) {
-        ${0}
-    }
-
-snippet rfor
-    for (int ${1:i} = ${2:n}-1; $1 >= ${3:0}; --$1) {
-        ${0}
-    }
-
-snippet rfore
-    for (int ${1:i} = ${2:n}; $1 >= ${3:0}; --$1) {
-        ${0}
-    }
-
 snippet rep
-    for (int ${1:i} = 0; $1 < ${2:n}; ++$1) {
+    REP (${1:i},${2:n}) {
         ${0}
     }
 
 snippet rrep
-    for (int ${1:i} = ${2:n}-1; $1 >= 0; --$1) {
+    RREP (${1:i},${2:n}) {
         ${0}
     }
 
-snippet All
-    ${1:c}.begin(), $1.end()${0}
+snippet for
+    FOR (${1:i},${2:0},${3:n}) {
+        ${0}
+    }
 
-snippet rAll
-    ${1:c}.rbegin(), $1.rend()${0}
+snippet rfor
+    RFOR (${1:i},${2:0},${3:n}) {
+        ${0}
+    }
+
+snippet sz
+    SZ(${1:c})${0}
+
 
 snippet sort
-    sort(${1:c}.begin(), $1.end()${2:#:,});${0}
+    sort(all(${1:c})${2:#:,});${0}
 
-snippet rsort
-    sort(${1:c}.rbegin(), $1.rend());${0}
-
-snippet fill
-    fill(${1:c}.begin(), $1.end(), ${2:x});${0}
 
 snippet auto
     for (auto& ${1:e} : ${2:c}) {
@@ -75,38 +57,29 @@ snippet cauto
     }
 
 snippet lb
-    lower_bound(${1:c}.begin(), $1.end(), ${2:x})${0}
+    lower_bound(all(${1:c}), ${2:x})${0}
 
 snippet ub
-    upper_bound(${1:c}.begin(), $1.end(), ${2:x})${0}
+    upper_bound(all(${1:c}), ${2:x})${0}
 
 snippet unique
-    sort(${1:c}.begin(), $1.end());
-    $1.erase(unique($1.begin(), $1.end()), $1.end());
-
-snippet exist
-    ${1:st}.find(${2:elem}) != $1.end()${0}
+    sort(all(${1:c}));
+    $1.erase(unique(all($1)), end($1));
 
 snippet sum
-    accumulate(${1:c}.begin()${2:#:+a}, $1.end()${3:#:+b}, ${4:0})${0}
+    accumulate(all(${1:c}), ${2:0})${0}
 
 snippet max
-    *max_element(${1:c}.begin(), $1.end())${0}
+    *max_element(all(${1:c}))${0}
 
 snippet min
-    *min_element(${1:c}.begin(), $1.end())${0}
+    *min_element(all(${1:c}))${0}
 
 snippet priority_queue
     priority_queue<${1:pair<int,int>}>${0}
 
 snippet priority_queue_greater
     priority_queue<${1:pair<int,int>}, vector<$1>, greater<$1>>${0}
-
-snippet make_v
-    make_v<${1:int}>(${2:n})${0}
-
-snippet make_vector
-    make_vector<${1:int}>(${2:n}, ${3:0})${0}
 
 snippet binary_search
     auto check = [&](${1:int} k) {
@@ -194,7 +167,7 @@ snippet brute_forth
     }
 
 snippet dfs
-    function<${1:void}(${2:int,int})> dfs = [&](${3:int v, int p}){
+    auto dfs = [&](auto&& dfs, ${1:int v, int p}){
         ${0}
     };
 
@@ -881,7 +854,7 @@ snippet modint
 snippet 2D_template
 
     using Real = double;
-    const Real EPS = 1e-8, PI = acos(-1);
+    const Real PI = acos(-1);
 
     using Point = complex<Real>;
     namespace std {
@@ -1097,7 +1070,7 @@ snippet polygon
 snippet 3D_template
 
     using Real = double;
-    const Real EPS = 1e-8, PI = acos(-1);
+    const Real PI = acos(-1);
 
     struct Point3D {
         double x, y, z;
@@ -1132,6 +1105,8 @@ snippet 3D_template
             return is >> l.a >> l.b;
         }
     };
+
+    inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
 
     double dot(const Point3D &a, const Point3D &b) {
         return a.x * b.x + a.y * b.y + a.z * b.z;
