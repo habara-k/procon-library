@@ -1,5 +1,6 @@
 #ifndef EDGE
 #define EDGE
+#include "../template.cpp"
 
 template<typename T>
 struct edge {
