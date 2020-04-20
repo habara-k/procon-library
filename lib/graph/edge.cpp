@@ -1,6 +1,5 @@
-#ifndef GRAPH_TEMPLATE
-#define GRAPH_TEMPLATE
-#include "../template.cpp"
+#ifndef EDGE
+#define EDGE
 
 template<typename T>
 struct edge {

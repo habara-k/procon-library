@@ -1,4 +1,4 @@
-#include "./template.cpp"
+#include "../template.cpp"
 
 template<typename T>
 void warshall_floyd(vector<vector<T>> &g) {

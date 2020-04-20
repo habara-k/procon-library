@@ -1,4 +1,4 @@
-#include "./template.cpp"
+#include "../template.cpp"
 
 struct HLDecomposition {
     const vector<vector<int>>& G;

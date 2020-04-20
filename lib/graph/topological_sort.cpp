@@ -1,4 +1,4 @@
-#include "./template.cpp"
+#include "../template.cpp"
 
 vector<int> topological_sort(const vector<vector<int>>& G)
 {

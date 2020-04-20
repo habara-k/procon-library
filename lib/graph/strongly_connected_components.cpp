@@ -1,4 +1,4 @@
-#include "./template.cpp"
+#include "../template.cpp"
 
 struct StronglyConnectedComponents {
     vector<vector<int>> g, rg, t;

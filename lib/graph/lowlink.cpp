@@ -1,4 +1,4 @@
-#include "./template.cpp"
+#include "../template.cpp"
 
 struct LowLink {
     // require: undirected simple graph

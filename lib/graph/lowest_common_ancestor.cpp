@@ -1,4 +1,4 @@
-#include "./template.cpp"
+#include "../template.cpp"
 
 struct LCA {
     int n, log2_n;
