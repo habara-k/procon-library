@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp
+# :heavy_check_mark: test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#930708ccd228402100db5e002260e5b2">test/structure/persistent_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 19:29:30+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270</a>
@@ -39,10 +39,10 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../library/lib/graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
-* :question: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
-* :x: <a href="../../../../library/lib/structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -73,7 +73,10 @@ int main()
 {
     int N, Q;
     cin >> N >> Q;
-    vector<int> x(N); cin >> x;
+    vector<int> x(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> x[i];
+    }
 
     vector<vector<int>> G(N);
     for (int i = 0; i < N-1; ++i) {
@@ -88,10 +91,10 @@ int main()
     for (auto X : x) comp[X] = -1;
     int comp_size = 0;
     for (auto &p : comp) {
-        p.sc = comp_size++;
+        p.second = comp_size++;
     }
     for (auto p : comp) {
-        comp_inv[p.sc] = p.fs;
+        comp_inv[p.second] = p.first;
     }
 
     vector<int> par(N, -1);
@@ -377,7 +380,10 @@ int main()
 {
     int N, Q;
     cin >> N >> Q;
-    vector<int> x(N); cin >> x;
+    vector<int> x(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> x[i];
+    }
 
     vector<vector<int>> G(N);
     for (int i = 0; i < N-1; ++i) {
@@ -392,10 +398,10 @@ int main()
     for (auto X : x) comp[X] = -1;
     int comp_size = 0;
     for (auto &p : comp) {
-        p.sc = comp_size++;
+        p.second = comp_size++;
     }
     for (auto p : comp) {
-        comp_inv[p.sc] = p.fs;
+        comp_inv[p.second] = p.first;
     }
 
     vector<int> par(N, -1);

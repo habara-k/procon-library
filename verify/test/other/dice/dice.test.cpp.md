@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/other/dice/dice.test.cpp
+# :heavy_check_mark: test/other/dice/dice.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#52aab48b43ac22a8f2809e035c95fb47">test/other/dice</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/other/dice/dice.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-20 19:29:30+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1181">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1181</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :x: <a href="../../../../library/lib/other/dice.cpp.html">lib/other/dice.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/other/dice.cpp.html">lib/other/dice.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -58,8 +58,8 @@ int main()
         int n; cin >> n;
         if (n == 0) break;
 
-        auto h = make_v<int>(2*n+1, 2*n+1),
-             v = make_v<int>(2*n+1, 2*n+1);
+        vector<vector<int>> h(2*n+1, vector<int>(2*n+1));
+        vector<vector<int>> v(2*n+1, vector<int>(2*n+1));
 
         for (int k = 0; k < n; ++k) {
             int t, f; cin >> t >> f;
@@ -269,8 +269,8 @@ int main()
         int n; cin >> n;
         if (n == 0) break;
 
-        auto h = make_v<int>(2*n+1, 2*n+1),
-             v = make_v<int>(2*n+1, 2*n+1);
+        vector<vector<int>> h(2*n+1, vector<int>(2*n+1));
+        vector<vector<int>> v(2*n+1, vector<int>(2*n+1));
 
         for (int k = 0; k < n; ++k) {
             int t, f; cin >> t >> f;

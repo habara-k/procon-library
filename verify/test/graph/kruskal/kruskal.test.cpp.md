@@ -40,9 +40,9 @@ layout: default
 ## Depends on
 
 * :heavy_check_mark: <a href="../../../../library/lib/graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
-* :question: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/graph/template.cpp.html">lib/graph/template.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code

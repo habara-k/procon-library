@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: lib/graph/template.cpp
+# :heavy_check_mark: lib/graph/template.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Required by
@@ -49,7 +49,7 @@ layout: default
 * :heavy_check_mark: <a href="ford_fulkerson.cpp.html">lib/graph/ford_fulkerson.cpp</a>
 * :heavy_check_mark: <a href="heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
 * :heavy_check_mark: <a href="kruskal.cpp.html">lib/graph/kruskal.cpp</a>
-* :question: <a href="lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
+* :heavy_check_mark: <a href="lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
 * :heavy_check_mark: <a href="lowlink.cpp.html">lib/graph/lowlink.cpp</a>
 * :heavy_check_mark: <a href="maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
 * :heavy_check_mark: <a href="primal_dual.cpp.html">lib/graph/primal_dual.cpp</a>
@@ -77,7 +77,7 @@ layout: default
 * :heavy_check_mark: <a href="../../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/graph/strongly_connected_components/strongly_connected_components.test.cpp.html">test/graph/strongly_connected_components/strongly_connected_components.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/graph/warshall_floyd/warshall_floyd.test.cpp.html">test/graph/warshall_floyd/warshall_floyd.test.cpp</a>
-* :x: <a href="../../../verify/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp.html">test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp.html">test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp</a>
 
 
 ## Code
