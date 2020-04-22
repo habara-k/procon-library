@@ -31,14 +31,14 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/warshall_floyd.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 20:05:03+09:00
+    - Last commit date: 2020-04-23 00:34:58+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
@@ -55,7 +55,7 @@ layout: default
 
 template<typename T>
 void warshall_floyd(vector<vector<T>> &g) {
-    const auto INF = numeric_limits<T>::max();
+    const T INF = numeric_limits<T>::max();
     int n = g.size();
     for (int k = 0; k < n; ++k) {
         for (int i = 0; i < n; ++i) {
@@ -148,7 +148,7 @@ const ld EPS = 1e-9;
 
 template<typename T>
 void warshall_floyd(vector<vector<T>> &g) {
-    const auto INF = numeric_limits<T>::max();
+    const T INF = numeric_limits<T>::max();
     int n = g.size();
     for (int k = 0; k < n; ++k) {
         for (int i = 0; i < n; ++i) {

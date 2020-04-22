@@ -41,7 +41,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../../library/lib/string/aho_corasick.cpp.html">lib/string/aho_corasick.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/string/trie.cpp.html">lib/string/trie.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code

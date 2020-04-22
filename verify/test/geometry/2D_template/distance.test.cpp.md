@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#a2c5f8fc0f05060a960f2bd934b33f5f">test/geometry/2D_template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/geometry/2D_template/distance.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-04-23 00:34:26+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_D">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_D</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :heavy_check_mark: <a href="../../../../library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
-* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :question: <a href="../../../../library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
+* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -167,7 +167,7 @@ struct Line {
     Point a, b;
     Line() {}
     Line(const Point& a, const Point& b) : a(a), b(b) {}
-    friend ostream& operator<<(ostream& os, Line& l) {
+    friend ostream& operator<<(ostream& os, const Line& l) {
         return os << "[" << l.a << "," << l.b << "]";
     }
 };
@@ -269,6 +269,69 @@ Point crosspoint(const Line& l1, const Line& l2) {
     Real A = cross(l2.a - l1.a, l2.b - l1.a),
          B = cross(l2.b - l1.b, l2.a - l1.b);
     return (A * l1.b + B * l1.a) / (A + B);
+}
+
+struct Circle {
+    Point p;
+    Real r;
+    Circle() {}
+    Circle(const Point& p, Real r) : p(p), r(r) {}
+};
+
+
+int intersected(Circle c1, Circle c2) {
+    if (c1.r < c2.r) swap(c1, c2);
+    Real d = abs(c1.p - c2.p);
+    if (c1.r + c2.r < d) return 4;
+    if (eq(c1.r + c2.r, d)) return 3;
+    if (c1.r - c2.r < d) return 2;
+    if (eq(c1.r - c2.r, d)) return 1;
+    return 0;
+}
+
+pair<Point,Point> crosspoint(const Circle& c, const Line& l) {
+    Real h = distance(l, c.p);
+    Point p = projection(l, c.p);
+    if (eq(h, c.r)) return { p, p };
+    Point u = l.a - l.b; u /= abs(u);
+    Real d = sqrt(c.r * c.r - h * h);
+    return { p + u * d, p - u * d };
+}
+
+pair<Point,Point> crosspoint(const Circle& c1, const Circle& c2) {
+    Real d = abs(c2.p - c1.p), t = arg(c2.p - c1.p);
+    Real a = acos((c1.r * c1.r + d * d - c2.r * c2.r) / (2 * c1.r * d));
+    return { c1.p + polar(c1.r, t + a),
+             c1.p + polar(c1.r, t - a) };
+}
+
+pair<Point,Point> tangent(const Point& p, const Circle& c) {
+    return crosspoint(c, Circle(p, sqrt(norm(p - c.p) - c.r * c.r)));
+};
+
+vector<Line> common_tangent(const Circle& c1, const Circle& c2) {
+    vector<Line> lines;
+    Point u = c2.p - c1.p;
+    Real d = abs(u);
+    if (eq(d, 0.0)) return lines;
+    u /= d;
+    for (Real s : { -1, 1 }) {
+        Real h = (c1.r + s * c2.r) / d;
+        if (eq(abs(h), 1.0)) {
+            lines.emplace_back(
+                    c1.p + u * h * c1.r,
+                    c1.p + u * h * c1.r + rotate(u, PI / 2.0));
+        } else if (abs(h) < 1) {
+            Real a = acos(h);
+            lines.emplace_back(
+                    c1.p + u * polar(c1.r, a),
+                    c2.p - s * u * polar(c2.r, a));
+            lines.emplace_back(
+                    c1.p + u * polar(c1.r, -a),
+                    c2.p - s * u * polar(c2.r, -a));
+        }
+    }
+    return lines;
 }
 #line 5 "test/geometry/2D_template/distance.test.cpp"
 
