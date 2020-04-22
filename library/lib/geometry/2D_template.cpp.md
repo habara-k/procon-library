@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: lib/geometry/2D_template.cpp
+# :heavy_check_mark: lib/geometry/2D_template.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,7 +38,7 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Required by
@@ -48,17 +48,17 @@ layout: default
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/geometry/2D_template/circle_crosspoint.test.cpp.html">test/geometry/2D_template/circle_crosspoint.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/circle_crosspoint.test.cpp.html">test/geometry/2D_template/circle_crosspoint.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/circle_intersection.test.cpp.html">test/geometry/2D_template/circle_intersection.test.cpp</a>
-* :x: <a href="../../../verify/test/geometry/2D_template/circle_line_crosspoint.test.cpp.html">test/geometry/2D_template/circle_line_crosspoint.test.cpp</a>
-* :x: <a href="../../../verify/test/geometry/2D_template/common_tangent.test.cpp.html">test/geometry/2D_template/common_tangent.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/circle_line_crosspoint.test.cpp.html">test/geometry/2D_template/circle_line_crosspoint.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/common_tangent.test.cpp.html">test/geometry/2D_template/common_tangent.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/counter_clockwise.test.cpp.html">test/geometry/2D_template/counter_clockwise.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/crosspoint.test.cpp.html">test/geometry/2D_template/crosspoint.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/distance.test.cpp.html">test/geometry/2D_template/distance.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/intersection.test.cpp.html">test/geometry/2D_template/intersection.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/parallel_orthogonal.test.cpp.html">test/geometry/2D_template/parallel_orthogonal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/projection.test.cpp.html">test/geometry/2D_template/projection.test.cpp</a>
-* :x: <a href="../../../verify/test/geometry/2D_template/tangent.test.cpp.html">test/geometry/2D_template/tangent.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/geometry/2D_template/tangent.test.cpp.html">test/geometry/2D_template/tangent.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/area.test.cpp.html">test/geometry/polygon/area.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/contains.test.cpp.html">test/geometry/polygon/contains.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/geometry/polygon/convex_cut.test.cpp.html">test/geometry/polygon/convex_cut.test.cpp</a>

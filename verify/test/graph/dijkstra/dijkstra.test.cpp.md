@@ -41,7 +41,7 @@ layout: default
 
 * :heavy_check_mark: <a href="../../../../library/lib/graph/dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
 * :heavy_check_mark: <a href="../../../../library/lib/graph/edge.cpp.html">lib/graph/edge.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code

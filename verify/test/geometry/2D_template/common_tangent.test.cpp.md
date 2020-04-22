@@ -25,13 +25,13 @@ layout: default
 <link rel="stylesheet" href="../../../../assets/css/copy-button.css" />
 
 
-# :x: test/geometry/2D_template/common_tangent.test.cpp
+# :heavy_check_mark: test/geometry/2D_template/common_tangent.test.cpp
 
 <a href="../../../../index.html">Back to top page</a>
 
 * category: <a href="../../../../index.html#a2c5f8fc0f05060a960f2bd934b33f5f">test/geometry/2D_template</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/geometry/2D_template/common_tangent.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-23 00:34:26+09:00
+    - Last commit date: 2020-04-23 02:02:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/7/CGL_7_G">https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/7/CGL_7_G</a>
@@ -39,8 +39,8 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../../../../library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
-* :question: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
+* :heavy_check_mark: <a href="../../../../library/lib/template.cpp.html">lib/template.cpp</a>
 
 
 ## Code
@@ -49,6 +49,7 @@ layout: default
 {% raw %}
 ```cpp
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/7/CGL_7_G"
+#define ERROR "1e-5"
 
 #include "../../../lib/geometry/2D_template.cpp"
 
@@ -82,6 +83,7 @@ int main()
 ```cpp
 #line 1 "test/geometry/2D_template/common_tangent.test.cpp"
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/7/CGL_7_G"
+#define ERROR "1e-5"
 
 #line 1 "lib/template.cpp"
 
@@ -336,7 +338,7 @@ vector<Line> common_tangent(const Circle& c1, const Circle& c2) {
     }
     return lines;
 }
-#line 4 "test/geometry/2D_template/common_tangent.test.cpp"
+#line 5 "test/geometry/2D_template/common_tangent.test.cpp"
 
 int main()
 {
