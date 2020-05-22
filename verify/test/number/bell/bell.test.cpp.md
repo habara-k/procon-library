@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#a5ce40af8caf9ecb21752e52fc5b624f">test/number/bell</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/bell/bell.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-22 14:51:11+09:00
+    - Last commit date: 2020-05-22 16:18:22+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_G">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_G</a>
@@ -148,16 +148,15 @@ const ld EPS = 1e-9;
 
 template<int64_t mod>
 class modint {
-    using LL = int64_t;
-    LL x;
+    int64_t x;
 
 public:
-    modint(LL x=0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
+    modint(int64_t x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
 
-    const modint operator-() const { return (-x + mod) % mod; }
+    const modint operator-() const { return x == 0 ? 0 : mod - x; }
 
     modint& operator+=(const modint& rhs) {
-        (x += rhs.x) %= mod;
+        if ((x += rhs.x) >= mod) x -= mod;
         return *this;
     }
     modint& operator-=(const modint& rhs) {
@@ -168,7 +167,7 @@ public:
         return *this;
     }
     modint& operator/=(const modint& rhs) {
-        return *this *= rhs.pow(mod-2);
+        return *this *= rhs.pow(mod - 2);
     }
 
     friend const modint operator+(modint lhs, const modint& rhs) {
@@ -184,7 +183,7 @@ public:
         return lhs /= rhs;
     }
 
-    const modint pow(LL n) const {
+    const modint pow(int64_t n) const {
         modint ret = 1, tmp = *this;
         while (n) {
             if (n & 1) ret *= tmp;
@@ -203,9 +202,8 @@ public:
     friend ostream& operator<<(ostream& os, const modint& a) {
         return os << a.x;
     }
-
     friend istream& operator>>(istream& is, modint& a) {
-        LL tmp; is >> tmp; a = tmp;
+        int64_t tmp; is >> tmp; a = tmp;
         return is;
     }
 };
