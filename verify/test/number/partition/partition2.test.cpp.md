@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#48198b7eaf65467b49c6ef390bc37e8f">test/number/partition</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/partition/partition2.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-22 14:26:35+09:00
+    - Last commit date: 2020-05-22 14:51:11+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_L">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_L</a>
@@ -149,10 +149,9 @@ class modint {
     LL x;
 
 public:
-    modint(LL x=0) : x(((x % mod) + mod) % mod) {}
+    modint(LL x=0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
 
     const modint operator-() const { return (-x + mod) % mod; }
-    const modint inv() const { return pow(mod-2); }
 
     modint& operator+=(const modint& rhs) {
         (x += rhs.x) %= mod;
@@ -166,7 +165,7 @@ public:
         return *this;
     }
     modint& operator/=(const modint& rhs) {
-        return *this *= rhs.inv();
+        return *this *= rhs.pow(mod-2);
     }
 
     friend const modint operator+(modint lhs, const modint& rhs) {
@@ -183,7 +182,7 @@ public:
     }
 
     const modint pow(LL n) const {
-        modint ret = 1, tmp = x;
+        modint ret = 1, tmp = *this;
         while (n) {
             if (n & 1) ret *= tmp;
             tmp *= tmp; n >>= 1;
@@ -195,7 +194,7 @@ public:
         return lhs.x == rhs.x;
     }
     friend bool operator!=(const modint& lhs, const modint& rhs) {
-        return !(lhs == rhs);
+        return lhs.x != rhs.x;
     }
 
     friend ostream& operator<<(ostream& os, const modint& a) {
@@ -203,7 +202,8 @@ public:
     }
 
     friend istream& operator>>(istream& is, modint& a) {
-        return is >> a.x;
+        LL tmp; is >> tmp; a = tmp;
+        return is;
     }
 };
 #line 2 "lib/number/partition.cpp"
