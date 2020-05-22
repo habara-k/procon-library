@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#930708ccd228402100db5e002260e5b2">test/structure/persistent_segment_tree</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 20:05:03+09:00
+    - Last commit date: 2020-05-22 14:57:54+09:00
 
 
 * see: <a href="http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270">http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270</a>
@@ -53,20 +53,6 @@ layout: default
 
 #include "../../../lib/structure/persistent_segment_tree.cpp"
 #include "../../../lib/graph/lowest_common_ancestor.cpp"
-
-void build_rooted_tree(
-        vector<int>& par,
-        vector<int>& ord,
-        const vector<vector<int>>& g, int v, int p) {
-    par[v] = p;
-    ord.push_back(v);
-    for (auto u : g[v]) {
-        if (u == p) {
-            continue;
-        }
-        build_rooted_tree(par, ord, g, u, v);
-    }
-}
 
 int main()
 {
@@ -96,24 +82,28 @@ int main()
         comp_inv[p.second] = p.first;
     }
 
-    vector<int> par(N, -1);
-    vector<int> ord;
-    build_rooted_tree(par, ord, G, 0, -1);
-
+    // lca
     auto lca = LCA(G);
 
+    // persistent segtree
     PersistentSegmentTree<int> segt(
             [](int a,int b){ return a+b; },
             0, comp.size());
 
     map<int,PersistentSegmentTree<int>::Node*> root;
+    vector<int> par(N);
+
+    function<void(int,int)> dfs = [&](int v, int p) {
+        par[v] = p;
+        root[v] = segt.update(root[p],
+                comp[x[v]], [](int a){ return a+1; });
+        for (int u : G[v]) {
+            if (u != p) dfs(u, v);
+        }
+    };
 
     root[-1] = segt.build();
-
-    for (auto id : ord) {
-        root[id] = segt.update(root[par[id]],
-                [](int a){ return a+1; }, comp[x[id]]);
-    }
+    dfs(0, -1);
 
     for (int i = 0; i < Q; ++i)
     {
@@ -272,7 +262,7 @@ struct PersistentSegmentTree {
     }
 
     template<typename UpdateQuery>
-    Node* update(Node* root, const UpdateQuery& q, int pos) const {
+    Node* update(Node* root, int pos, const UpdateQuery& q) const {
         return _update(root, q, pos, 0, sz);
     }
 
@@ -341,20 +331,6 @@ struct LCA {
 };
 #line 5 "test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp"
 
-void build_rooted_tree(
-        vector<int>& par,
-        vector<int>& ord,
-        const vector<vector<int>>& g, int v, int p) {
-    par[v] = p;
-    ord.push_back(v);
-    for (auto u : g[v]) {
-        if (u == p) {
-            continue;
-        }
-        build_rooted_tree(par, ord, g, u, v);
-    }
-}
-
 int main()
 {
     int N, Q;
@@ -383,24 +359,28 @@ int main()
         comp_inv[p.second] = p.first;
     }
 
-    vector<int> par(N, -1);
-    vector<int> ord;
-    build_rooted_tree(par, ord, G, 0, -1);
-
+    // lca
     auto lca = LCA(G);
 
+    // persistent segtree
     PersistentSegmentTree<int> segt(
             [](int a,int b){ return a+b; },
             0, comp.size());
 
     map<int,PersistentSegmentTree<int>::Node*> root;
+    vector<int> par(N);
+
+    function<void(int,int)> dfs = [&](int v, int p) {
+        par[v] = p;
+        root[v] = segt.update(root[p],
+                comp[x[v]], [](int a){ return a+1; });
+        for (int u : G[v]) {
+            if (u != p) dfs(u, v);
+        }
+    };
 
     root[-1] = segt.build();
-
-    for (auto id : ord) {
-        root[id] = segt.update(root[par[id]],
-                [](int a){ return a+1; }, comp[x[id]]);
-    }
+    dfs(0, -1);
 
     for (int i = 0; i < Q; ++i)
     {

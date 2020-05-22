@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/primal_dual.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 20:05:03+09:00
+    - Last commit date: 2020-05-22 14:55:46+09:00
 
 
 
@@ -61,14 +61,14 @@ struct PrimalDual {
         flow_t cap;
         cost_t cost;
         edge(int to, flow_t cap, cost_t cost, int rev) :
-            to(to), cap(cap), cost(cost), rev(rev) {}
+                to(to), cap(cap), cost(cost), rev(rev) {}
     };
 
     vector<vector<edge>> g;
     const int sz;
     const cost_t INF;
 
-    PrimalDual(int V) : g(V), sz(V), INF(numeric_limits<cost_t>::max()) {}
+    PrimalDual(int V, cost_t INF) : g(V), sz(V), INF(INF) {}
 
     void add_edge(int s, int t, flow_t cap, cost_t cost) {
         g[s].emplace_back(t, cap,  cost, (int)g[t].size());
@@ -79,7 +79,7 @@ struct PrimalDual {
             vector<cost_t>& dist,
             vector<int>& prevv,
             vector<int>& preve,
-            const vector<int>& potential, int s)
+            const vector<cost_t>& potential, int s)
     {
         dist.assign(sz, INF);
         prevv.assign(sz, -1);
@@ -95,8 +95,11 @@ struct PrimalDual {
             if (dist[v] < cost) continue;
             for (int i = 0; i < g[v].size(); ++i) {
                 edge &e = g[v][i];
+
+                if (e.cost == INF or e.cost == -INF) continue;
+
                 cost_t nextCost =
-                    dist[v] + e.cost + potential[v] - potential[e.to];
+                        dist[v] + e.cost + potential[v] - potential[e.to];
                 if (e.cap > 0 and dist[e.to] > nextCost) {
                     dist[e.to] = nextCost;
                     prevv[e.to] = v, preve[e.to] = i;
@@ -128,9 +131,9 @@ struct PrimalDual {
             ret += diff * potential[t];
 
             for (int v = t; v != s; v = prevv[v]) {
-                edge &e = g[prevv[v]][preve[v]];
+                edge &e = g[prevv[v]][preve[v]], &re = g[v][e.rev];
                 e.cap -= diff;
-                g[v][e.rev].cap += diff;
+                re.cap += diff;
             }
         }
 
@@ -225,14 +228,14 @@ struct PrimalDual {
         flow_t cap;
         cost_t cost;
         edge(int to, flow_t cap, cost_t cost, int rev) :
-            to(to), cap(cap), cost(cost), rev(rev) {}
+                to(to), cap(cap), cost(cost), rev(rev) {}
     };
 
     vector<vector<edge>> g;
     const int sz;
     const cost_t INF;
 
-    PrimalDual(int V) : g(V), sz(V), INF(numeric_limits<cost_t>::max()) {}
+    PrimalDual(int V, cost_t INF) : g(V), sz(V), INF(INF) {}
 
     void add_edge(int s, int t, flow_t cap, cost_t cost) {
         g[s].emplace_back(t, cap,  cost, (int)g[t].size());
@@ -243,7 +246,7 @@ struct PrimalDual {
             vector<cost_t>& dist,
             vector<int>& prevv,
             vector<int>& preve,
-            const vector<int>& potential, int s)
+            const vector<cost_t>& potential, int s)
     {
         dist.assign(sz, INF);
         prevv.assign(sz, -1);
@@ -259,8 +262,11 @@ struct PrimalDual {
             if (dist[v] < cost) continue;
             for (int i = 0; i < g[v].size(); ++i) {
                 edge &e = g[v][i];
+
+                if (e.cost == INF or e.cost == -INF) continue;
+
                 cost_t nextCost =
-                    dist[v] + e.cost + potential[v] - potential[e.to];
+                        dist[v] + e.cost + potential[v] - potential[e.to];
                 if (e.cap > 0 and dist[e.to] > nextCost) {
                     dist[e.to] = nextCost;
                     prevv[e.to] = v, preve[e.to] = i;
@@ -292,9 +298,9 @@ struct PrimalDual {
             ret += diff * potential[t];
 
             for (int v = t; v != s; v = prevv[v]) {
-                edge &e = g[prevv[v]][preve[v]];
+                edge &e = g[prevv[v]][preve[v]], &re = g[v][e.rev];
                 e.cap -= diff;
-                g[v][e.rev].cap += diff;
+                re.cap += diff;
             }
         }
 

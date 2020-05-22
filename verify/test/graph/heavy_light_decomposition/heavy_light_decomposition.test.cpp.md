@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#f108cdd252ebfc58a7b9bc5c4c206374">test/graph/heavy_light_decomposition</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 20:05:03+09:00
+    - Last commit date: 2020-05-22 14:56:32+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E</a>
@@ -267,19 +267,6 @@ struct HLDecomposition {
 
 template<typename M, typename OM = M>
 struct LazySegmentTree {
-    int n, sz;
-    vector<M> data;
-    vector<OM> lazy;
-    const function<M(M,M)> f;
-    const function<M(M,OM,int)> g;
-    const function<OM(OM,OM)> h;
-    const M e;
-    const OM oe;
-    // f: 二つの区間の要素をマージする関数
-    // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
-    // h: 作用素をマージする関数
-    // e: モノイドの単位元
-    // oe: 作用素の単位元
 
     LazySegmentTree(
             int n,
@@ -304,46 +291,15 @@ struct LazySegmentTree {
         }
     }
 
-    void propagate(int k, int len) {
-        if (lazy[k] == oe) return;
-        if (k < sz) {
-            lazy[2*k  ] = h(lazy[2*k  ], lazy[k]);
-            lazy[2*k+1] = h(lazy[2*k+1], lazy[k]);
-        }
-        data[k] = g(data[k], lazy[k], len);
-        lazy[k] = oe;
-    }
-
-    void _update(int a, int b, const OM& x, int k, int l, int r) {
-        propagate(k, r - l);
-        if (r <= a or b <= l) return;
-        else if (a <= l and r <= b) {
-            lazy[k] = h(lazy[k], x);
-            propagate(k, r - l);
-        } else {
-            _update(a, b, x, 2*k,   l, (l+r)/2);
-            _update(a, b, x, 2*k+1, (l+r)/2, r);
-            data[k] = f(data[2*k], data[2*k+1]);
-        }
-    }
-
     void update(int a, int b, const OM& x) {
         // update [a, b) with x.
-        _update(a, b, x, 1, 0, sz);
+        update(a, b, x, 1, 0, sz);
     }
 
-    M _query(int a, int b, int k, int l, int r) {
-        propagate(k, r - l);
-        if (r <= a or b <= l) return e;
-        else if (a <= l and r <= b) return data[k];
-        else return f(
-                _query(a, b, 2*k,   l, (l+r)/2),
-                _query(a, b, 2*k+1, (l+r)/2, r));
-    }
 
     M query(int a, int b) {
         // return f[a, b).
-        return _query(a, b, 1, 0, sz);
+        return query(a, b, 1, 0, sz);
     }
 
     M operator[](int i) {
@@ -357,6 +313,54 @@ struct LazySegmentTree {
             os << s[i];
         }
         return os << "]";
+    }
+
+private:
+
+    int n, sz;
+    vector<M> data;
+    vector<OM> lazy;
+    const function<M(M,M)> f;
+    const function<M(M,OM,int)> g;
+    const function<OM(OM,OM)> h;
+    const M e;
+    const OM oe;
+    // f: 二つの区間の要素をマージする関数
+    // g: 要素と作用素をマージする二項演算. 第三引数は区間幅
+    // h: 作用素をマージする関数
+    // e: モノイドの単位元
+    // oe: 作用素の単位元
+
+    void propagate(int k, int len) {
+        if (lazy[k] == oe) return;
+        if (k < sz) {
+            lazy[2*k  ] = h(lazy[2*k  ], lazy[k]);
+            lazy[2*k+1] = h(lazy[2*k+1], lazy[k]);
+        }
+        data[k] = g(data[k], lazy[k], len);
+        lazy[k] = oe;
+    }
+
+    void update(int a, int b, const OM& x, int k, int l, int r) {
+        propagate(k, r - l);
+        if (r <= a or b <= l) return;
+        else if (a <= l and r <= b) {
+            lazy[k] = h(lazy[k], x);
+            propagate(k, r - l);
+        } else {
+            update(a, b, x, 2*k,   l, (l+r)/2);
+            update(a, b, x, 2*k+1, (l+r)/2, r);
+            data[k] = f(data[2*k], data[2*k+1]);
+        }
+    }
+
+    M query(int a, int b, int k, int l, int r) {
+        propagate(k, r - l);
+        if (r <= a or b <= l) return e;
+        else if (a <= l and r <= b) return data[k];
+        else return f(
+                query(a, b, 2*k,   l, (l+r)/2),
+                query(a, b, 2*k+1, (l+r)/2, r));
     }
 };
 #line 5 "test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp"
