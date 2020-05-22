@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#ddfa6c538fca263880a43dd0fdbf3615">test/number/stirling</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/stirling/stirling.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-05-22 14:26:35+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I</a>
@@ -146,45 +146,46 @@ const ld EPS = 1e-9;
 #line 2 "lib/number/modint.cpp"
 
 template<int64_t mod>
-struct modint {
+class modint {
     using LL = int64_t;
-    LL val;
-    modint(LL val=0) : val(((val % mod) + mod) % mod) {}
+    LL x;
 
-    const modint operator+() const { return *this; }
-    const modint operator-() const { return (-val + mod) % mod; }
+public:
+    modint(LL x=0) : x(((x % mod) + mod) % mod) {}
+
+    const modint operator-() const { return (-x + mod) % mod; }
     const modint inv() const { return pow(mod-2); }
 
     modint& operator+=(const modint& rhs) {
-        (val += rhs.val) %= mod;
+        (x += rhs.x) %= mod;
         return *this;
     }
     modint& operator-=(const modint& rhs) {
         return *this += -rhs;
     }
     modint& operator*=(const modint& rhs) {
-        (val *= rhs.val) %= mod;
+        (x *= rhs.x) %= mod;
         return *this;
     }
     modint& operator/=(const modint& rhs) {
         return *this *= rhs.inv();
     }
 
-    const modint operator+(const modint& rhs) const {
-        return modint(*this) += rhs;
+    friend const modint operator+(modint lhs, const modint& rhs) {
+        return lhs += rhs;
     }
-    const modint operator-(const modint& rhs) const {
-        return modint(*this) -= rhs;
+    friend const modint operator-(modint lhs, const modint& rhs) {
+        return lhs -= rhs;
     }
-    const modint operator*(const modint& rhs) const {
-        return modint(*this) *= rhs;
+    friend const modint operator*(modint lhs, const modint& rhs) {
+        return lhs *= rhs;
     }
-    const modint operator/(const modint& rhs) const {
-        return modint(*this) /= rhs;
+    friend const modint operator/(modint lhs, const modint& rhs) {
+        return lhs /= rhs;
     }
 
     const modint pow(LL n) const {
-        modint ret = 1, tmp = val;
+        modint ret = 1, tmp = x;
         while (n) {
             if (n & 1) ret *= tmp;
             tmp *= tmp; n >>= 1;
@@ -192,36 +193,19 @@ struct modint {
         return ret;
     }
 
-    bool operator==(const modint& rhs) const { return val == rhs.val; }
-    bool operator!=(const modint& rhs) const { return !(*this == rhs); }
-
-    friend const modint operator+(const LL& lhs, const modint& rhs) {
-        return modint(lhs) + rhs;
+    friend bool operator==(const modint& lhs, const modint& rhs) {
+        return lhs.x == rhs.x;
     }
-    friend const modint operator-(const LL& lhs, const modint& rhs) {
-        return modint(lhs) - rhs;
-    }
-    friend const modint operator*(const LL& lhs, const modint& rhs) {
-        return modint(lhs) * rhs;
-    }
-    friend const modint operator/(const LL& lhs, const modint& rhs) {
-        return modint(lhs) / rhs;
-    }
-
-    friend bool operator==(const LL& lhs, const modint& rhs) {
-        return modint(lhs) == rhs;
-    }
-    friend bool operator!=(const LL& lhs, const modint& rhs) {
-        return modint(lhs) != rhs;
+    friend bool operator!=(const modint& lhs, const modint& rhs) {
+        return !(lhs == rhs);
     }
 
     friend ostream& operator<<(ostream& os, const modint& a) {
-        return os << a.val;
+        return os << a.x;
     }
+
     friend istream& operator>>(istream& is, modint& a) {
-        LL tmp; is >> tmp;
-        a = tmp;
-        return is;
+        return is >> a.x;
     }
 };
 #line 1 "lib/number/combination.cpp"
