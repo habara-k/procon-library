@@ -4,11 +4,11 @@
 
 int main() {
     int n, m, f; cin >> n >> m >> f;
-    PrimalDual<int,int> flow(n);
+    PrimalDual<int,int> graph(n, numeric_limits<int>::max());
     for (int i = 0; i < m; ++i) {
         int u, v, c, d; cin >> u >> v >> c >> d;
-        flow.add_edge(u, v, c, d);
+        graph.add_edge(u, v, c, d);
     }
-    int ans = flow.min_cost_flow(0, n-1, f);
+    int ans = graph.min_cost_flow(0, n-1, f);
     cout << ans << endl;
 }
