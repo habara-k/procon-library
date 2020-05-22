@@ -46,7 +46,7 @@ struct PersistentSegmentTree {
     }
 
     template<typename UpdateQuery>
-    Node* update(Node* root, const UpdateQuery& q, int pos) const {
+    Node* update(Node* root, int pos, const UpdateQuery& q) const {
         return _update(root, q, pos, 0, sz);
     }
 
