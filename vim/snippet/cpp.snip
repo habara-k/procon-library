@@ -172,848 +172,352 @@ snippet dfs
     };
 
 
-snippet is_prime
+snippet 2D_template
 
-    // O(sqrt(n))
-    bool is_prime(int64_t n) {
-        assert(n > 0);
-        if (n == 1) return false;
-        for (int64_t i = 2; i * i <= n; ++i) {
-            if (n % i == 0) return false;
+    using Real = double;
+    const Real PI = acos(-1);
+
+    using Point = complex<Real>;
+    namespace std {
+        bool operator<(const Point& a, const Point& b) {
+            if (a.real() == b.real()) return a.imag() < b.imag();
+            return a.real() < b.real();
+        }
+    }
+    struct Line {
+        Point a, b;
+        Line() {}
+        Line(const Point& a, const Point& b) : a(a), b(b) {}
+        friend ostream& operator<<(ostream& os, const Line& l) {
+            return os << "[" << l.a << "," << l.b << "]";
+        }
+    };
+    struct Segment : Line {
+        Segment() = default;
+
+        Segment(const Point& a, const Point& b) : Line(a, b) {}
+    };
+
+    inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
+
+    Real radian_to_degree(Real r) {
+        return r * 180.0 / PI;
+    }
+
+    Real degree_to_radian(Real d) {
+        return d * PI / 180.0;
+    }
+
+    Point rotate(const Point &p, Real theta) {
+        return p * polar((Real)1.0, theta);
+    }
+
+    Real cross(const Point& a, const Point& b) {
+        return a.real() * b.imag() - a.imag() * b.real();
+    }
+
+    Real dot(const Point& a, const Point& b) {
+        return a.real() * b.real() + a.imag() * b.imag();
+    }
+
+    Point projection(const Line& l, const Point& p) {
+        Real A = dot(l.b - l.a, p - l.a),
+             B = dot(l.a - l.b, p - l.b);
+        return (A * l.b + B * l.a) / (A + B);
+    }
+
+    bool parallel(const Line& l1, const Line& l2) {
+        return eq(cross(l1.a - l1.b, l2.a - l2.b), 0.0);
+    }
+
+    bool orthogonal(const Line& l1, const Line& l2) {
+        return eq(dot(l1.a - l1.b, l2.a - l2.b), 0.0);
+    }
+
+    const int COUNTER_CLOCKWISE = 1,
+              CLOCKWISE = -1,
+              ONLINE_BACK = 2,
+              ONLINE_FRONT = -2,
+              ON_SEGMENT = 0;
+    int ccw(const Point& a, Point b, Point c) {
+        b = b - a, c = c - a;
+        if (cross(b, c) > EPS) return COUNTER_CLOCKWISE;
+        if (cross(b, c) < -EPS) return CLOCKWISE;
+        if (dot(b, c) < 0) return ONLINE_BACK;
+        if (norm(b) < norm(c)) return ONLINE_FRONT;
+        return ON_SEGMENT;
+    }
+
+    bool intersected(const Line& l, const Point& p) {
+        return abs(ccw(l.a, l.b, p)) != 1;
+    }
+
+    bool intersected(const Segment& s, const Point& p) {
+        return ccw(s.a, s.b, p) == 0;
+    }
+
+    bool intersected(const Line& l, const Segment& s) {
+        return cross(l.b - l.a, s.a - l.a) * cross(l.b - l.a, s.b - l.a) < EPS;
+    }
+
+    bool intersected(const Segment& s1, const Segment& s2) {
+        return ccw(s1.a, s1.b, s2.a) * ccw(s1.a, s1.b, s2.b) <= 0 and
+               ccw(s2.a, s2.b, s1.a) * ccw(s2.a, s2.b, s1.b) <= 0;
+    }
+
+    Real distance(const Line& l, const Point& p) {
+        return abs(p - projection(l, p));
+    }
+
+    Real distance(const Segment& s, const Point& p) {
+        Point r = projection(s, p);
+        if (intersected(s, r)) return abs(r - p);
+        return min(abs(s.a - p), abs(s.b - p));
+    }
+
+    Real distance(const Line &l, const Segment &s) {
+        if (intersected(l, s)) return 0;
+        return min(distance(l, s.a), distance(l, s.b));
+    }
+
+    Real distance(const Segment& s1, const Segment& s2) {
+        if (intersected(s1, s2)) return 0.0;
+        return min({ distance(s1, s2.a), distance(s1, s2.b),
+                     distance(s2, s1.a), distance(s2, s1.b) });
+    }
+
+    Point crosspoint(const Line& l1, const Line& l2) {
+        Real A = cross(l2.a - l1.a, l2.b - l1.a),
+             B = cross(l2.b - l1.b, l2.a - l1.b);
+        return (A * l1.b + B * l1.a) / (A + B);
+    }
+
+    struct Circle {
+        Point p;
+        Real r;
+        Circle() {}
+        Circle(const Point& p, Real r) : p(p), r(r) {}
+    };
+
+
+    int intersected(Circle c1, Circle c2) {
+        if (c1.r < c2.r) swap(c1, c2);
+        Real d = abs(c1.p - c2.p);
+        if (c1.r + c2.r < d) return 4;
+        if (eq(c1.r + c2.r, d)) return 3;
+        if (c1.r - c2.r < d) return 2;
+        if (eq(c1.r - c2.r, d)) return 1;
+        return 0;
+    }
+
+    pair<Point,Point> crosspoint(const Circle& c, const Line& l) {
+        Real h = distance(l, c.p);
+        Point p = projection(l, c.p);
+        if (eq(h, c.r)) return { p, p };
+        Point u = l.a - l.b; u /= abs(u);
+        Real d = sqrt(c.r * c.r - h * h);
+        return { p + u * d, p - u * d };
+    }
+
+    pair<Point,Point> crosspoint(const Circle& c1, const Circle& c2) {
+        Real d = abs(c2.p - c1.p), t = arg(c2.p - c1.p);
+        Real a = acos((c1.r * c1.r + d * d - c2.r * c2.r) / (2 * c1.r * d));
+        return { c1.p + polar(c1.r, t + a),
+                 c1.p + polar(c1.r, t - a) };
+    }
+
+    pair<Point,Point> tangent(const Point& p, const Circle& c) {
+        return crosspoint(c, Circle(p, sqrt(norm(p - c.p) - c.r * c.r)));
+    };
+
+    vector<Line> common_tangent(const Circle& c1, const Circle& c2) {
+        vector<Line> lines;
+        Point u = c2.p - c1.p;
+        Real d = abs(u);
+        if (eq(d, 0.0)) return lines;
+        u /= d;
+        for (Real s : { -1, 1 }) {
+            Real h = (c1.r + s * c2.r) / d;
+            if (eq(abs(h), 1.0)) {
+                lines.emplace_back(
+                        c1.p + u * h * c1.r,
+                        c1.p + u * h * c1.r + rotate(u, PI / 2.0));
+            } else if (abs(h) < 1) {
+                Real a = acos(h);
+                lines.emplace_back(
+                        c1.p + u * polar(c1.r, a),
+                        c2.p - s * u * polar(c2.r, a));
+                lines.emplace_back(
+                        c1.p + u * polar(c1.r, -a),
+                        c2.p - s * u * polar(c2.r, -a));
+            }
+        }
+        return lines;
+    }
+
+
+snippet polygon
+
+    using Polygon = vector<Point>;
+
+    Real area(const Polygon& U) {
+        Real area = 0;
+        for (int i = 0; i < U.size(); ++i) {
+            area += cross(U[i], U[(i + 1) % U.size()]);
+        }
+        return area / 2.0;
+    }
+
+    bool is_convex(const Polygon &U) {
+        int n = U.size();
+        for (int i = 0; i < n; ++i) {
+            if (ccw(U[i], U[(i + 1) % n], U[(i + 2) % n]) == -1) return false;
         }
         return true;
     }
 
-
-snippet stirling
-
-    // スターリング数
-    // Stirling(n, k) := 区別できるn 個のボールを
-    //                   区別できないk 個の箱に入れる場合の数
-    //                   (ただし空箱はNG)
-    template<typename Field>
-    Field Stirling(int64_t n, int k) {
-        Combination<Field> comb(k+1);
-
-        Field ret = 0;
-        for (int i = 0; i <= k; ++i) {
-            ret += comb.C(k, i) * Field{k-i}.pow(n) * (i & 1 ? -1 : 1);
+    const int OUT = 0,
+              ON = 1,
+              IN = 2;
+    int contains(const Polygon &U, const Point &p) {
+        int in = 0;
+        for (int i = 0; i < U.size(); ++i) {
+            Point a = U[i] - p, b = U[(i + 1) % U.size()] - p;
+            if (cross(a, b) == 0 and dot(a, b) <= 0) return ON;
+            if (a.imag() > b.imag()) swap(a, b);
+            if (a.imag() <= 0 and 0 < b.imag() and cross(a, b) < 0) in ^= 1;
         }
-        return ret /= comb.fact(k);
+        return in ? IN : OUT;
     }
 
-
-snippet prime_table
-
-    // O(nloglogn)
-    vector<bool> prime_table(int n) {
-        n = max(n, 1);
-        vector<bool> prime(n+1, true);
-        prime[0] = prime[1] = false;
-        for (int i = 2; i * i <= n; ++i) {
-            if (!prime[i]) continue;
-            for (int j = 2 * i; j <= n; j += i) {
-                prime[j] = false;
-            }
+    vector<Point> convex_hull(vector<Point>& p, bool includeOnLine = false) {
+        int n = p.size(), k = 0;
+        if (n <= 2) return p;
+        sort(p.begin(), p.end());
+        vector<Point> ch(n * 2);
+        const Real BOUND = includeOnLine ? -EPS : EPS;
+        for (int i = 0; i < n; ch[k++] = p[i++]) {
+            while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
         }
-        return prime;
+        for (int i = n-2, t = k+1; i >= 0; ch[k++] = p[i--]) {
+            while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
+        }
+        ch.resize(k-1);
+        return ch;
     }
 
-
-snippet fast_zeta_transform
-
-    // O(NlogN)
-    template<typename T>
-    vector<T> fast_zeta_transform(const vector<T>& f) {
-        // Return g(s):
-        // s.t. g(s) = \sum_{s \subset t} f(t)
-        int n = f.size();
-        vector<T> g = f;
-        for (int i = 0; (1 << i) < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (!(j >> i & 1)) {
-                    g[j] += g[j | (1<<i)];
-                }
-            }
+    Real convex_diameter(const Polygon &U) {
+        int n = U.size();
+        int is = 0, js = 0;
+        for (int i = 1; i < n; ++i) {
+            if (U[i].imag() > U[is].imag()) is = i;
+            if (U[i].imag() < U[js].imag()) js = i;
         }
-        return g;
-    }
-
-    // O(NloglogN)
-    template<typename T>
-    vector<T> fast_zeta_transform_prime(const vector<T>& f) {
-        // Return g(d):
-        // s.t. g(d) = \sum_{d | n} f(n)
-        int n = f.size();
-        vector<T> g = f;
-        vector<bool> sieve(n, true);
-        for (int p = 2; p < n; ++p) {
-            if (!sieve[p]) continue;
-            for (int i = (n - 1) / p; i > 0; --i) {
-                sieve[i * p] = false;
-                g[i] += g[i * p];
-            }
-        }
-        return g;
-    }
-
-
-snippet combination
-
-    template<typename Field>
-    struct Combination {
-        vector<Field> _fact, _rfact, _inv;
-
-        Combination(int n) : _fact(n), _rfact(n), _inv(n) {
-            _fact[0] = _rfact[n-1] = 1;
-            for (int i = 1; i < n; ++i) _fact[i] = _fact[i-1] * i;
-            _rfact[n-1] /= _fact[n-1];
-            for (int i = n-1; i > 0; --i) _rfact[i-1] = _rfact[i] * i;
-            for (int i = 1; i < n; ++i) _inv[i] = _rfact[i] * _fact[i-1];
-        }
-
-        inline Field fact(int k) const { return _fact.at(k); }
-
-        inline Field rfact(int k) const { return _rfact.at(k); }
-
-        inline Field inv(int k) const { assert(k != 0); return _inv.at(k); }
-
-        Field P(int n, int r) const {
-            if (r < 0 or n < r) return 0;
-            return fact(n) * rfact(n-r);
-        }
-
-        Field C(int n, int r) const {
-            if (r < 0 or n < r) return 0;
-            return fact(n) * rfact(r) * rfact(n-r);
-        }
-
-        Field H (int n, int r) const {
-            return (n == 0 and r == 0) ? 1 : C(n+r-1, r);
-        }
-    };
-
-
-snippet fast_mobius_transform
-
-    // O(NlogN)
-    template<typename T>
-    vector<T> fast_mobius_transform(const vector<T>& g) {
-        // Return f(s):
-        // s.t. g(s) = \sum_{s \subset t} f(t)
-        // ( e.g. f(s) = \sum_{s \subset t} (-1)^|t-s| * g(t) )
-        int n = g.size();
-        vector<T> f = g;
-        for (int i = 0; (1 << i) < n; ++i) {
-            for (int j = 0; j < n; ++j) {
-                if (!(j >> i & 1)) {
-                    f[j] -= f[j | (1<<i)];
-                }
-            }
-        }
-        return f;
-    }
-
-    // O(NloglogN)
-    template<typename T>
-    vector<T> fast_mobius_transform_prime(const vector<T>& g) {
-        // Return f(d):
-        // s.t. g(d) = \sum_{d | n} f(n)
-        // ( e.g. f(d) = \sum_{d | n} mu(n / d) * g(n) )
-        int n = g.size();
-        vector<T> f = g;
-        vector<bool> sieve(n, true);
-        for (int p = 2; p < n; ++p) {
-            if (!sieve[p]) continue;
-            for (int i = 1; i * p < n; ++i) {
-                sieve[i * p] = false;
-                f[i] -= f[i * p];
-            }
-        }
-        return f;
-    }
-
-
-snippet matrix
-
-    template<typename T>
-    struct Matrix {
-        vector<vector<T>> A;
-
-        Matrix() {}
-
-        Matrix(size_t n, size_t m) : A(n, vector<T>(m)) {}
-
-        Matrix(size_t n) : A(n, vector<T>(n)) {};
-
-        size_t height() const {
-            return (A.size());
-        }
-
-        size_t width() const {
-            return (A[0].size());
-        }
-
-        inline const vector<T>& operator[](int k) const {
-            return (A.at(k));
-        }
-
-        inline vector<T>& operator[](int k) {
-            return (A.at(k));
-        }
-
-        static Matrix I(size_t n) {
-            Matrix B(n);
-            for (int i = 0; i < n; ++i) B[i][i] = 1;
-            return (B);
-        }
-
-        Matrix operator-() const {
-            size_t n = height(), m = width();
-            Matrix B = *this;
-            for (int i = 0; i < n; ++i)
-                for (int j = 0; j < m; ++j)
-                    B[i][j] = -B[i][j];
-            return (B);
-        }
-
-        Matrix& operator+=(const Matrix& B) {
-            size_t n = height(), m = width();
-            assert(n == B.height() and m == B.width());
-            for (int i = 0; i < n; ++i)
-                for (int j = 0; j < m; ++j)
-                    A[i][j] += B[i][j];
-            return (*this);
-        }
-
-        Matrix& operator-=(const Matrix& B) {
-            return (*this += -B);
-        }
-
-        Matrix& operator*=(const Matrix& B) {
-            size_t n = height(), m = B.width(), p = width();
-            assert(p == B.height());
-            Matrix C(n, m);
-            for (int i = 0; i < n; ++i)
-                for (int j = 0; j < m; ++j)
-                    for (int k = 0; k < p; ++k)
-                        C[i][j] += A[i][k] * B[k][j];
-            A.swap(C.A);
-            return (*this);
-        }
-
-        Matrix pow(int64_t k) {
-            Matrix B = Matrix::I(height()), tmp = *this;
-            while (k) {
-                if (k & 1) B *= tmp;
-                tmp *= tmp; k >>= 1;
-            }
-            return (B);
-        }
-
-        const Matrix operator+(const Matrix& B) const {
-            return (Matrix(*this) += B);
-        }
-
-        const Matrix operator-(const Matrix& B) const {
-            return (Matrix(*this) -= B);
-        }
-
-        const Matrix operator*(const Matrix& B) const {
-            return (Matrix(*this) *= B);
-        }
-
-        int GaussJordanElimination() {
-            int rank = 0;
-            for (int col = 0; col < width(); ++col) {
-                int pivot = -1;
-                for (int row = rank; row < height(); ++row) {
-                    if (A[row][col] != 0) {
-                        pivot = row;
-                        break;
-                    }
-                }
-                if (pivot == -1) continue;
-                swap(A[rank], A[pivot]);
-                T topLeft = A[rank][col];
-                for (int c = col; c < width(); ++c) {
-                    A[rank][c] /= topLeft;
-                }
-                for (int row = rank+1; row < height(); ++row) {
-                    T ratio = A[row][col];
-                    for (int c = col; c < width(); ++c)
-                        A[row][c] -= ratio * A[rank][c];
-                }
-                ++rank;
-            }
-            return (rank);
-        }
-
-        friend istream& operator>>(istream& is, Matrix& B) {
-            is >> B.A;
-            return (is);
-        }
-
-        friend ostream& operator<<(ostream& os, Matrix& B) {
-            size_t n = B.height(), m = B.width();
-            for (int i = 0; i < n; ++i) {
-                os << (i == 0 ? "[" : " ");
-                for (int j = 0; j < m; ++j) {
-                    os << B[i][j] << (j == m-1 ? "]" : ",");
-                }
-                os << (i == n-1 ? "]\n" : ",\n");
-            }
-            return (os);
-        }
-    };
-
-
-snippet prime_factorize
-
-    // O(sqrt(n))
-    map<int64_t, int> prime_factorize(int64_t n) {
-        map<int64_t, int> ret;
-        for (int64_t i = 2; i * i <= n; ++i) {
-            while (n % i == 0) {
-                ret[i]++;
-                n /= i;
-            }
-        }
-        if (n != 1) ret[n] = 1;
-        return ret;
-    }
-
-
-snippet bell
-
-    // Bell 数
-    // Bell(n, k) := 区別できるn 個のボールを,
-    //               区別できないk 個の箱に入れる場合の数
-    template<typename Field>
-    Field Bell(int64_t n, int k) {
-        Field ret = 0;
-        for (int i = 0; i <= k; ++i) {
-            ret += Stirling<Field>(n, i);
-        }
-        return ret;
-    }
-
-
-snippet extended_gcd
-
-    template<typename T>
-    T extended_gcd(T a, T b, T& x, T& y) {
-        // solve ax + by = gcd(a, b)
-        if (b == 0) { x = 1; y = 0; return a; }
-
-        T X, Y;
-        T g = extended_gcd(b, a % b, X, Y);
-        x = Y; y = X - a/b * Y;
-        return g;
-    }
-
-
-snippet euler_phi
-
-    // O(sqrt(n))
-    int64_t euler_phi(int64_t n) {
-        int64_t ret = n;
-        for (int64_t i = 2; i * i <= n; ++i) {
-            if (n % i != 0) continue;
-            ret -= ret / i;
-            while (n % i == 0) n /= i;
-        }
-        if (n > 1) ret -= ret / n;
-        return ret;
-    }
-
-
-snippet modint
-
-    template<int64_t mod>
-    class modint {
-        int64_t x;
-
-    public:
-        modint(int64_t x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
-
-        const modint operator-() const { return x == 0 ? 0 : mod - x; }
-
-        modint& operator+=(const modint& rhs) {
-            if ((x += rhs.x) >= mod) x -= mod;
-            return *this;
-        }
-        modint& operator-=(const modint& rhs) {
-            return *this += -rhs;
-        }
-        modint& operator*=(const modint& rhs) {
-            (x *= rhs.x) %= mod;
-            return *this;
-        }
-        modint& operator/=(const modint& rhs) {
-            return *this *= rhs.pow(mod - 2);
-        }
-
-        friend const modint operator+(modint lhs, const modint& rhs) {
-            return lhs += rhs;
-        }
-        friend const modint operator-(modint lhs, const modint& rhs) {
-            return lhs -= rhs;
-        }
-        friend const modint operator*(modint lhs, const modint& rhs) {
-            return lhs *= rhs;
-        }
-        friend const modint operator/(modint lhs, const modint& rhs) {
-            return lhs /= rhs;
-        }
-
-        const modint pow(int64_t n) const {
-            modint ret = 1, tmp = *this;
-            while (n) {
-                if (n & 1) ret *= tmp;
-                tmp *= tmp; n >>= 1;
-            }
-            return ret;
-        }
-
-        friend bool operator==(const modint& lhs, const modint& rhs) {
-            return lhs.x == rhs.x;
-        }
-        friend bool operator!=(const modint& lhs, const modint& rhs) {
-            return lhs.x != rhs.x;
-        }
-
-        friend ostream& operator<<(ostream& os, const modint& a) {
-            return os << a.x;
-        }
-        friend istream& operator>>(istream& is, modint& a) {
-            int64_t tmp; is >> tmp; a = tmp;
-            return is;
-        }
-    };
-
-
-snippet permutation
-
-    struct Permutation {
-        vector<int> perm;
-        Permutation() {}
-        Permutation(int sz) : perm(sz) {
-            iota(perm.begin(), perm.end(), 0);
-        }
-        Permutation(initializer_list<int> init) : perm(init.begin(), init.end()) {}
-        size_t size() const {
-            return (perm.size());
-        }
-        inline int operator [](int k) const {
-            return (perm.at(k));
-        }
-        inline int& operator [](int k) {
-            return (perm.at(k));
-        }
-        Permutation& operator*=(const Permutation& rhs) {
-            assert(size() == rhs.size());
-            Permutation tmp(size());
-            for (int i = 0; i < size(); ++i) {
-                tmp[i] = perm[rhs[i]];
-            }
-            perm.swap(tmp.perm);
-            return (*this);
-        }
-        const Permutation operator*(const Permutation& rhs) const {
-            return (Permutation(*this) *= rhs);
-        }
-        Permutation pow(int64_t k) {
-            Permutation ret(size()), tmp = *this;
-            while (k) {
-                if (k & 1) ret *= tmp;
-                tmp *= tmp; k >>= 1;
-            }
-            return (ret);
-        }
-    };
-
-
-snippet partition
-
-    // 分割数
-    // Partition(k, n) := 区別できないn 個のボールを
-    //                    区別できないk 個の箱に入れる場合の数
-    template<typename Ring>
-    Ring Partition(int k, int n) {
-        vector<vector<Ring>> part(k+1, vector<Ring>(n+1));
-        part[0][0] = 1;
-        for (int i = 1; i <= k; ++i) {
-            for (int j = 0; j <= n; ++j) {
-                if (j-i >= 0) {
-                    part[i][j] = part[i-1][j] + part[i][j-i];
-                } else {
-                    part[i][j] = part[i-1][j];
-                }
-            }
-        }
-        return part[k][n];
-    }
-
-
-snippet dice
-
-    struct Dice {
-        int U, D, L, R, F, B;
-        Dice(int U, int D, int L, int R, int F, int B) :
-            U(U), D(D), L(L), R(R), F(F), B(B) {}
-
-        void rollU() {
-            int buff = F;
-            F = R; R = B; B = L; L = buff;
-        }
-        void rollD() {
-            int buff = F;
-            F = L; L = B; B = R; R = buff;
-        }
-        void rollF() {
-            int buff = U;
-            U = L; L = D; D = R; R = buff;
-        }
-        void rollB() {
-            int buff = U;
-            U = R; R = D; D = L; L = buff;
-        }
-        void rollR() {
-            int buff = U;
-            U = F; F = D; D = B; B = buff;
-        }
-        void rollL() {
-            int buff = U;
-            U = B; B = D; D = F; F = buff;
-        }
-    };
-
-
-snippet parser
-
-    using State = string::const_iterator;
-    class ParseError {};
-
-
-snippet expression
-
-    int number(State& begin) {
-        int ret = 0;
-        while ('0' <= *begin and *begin <= '9') {
-            ret *= 10;
-            ret += *begin - '0';
-            ++begin;
-        }
-        return ret;
-    }
-
-    int expression(State& begin);
-
-    int factor(State& begin) {
-        if (*begin == '(') {
-            ++begin;
-            int ret = expression(begin);
-            if (*begin != ')') {
-                throw ParseError();
-            }
-            ++begin;
-            return ret;
-        } else {
-            return number(begin);
-        }
-    }
-
-    int term(State& begin) {
-        int prod = factor(begin);
-        while (true) {
-            if (*begin == '*') {
-                ++begin;
-                prod *= factor(begin);
-            }
-            else if (*begin == '/') {
-                ++begin;
-                prod /= factor(begin);
-            }
-            else {
-                return prod;
-            }
-        }
-    }
-
-    int expression(State& begin) {
-        int sum = term(begin);
-        while (true) {
-            if (*begin == '+') {
-                ++begin;
-                sum += term(begin);
-            } else if (*begin == '-') {
-                ++begin;
-                sum -= term(begin);
+        Real maxnorm = norm(U[is] - U[js]);
+
+        int i = is, j = js;
+        do {
+            if (cross(U[(i+1) % n] - U[i], U[(j+1) % n] - U[j]) >= 0) {
+                j = (j+1) % n;
             } else {
-                return sum;
+                i = (i+1) % n;
+            }
+            if (norm(U[i] - U[j]) > maxnorm) {
+                maxnorm = norm(U[i] - U[j]);
+            }
+        } while (i != is or j != js);
+        return sqrt(maxnorm);
+    }
+
+    Polygon convex_cut(const Polygon& U, const Line& l) {
+        Polygon ret;
+        for (int i = 0; i < U.size(); ++i) {
+            Point now = U[i], nxt = U[(i + 1) % U.size()];
+            if (ccw(l.a, l.b, now) != -1) ret.push_back(now);
+            if (ccw(l.a, l.b, now) * ccw(l.a, l.b, nxt) == -1) {
+                ret.push_back(crosspoint(Line{ now, nxt }, l));
             }
         }
+        return ret;
+    }
+
+    Polygon voronoi_cell(const Point& c, const vector<Point>& ps, Polygon outer) {
+        for (const Point& p : ps) {
+            Point m = (p + c) / 2.0;
+            outer = convex_cut(outer,
+                        Line{ m, m + rotate(p - c, M_PI / 2) });
+        }
+        return outer;
     }
 
 
-snippet rolling_hash
+snippet 3D_template
 
-    struct RollingHash {
-        using uint = uint64_t;
-        vector<uint> hash, pow;
-        static const uint MASK30 = (1LL<<30)-1,
-                          MASK31 = (1LL<<31)-1,
-                          MASK61 = (1LL<<61)-1;
+    using Real = double;
+    const Real PI = acos(-1);
 
-        template<typename S>
-        RollingHash(const S& s, uint base) {
-            int n = s.size();
-            hash.assign(n+1, 0);
-            pow.assign(n+1, 1);
-            for (int i = 0; i < n; ++i) {
-                hash[i+1] = _mod(_mul(hash[i], base) + s[i]);
-                pow[i+1] = _mul(pow[i], base);
-            }
+    struct Point3D {
+        double x, y, z;
+        Point3D() {}
+        Point3D(double x, double y, double z) : x(x), y(y), z(z) {}
+        Point3D operator+(const Point3D& b) const {
+            return Point3D(x + b.x, y + b.y, z + b.z);
         }
-
-        uint get(int l, int r) const {
-            return _mod(hash[r] + MASK61 - _mul(hash[l], pow[r - l]));
+        Point3D operator-(const Point3D& b) const {
+            return Point3D(x - b.x, y - b.y, z - b.z);
         }
-
-        static uint _mul(uint a, uint b) {
-            uint au = a >> 31, ad = a & MASK31,
-                 bu = b >> 31, bd = b & MASK31;
-            uint m = au * bd + ad * bu;
-            uint mu = m >> 30, md = m & MASK30;
-
-            return _mod(au*bu*2 + mu + (md<<31) + ad*bd);
-        }
-        static uint _mod(uint x) {
-            uint xu = x >> 61, xd = x & MASK61;
-            uint ret = xu + xd;
-            if (ret >= MASK61) ret -= MASK61;
-            return ret;
-        }
-        static uint gen_base() {
-            mt19937 random{random_device{}()};
-            uniform_int_distribution<uint> dist(2, MASK61-2);
-            return dist(random);
-        }
-    };
-
-
-snippet trie
-
-    template<int char_size, int margin>
-    struct Trie {
-        struct Node {
-            vector<int> next, accept;
-            Node() : next(char_size, -1) {}
+        friend double norm(const Point3D& p) {
+            return p.x * p.x + p.y * p.y + p.z * p.z;
         };
+        friend double abs(const Point3D& p) { return sqrt(norm(p)); }
 
-        vector<Node> nodes;
-        int root;
-        Trie() : root(0) { nodes.push_back(Node()); }
-
-        inline Node operator[](int k) const { return nodes[k]; }
-        inline Node& operator[](int k) { return nodes[k]; }
-
-        void add(const string& s, int id = 0) {
-            int now = root;
-            for (char c : s) {
-                if (nodes[now].next[c - margin] == -1) {
-                    nodes[now].next[c - margin] = nodes.size();
-                    nodes.push_back(Node());
-                }
-                now = nodes[now].next[c - margin];
-            }
-            nodes[now].accept.push_back(id);
+        friend ostream &operator<<(ostream &os, Point3D &p) {
+            return os << "(" << p.x << "," << p.y << "," << p.z << ")";
         }
-
-        friend ostream& operator<<(ostream& os, const Trie& trie) {
-            function<void(int)> dfs = [&](int now) {
-                os << "{";
-                bool a = 0;
-                for (int i = 0; i < char_size; ++i) {
-                    int nxt = trie[now].next[i];
-                    if (nxt != -1) {
-                        if (a) os << ", "; a = 1;
-                        os << (char)(i + margin) << ": ";
-                        dfs(nxt);
-                    }
-                }
-                os << "}";
-            };
-            dfs(trie.root);
-            return os;
+        friend istream &operator>>(istream &is, Point3D &p) {
+            return is >> p.x >> p.y >> p.z;
         }
-
     };
-
-
-snippet aho_corasick
-
-    template<int char_size, int margin>
-    struct AhoCorasick {
-        Trie<char_size + 1, margin> trie;
-        const int FAIL = char_size;
-
-        AhoCorasick() : trie() {}
-
-        using Node = typename Trie<char_size + 1, margin>::Node;
-
-        inline Node operator[](int k) const { return trie[k]; }
-        inline Node& operator[](int k) { return trie[k]; }
-
-        void add(const string& s, int id = 0) {
-            trie.add(s, id);
+    struct Segment3D {
+        Point3D a, b;
+        Segment3D() {}
+        Segment3D(const Point3D& a, const Point3D& b) : a(a), b(b) {}
+        friend ostream &operator<<(ostream &os, Segment3D &l) {
+            return os << "[" << l.a << "," << l.b << "]";
         }
-
-        void build() {
-            queue<int> que;
-            for (int i = 0; i < char_size; ++i) {
-                if (trie[trie.root].next[i] == -1) {
-                    trie[trie.root].next[i] = trie.root;
-                } else {
-                    que.push(trie[trie.root].next[i]);
-                    trie[trie[trie.root].next[i]].next[FAIL] = trie.root;
-                }
-            }
-            while (!que.empty()) {
-                int now = que.front(); que.pop();
-                for (int i = 0; i < char_size; ++i) {
-                    if (trie[now].next[i] == -1) continue;
-                    int fail = trie[now].next[FAIL];
-                    while (trie[fail].next[i] == -1) {
-                        fail = trie[fail].next[FAIL];
-                    }
-                    trie[trie[now].next[i]].next[FAIL] = trie[fail].next[i];
-                    auto &u = trie[trie[now].next[i]].accept;
-                    auto &v = trie[trie[fail].next[i]].accept;
-                    vector<int> accept;
-                    set_union(u.begin(), u.end(), v.begin(), v.end(),
-                            back_inserter(accept));
-                    u = accept;
-                    que.push(trie[now].next[i]);
-                }
-            }
-        }
-
-        map<int,int> match(const string& str) const {
-            map<int,int> ret;
-            int now = trie.root;
-            for (char c : str) {
-                while (trie[now].next[c - margin] == -1) now = trie[now].next[FAIL];
-                now = trie[now].next[c - margin];
-                for (int id : trie[now].accept) ++ret[id];
-            }
-            return ret;
-        }
-
-        friend ostream& operator<<(ostream& os, const AhoCorasick& aho) {
-            const int n = aho.trie.nodes.size();
-            vector<bool> used(n);
-            function<void(int)> dfs = [&](int now) {
-                used[now] = true;
-                os << "{" << now << " " << "#:" << aho[now].next[aho.FAIL];
-                for (int i = 0; i < char_size; ++i) {
-                    int nxt = aho[now].next[i];
-                    if (nxt != -1) {
-                        os << ", " << (char)(i + margin) << ":";
-                        if (!used[nxt]) dfs(nxt);
-                        else os << nxt;
-                    }
-                }
-
-                os << "}";
-            };
-            dfs(aho.trie.root);
-            return os;
+        friend istream &operator>>(istream &is, Segment3D &l) {
+            return is >> l.a >> l.b;
         }
     };
 
+    inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
 
-snippet longest_increasing_subsequence
-
-    template<typename T>
-    int LIS(const vector<T>& a) {
-        int n = a.size();
-        T INF = numeric_limits<T>::max();
-        vector<T> dp(n, INF);
-        for (int i = 0; i < n; ++i) {
-            *lower_bound(dp.begin(), dp.end(), a[i]) = a[i];
-        }
-        return distance(dp.begin(), lower_bound(dp.begin(), dp.end(), INF));
+    double dot(const Point3D &a, const Point3D &b) {
+        return a.x * b.x + a.y * b.y + a.z * b.z;
     }
 
-
-snippet inversion
-
-    template<typename T>
-    int64_t inversion(const vector<T>& A)
-    {
-        map<T, int> idx;
-        for (const T& a : A) idx[a] = -1;
-
-        int cnt = 0;
-        for (auto& p : idx) p.second = cnt++;
-
-        assert(cnt == A.size());
-
-        BIT<int> bit(cnt+1);
-        int64_t res = 0;
-        for (int i = 0; i < A.size(); ++i) {
-            res += i - bit.sum(idx[A[i]]);
-            bit.add(idx[A[i]], 1);
-        }
-
-        return res;
+    Point3D cross(const Point3D &a, const Point3D &b) {
+        double x = a.y * b.z - a.z * b.y,
+               y = a.z * b.x - a.x * b.z,
+               z = a.x * b.y - a.y * b.x;
+        return Point3D(x, y, z);
     }
 
+    bool parallel(
+            const Point3D &a1, const Point3D &a2,
+            const Point3D &b1, const Point3D &b2) {
+        return eq(abs(cross(a1-b1, a2-b2)), 0.);
+    }
 
-snippet union_find
+    bool parallel(const Segment3D& l1, const Segment3D& l2) {
+        return parallel(l1.a, l1.b, l2.a, l2.b);
+    }
 
-    struct UnionFind
-    {
-        vector<int> par, sz;
-        const int n;
-        UnionFind(int n) : n(n), par(n), sz(n, 1) {
-            for (int i = 0; i < n; ++i) par[i] = i;
-        }
-
-        int root(int x) {
-            if (par[x] == x) return x;
-            return par[x] = root(par[x]);
-        }
-
-        void merge(int x, int y) {
-            x = root(x);
-            y = root(y);
-            if (x == y) return;
-            if (sz[x] < sz[y]) swap(x, y);
-            par[y] = x;
-            sz[x] += sz[y];
-            sz[y] = 0;
-        }
-
-        bool issame(int x, int y) {
-            return root(x) == root(y);
-        }
-
-        int size(int x) {
-            return sz[root(x)];
-        }
-
-        friend ostream& operator<<(ostream& os, UnionFind& uf) {
-            os << "[";
-            for (int i = 0; i < uf.n; ++i) {
-                if (i > 0) os << " ";
-                os << uf.root(i);
-            }
-            return os << "]" << endl;
-        }
-    };
+    double distance(const Segment3D &l, const Point3D &p) {
+        if (dot(l.b - l.a, p - l.a) < EPS) return abs(p - l.a);
+        if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
+        return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
+    }
 
 
 snippet binary_indexed_tree
@@ -1050,49 +554,155 @@ snippet binary_indexed_tree
     };
 
 
-snippet weighted_union_find
+snippet lazy_randomized_binary_search_tree
 
-    template<typename A>
-    struct WeightedUnionFind
-    {
-        vector<int> par, sz;
-        vector<A> data;     // data[x]: diff from root to x
-        WeightedUnionFind(int n, A e=0) :
-            par(n), sz(n, 1), data(n, e) {
-            for (int i = 0; i < n; ++i) par[i] = i;
+    template<typename M, typename OM = M>
+    struct LazyRandomizedBinarySearchTree {
+
+        struct Node {
+            Node *lch, *rch;
+            int sz;
+            M data, sum;
+            OM lazy;
+            Node(const M& data, const OM& lazy) :
+                lch(nullptr), rch(nullptr), sz(1),
+                data(data), sum(data), lazy(lazy) {}
+        };
+
+        const function<M(M,M)> f;
+        const function<M(M,OM,int)> g;
+        const function<OM(OM,OM)> h;
+        const M e;
+        const OM oe;
+        Node* root;
+        std::mt19937 random{std::random_device{}()};
+
+        LazyRandomizedBinarySearchTree(
+                const function<M(M,M)>& f,
+                const function<M(M,OM,int)>& g,
+                const function<OM(OM,OM)>& h,
+                const M& e, const OM& oe
+                ) : f(f), g(g), h(h), e(e), oe(oe), root(nullptr) {}
+
+        Node* _build(const vector<M>& v, int l, int r) {
+            if (l+1 >= r) return _new(v[l]);
+            return merge(_build(v, l, (l+r)>>1),
+                         _build(v, (l+r)>>1, r));
+        }
+        void build(const vector<M>& v) { root = _build(v, 0, v.size()); }
+
+        Node* _build(int l, int r) {
+            if (l+1 >= r) return _new(e);
+            return merge(_build(l, (l+r)>>1),
+                         _build((l+r)>>1, r));
+        }
+        void build(int size) { root = _build(0, size); }
+
+        inline Node* _new(const M& data) const { return new Node(data, oe); }
+
+        inline int size(Node* t) const { return t ? t->sz : 0; }
+        inline M sum(Node* t) const { return t ? t->sum : e; }
+        inline OM lazy(Node* t) const { return t ? t->lazy : oe; }
+
+        inline Node* modify(Node *t) {
+            t->sz = size(t->lch) + size(t->rch) + 1;
+            t->sum = f(f(sum(t->lch), t->data), sum(t->rch));
+            return t;
         }
 
-        int root(int x) {
-            if (par[x] == x) return x;
-            int r = root(par[x]);
-            data[x] += data[par[x]];
-            return par[x] = r;
+        // Lazy Segment Tree
+        Node* propagate(Node* t) {
+            if (!t) return t;
+            if (lazy(t) == oe) return t;
+            if (t->lch != nullptr) {
+                t->lch->lazy = h(lazy(t->lch), lazy(t));
+                t->lch->sum = g(sum(t->lch), lazy(t), size(t->lch));
+            }
+            if (t->rch != nullptr) {
+                t->rch->lazy = h(lazy(t->rch), lazy(t));
+                t->rch->sum = g(sum(t->rch), lazy(t), size(t->rch));
+            }
+            t->data = g(t->data, lazy(t), 1);
+            t->lazy = oe;
+            return modify(t);
         }
 
-        A weight(int x) {
-            root(x);
-            return data[x];
+        void update(int a, int b, const OM& lazy) {
+            // data[a, b) = g(data[a, b), lazy)
+            auto p0 = split(root, a);
+            auto p1 = split(p0.second, b-a);
+            p1.first->lazy = h(p1.first->lazy, lazy);
+            p1.first = propagate(p1.first);
+            root = merge(p0.first, merge(p1.first, p1.second));
         }
 
-        A diff(int x, int y) {
-            // diff from x to y
-            return data[y] - data[x];
+        M query(int a, int b) {
+            // return f[a,b)
+            auto p0 = split(root, a);
+            auto p1 = split(p0.second, b-a);
+            p1.first = propagate(p1.first);
+            M ret = sum(p1.first);
+            root = merge(p0.first, merge(p1.first, p1.second));
+            return ret;
         }
 
-        void merge(int x, int y, A w) {
-            // merge so that "diff from x to y" will be w.
-            w += weight(x); w -= weight(y);
-            x = root(x); y = root(y);
-            if (x == y) return;
-            if (sz[x] < sz[y]) swap(x, y), w = -w;
-            par[y] = x;
-            sz[x] += sz[y];
-            sz[y] = 0;
-            data[y] = w;
+
+        // Binary Search Tree
+        Node* merge(Node *l, Node *r) {
+            if (!l) return r;
+            if (!r) return l;
+            std::uniform_int_distribution<> dist(1,size(l)+size(r));
+            if (dist(random) > size(l)) {
+                r = propagate(r);
+                r->lch = merge(l, r->lch);
+                return modify(r);
+            } else {
+                l = propagate(l);
+                l->rch = merge(l->rch, r);
+                return modify(l);
+            }
         }
 
-        bool issame(int x, int y) {
-            return root(x) == root(y);
+        pair<Node*, Node*> split(Node* t, int k) {
+            if (!t) return {t, t};
+            t = propagate(t);
+            if (k > size(t->lch)) {
+                auto p = split(t->rch, k-size(t->lch)-1);
+                t->rch = p.first;
+                return {modify(t), p.second};
+            } else {
+                auto p = split(t->lch, k);
+                t->lch = p.second;
+                return {p.first, modify(t)};
+            }
+        }
+
+        void insert(int k, const M& data) {
+            auto q = _new(data);
+            auto p = split(root, k);
+            root = merge(merge(p.first, q), p.second);
+        }
+
+        M erase(int k) {
+            auto p = split(root, k);
+            auto q = split(p.second, 1);
+            M ret = q.first->data;
+            root = merge(p.first, q.second);
+            return ret;
+        }
+
+        M operator[](int i) {
+            return query(i, i+1);
+        }
+
+        friend ostream& operator<<(ostream& os,
+                LazyRandomizedBinarySearchTree& tr) {
+            os << "[";
+            for (int i = 0; i < tr.root->sz; ++i) {
+                if (i) os << " ";
+                os << tr[i];
+            }
+            return os << "]";
         }
     };
 
@@ -1279,67 +889,46 @@ snippet dual_segment_tree
     };
 
 
-snippet segment_tree
+snippet union_find
 
-    template<typename M>
-    struct SegmentTree {
-        int n, sz;
-        vector<M> data;
-        const function<M(M,M)> f;
-        const M e;
-
-        SegmentTree(
-                int n,
-                const function<M(M,M)>& f,
-                const M& e
-                ) : n(n), f(f), e(e) {
-            sz = 1;
-            while (sz < n) sz <<= 1;
-            data.assign(2*sz, e);
+    struct UnionFind
+    {
+        vector<int> par, sz;
+        const int n;
+        UnionFind(int n) : n(n), par(n), sz(n, 1) {
+            for (int i = 0; i < n; ++i) par[i] = i;
         }
 
-        void build(const vector<M>& v) {
-            assert(v.size() <= n);
-            for (int i = 0; i < v.size(); ++i) {
-                data[i + sz] = v[i];
-            }
-            for (int i = sz-1; i > 0; --i) {
-                data[i] = f(data[2*i], data[2*i+1]);
-            }
+        int root(int x) {
+            if (par[x] == x) return x;
+            return par[x] = root(par[x]);
         }
 
-        template<typename UpdateQuery>
-        void update(int k, const UpdateQuery& q) {
-            k += sz;
-            data[k] = q(data[k]);
-            while (k >>= 1) {
-                data[k] = f(data[2*k], data[2*k+1]);
-            }
+        void merge(int x, int y) {
+            x = root(x);
+            y = root(y);
+            if (x == y) return;
+            if (sz[x] < sz[y]) swap(x, y);
+            par[y] = x;
+            sz[x] += sz[y];
+            sz[y] = 0;
         }
 
-        M _query(int a, int b, int k, int l, int r) const {
-            if (r <= a or b <= l) return e;
-            if (a <= l and r <= b) return data[k];
-            return f(_query(a,b,2*k,  l,(l+r)/2),
-                     _query(a,b,2*k+1,(l+r)/2,r));
+        bool issame(int x, int y) {
+            return root(x) == root(y);
         }
 
-        M query(int a, int b) const {
-            // return f[a,b)
-            return _query(a, b, 1, 0, sz);
+        int size(int x) {
+            return sz[root(x)];
         }
 
-        M operator[](int i) const {
-            return data.at(i + sz);
-        }
-
-        friend ostream& operator<<(ostream& os, const SegmentTree& s) {
+        friend ostream& operator<<(ostream& os, UnionFind& uf) {
             os << "[";
-            for (int i = 0; i < s.n; ++i) {
-                if (i) os << " ";
-                os << s[i];
+            for (int i = 0; i < uf.n; ++i) {
+                if (i > 0) os << " ";
+                os << uf.root(i);
             }
-            return os << "]";
+            return os << "]" << endl;
         }
     };
 
@@ -1411,264 +1000,992 @@ snippet persistent_segment_tree
     };
 
 
-snippet lazy_randomized_binary_search_tree
+snippet weighted_union_find
 
-    template<typename M, typename OM = M>
-    struct LazyRandomizedBinarySearchTree {
+    template<typename A>
+    struct WeightedUnionFind
+    {
+        vector<int> par, sz;
+        vector<A> data;     // data[x]: diff from root to x
+        WeightedUnionFind(int n, A e=0) :
+            par(n), sz(n, 1), data(n, e) {
+            for (int i = 0; i < n; ++i) par[i] = i;
+        }
 
-        struct Node {
-            Node *lch, *rch;
-            int sz;
-            M data, sum;
-            OM lazy;
-            Node(const M& data, const OM& lazy) :
-                lch(nullptr), rch(nullptr), sz(1),
-                data(data), sum(data), lazy(lazy) {}
-        };
+        int root(int x) {
+            if (par[x] == x) return x;
+            int r = root(par[x]);
+            data[x] += data[par[x]];
+            return par[x] = r;
+        }
 
+        A weight(int x) {
+            root(x);
+            return data[x];
+        }
+
+        A diff(int x, int y) {
+            // diff from x to y
+            return data[y] - data[x];
+        }
+
+        void merge(int x, int y, A w) {
+            // merge so that "diff from x to y" will be w.
+            w += weight(x); w -= weight(y);
+            x = root(x); y = root(y);
+            if (x == y) return;
+            if (sz[x] < sz[y]) swap(x, y), w = -w;
+            par[y] = x;
+            sz[x] += sz[y];
+            sz[y] = 0;
+            data[y] = w;
+        }
+
+        bool issame(int x, int y) {
+            return root(x) == root(y);
+        }
+    };
+
+
+snippet segment_tree
+
+    template<typename M>
+    struct SegmentTree {
+        int n, sz;
+        vector<M> data;
         const function<M(M,M)> f;
-        const function<M(M,OM,int)> g;
-        const function<OM(OM,OM)> h;
         const M e;
-        const OM oe;
-        Node* root;
-        std::mt19937 random{std::random_device{}()};
 
-        LazyRandomizedBinarySearchTree(
+        SegmentTree(
+                int n,
                 const function<M(M,M)>& f,
-                const function<M(M,OM,int)>& g,
-                const function<OM(OM,OM)>& h,
-                const M& e, const OM& oe
-                ) : f(f), g(g), h(h), e(e), oe(oe), root(nullptr) {}
-
-        Node* _build(const vector<M>& v, int l, int r) {
-            if (l+1 >= r) return _new(v[l]);
-            return merge(_build(v, l, (l+r)>>1),
-                         _build(v, (l+r)>>1, r));
-        }
-        void build(const vector<M>& v) { root = _build(v, 0, v.size()); }
-
-        Node* _build(int l, int r) {
-            if (l+1 >= r) return _new(e);
-            return merge(_build(l, (l+r)>>1),
-                         _build((l+r)>>1, r));
-        }
-        void build(int size) { root = _build(0, size); }
-
-        inline Node* _new(const M& data) const { return new Node(data, oe); }
-
-        inline int size(Node* t) const { return t ? t->sz : 0; }
-        inline M sum(Node* t) const { return t ? t->sum : e; }
-        inline OM lazy(Node* t) const { return t ? t->lazy : oe; }
-
-        inline Node* modify(Node *t) {
-            t->sz = size(t->lch) + size(t->rch) + 1;
-            t->sum = f(f(sum(t->lch), t->data), sum(t->rch));
-            return t;
+                const M& e
+                ) : n(n), f(f), e(e) {
+            sz = 1;
+            while (sz < n) sz <<= 1;
+            data.assign(2*sz, e);
         }
 
-        // Lazy Segment Tree
-        Node* propagate(Node* t) {
-            if (!t) return t;
-            if (lazy(t) == oe) return t;
-            if (t->lch != nullptr) {
-                t->lch->lazy = h(lazy(t->lch), lazy(t));
-                t->lch->sum = g(sum(t->lch), lazy(t), size(t->lch));
+        void build(const vector<M>& v) {
+            assert(v.size() <= n);
+            for (int i = 0; i < v.size(); ++i) {
+                data[i + sz] = v[i];
             }
-            if (t->rch != nullptr) {
-                t->rch->lazy = h(lazy(t->rch), lazy(t));
-                t->rch->sum = g(sum(t->rch), lazy(t), size(t->rch));
+            for (int i = sz-1; i > 0; --i) {
+                data[i] = f(data[2*i], data[2*i+1]);
             }
-            t->data = g(t->data, lazy(t), 1);
-            t->lazy = oe;
-            return modify(t);
         }
 
-        void update(int a, int b, const OM& lazy) {
-            // data[a, b) = g(data[a, b), lazy)
-            auto p0 = split(root, a);
-            auto p1 = split(p0.second, b-a);
-            p1.first->lazy = h(p1.first->lazy, lazy);
-            p1.first = propagate(p1.first);
-            root = merge(p0.first, merge(p1.first, p1.second));
+        template<typename UpdateQuery>
+        void update(int k, const UpdateQuery& q) {
+            k += sz;
+            data[k] = q(data[k]);
+            while (k >>= 1) {
+                data[k] = f(data[2*k], data[2*k+1]);
+            }
         }
 
-        M query(int a, int b) {
+        M _query(int a, int b, int k, int l, int r) const {
+            if (r <= a or b <= l) return e;
+            if (a <= l and r <= b) return data[k];
+            return f(_query(a,b,2*k,  l,(l+r)/2),
+                     _query(a,b,2*k+1,(l+r)/2,r));
+        }
+
+        M query(int a, int b) const {
             // return f[a,b)
-            auto p0 = split(root, a);
-            auto p1 = split(p0.second, b-a);
-            p1.first = propagate(p1.first);
-            M ret = sum(p1.first);
-            root = merge(p0.first, merge(p1.first, p1.second));
-            return ret;
+            return _query(a, b, 1, 0, sz);
         }
 
-
-        // Binary Search Tree
-        Node* merge(Node *l, Node *r) {
-            if (!l) return r;
-            if (!r) return l;
-            std::uniform_int_distribution<> dist(1,size(l)+size(r));
-            if (dist(random) > size(l)) {
-                r = propagate(r);
-                r->lch = merge(l, r->lch);
-                return modify(r);
-            } else {
-                l = propagate(l);
-                l->rch = merge(l->rch, r);
-                return modify(l);
-            }
+        M operator[](int i) const {
+            return data.at(i + sz);
         }
 
-        pair<Node*, Node*> split(Node* t, int k) {
-            if (!t) return {t, t};
-            t = propagate(t);
-            if (k > size(t->lch)) {
-                auto p = split(t->rch, k-size(t->lch)-1);
-                t->rch = p.first;
-                return {modify(t), p.second};
-            } else {
-                auto p = split(t->lch, k);
-                t->lch = p.second;
-                return {p.first, modify(t)};
-            }
-        }
-
-        void insert(int k, const M& data) {
-            auto q = _new(data);
-            auto p = split(root, k);
-            root = merge(merge(p.first, q), p.second);
-        }
-
-        M erase(int k) {
-            auto p = split(root, k);
-            auto q = split(p.second, 1);
-            M ret = q.first->data;
-            root = merge(p.first, q.second);
-            return ret;
-        }
-
-        M operator[](int i) {
-            return query(i, i+1);
-        }
-
-        friend ostream& operator<<(ostream& os,
-                LazyRandomizedBinarySearchTree& tr) {
+        friend ostream& operator<<(ostream& os, const SegmentTree& s) {
             os << "[";
-            for (int i = 0; i < tr.root->sz; ++i) {
+            for (int i = 0; i < s.n; ++i) {
                 if (i) os << " ";
-                os << tr[i];
+                os << s[i];
             }
             return os << "]";
         }
     };
 
 
-snippet primal_dual
+snippet parser
 
-    template<typename flow_t, typename cost_t>
-    struct PrimalDual {
-        // O(FElogV)
-        struct edge {
-            int to, rev;
-            flow_t cap;
-            cost_t cost;
-            edge(int to, flow_t cap, cost_t cost, int rev) :
-                    to(to), cap(cap), cost(cost), rev(rev) {}
-        };
+    using State = string::const_iterator;
+    class ParseError {};
 
-        vector<vector<edge>> g;
-        const int sz;
-        const cost_t INF;
 
-        PrimalDual(int V, cost_t INF) : g(V), sz(V), INF(INF) {}
+snippet expression
 
-        void add_edge(int s, int t, flow_t cap, cost_t cost) {
-            g[s].emplace_back(t, cap,  cost, (int)g[t].size());
-            g[t].emplace_back(s,   0, -cost, (int)g[s].size() - 1);
+    int number(State& begin) {
+        int ret = 0;
+        while ('0' <= *begin and *begin <= '9') {
+            ret *= 10;
+            ret += *begin - '0';
+            ++begin;
         }
+        return ret;
+    }
 
-        void dijkstra(
-                vector<cost_t>& dist,
-                vector<int>& prevv,
-                vector<int>& preve,
-                const vector<cost_t>& potential, int s)
-        {
-            dist.assign(sz, INF);
-            prevv.assign(sz, -1);
-            preve.assign(sz, -1);
-            using Pi = pair<cost_t, int>;
-            priority_queue<Pi, vector<Pi>, greater<Pi>> que;
-            que.emplace(0, s);
-            dist[s] = 0;
-            while (!que.empty()) {
-                cost_t cost; int v;
-                std::tie(cost, v) = que.top();
-                que.pop();
-                if (dist[v] < cost) continue;
-                for (int i = 0; i < g[v].size(); ++i) {
-                    edge &e = g[v][i];
+    int expression(State& begin);
 
-                    if (e.cost == INF or e.cost == -INF) continue;
-
-                    cost_t nextCost =
-                            dist[v] + e.cost + potential[v] - potential[e.to];
-                    if (e.cap > 0 and dist[e.to] > nextCost) {
-                        dist[e.to] = nextCost;
-                        prevv[e.to] = v, preve[e.to] = i;
-                        que.emplace(dist[e.to], e.to);
-                    }
-                }
+    int factor(State& begin) {
+        if (*begin == '(') {
+            ++begin;
+            int ret = expression(begin);
+            if (*begin != ')') {
+                throw ParseError();
             }
-        }
-
-        cost_t min_cost_flow(int s, int t, flow_t f) {
-            cost_t ret = 0;
-            vector<cost_t> potential(sz, 0);
-
-            while (f > 0)
-            {
-                vector<cost_t> dist;
-                vector<int> prevv, preve;
-                dijkstra(dist, prevv, preve, potential, s);
-
-                if (dist[t] == INF) return -1;
-
-                for (int v = 0; v < sz; ++v) potential[v] += dist[v];
-
-                flow_t diff = f;
-                for (int v = t; v != s; v = prevv[v]) {
-                    diff = min(diff, g[prevv[v]][preve[v]].cap);
-                }
-                f -= diff;
-                ret += diff * potential[t];
-
-                for (int v = t; v != s; v = prevv[v]) {
-                    edge &e = g[prevv[v]][preve[v]], &re = g[v][e.rev];
-                    e.cap -= diff;
-                    re.cap += diff;
-                }
-            }
-
+            ++begin;
             return ret;
+        } else {
+            return number(begin);
+        }
+    }
+
+    int term(State& begin) {
+        int prod = factor(begin);
+        while (true) {
+            if (*begin == '*') {
+                ++begin;
+                prod *= factor(begin);
+            }
+            else if (*begin == '/') {
+                ++begin;
+                prod /= factor(begin);
+            }
+            else {
+                return prod;
+            }
+        }
+    }
+
+    int expression(State& begin) {
+        int sum = term(begin);
+        while (true) {
+            if (*begin == '+') {
+                ++begin;
+                sum += term(begin);
+            } else if (*begin == '-') {
+                ++begin;
+                sum -= term(begin);
+            } else {
+                return sum;
+            }
+        }
+    }
+
+
+snippet dice
+
+    struct Dice {
+        int U, D, L, R, F, B;
+        Dice(int U, int D, int L, int R, int F, int B) :
+            U(U), D(D), L(L), R(R), F(F), B(B) {}
+
+        void rollU() {
+            int buff = F;
+            F = R; R = B; B = L; L = buff;
+        }
+        void rollD() {
+            int buff = F;
+            F = L; L = B; B = R; R = buff;
+        }
+        void rollF() {
+            int buff = U;
+            U = L; L = D; D = R; R = buff;
+        }
+        void rollB() {
+            int buff = U;
+            U = R; R = D; D = L; L = buff;
+        }
+        void rollR() {
+            int buff = U;
+            U = F; F = D; D = B; B = buff;
+        }
+        void rollL() {
+            int buff = U;
+            U = B; B = D; D = F; F = buff;
         }
     };
 
 
-snippet warshall_floyd
+snippet longest_increasing_subsequence
 
     template<typename T>
-    void warshall_floyd(vector<vector<T>> &g) {
-        const T INF = numeric_limits<T>::max();
-        int n = g.size();
-        for (int k = 0; k < n; ++k) {
-            for (int i = 0; i < n; ++i) {
-                for (int j = 0; j < n; ++j) {
-                    if (g[i][k] == INF or g[k][j] == INF) continue;
-                    g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
+    int LIS(const vector<T>& a) {
+        int n = a.size();
+        T INF = numeric_limits<T>::max();
+        vector<T> dp(n, INF);
+        for (int i = 0; i < n; ++i) {
+            *lower_bound(dp.begin(), dp.end(), a[i]) = a[i];
+        }
+        return distance(dp.begin(), lower_bound(dp.begin(), dp.end(), INF));
+    }
+
+
+snippet inversion
+
+    template<typename T>
+    int64_t inversion(const vector<T>& A)
+    {
+        map<T, int> idx;
+        for (const T& a : A) idx[a] = -1;
+
+        int cnt = 0;
+        for (auto& p : idx) p.second = cnt++;
+
+        assert(cnt == A.size());
+
+        BIT<int> bit(cnt+1);
+        int64_t res = 0;
+        for (int i = 0; i < A.size(); ++i) {
+            res += i - bit.sum(idx[A[i]]);
+            bit.add(idx[A[i]], 1);
+        }
+
+        return res;
+    }
+
+
+snippet aho_corasick
+
+    template<int char_size, int margin>
+    struct AhoCorasick {
+        Trie<char_size + 1, margin> trie;
+        const int FAIL = char_size;
+
+        AhoCorasick() : trie() {}
+
+        using Node = typename Trie<char_size + 1, margin>::Node;
+
+        inline Node operator[](int k) const { return trie[k]; }
+        inline Node& operator[](int k) { return trie[k]; }
+
+        void add(const string& s, int id = 0) {
+            trie.add(s, id);
+        }
+
+        void build() {
+            queue<int> que;
+            for (int i = 0; i < char_size; ++i) {
+                if (trie[trie.root].next[i] == -1) {
+                    trie[trie.root].next[i] = trie.root;
+                } else {
+                    que.push(trie[trie.root].next[i]);
+                    trie[trie[trie.root].next[i]].next[FAIL] = trie.root;
+                }
+            }
+            while (!que.empty()) {
+                int now = que.front(); que.pop();
+                for (int i = 0; i < char_size; ++i) {
+                    if (trie[now].next[i] == -1) continue;
+                    int fail = trie[now].next[FAIL];
+                    while (trie[fail].next[i] == -1) {
+                        fail = trie[fail].next[FAIL];
+                    }
+                    trie[trie[now].next[i]].next[FAIL] = trie[fail].next[i];
+                    auto &u = trie[trie[now].next[i]].accept;
+                    auto &v = trie[trie[fail].next[i]].accept;
+                    vector<int> accept;
+                    set_union(u.begin(), u.end(), v.begin(), v.end(),
+                            back_inserter(accept));
+                    u = accept;
+                    que.push(trie[now].next[i]);
                 }
             }
         }
+
+        map<int,int> match(const string& str) const {
+            map<int,int> ret;
+            int now = trie.root;
+            for (char c : str) {
+                while (trie[now].next[c - margin] == -1) now = trie[now].next[FAIL];
+                now = trie[now].next[c - margin];
+                for (int id : trie[now].accept) ++ret[id];
+            }
+            return ret;
+        }
+
+        friend ostream& operator<<(ostream& os, const AhoCorasick& aho) {
+            const int n = aho.trie.nodes.size();
+            vector<bool> used(n);
+            function<void(int)> dfs = [&](int now) {
+                used[now] = true;
+                os << "{" << now << " " << "#:" << aho[now].next[aho.FAIL];
+                for (int i = 0; i < char_size; ++i) {
+                    int nxt = aho[now].next[i];
+                    if (nxt != -1) {
+                        os << ", " << (char)(i + margin) << ":";
+                        if (!used[nxt]) dfs(nxt);
+                        else os << nxt;
+                    }
+                }
+
+                os << "}";
+            };
+            dfs(aho.trie.root);
+            return os;
+        }
+    };
+
+
+snippet trie
+
+    template<int char_size, int margin>
+    struct Trie {
+        struct Node {
+            vector<int> next, accept;
+            Node() : next(char_size, -1) {}
+        };
+
+        vector<Node> nodes;
+        int root;
+        Trie() : root(0) { nodes.push_back(Node()); }
+
+        inline Node operator[](int k) const { return nodes[k]; }
+        inline Node& operator[](int k) { return nodes[k]; }
+
+        void add(const string& s, int id = 0) {
+            int now = root;
+            for (char c : s) {
+                if (nodes[now].next[c - margin] == -1) {
+                    nodes[now].next[c - margin] = nodes.size();
+                    nodes.push_back(Node());
+                }
+                now = nodes[now].next[c - margin];
+            }
+            nodes[now].accept.push_back(id);
+        }
+
+        friend ostream& operator<<(ostream& os, const Trie& trie) {
+            function<void(int)> dfs = [&](int now) {
+                os << "{";
+                bool a = 0;
+                for (int i = 0; i < char_size; ++i) {
+                    int nxt = trie[now].next[i];
+                    if (nxt != -1) {
+                        if (a) os << ", "; a = 1;
+                        os << (char)(i + margin) << ": ";
+                        dfs(nxt);
+                    }
+                }
+                os << "}";
+            };
+            dfs(trie.root);
+            return os;
+        }
+
+    };
+
+
+snippet rolling_hash
+
+    struct RollingHash {
+        using uint = uint64_t;
+        vector<uint> hash, pow;
+        static const uint MASK30 = (1LL<<30)-1,
+                          MASK31 = (1LL<<31)-1,
+                          MASK61 = (1LL<<61)-1;
+
+        template<typename S>
+        RollingHash(const S& s, uint base) {
+            int n = s.size();
+            hash.assign(n+1, 0);
+            pow.assign(n+1, 1);
+            for (int i = 0; i < n; ++i) {
+                hash[i+1] = _mod(_mul(hash[i], base) + s[i]);
+                pow[i+1] = _mul(pow[i], base);
+            }
+        }
+
+        uint get(int l, int r) const {
+            return _mod(hash[r] + MASK61 - _mul(hash[l], pow[r - l]));
+        }
+
+        static uint _mul(uint a, uint b) {
+            uint au = a >> 31, ad = a & MASK31,
+                 bu = b >> 31, bd = b & MASK31;
+            uint m = au * bd + ad * bu;
+            uint mu = m >> 30, md = m & MASK30;
+
+            return _mod(au*bu*2 + mu + (md<<31) + ad*bd);
+        }
+        static uint _mod(uint x) {
+            uint xu = x >> 61, xd = x & MASK61;
+            uint ret = xu + xd;
+            if (ret >= MASK61) ret -= MASK61;
+            return ret;
+        }
+        static uint gen_base() {
+            mt19937 random{random_device{}()};
+            uniform_int_distribution<uint> dist(2, MASK61-2);
+            return dist(random);
+        }
+    };
+
+
+snippet partition
+
+    // 分割数
+    // Partition(k, n) := 区別できないn 個のボールを
+    //                    区別できないk 個の箱に入れる場合の数
+    template<typename Ring>
+    Ring Partition(int k, int n) {
+        vector<vector<Ring>> part(k+1, vector<Ring>(n+1));
+        part[0][0] = 1;
+        for (int i = 1; i <= k; ++i) {
+            for (int j = 0; j <= n; ++j) {
+                if (j-i >= 0) {
+                    part[i][j] = part[i-1][j] + part[i][j-i];
+                } else {
+                    part[i][j] = part[i-1][j];
+                }
+            }
+        }
+        return part[k][n];
+    }
+
+
+snippet combination
+
+    template<typename Field>
+    struct Combination {
+        vector<Field> _fact, _rfact, _inv;
+
+        Combination(int n) : _fact(n), _rfact(n), _inv(n) {
+            _fact[0] = _rfact[n-1] = 1;
+            for (int i = 1; i < n; ++i) _fact[i] = _fact[i-1] * i;
+            _rfact[n-1] /= _fact[n-1];
+            for (int i = n-1; i > 0; --i) _rfact[i-1] = _rfact[i] * i;
+            for (int i = 1; i < n; ++i) _inv[i] = _rfact[i] * _fact[i-1];
+        }
+
+        inline Field fact(int k) const { return _fact.at(k); }
+
+        inline Field rfact(int k) const { return _rfact.at(k); }
+
+        inline Field inv(int k) const { assert(k != 0); return _inv.at(k); }
+
+        Field P(int n, int r) const {
+            if (r < 0 or n < r) return 0;
+            return fact(n) * rfact(n-r);
+        }
+
+        Field C(int n, int r) const {
+            if (r < 0 or n < r) return 0;
+            return fact(n) * rfact(r) * rfact(n-r);
+        }
+
+        Field H (int n, int r) const {
+            return (n == 0 and r == 0) ? 1 : C(n+r-1, r);
+        }
+    };
+
+
+snippet bell
+
+    // Bell 数
+    // Bell(n, k) := 区別できるn 個のボールを,
+    //               区別できないk 個の箱に入れる場合の数
+    template<typename Field>
+    Field Bell(int64_t n, int k) {
+        Field ret = 0;
+        for (int i = 0; i <= k; ++i) {
+            ret += Stirling<Field>(n, i);
+        }
+        return ret;
+    }
+
+
+snippet extended_gcd
+
+    template<typename T>
+    T extended_gcd(T a, T b, T& x, T& y) {
+        // solve ax + by = gcd(a, b)
+        if (b == 0) { x = 1; y = 0; return a; }
+
+        T X, Y;
+        T g = extended_gcd(b, a % b, X, Y);
+        x = Y; y = X - a/b * Y;
+        return g;
+    }
+
+
+snippet prime_table
+
+    // O(nloglogn)
+    vector<bool> prime_table(int n) {
+        n = max(n, 1);
+        vector<bool> prime(n+1, true);
+        prime[0] = prime[1] = false;
+        for (int i = 2; i * i <= n; ++i) {
+            if (!prime[i]) continue;
+            for (int j = 2 * i; j <= n; j += i) {
+                prime[j] = false;
+            }
+        }
+        return prime;
+    }
+
+
+snippet fast_zeta_transform
+
+    // O(NlogN)
+    template<typename T>
+    vector<T> fast_zeta_transform(const vector<T>& f) {
+        // Return g(s):
+        // s.t. g(s) = \sum_{s \subset t} f(t)
+        int n = f.size();
+        vector<T> g = f;
+        for (int i = 0; (1 << i) < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (!(j >> i & 1)) {
+                    g[j] += g[j | (1<<i)];
+                }
+            }
+        }
+        return g;
+    }
+
+    // O(NloglogN)
+    template<typename T>
+    vector<T> fast_zeta_transform_prime(const vector<T>& f) {
+        // Return g(d):
+        // s.t. g(d) = \sum_{d | n} f(n)
+        int n = f.size();
+        vector<T> g = f;
+        vector<bool> sieve(n, true);
+        for (int p = 2; p < n; ++p) {
+            if (!sieve[p]) continue;
+            for (int i = (n - 1) / p; i > 0; --i) {
+                sieve[i * p] = false;
+                g[i] += g[i * p];
+            }
+        }
+        return g;
+    }
+
+
+snippet fast_mobius_transform
+
+    // O(NlogN)
+    template<typename T>
+    vector<T> fast_mobius_transform(const vector<T>& g) {
+        // Return f(s):
+        // s.t. g(s) = \sum_{s \subset t} f(t)
+        // ( e.g. f(s) = \sum_{s \subset t} (-1)^|t-s| * g(t) )
+        int n = g.size();
+        vector<T> f = g;
+        for (int i = 0; (1 << i) < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (!(j >> i & 1)) {
+                    f[j] -= f[j | (1<<i)];
+                }
+            }
+        }
+        return f;
+    }
+
+    // O(NloglogN)
+    template<typename T>
+    vector<T> fast_mobius_transform_prime(const vector<T>& g) {
+        // Return f(d):
+        // s.t. g(d) = \sum_{d | n} f(n)
+        // ( e.g. f(d) = \sum_{d | n} mu(n / d) * g(n) )
+        int n = g.size();
+        vector<T> f = g;
+        vector<bool> sieve(n, true);
+        for (int p = 2; p < n; ++p) {
+            if (!sieve[p]) continue;
+            for (int i = 1; i * p < n; ++i) {
+                sieve[i * p] = false;
+                f[i] -= f[i * p];
+            }
+        }
+        return f;
+    }
+
+
+snippet prime_factorize
+
+    // O(sqrt(n))
+    map<int64_t, int> prime_factorize(int64_t n) {
+        map<int64_t, int> ret;
+        for (int64_t i = 2; i * i <= n; ++i) {
+            while (n % i == 0) {
+                ret[i]++;
+                n /= i;
+            }
+        }
+        if (n != 1) ret[n] = 1;
+        return ret;
+    }
+
+
+snippet is_prime
+
+    // O(sqrt(n))
+    bool is_prime(int64_t n) {
+        assert(n > 0);
+        if (n == 1) return false;
+        for (int64_t i = 2; i * i <= n; ++i) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+
+snippet modint
+
+    template<int64_t mod>
+    class modint {
+        int64_t x;
+
+    public:
+        modint(int64_t x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
+
+        const modint operator-() const { return x == 0 ? 0 : mod - x; }
+
+        modint& operator+=(const modint& rhs) {
+            if ((x += rhs.x) >= mod) x -= mod;
+            return *this;
+        }
+        modint& operator-=(const modint& rhs) {
+            return *this += -rhs;
+        }
+        modint& operator*=(const modint& rhs) {
+            (x *= rhs.x) %= mod;
+            return *this;
+        }
+        modint& operator/=(const modint& rhs) {
+            return *this *= rhs.pow(mod - 2);
+        }
+
+        friend const modint operator+(modint lhs, const modint& rhs) {
+            return lhs += rhs;
+        }
+        friend const modint operator-(modint lhs, const modint& rhs) {
+            return lhs -= rhs;
+        }
+        friend const modint operator*(modint lhs, const modint& rhs) {
+            return lhs *= rhs;
+        }
+        friend const modint operator/(modint lhs, const modint& rhs) {
+            return lhs /= rhs;
+        }
+
+        const modint pow(int64_t n) const {
+            modint ret = 1, tmp = *this;
+            while (n) {
+                if (n & 1) ret *= tmp;
+                tmp *= tmp; n >>= 1;
+            }
+            return ret;
+        }
+
+        friend bool operator==(const modint& lhs, const modint& rhs) {
+            return lhs.x == rhs.x;
+        }
+        friend bool operator!=(const modint& lhs, const modint& rhs) {
+            return lhs.x != rhs.x;
+        }
+
+        friend ostream& operator<<(ostream& os, const modint& a) {
+            return os << a.x;
+        }
+        friend istream& operator>>(istream& is, modint& a) {
+            int64_t tmp; is >> tmp; a = tmp;
+            return is;
+        }
+    };
+
+
+snippet stirling
+
+    // スターリング数
+    // Stirling(n, k) := 区別できるn 個のボールを
+    //                   区別できないk 個の箱に入れる場合の数
+    //                   (ただし空箱はNG)
+    template<typename Field>
+    Field Stirling(int64_t n, int k) {
+        Combination<Field> comb(k+1);
+
+        Field ret = 0;
+        for (int i = 0; i <= k; ++i) {
+            ret += comb.C(k, i) * Field{k-i}.pow(n) * (i & 1 ? -1 : 1);
+        }
+        return ret /= comb.fact(k);
+    }
+
+
+snippet matrix
+
+    template<typename T>
+    struct Matrix {
+        vector<vector<T>> A;
+
+        Matrix() {}
+
+        Matrix(size_t n, size_t m) : A(n, vector<T>(m)) {}
+
+        Matrix(size_t n) : A(n, vector<T>(n)) {};
+
+        size_t height() const {
+            return (A.size());
+        }
+
+        size_t width() const {
+            return (A[0].size());
+        }
+
+        inline const vector<T>& operator[](int k) const {
+            return (A.at(k));
+        }
+
+        inline vector<T>& operator[](int k) {
+            return (A.at(k));
+        }
+
+        static Matrix I(size_t n) {
+            Matrix B(n);
+            for (int i = 0; i < n; ++i) B[i][i] = 1;
+            return (B);
+        }
+
+        Matrix operator-() const {
+            size_t n = height(), m = width();
+            Matrix B = *this;
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < m; ++j)
+                    B[i][j] = -B[i][j];
+            return (B);
+        }
+
+        Matrix& operator+=(const Matrix& B) {
+            size_t n = height(), m = width();
+            assert(n == B.height() and m == B.width());
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < m; ++j)
+                    A[i][j] += B[i][j];
+            return (*this);
+        }
+
+        Matrix& operator-=(const Matrix& B) {
+            return (*this += -B);
+        }
+
+        Matrix& operator*=(const Matrix& B) {
+            size_t n = height(), m = B.width(), p = width();
+            assert(p == B.height());
+            Matrix C(n, m);
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < m; ++j)
+                    for (int k = 0; k < p; ++k)
+                        C[i][j] += A[i][k] * B[k][j];
+            A.swap(C.A);
+            return (*this);
+        }
+
+        Matrix pow(int64_t k) {
+            Matrix B = Matrix::I(height()), tmp = *this;
+            while (k) {
+                if (k & 1) B *= tmp;
+                tmp *= tmp; k >>= 1;
+            }
+            return (B);
+        }
+
+        const Matrix operator+(const Matrix& B) const {
+            return (Matrix(*this) += B);
+        }
+
+        const Matrix operator-(const Matrix& B) const {
+            return (Matrix(*this) -= B);
+        }
+
+        const Matrix operator*(const Matrix& B) const {
+            return (Matrix(*this) *= B);
+        }
+
+        int GaussJordanElimination() {
+            int rank = 0;
+            for (int col = 0; col < width(); ++col) {
+                int pivot = -1;
+                for (int row = rank; row < height(); ++row) {
+                    if (A[row][col] != 0) {
+                        pivot = row;
+                        break;
+                    }
+                }
+                if (pivot == -1) continue;
+                swap(A[rank], A[pivot]);
+                T topLeft = A[rank][col];
+                for (int c = col; c < width(); ++c) {
+                    A[rank][c] /= topLeft;
+                }
+                for (int row = rank+1; row < height(); ++row) {
+                    T ratio = A[row][col];
+                    for (int c = col; c < width(); ++c)
+                        A[row][c] -= ratio * A[rank][c];
+                }
+                ++rank;
+            }
+            return (rank);
+        }
+
+        friend istream& operator>>(istream& is, Matrix& B) {
+            is >> B.A;
+            return (is);
+        }
+
+        friend ostream& operator<<(ostream& os, Matrix& B) {
+            size_t n = B.height(), m = B.width();
+            for (int i = 0; i < n; ++i) {
+                os << (i == 0 ? "[" : " ");
+                for (int j = 0; j < m; ++j) {
+                    os << B[i][j] << (j == m-1 ? "]" : ",");
+                }
+                os << (i == n-1 ? "]\n" : ",\n");
+            }
+            return (os);
+        }
+    };
+
+
+snippet permutation
+
+    struct Permutation {
+        vector<int> perm;
+        Permutation() {}
+        Permutation(int sz) : perm(sz) {
+            iota(perm.begin(), perm.end(), 0);
+        }
+        Permutation(initializer_list<int> init) : perm(init.begin(), init.end()) {}
+        size_t size() const {
+            return (perm.size());
+        }
+        inline int operator [](int k) const {
+            return (perm.at(k));
+        }
+        inline int& operator [](int k) {
+            return (perm.at(k));
+        }
+        Permutation& operator*=(const Permutation& rhs) {
+            assert(size() == rhs.size());
+            Permutation tmp(size());
+            for (int i = 0; i < size(); ++i) {
+                tmp[i] = perm[rhs[i]];
+            }
+            perm.swap(tmp.perm);
+            return (*this);
+        }
+        const Permutation operator*(const Permutation& rhs) const {
+            return (Permutation(*this) *= rhs);
+        }
+        Permutation pow(int64_t k) {
+            Permutation ret(size()), tmp = *this;
+            while (k) {
+                if (k & 1) ret *= tmp;
+                tmp *= tmp; k >>= 1;
+            }
+            return (ret);
+        }
+    };
+
+
+snippet euler_phi
+
+    // O(sqrt(n))
+    int64_t euler_phi(int64_t n) {
+        int64_t ret = n;
+        for (int64_t i = 2; i * i <= n; ++i) {
+            if (n % i != 0) continue;
+            ret -= ret / i;
+            while (n % i == 0) n /= i;
+        }
+        if (n > 1) ret -= ret / n;
+        return ret;
+    }
+
+
+snippet ford_fulkerson
+
+    template<typename T>
+    struct FordFulkerson {
+        // O(FE)
+        struct edge {
+            int to, rev;
+            T cap;
+            edge(int to, T cap, int rev) :
+                to(to), cap(cap), rev(rev) {}
+        };
+
+        vector<vector<edge>> g;
+        vector<int> used;
+        const T INF;
+        int timestamp;
+
+        FordFulkerson(int n) :
+            INF(numeric_limits<T>::max()),
+            timestamp(0), g(n), used(n, -1) {}
+
+        void add_edge(int s, int t, T cap) {
+            g[s].emplace_back(t, cap, (int)g[t].size());
+            g[t].emplace_back(s,   0, (int)g[s].size() - 1);
+        }
+
+        T dfs(int v, const int t, T flow) {
+            if (v == t) return flow;
+            used[v] = timestamp;
+            for (edge &e : g[v]) {
+                if (e.cap > 0 and used[e.to] != timestamp) {
+                    T d = dfs(e.to, t, min(flow, e.cap));
+                    if (d > 0) {
+                        e.cap -= d;
+                        g[e.to][e.rev].cap += d;
+                        return d;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        T max_flow(int s, int t) {
+            T flow = 0;
+            for (T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
+                flow += f;
+            }
+            return flow;
+        }
+    };
+
+
+snippet topological_sort
+
+    vector<int> topological_sort(const vector<vector<int>>& G)
+    {
+        int n = G.size();
+        vector<int> num(n), ord;
+        for (int i = 0; i < n; ++i) {
+            for (int u : G[i]) ++num[u];
+        }
+        stack<int> st;
+        for (int i = 0; i < n; ++i) {
+            if (num[i] == 0) st.push(i);
+        }
+        while (!st.empty()) {
+            int i = st.top(); st.pop();
+            ord.push_back(i);
+            for (int u : G[i]) {
+                --num[u];
+                if (num[u] == 0) st.push(u);
+            }
+        }
+        return ord;
     }
 
 
@@ -1717,123 +2034,173 @@ snippet edge
 
 
 
-snippet dinic
+snippet strongly_connected_components
 
-    template<typename T>
-    struct Dinic {
-        // O(EV^2)
-        struct edge {
-            int to, rev;
-            T cap;
-            edge(int to, T cap, int rev) :
-                to(to), cap(cap), rev(rev) {}
-        };
+    struct StronglyConnectedComponents {
+        int n;
+        vector<vector<int>> g, rg, graph;
+        vector<int> ord, used, comp;
 
-        vector<vector<edge>> g;
-        vector<int> level, iter;
-        const T INF;
-
-        Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
-
-        void add_edge(int s, int t, T cap) {
-            g[s].emplace_back(t, cap, (int)g[t].size());
-            g[t].emplace_back(s,   0, (int)g[s].size() - 1);
-        }
-
-        bool bfs(int s, int t) {
-            level.assign(g.size(), -1);
-            queue<int> que;
-            level[s] = 0;
-            que.push(s);
-            while (!que.empty()) {
-                int v = que.front();
-                que.pop();
-                for (auto &e : g[v]) {
-                    if (e.cap > 0 and level[e.to] == -1) {
-                        level[e.to] = level[v] + 1;
-                        que.push(e.to);
-                    }
+        StronglyConnectedComponents(const vector<vector<int>>& g) :
+                n(g.size()), g(g), rg(n), used(n), comp(n, -1)
+        {
+            for (int i = 0; i < n; ++i) {
+                for (int to : g[i]) {
+                    rg[to].push_back(i);
                 }
             }
-            return level[t] != -1;
         }
 
-        T dfs(int v, const int t, T flow) {
-            if (v == t) return flow;
-            for (int &i = iter[v]; i < g[v].size(); ++i) {
-                edge &e = g[v][i];
-                if (e.cap > 0 and level[v] < level[e.to]) {
-                    T d = dfs(e.to, t, min(flow, e.cap));
-                    if (d > 0) {
-                        e.cap -= d;
-                        g[e.to][e.rev].cap += d;
-                        return d;
-                    }
+        void build() {
+            for (int i = 0; i < n; ++i) dfs(i);
+            reverse(ord.begin(), ord.end());
+            int ptr = 0;
+            for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
+
+            graph.resize(ptr);
+            for (int i = 0; i < n; ++i) {
+                for (int to : g[i]) {
+                    int x = comp[i], y = comp[to];
+                    if (x == y) continue;
+                    graph[x].push_back(y);
                 }
             }
-            return 0;
+            for (auto& v : graph) {
+                sort(v.begin(), v.end());
+                v.erase(unique(v.begin(), v.end()), v.end());
+            }
         }
 
-        T max_flow(int s, int t) {
-            T flow = 0;
-            while (bfs(s, t)) {
-                iter.assign(g.size(), 0);
-                T f = 0;
-                while ((f = dfs(s, t, INF)) > 0) flow += f;
-            }
-            return flow;
+    private:
+        void dfs(int idx) {
+            if (used[idx]) return;
+            used[idx] = true;
+            for (int to : g[idx]) dfs(to);
+            ord.push_back(idx);
+        }
+
+        void rdfs(int idx, int cnt) {
+            if (comp[idx] != -1) return;
+            comp[idx] = cnt;
+            for (int to : rg[idx]) rdfs(to, cnt);
         }
     };
 
 
-snippet lowest_common_ancestor
 
-    struct LCA {
-        int n, log2_n;
-        vector<int> depth;
-        vector<vector<int>> par;
+snippet re_rooting
 
-        void dfs(const vector<vector<int>>& G, int v, int p, int d) {
-            depth[v] = d;
-            par[0][v] = p;
-            for (auto to : G[v]) {
-                if (to != p) dfs(G, to, v, d+1);
+    template<typename Data, typename T>
+    struct ReRooting {
+
+        struct edge {
+            int to, rev;
+            Data data;
+        };
+
+        using F1 = function<T(T, T)>;
+        using F2 = function<T(T, Data)>;
+
+        vector<vector<edge>> g;
+        vector<vector<T>> ldp, rdp;
+        vector<int> lptr, rptr;
+        const F1 f1;
+        const F2 f2;
+        const T init;
+
+        ReRooting(int n, const F1 &f1, const F2 &f2, const T &init) :
+            g(n), ldp(n), rdp(n), lptr(n), rptr(n), f1(f1), f2(f2), init(init) {}
+
+        void add_edge(int u, int v, const Data &d) {
+            g[u].emplace_back((edge){v, (int)g[v].size(), d});
+            g[v].emplace_back((edge){u, (int)g[u].size()-1, d});
+        }
+
+        T dfs(int idx, int par) {
+
+            while (lptr[idx] != par and lptr[idx] < g[idx].size()) {
+                auto &e = g[idx][lptr[idx]];
+                ldp[idx][lptr[idx]+1] = f1(
+                        ldp[idx][lptr[idx]],
+                        f2(dfs(e.to, e.rev), e.data));
+                ++lptr[idx];
+            }
+            while (rptr[idx] != par and rptr[idx] >= 0) {
+                auto &e = g[idx][rptr[idx]];
+                rdp[idx][rptr[idx]] = f1(
+                        rdp[idx][rptr[idx]+1],
+                        f2(dfs(e.to, e.rev), e.data));
+                --rptr[idx];
+            }
+            if (par < 0) return rdp[idx][0];
+            return f1(ldp[idx][par], rdp[idx][par+1]);
+        }
+
+        vector<T> solve() {
+            for (int i = 0; i < g.size(); ++i) {
+                ldp[i].assign(g[i].size()+1, init);
+                rdp[i].assign(g[i].size()+1, init);
+                lptr[i] = 0;
+                rptr[i] = (int)g[i].size()-1;
+            }
+            vector<T> ret(g.size());
+            for (int i = 0; i < g.size(); ++i) {
+                ret[i] = dfs(i, -1);
+            }
+            return ret;
+        }
+    };
+
+
+snippet lowlink
+
+    struct LowLink {
+        // require: undirected simple graph
+        vector<vector<int>> g;
+        const int sz;
+        vector<int> ord, low, par;
+        vector<int> used, _is_articulation;
+        vector<int> articulations;
+        vector<pair<int,int>> bridges;
+
+        LowLink(const vector<vector<int>>& g) :
+            g(g), sz(g.size()), ord(sz), low(sz), used(sz),
+            par(sz), _is_articulation(sz) {}
+
+        void build() {
+            int k = 0;
+            for (int i = 0; i < sz; ++i) {
+                if (!used[i]) dfs(i, -1, k);
             }
         }
 
-        LCA(const vector<vector<int>>& G, int root=0) :
-                n(G.size()), log2_n(log2(n)), depth(n),
-                par(log2_n+1, vector<int>(n,-1)) {
-
-            dfs(G, root, -1, 0);
-            for (int k = 0; k < log2_n; ++k) {
-                for (int v = 0; v < n; ++v) {
-                    if (par[k][v] != -1) {
-                        par[k+1][v] = par[k][par[k][v]];
+        void dfs(int v, int p, int& k) {
+            used[v] = 1;
+            par[v] = p;
+            low[v] = ord[v] = k++;
+            int cnt = 0;
+            for (int to : g[v]) {
+                if (!used[to]) {
+                    ++cnt;
+                    dfs(to, v, k);
+                    low[v] = min(low[v], low[to]);
+                    _is_articulation[v] |= ord[v] <= low[to];
+                    if (ord[v] < low[to]) {
+                        bridges.emplace_back(minmax(to, v));
                     }
+                } else if (to != p) {
+                    low[v] = min(low[v], ord[to]);
                 }
             }
+            if (p == -1) _is_articulation[v] = cnt > 1;
+            if (_is_articulation[v]) articulations.push_back(v);
         }
 
-        int query(int u, int v) const {
-            if (depth[u] > depth[v]) swap(u, v);
-
-            // align the depth of u and v
-            for (int k = 0; k <= log2_n; ++k) {
-                if ((depth[v] - depth[u]) >> k & 1) {
-                    v = par[k][v];
-                }
-            }
-            if (u == v) return u;
-
-            // go back until u and v's parents do not match
-            for (int k = log2_n; k >= 0; --k) {
-                if (par[k][u] != par[k][v]) {
-                    u = par[k][u];
-                    v = par[k][v];
-                }
-            }
-            return par[0][u];
+        bool is_articulation(int v) const { return _is_articulation[v]; }
+        bool is_bridge(int u, int v) const {
+            if (u != par[v] and v != par[u]) return false;
+            if (u == par[v]) swap(u, v);
+            return ord[v] < low[u];
         }
     };
 
@@ -1902,129 +2269,71 @@ snippet dijkstra
     }
 
 
-snippet maximum_clique
+snippet dinic
 
     template<typename T>
-    T maximum_clique(
-            vector<vector<bool>> G,
-            const function<T(const vector<int>&)>& f) {
+    struct Dinic {
+        // O(EV^2)
+        struct edge {
+            int to, rev;
+            T cap;
+            edge(int to, T cap, int rev) :
+                to(to), cap(cap), rev(rev) {}
+        };
 
-        // O(2^sqrt(2M) N) ?
+        vector<vector<edge>> g;
+        vector<int> level, iter;
+        const T INF;
 
-        // G: undirected graph (matrix)
-        // f: return max(f(clique set))
+        Dinic(int V) : INF(numeric_limits<T>::max()), g(V) {}
 
-        T ret = numeric_limits<T>::min();
-
-        int n = G.size();
-        vector<int> deg(n);
-        int M = 0;  // |edge|
-        for (int i = 0; i < n; ++i) {
-            for (int j = i+1; j < n; ++j) {
-                if (G[i][j]) ++deg[i], ++deg[j], ++M;
-            }
+        void add_edge(int s, int t, T cap) {
+            g[s].emplace_back(t, cap, (int)g[t].size());
+            g[t].emplace_back(s,   0, (int)g[s].size() - 1);
         }
-        vector<bool> used(n);
 
-        int lim = sqrt(2*M);
-
-        while (true) {
-            int u = -1;
-            for (int i = 0; i < n; ++i) {
-                if (!used[i] and deg[i] < lim) {
-                    u = i;
-                    used[u] = true;
-                    break;
-                }
-            }
-
-            vector<int> neighbor;
-            if (u != -1) neighbor.push_back(u);
-            for (int v = 0; v < n; ++v) if (!used[v]) {
-                if (u == -1 or G[u][v]) {
-                    neighbor.push_back(v);
-                }
-            }
-
-            int sz = neighbor.size();
-            vector<int> bit(sz);
-            for (int i = 0; i < sz; ++i) {
-                for (int j = 0; j < sz; ++j) {
-                    if (G[neighbor[i]][neighbor[j]]) {
-                        bit[i] |= 1 << j;
+        bool bfs(int s, int t) {
+            level.assign(g.size(), -1);
+            queue<int> que;
+            level[s] = 0;
+            que.push(s);
+            while (!que.empty()) {
+                int v = que.front();
+                que.pop();
+                for (auto &e : g[v]) {
+                    if (e.cap > 0 and level[e.to] == -1) {
+                        level[e.to] = level[v] + 1;
+                        que.push(e.to);
                     }
                 }
             }
+            return level[t] != -1;
+        }
 
-            vector<bool> dp(1<<sz);
-            dp[0] = true;
-            for (int s = 1; s < 1<<sz; ++s) {
-                int i = __builtin_ffs(s) - 1;
-                dp[s] = dp[s & ~(1<<i)] and (~bit[i] & s) == 0;
-                if (dp[s]) {
-                    vector<int> vs;
-                    for (int i = 0; i < sz; ++i) if (s >> i & 1) {
-                        vs.push_back(neighbor[i]);
+        T dfs(int v, const int t, T flow) {
+            if (v == t) return flow;
+            for (int &i = iter[v]; i < g[v].size(); ++i) {
+                edge &e = g[v][i];
+                if (e.cap > 0 and level[v] < level[e.to]) {
+                    T d = dfs(e.to, t, min(flow, e.cap));
+                    if (d > 0) {
+                        e.cap -= d;
+                        g[e.to][e.rev].cap += d;
+                        return d;
                     }
-                    ret = max(ret, f(vs));
                 }
             }
+            return 0;
+        }
 
-            if (u == -1) break;
-
-            for (int v : neighbor) {
-                --deg[v], --deg[u];
-                G[u][v] = G[v][u] = false;
+        T max_flow(int s, int t) {
+            T flow = 0;
+            while (bfs(s, t)) {
+                iter.assign(g.size(), 0);
+                T f = 0;
+                while ((f = dfs(s, t, INF)) > 0) flow += f;
             }
-        }
-
-        return ret;
-    }
-
-
-snippet strongly_connected_components
-
-    struct StronglyConnectedComponents {
-        vector<vector<int>> g, rg, t;
-        vector<int> comp, ord, used;
-
-        StronglyConnectedComponents(const vector<vector<int>>& g) :
-            g(g), rg(g.size()), comp(g.size(), -1), used(g.size())
-        {
-            for (int i = 0; i < g.size(); ++i) {
-                for (int to : g[i]) {
-                    rg[to].push_back(i);
-                }
-            }
-        }
-
-        void dfs(int idx) {
-            if (used[idx]) return;
-            used[idx] = true;
-            for (int to : g[idx]) dfs(to);
-            ord.push_back(idx);
-        }
-
-        void rdfs(int idx, int cnt) {
-            if (comp[idx] != -1) return;
-            comp[idx] = cnt;
-            for (int to : rg[idx]) rdfs(to, cnt);
-        }
-
-        void build() {
-            for (int i = 0; i < g.size(); ++i) dfs(i);
-            reverse(ord.begin(), ord.end());
-            int ptr = 0;
-            for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
-
-            t.resize(ptr);
-            for (int i = 0; i < g.size(); ++i) {
-                for (int to : g[i]) {
-                    int x = comp[i], y = comp[to];
-                    if (x == y) continue;
-                    t[x].push_back(y);
-                }
-            }
+            return flow;
         }
     };
 
@@ -2119,109 +2428,21 @@ snippet heavy_light_decomposition
     };
 
 
-snippet ford_fulkerson
+snippet warshall_floyd
 
     template<typename T>
-    struct FordFulkerson {
-        // O(FE)
-        struct edge {
-            int to, rev;
-            T cap;
-            edge(int to, T cap, int rev) :
-                to(to), cap(cap), rev(rev) {}
-        };
-
-        vector<vector<edge>> g;
-        vector<int> used;
-        const T INF;
-        int timestamp;
-
-        FordFulkerson(int n) :
-            INF(numeric_limits<T>::max()),
-            timestamp(0), g(n), used(n, -1) {}
-
-        void add_edge(int s, int t, T cap) {
-            g[s].emplace_back(t, cap, (int)g[t].size());
-            g[t].emplace_back(s,   0, (int)g[s].size() - 1);
-        }
-
-        T dfs(int v, const int t, T flow) {
-            if (v == t) return flow;
-            used[v] = timestamp;
-            for (edge &e : g[v]) {
-                if (e.cap > 0 and used[e.to] != timestamp) {
-                    T d = dfs(e.to, t, min(flow, e.cap));
-                    if (d > 0) {
-                        e.cap -= d;
-                        g[e.to][e.rev].cap += d;
-                        return d;
-                    }
+    void warshall_floyd(vector<vector<T>> &g) {
+        const T INF = numeric_limits<T>::max();
+        int n = g.size();
+        for (int k = 0; k < n; ++k) {
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    if (g[i][k] == INF or g[k][j] == INF) continue;
+                    g[i][j] = min(g[i][j], g[i][k] + g[k][j]);
                 }
             }
-            return 0;
         }
-
-        T max_flow(int s, int t) {
-            T flow = 0;
-            for (T f; (f = dfs(s, t, INF)) > 0; timestamp++) {
-                flow += f;
-            }
-            return flow;
-        }
-    };
-
-
-snippet lowlink
-
-    struct LowLink {
-        // require: undirected simple graph
-        vector<vector<int>> g;
-        const int sz;
-        vector<int> ord, low, par;
-        vector<int> used, _is_articulation;
-        vector<int> articulations;
-        vector<pair<int,int>> bridges;
-
-        LowLink(const vector<vector<int>>& g) :
-            g(g), sz(g.size()), ord(sz), low(sz), used(sz),
-            par(sz), _is_articulation(sz) {}
-
-        void build() {
-            int k = 0;
-            for (int i = 0; i < sz; ++i) {
-                if (!used[i]) dfs(i, -1, k);
-            }
-        }
-
-        void dfs(int v, int p, int& k) {
-            used[v] = 1;
-            par[v] = p;
-            low[v] = ord[v] = k++;
-            int cnt = 0;
-            for (int to : g[v]) {
-                if (!used[to]) {
-                    ++cnt;
-                    dfs(to, v, k);
-                    low[v] = min(low[v], low[to]);
-                    _is_articulation[v] |= ord[v] <= low[to];
-                    if (ord[v] < low[to]) {
-                        bridges.emplace_back(minmax(to, v));
-                    }
-                } else if (to != p) {
-                    low[v] = min(low[v], ord[to]);
-                }
-            }
-            if (p == -1) _is_articulation[v] = cnt > 1;
-            if (_is_articulation[v]) articulations.push_back(v);
-        }
-
-        bool is_articulation(int v) const { return _is_articulation[v]; }
-        bool is_bridge(int u, int v) const {
-            if (u != par[v] and v != par[u]) return false;
-            if (u == par[v]) swap(u, v);
-            return ord[v] < low[u];
-        }
-    };
+    }
 
 
 snippet kruskal
@@ -2250,438 +2471,224 @@ snippet kruskal
     }
 
 
-snippet re_rooting
+snippet maximum_clique
 
-    template<typename Data, typename T>
-    struct ReRooting {
+    template<typename T>
+    T maximum_clique(
+            vector<vector<bool>> G,
+            const function<T(const vector<int>&)>& f) {
 
-        struct edge {
-            int to, rev;
-            Data data;
-        };
+        // O(2^sqrt(2M) N) ?
 
-        using F1 = function<T(T, T)>;
-        using F2 = function<T(T, Data)>;
+        // G: undirected graph (matrix)
+        // f: return max(f(clique set))
 
-        vector<vector<edge>> g;
-        vector<vector<T>> ldp, rdp;
-        vector<int> lptr, rptr;
-        const F1 f1;
-        const F2 f2;
-        const T init;
+        T ret = numeric_limits<T>::min();
 
-        ReRooting(int n, const F1 &f1, const F2 &f2, const T &init) :
-            g(n), ldp(n), rdp(n), lptr(n), rptr(n), f1(f1), f2(f2), init(init) {}
-
-        void add_edge(int u, int v, const Data &d) {
-            g[u].emplace_back((edge){v, (int)g[v].size(), d});
-            g[v].emplace_back((edge){u, (int)g[u].size()-1, d});
-        }
-
-        T dfs(int idx, int par) {
-
-            while (lptr[idx] != par and lptr[idx] < g[idx].size()) {
-                auto &e = g[idx][lptr[idx]];
-                ldp[idx][lptr[idx]+1] = f1(
-                        ldp[idx][lptr[idx]],
-                        f2(dfs(e.to, e.rev), e.data));
-                ++lptr[idx];
-            }
-            while (rptr[idx] != par and rptr[idx] >= 0) {
-                auto &e = g[idx][rptr[idx]];
-                rdp[idx][rptr[idx]] = f1(
-                        rdp[idx][rptr[idx]+1],
-                        f2(dfs(e.to, e.rev), e.data));
-                --rptr[idx];
-            }
-            if (par < 0) return rdp[idx][0];
-            return f1(ldp[idx][par], rdp[idx][par+1]);
-        }
-
-        vector<T> solve() {
-            for (int i = 0; i < g.size(); ++i) {
-                ldp[i].assign(g[i].size()+1, init);
-                rdp[i].assign(g[i].size()+1, init);
-                lptr[i] = 0;
-                rptr[i] = (int)g[i].size()-1;
-            }
-            vector<T> ret(g.size());
-            for (int i = 0; i < g.size(); ++i) {
-                ret[i] = dfs(i, -1);
-            }
-            return ret;
-        }
-    };
-
-
-snippet topological_sort
-
-    vector<int> topological_sort(const vector<vector<int>>& G)
-    {
         int n = G.size();
-        vector<int> num(n), ord;
+        vector<int> deg(n);
+        int M = 0;  // |edge|
         for (int i = 0; i < n; ++i) {
-            for (int u : G[i]) ++num[u];
-        }
-        stack<int> st;
-        for (int i = 0; i < n; ++i) {
-            if (num[i] == 0) st.push(i);
-        }
-        while (!st.empty()) {
-            int i = st.top(); st.pop();
-            ord.push_back(i);
-            for (int u : G[i]) {
-                --num[u];
-                if (num[u] == 0) st.push(u);
+            for (int j = i+1; j < n; ++j) {
+                if (G[i][j]) ++deg[i], ++deg[j], ++M;
             }
         }
-        return ord;
-    }
+        vector<bool> used(n);
 
+        int lim = sqrt(2*M);
 
-snippet polygon
-
-    using Polygon = vector<Point>;
-
-    Real area(const Polygon& U) {
-        Real area = 0;
-        for (int i = 0; i < U.size(); ++i) {
-            area += cross(U[i], U[(i + 1) % U.size()]);
-        }
-        return area / 2.0;
-    }
-
-    bool is_convex(const Polygon &U) {
-        int n = U.size();
-        for (int i = 0; i < n; ++i) {
-            if (ccw(U[i], U[(i + 1) % n], U[(i + 2) % n]) == -1) return false;
-        }
-        return true;
-    }
-
-    const int OUT = 0,
-              ON = 1,
-              IN = 2;
-    int contains(const Polygon &U, const Point &p) {
-        int in = 0;
-        for (int i = 0; i < U.size(); ++i) {
-            Point a = U[i] - p, b = U[(i + 1) % U.size()] - p;
-            if (cross(a, b) == 0 and dot(a, b) <= 0) return ON;
-            if (a.imag() > b.imag()) swap(a, b);
-            if (a.imag() <= 0 and 0 < b.imag() and cross(a, b) < 0) in ^= 1;
-        }
-        return in ? IN : OUT;
-    }
-
-    vector<Point> convex_hull(vector<Point>& p, bool includeOnLine = false) {
-        int n = p.size(), k = 0;
-        if (n <= 2) return p;
-        sort(p.begin(), p.end());
-        vector<Point> ch(n * 2);
-        const Real BOUND = includeOnLine ? -EPS : EPS;
-        for (int i = 0; i < n; ch[k++] = p[i++]) {
-            while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
-        }
-        for (int i = n-2, t = k+1; i >= 0; ch[k++] = p[i--]) {
-            while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;
-        }
-        ch.resize(k-1);
-        return ch;
-    }
-
-    Real convex_diameter(const Polygon &U) {
-        int n = U.size();
-        int is = 0, js = 0;
-        for (int i = 1; i < n; ++i) {
-            if (U[i].imag() > U[is].imag()) is = i;
-            if (U[i].imag() < U[js].imag()) js = i;
-        }
-        Real maxnorm = norm(U[is] - U[js]);
-
-        int i = is, j = js;
-        do {
-            if (cross(U[(i+1) % n] - U[i], U[(j+1) % n] - U[j]) >= 0) {
-                j = (j+1) % n;
-            } else {
-                i = (i+1) % n;
+        while (true) {
+            int u = -1;
+            for (int i = 0; i < n; ++i) {
+                if (!used[i] and deg[i] < lim) {
+                    u = i;
+                    used[u] = true;
+                    break;
+                }
             }
-            if (norm(U[i] - U[j]) > maxnorm) {
-                maxnorm = norm(U[i] - U[j]);
-            }
-        } while (i != is or j != js);
-        return sqrt(maxnorm);
-    }
 
-    Polygon convex_cut(const Polygon& U, const Line& l) {
-        Polygon ret;
-        for (int i = 0; i < U.size(); ++i) {
-            Point now = U[i], nxt = U[(i + 1) % U.size()];
-            if (ccw(l.a, l.b, now) != -1) ret.push_back(now);
-            if (ccw(l.a, l.b, now) * ccw(l.a, l.b, nxt) == -1) {
-                ret.push_back(crosspoint(Line{ now, nxt }, l));
+            vector<int> neighbor;
+            if (u != -1) neighbor.push_back(u);
+            for (int v = 0; v < n; ++v) if (!used[v]) {
+                if (u == -1 or G[u][v]) {
+                    neighbor.push_back(v);
+                }
+            }
+
+            int sz = neighbor.size();
+            vector<int> bit(sz);
+            for (int i = 0; i < sz; ++i) {
+                for (int j = 0; j < sz; ++j) {
+                    if (G[neighbor[i]][neighbor[j]]) {
+                        bit[i] |= 1 << j;
+                    }
+                }
+            }
+
+            vector<bool> dp(1<<sz);
+            dp[0] = true;
+            for (int s = 1; s < 1<<sz; ++s) {
+                int i = __builtin_ffs(s) - 1;
+                dp[s] = dp[s & ~(1<<i)] and (~bit[i] & s) == 0;
+                if (dp[s]) {
+                    vector<int> vs;
+                    for (int i = 0; i < sz; ++i) if (s >> i & 1) {
+                        vs.push_back(neighbor[i]);
+                    }
+                    ret = max(ret, f(vs));
+                }
+            }
+
+            if (u == -1) break;
+
+            for (int v : neighbor) {
+                --deg[v], --deg[u];
+                G[u][v] = G[v][u] = false;
             }
         }
+
         return ret;
     }
 
-    Polygon voronoi_cell(const Point& c, const vector<Point>& ps, Polygon outer) {
-        for (const Point& p : ps) {
-            Point m = (p + c) / 2.0;
-            outer = convex_cut(outer,
-                        Line{ m, m + rotate(p - c, M_PI / 2) });
-        }
-        return outer;
-    }
 
+snippet lowest_common_ancestor
 
-snippet 2D_template
+    struct LCA {
+        int n, log2_n;
+        vector<int> depth;
+        vector<vector<int>> par;
 
-    using Real = double;
-    const Real PI = acos(-1);
-
-    using Point = complex<Real>;
-    namespace std {
-        bool operator<(const Point& a, const Point& b) {
-            if (a.real() == b.real()) return a.imag() < b.imag();
-            return a.real() < b.real();
-        }
-    }
-    struct Line {
-        Point a, b;
-        Line() {}
-        Line(const Point& a, const Point& b) : a(a), b(b) {}
-        friend ostream& operator<<(ostream& os, const Line& l) {
-            return os << "[" << l.a << "," << l.b << "]";
-        }
-    };
-    struct Segment : Line {
-        Segment() = default;
-
-        Segment(const Point& a, const Point& b) : Line(a, b) {}
-    };
-
-    inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
-
-    Real radian_to_degree(Real r) {
-        return r * 180.0 / PI;
-    }
-
-    Real degree_to_radian(Real d) {
-        return d * PI / 180.0;
-    }
-
-    Point rotate(const Point &p, Real theta) {
-        return p * polar((Real)1.0, theta);
-    }
-
-    Real cross(const Point& a, const Point& b) {
-        return a.real() * b.imag() - a.imag() * b.real();
-    }
-
-    Real dot(const Point& a, const Point& b) {
-        return a.real() * b.real() + a.imag() * b.imag();
-    }
-
-    Point projection(const Line& l, const Point& p) {
-        Real A = dot(l.b - l.a, p - l.a),
-             B = dot(l.a - l.b, p - l.b);
-        return (A * l.b + B * l.a) / (A + B);
-    }
-
-    bool parallel(const Line& l1, const Line& l2) {
-        return eq(cross(l1.a - l1.b, l2.a - l2.b), 0.0);
-    }
-
-    bool orthogonal(const Line& l1, const Line& l2) {
-        return eq(dot(l1.a - l1.b, l2.a - l2.b), 0.0);
-    }
-
-    const int COUNTER_CLOCKWISE = 1,
-              CLOCKWISE = -1,
-              ONLINE_BACK = 2,
-              ONLINE_FRONT = -2,
-              ON_SEGMENT = 0;
-    int ccw(const Point& a, Point b, Point c) {
-        b = b - a, c = c - a;
-        if (cross(b, c) > EPS) return COUNTER_CLOCKWISE;
-        if (cross(b, c) < -EPS) return CLOCKWISE;
-        if (dot(b, c) < 0) return ONLINE_BACK;
-        if (norm(b) < norm(c)) return ONLINE_FRONT;
-        return ON_SEGMENT;
-    }
-
-    bool intersected(const Line& l, const Point& p) {
-        return abs(ccw(l.a, l.b, p)) != 1;
-    }
-
-    bool intersected(const Segment& s, const Point& p) {
-        return ccw(s.a, s.b, p) == 0;
-    }
-
-    bool intersected(const Line& l, const Segment& s) {
-        return cross(l.b - l.a, s.a - l.a) * cross(l.b - l.a, s.b - l.a) < EPS;
-    }
-
-    bool intersected(const Segment& s1, const Segment& s2) {
-        return ccw(s1.a, s1.b, s2.a) * ccw(s1.a, s1.b, s2.b) <= 0 and
-               ccw(s2.a, s2.b, s1.a) * ccw(s2.a, s2.b, s1.b) <= 0;
-    }
-
-    Real distance(const Line& l, const Point& p) {
-        return abs(p - projection(l, p));
-    }
-
-    Real distance(const Segment& s, const Point& p) {
-        Point r = projection(s, p);
-        if (intersected(s, r)) return abs(r - p);
-        return min(abs(s.a - p), abs(s.b - p));
-    }
-
-    Real distance(const Line &l, const Segment &s) {
-        if (intersected(l, s)) return 0;
-        return min(distance(l, s.a), distance(l, s.b));
-    }
-
-    Real distance(const Segment& s1, const Segment& s2) {
-        if (intersected(s1, s2)) return 0.0;
-        return min({ distance(s1, s2.a), distance(s1, s2.b),
-                     distance(s2, s1.a), distance(s2, s1.b) });
-    }
-
-    Point crosspoint(const Line& l1, const Line& l2) {
-        Real A = cross(l2.a - l1.a, l2.b - l1.a),
-             B = cross(l2.b - l1.b, l2.a - l1.b);
-        return (A * l1.b + B * l1.a) / (A + B);
-    }
-
-    struct Circle {
-        Point p;
-        Real r;
-        Circle() {}
-        Circle(const Point& p, Real r) : p(p), r(r) {}
-    };
-
-
-    int intersected(Circle c1, Circle c2) {
-        if (c1.r < c2.r) swap(c1, c2);
-        Real d = abs(c1.p - c2.p);
-        if (c1.r + c2.r < d) return 4;
-        if (eq(c1.r + c2.r, d)) return 3;
-        if (c1.r - c2.r < d) return 2;
-        if (eq(c1.r - c2.r, d)) return 1;
-        return 0;
-    }
-
-    pair<Point,Point> crosspoint(const Circle& c, const Line& l) {
-        Real h = distance(l, c.p);
-        Point p = projection(l, c.p);
-        if (eq(h, c.r)) return { p, p };
-        Point u = l.a - l.b; u /= abs(u);
-        Real d = sqrt(c.r * c.r - h * h);
-        return { p + u * d, p - u * d };
-    }
-
-    pair<Point,Point> crosspoint(const Circle& c1, const Circle& c2) {
-        Real d = abs(c2.p - c1.p), t = arg(c2.p - c1.p);
-        Real a = acos((c1.r * c1.r + d * d - c2.r * c2.r) / (2 * c1.r * d));
-        return { c1.p + polar(c1.r, t + a),
-                 c1.p + polar(c1.r, t - a) };
-    }
-
-    pair<Point,Point> tangent(const Point& p, const Circle& c) {
-        return crosspoint(c, Circle(p, sqrt(norm(p - c.p) - c.r * c.r)));
-    };
-
-    vector<Line> common_tangent(const Circle& c1, const Circle& c2) {
-        vector<Line> lines;
-        Point u = c2.p - c1.p;
-        Real d = abs(u);
-        if (eq(d, 0.0)) return lines;
-        u /= d;
-        for (Real s : { -1, 1 }) {
-            Real h = (c1.r + s * c2.r) / d;
-            if (eq(abs(h), 1.0)) {
-                lines.emplace_back(
-                        c1.p + u * h * c1.r,
-                        c1.p + u * h * c1.r + rotate(u, PI / 2.0));
-            } else if (abs(h) < 1) {
-                Real a = acos(h);
-                lines.emplace_back(
-                        c1.p + u * polar(c1.r, a),
-                        c2.p - s * u * polar(c2.r, a));
-                lines.emplace_back(
-                        c1.p + u * polar(c1.r, -a),
-                        c2.p - s * u * polar(c2.r, -a));
+        void dfs(const vector<vector<int>>& G, int v, int p, int d) {
+            depth[v] = d;
+            par[0][v] = p;
+            for (auto to : G[v]) {
+                if (to != p) dfs(G, to, v, d+1);
             }
         }
-        return lines;
-    }
 
+        LCA(const vector<vector<int>>& G, int root=0) :
+                n(G.size()), log2_n(log2(n)), depth(n),
+                par(log2_n+1, vector<int>(n,-1)) {
 
-snippet 3D_template
-
-    using Real = double;
-    const Real PI = acos(-1);
-
-    struct Point3D {
-        double x, y, z;
-        Point3D() {}
-        Point3D(double x, double y, double z) : x(x), y(y), z(z) {}
-        Point3D operator+(const Point3D& b) const {
-            return Point3D(x + b.x, y + b.y, z + b.z);
+            dfs(G, root, -1, 0);
+            for (int k = 0; k < log2_n; ++k) {
+                for (int v = 0; v < n; ++v) {
+                    if (par[k][v] != -1) {
+                        par[k+1][v] = par[k][par[k][v]];
+                    }
+                }
+            }
         }
-        Point3D operator-(const Point3D& b) const {
-            return Point3D(x - b.x, y - b.y, z - b.z);
+
+        int query(int u, int v) const {
+            if (depth[u] > depth[v]) swap(u, v);
+
+            // align the depth of u and v
+            for (int k = 0; k <= log2_n; ++k) {
+                if ((depth[v] - depth[u]) >> k & 1) {
+                    v = par[k][v];
+                }
+            }
+            if (u == v) return u;
+
+            // go back until u and v's parents do not match
+            for (int k = log2_n; k >= 0; --k) {
+                if (par[k][u] != par[k][v]) {
+                    u = par[k][u];
+                    v = par[k][v];
+                }
+            }
+            return par[0][u];
         }
-        friend double norm(const Point3D& p) {
-            return p.x * p.x + p.y * p.y + p.z * p.z;
+    };
+
+
+snippet primal_dual
+
+    template<typename flow_t, typename cost_t>
+    struct PrimalDual {
+        // O(FElogV)
+        struct edge {
+            int to, rev;
+            flow_t cap;
+            cost_t cost;
+            edge(int to, flow_t cap, cost_t cost, int rev) :
+                    to(to), cap(cap), cost(cost), rev(rev) {}
         };
-        friend double abs(const Point3D& p) { return sqrt(norm(p)); }
 
-        friend ostream &operator<<(ostream &os, Point3D &p) {
-            return os << "(" << p.x << "," << p.y << "," << p.z << ")";
+        vector<vector<edge>> g;
+        const int sz;
+        const cost_t INF;
+
+        PrimalDual(int V, cost_t INF) : g(V), sz(V), INF(INF) {}
+
+        void add_edge(int s, int t, flow_t cap, cost_t cost) {
+            g[s].emplace_back(t, cap,  cost, (int)g[t].size());
+            g[t].emplace_back(s,   0, -cost, (int)g[s].size() - 1);
         }
-        friend istream &operator>>(istream &is, Point3D &p) {
-            return is >> p.x >> p.y >> p.z;
+
+        void dijkstra(
+                vector<cost_t>& dist,
+                vector<int>& prevv,
+                vector<int>& preve,
+                const vector<cost_t>& potential, int s)
+        {
+            dist.assign(sz, INF);
+            prevv.assign(sz, -1);
+            preve.assign(sz, -1);
+            using Pi = pair<cost_t, int>;
+            priority_queue<Pi, vector<Pi>, greater<Pi>> que;
+            que.emplace(0, s);
+            dist[s] = 0;
+            while (!que.empty()) {
+                cost_t cost; int v;
+                std::tie(cost, v) = que.top();
+                que.pop();
+                if (dist[v] < cost) continue;
+                for (int i = 0; i < g[v].size(); ++i) {
+                    edge &e = g[v][i];
+
+                    if (e.cost == INF or e.cost == -INF) continue;
+
+                    cost_t nextCost =
+                            dist[v] + e.cost + potential[v] - potential[e.to];
+                    if (e.cap > 0 and dist[e.to] > nextCost) {
+                        dist[e.to] = nextCost;
+                        prevv[e.to] = v, preve[e.to] = i;
+                        que.emplace(dist[e.to], e.to);
+                    }
+                }
+            }
+        }
+
+        cost_t min_cost_flow(int s, int t, flow_t f) {
+            cost_t ret = 0;
+            vector<cost_t> potential(sz, 0);
+
+            while (f > 0)
+            {
+                vector<cost_t> dist;
+                vector<int> prevv, preve;
+                dijkstra(dist, prevv, preve, potential, s);
+
+                if (dist[t] == INF) return -1;
+
+                for (int v = 0; v < sz; ++v) potential[v] += dist[v];
+
+                flow_t diff = f;
+                for (int v = t; v != s; v = prevv[v]) {
+                    diff = min(diff, g[prevv[v]][preve[v]].cap);
+                }
+                f -= diff;
+                ret += diff * potential[t];
+
+                for (int v = t; v != s; v = prevv[v]) {
+                    edge &e = g[prevv[v]][preve[v]], &re = g[v][e.rev];
+                    e.cap -= diff;
+                    re.cap += diff;
+                }
+            }
+
+            return ret;
         }
     };
-    struct Segment3D {
-        Point3D a, b;
-        Segment3D() {}
-        Segment3D(const Point3D& a, const Point3D& b) : a(a), b(b) {}
-        friend ostream &operator<<(ostream &os, Segment3D &l) {
-            return os << "[" << l.a << "," << l.b << "]";
-        }
-        friend istream &operator>>(istream &is, Segment3D &l) {
-            return is >> l.a >> l.b;
-        }
-    };
-
-    inline bool eq(Real a, Real b) { return abs(b - a) < EPS; }
-
-    double dot(const Point3D &a, const Point3D &b) {
-        return a.x * b.x + a.y * b.y + a.z * b.z;
-    }
-
-    Point3D cross(const Point3D &a, const Point3D &b) {
-        double x = a.y * b.z - a.z * b.y,
-               y = a.z * b.x - a.x * b.z,
-               z = a.x * b.y - a.y * b.x;
-        return Point3D(x, y, z);
-    }
-
-    bool parallel(
-            const Point3D &a1, const Point3D &a2,
-            const Point3D &b1, const Point3D &b2) {
-        return eq(abs(cross(a1-b1, a2-b2)), 0.);
-    }
-
-    bool parallel(const Segment3D& l1, const Segment3D& l2) {
-        return parallel(l1.a, l1.b, l2.a, l2.b);
-    }
-
-    double distance(const Segment3D &l, const Point3D &p) {
-        if (dot(l.b - l.a, p - l.a) < EPS) return abs(p - l.a);
-        if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
-        return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
-    }
