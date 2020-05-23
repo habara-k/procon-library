@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/strongly_connected_components.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 20:05:03+09:00
+    - Last commit date: 2020-05-23 16:27:08+09:00
 
 
 
@@ -54,19 +54,41 @@ layout: default
 #include "../template.cpp"
 
 struct StronglyConnectedComponents {
-    vector<vector<int>> g, rg, t;
-    vector<int> comp, ord, used;
+    int n;
+    vector<vector<int>> g, rg, graph;
+    vector<int> ord, used, comp;
 
     StronglyConnectedComponents(const vector<vector<int>>& g) :
-        g(g), rg(g.size()), comp(g.size(), -1), used(g.size())
+            n(g.size()), g(g), rg(n), used(n), comp(n, -1)
     {
-        for (int i = 0; i < g.size(); ++i) {
+        for (int i = 0; i < n; ++i) {
             for (int to : g[i]) {
                 rg[to].push_back(i);
             }
         }
     }
 
+    void build() {
+        for (int i = 0; i < n; ++i) dfs(i);
+        reverse(ord.begin(), ord.end());
+        int ptr = 0;
+        for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
+
+        graph.resize(ptr);
+        for (int i = 0; i < n; ++i) {
+            for (int to : g[i]) {
+                int x = comp[i], y = comp[to];
+                if (x == y) continue;
+                graph[x].push_back(y);
+            }
+        }
+        for (auto& v : graph) {
+            sort(v.begin(), v.end());
+            v.erase(unique(v.begin(), v.end()), v.end());
+        }
+    }
+
+private:
     void dfs(int idx) {
         if (used[idx]) return;
         used[idx] = true;
@@ -79,23 +101,8 @@ struct StronglyConnectedComponents {
         comp[idx] = cnt;
         for (int to : rg[idx]) rdfs(to, cnt);
     }
-
-    void build() {
-        for (int i = 0; i < g.size(); ++i) dfs(i);
-        reverse(ord.begin(), ord.end());
-        int ptr = 0;
-        for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
-
-        t.resize(ptr);
-        for (int i = 0; i < g.size(); ++i) {
-            for (int to : g[i]) {
-                int x = comp[i], y = comp[to];
-                if (x == y) continue;
-                t[x].push_back(y);
-            }
-        }
-    }
 };
+
 
 ```
 {% endraw %}
@@ -177,19 +184,41 @@ const ld EPS = 1e-9;
 #line 2 "lib/graph/strongly_connected_components.cpp"
 
 struct StronglyConnectedComponents {
-    vector<vector<int>> g, rg, t;
-    vector<int> comp, ord, used;
+    int n;
+    vector<vector<int>> g, rg, graph;
+    vector<int> ord, used, comp;
 
     StronglyConnectedComponents(const vector<vector<int>>& g) :
-        g(g), rg(g.size()), comp(g.size(), -1), used(g.size())
+            n(g.size()), g(g), rg(n), used(n), comp(n, -1)
     {
-        for (int i = 0; i < g.size(); ++i) {
+        for (int i = 0; i < n; ++i) {
             for (int to : g[i]) {
                 rg[to].push_back(i);
             }
         }
     }
 
+    void build() {
+        for (int i = 0; i < n; ++i) dfs(i);
+        reverse(ord.begin(), ord.end());
+        int ptr = 0;
+        for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
+
+        graph.resize(ptr);
+        for (int i = 0; i < n; ++i) {
+            for (int to : g[i]) {
+                int x = comp[i], y = comp[to];
+                if (x == y) continue;
+                graph[x].push_back(y);
+            }
+        }
+        for (auto& v : graph) {
+            sort(v.begin(), v.end());
+            v.erase(unique(v.begin(), v.end()), v.end());
+        }
+    }
+
+private:
     void dfs(int idx) {
         if (used[idx]) return;
         used[idx] = true;
@@ -202,23 +231,8 @@ struct StronglyConnectedComponents {
         comp[idx] = cnt;
         for (int to : rg[idx]) rdfs(to, cnt);
     }
-
-    void build() {
-        for (int i = 0; i < g.size(); ++i) dfs(i);
-        reverse(ord.begin(), ord.end());
-        int ptr = 0;
-        for (int i : ord) if (comp[i] == -1) rdfs(i, ptr), ptr++;
-
-        t.resize(ptr);
-        for (int i = 0; i < g.size(); ++i) {
-            for (int to : g[i]) {
-                int x = comp[i], y = comp[to];
-                if (x == y) continue;
-                t[x].push_back(y);
-            }
-        }
-    }
 };
+
 
 ```
 {% endraw %}
