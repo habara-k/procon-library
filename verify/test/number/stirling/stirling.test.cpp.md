@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#ddfa6c538fca263880a43dd0fdbf3615">test/number/stirling</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/number/stirling/stirling.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-05-22 16:18:22+09:00
+    - Last commit date: 2020-06-22 23:31:52+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I">https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/5/DPL_5_I</a>
@@ -152,7 +152,7 @@ class modint {
 public:
     modint(int64_t x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
 
-    const modint operator-() const { return x == 0 ? 0 : mod - x; }
+    const modint operator-() const { return x ? mod - x : 0; }
 
     modint& operator+=(const modint& rhs) {
         if ((x += rhs.x) >= mod) x -= mod;
@@ -195,7 +195,7 @@ public:
         return lhs.x == rhs.x;
     }
     friend bool operator!=(const modint& lhs, const modint& rhs) {
-        return lhs.x != rhs.x;
+        return !(lhs == rhs);
     }
 
     friend ostream& operator<<(ostream& os, const modint& a) {
