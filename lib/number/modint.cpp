@@ -7,7 +7,7 @@ class modint {
 public:
     modint(int64_t x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
 
-    const modint operator-() const { return x == 0 ? 0 : mod - x; }
+    const modint operator-() const { return x ? mod - x : 0; }
 
     modint& operator+=(const modint& rhs) {
         if ((x += rhs.x) >= mod) x -= mod;
@@ -50,7 +50,7 @@ public:
         return lhs.x == rhs.x;
     }
     friend bool operator!=(const modint& lhs, const modint& rhs) {
-        return lhs.x != rhs.x;
+        return !(lhs == rhs);
     }
 
     friend ostream& operator<<(ostream& os, const modint& a) {
