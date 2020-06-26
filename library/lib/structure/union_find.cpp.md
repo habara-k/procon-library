@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :question: lib/structure/union_find.cpp
+# :heavy_check_mark: lib/structure/union_find.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
@@ -38,17 +38,17 @@ layout: default
 
 ## Depends on
 
-* :question: <a href="../template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Required by
 
-* :x: <a href="../graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
+* :heavy_check_mark: <a href="../graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../../verify/test/structure/union_find/union_find.test.cpp.html">test/structure/union_find/union_find.test.cpp</a>
 
 

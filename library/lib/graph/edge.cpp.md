@@ -25,33 +25,33 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :x: lib/graph/edge.cpp
+# :heavy_check_mark: lib/graph/edge.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/edge.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-26 12:47:02+09:00
+    - Last commit date: 2020-06-26 12:49:17+09:00
 
 
 
 
 ## Depends on
 
-* :question: <a href="../template.cpp.html">lib/template.cpp</a>
+* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Required by
 
-* :x: <a href="dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
-* :x: <a href="kruskal.cpp.html">lib/graph/kruskal.cpp</a>
+* :heavy_check_mark: <a href="dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
+* :heavy_check_mark: <a href="kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 
 
 ## Verified with
 
-* :x: <a href="../../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
-* :x: <a href="../../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
-* :x: <a href="../../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
+* :heavy_check_mark: <a href="../../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
 
 
 ## Code
@@ -69,6 +69,7 @@ struct edge {
     T cost;
 };
 
+template<typename T>
 using Graph = vector<vector<edge<T>>>;
 
 #endif
@@ -161,6 +162,7 @@ struct edge {
     T cost;
 };
 
+template<typename T>
 using Graph = vector<vector<edge<T>>>;
 
 
