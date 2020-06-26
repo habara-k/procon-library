@@ -25,7 +25,7 @@ layout: default
 <link rel="stylesheet" href="../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/template.cpp
+# :question: lib/template.cpp
 
 <a href="../../index.html">Back to top page</a>
 
@@ -43,18 +43,18 @@ layout: default
 * :heavy_check_mark: <a href="geometry/2D_template.cpp.html">lib/geometry/2D_template.cpp</a>
 * :warning: <a href="geometry/3D_template.cpp.html">lib/geometry/3D_template.cpp</a>
 * :heavy_check_mark: <a href="geometry/polygon.cpp.html">lib/geometry/polygon.cpp</a>
-* :heavy_check_mark: <a href="graph/dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
+* :x: <a href="graph/dijkstra.cpp.html">lib/graph/dijkstra.cpp</a>
 * :heavy_check_mark: <a href="graph/dinic.cpp.html">lib/graph/dinic.cpp</a>
-* :heavy_check_mark: <a href="graph/edge.cpp.html">lib/graph/edge.cpp</a>
+* :x: <a href="graph/edge.cpp.html">lib/graph/edge.cpp</a>
 * :heavy_check_mark: <a href="graph/euler_tour.cpp.html">lib/graph/euler_tour.cpp</a>
 * :heavy_check_mark: <a href="graph/ford_fulkerson.cpp.html">lib/graph/ford_fulkerson.cpp</a>
 * :heavy_check_mark: <a href="graph/heavy_light_decomposition.cpp.html">lib/graph/heavy_light_decomposition.cpp</a>
-* :heavy_check_mark: <a href="graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
+* :x: <a href="graph/kruskal.cpp.html">lib/graph/kruskal.cpp</a>
 * :heavy_check_mark: <a href="graph/lowest_common_ancestor.cpp.html">lib/graph/lowest_common_ancestor.cpp</a>
 * :heavy_check_mark: <a href="graph/lowlink.cpp.html">lib/graph/lowlink.cpp</a>
 * :heavy_check_mark: <a href="graph/maximum_clique.cpp.html">lib/graph/maximum_clique.cpp</a>
 * :heavy_check_mark: <a href="graph/primal_dual.cpp.html">lib/graph/primal_dual.cpp</a>
-* :heavy_check_mark: <a href="graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
+* :x: <a href="graph/re_rooting.cpp.html">lib/graph/re_rooting.cpp</a>
 * :heavy_check_mark: <a href="graph/strongly_connected_components.cpp.html">lib/graph/strongly_connected_components.cpp</a>
 * :warning: <a href="graph/topological_sort.cpp.html">lib/graph/topological_sort.cpp</a>
 * :warning: <a href="graph/two_edge_connected_components.cpp.html">lib/graph/two_edge_connected_components.cpp</a>
@@ -85,7 +85,7 @@ layout: default
 * :heavy_check_mark: <a href="structure/lazy_segment_tree.cpp.html">lib/structure/lazy_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/persistent_segment_tree.cpp.html">lib/structure/persistent_segment_tree.cpp</a>
 * :heavy_check_mark: <a href="structure/segment_tree.cpp.html">lib/structure/segment_tree.cpp</a>
-* :heavy_check_mark: <a href="structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
+* :question: <a href="structure/union_find.cpp.html">lib/structure/union_find.cpp</a>
 * :heavy_check_mark: <a href="structure/weighted_union_find.cpp.html">lib/structure/weighted_union_find.cpp</a>
 
 
@@ -110,19 +110,19 @@ layout: default
 * :heavy_check_mark: <a href="../../verify/test/geometry/polygon/convex_hull.test.cpp.html">test/geometry/polygon/convex_hull.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/geometry/polygon/diameter.test.cpp.html">test/geometry/polygon/diameter.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/geometry/polygon/is_convex.test.cpp.html">test/geometry/polygon/is_convex.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
+* :x: <a href="../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/dinic/dinic.test.cpp.html">test/graph/dinic/dinic.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/euler_tour/euler_tour.test.cpp.html">test/graph/euler_tour/euler_tour.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/ford_fulkerson/ford_fulkerson.test.cpp.html">test/graph/ford_fulkerson/ford_fulkerson.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp.html">test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/heavy_light_decomposition/lca.test.cpp.html">test/graph/heavy_light_decomposition/lca.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
+* :x: <a href="../../verify/test/graph/kruskal/kruskal.test.cpp.html">test/graph/kruskal/kruskal.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp.html">test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowlink/articulation.test.cpp.html">test/graph/lowlink/articulation.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/lowlink/bridge.test.cpp.html">test/graph/lowlink/bridge.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/maximum_clique/maximum_clique.test.cpp.html">test/graph/maximum_clique/maximum_clique.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/primal_dual/primal_dual.test.cpp.html">test/graph/primal_dual/primal_dual.test.cpp</a>
-* :heavy_check_mark: <a href="../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
+* :x: <a href="../../verify/test/graph/re_rooting/re_rooting.test.cpp.html">test/graph/re_rooting/re_rooting.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/strongly_connected_components/strongly_connected_components.test.cpp.html">test/graph/strongly_connected_components/strongly_connected_components.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/graph/warshall_floyd/warshall_floyd.test.cpp.html">test/graph/warshall_floyd/warshall_floyd.test.cpp</a>
 * :heavy_check_mark: <a href="../../verify/test/number/bell/bell.test.cpp.html">test/number/bell/bell.test.cpp</a>

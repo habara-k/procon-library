@@ -25,26 +25,26 @@ layout: default
 <link rel="stylesheet" href="../../../assets/css/copy-button.css" />
 
 
-# :heavy_check_mark: lib/graph/dijkstra.cpp
+# :x: lib/graph/dijkstra.cpp
 
 <a href="../../../index.html">Back to top page</a>
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 20:18:25+09:00
+    - Last commit date: 2020-06-26 12:47:02+09:00
 
 
 
 
 ## Depends on
 
-* :heavy_check_mark: <a href="edge.cpp.html">lib/graph/edge.cpp</a>
-* :heavy_check_mark: <a href="../template.cpp.html">lib/template.cpp</a>
+* :x: <a href="edge.cpp.html">lib/graph/edge.cpp</a>
+* :question: <a href="../template.cpp.html">lib/template.cpp</a>
 
 
 ## Verified with
 
-* :heavy_check_mark: <a href="../../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
+* :x: <a href="../../../verify/test/graph/dijkstra/dijkstra.test.cpp.html">test/graph/dijkstra/dijkstra.test.cpp</a>
 
 
 ## Code
@@ -167,15 +167,9 @@ template<typename T>
 struct edge {
     int src, to;
     T cost;
-
-    edge() {}
-    edge(int to, T cost) : src(-1), to(to), cost(cost) {}
-    edge(int src, int to, T cost) : src(src), to(to), cost(cost) {}
-
-    friend ostream& operator<<(ostream& os, const edge& e) {
-        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
-    }
 };
+
+using Graph = vector<vector<edge<T>>>;
 
 
 #line 3 "lib/graph/dijkstra.cpp"
