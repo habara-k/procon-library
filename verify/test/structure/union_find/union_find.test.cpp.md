@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#a6ff2114eee69df4e8133581d018ead8">test/structure/union_find</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/structure/union_find/union_find.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-06-26 12:56:23+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A">https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/all/DSL_1_A</a>
@@ -148,8 +148,8 @@ const ld EPS = 1e-9;
 
 struct UnionFind
 {
-    vector<int> par, sz;
     const int n;
+    vector<int> par, sz;
     UnionFind(int n) : n(n), par(n), sz(n, 1) {
         for (int i = 0; i < n; ++i) par[i] = i;
     }

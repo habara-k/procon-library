@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#6e267a37887a7dcb68cbf7008d6c7e48">lib/graph</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/graph/dijkstra.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-26 12:49:17+09:00
+    - Last commit date: 2020-06-26 12:56:23+09:00
 
 
 
@@ -56,25 +56,22 @@ layout: default
 #include "./edge.cpp"
 
 template<typename T>
-vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
-    const T INF = numeric_limits<T>::max();
-    vector<T> d(g.size(), INF);
+vector<T> dijkstra(const Graph<T>& g, int s) {
+    const T infty = numeric_limits<T>::max();
+    vector<T> d(g.size(), infty);
 
     using Pi = pair<T, int>;
     priority_queue<Pi, vector<Pi>, greater<Pi>> que;
     d[s] = 0;
     que.emplace(d[s], s);
     while (!que.empty()) {
-        T cost;
-        int v;
-        tie(cost, v) = que.top();
+        auto [cost, v] = que.top();
         que.pop();
         if (d[v] < cost) continue;
-        for (auto &e : g[v]) {
-            T nxt = cost + e.cost;
-            if (d[e.to] > nxt) {
-                d[e.to] = nxt;
-                que.emplace(nxt, e.to);
+        for (const auto &e : g[v]) {
+            if (T alt = cost + e.cost; d[e.to] > alt) {
+                d[e.to] = alt;
+                que.emplace(alt, e.to);
             }
         }
     }
@@ -167,6 +164,10 @@ template<typename T>
 struct edge {
     int src, to;
     T cost;
+
+    friend ostream& operator<<(ostream& os, const edge& e) {
+        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
+    }
 };
 
 template<typename T>
@@ -176,25 +177,22 @@ using Graph = vector<vector<edge<T>>>;
 #line 3 "lib/graph/dijkstra.cpp"
 
 template<typename T>
-vector<T> dijkstra(const vector<vector<edge<T>>> &g, int s) {
-    const T INF = numeric_limits<T>::max();
-    vector<T> d(g.size(), INF);
+vector<T> dijkstra(const Graph<T>& g, int s) {
+    const T infty = numeric_limits<T>::max();
+    vector<T> d(g.size(), infty);
 
     using Pi = pair<T, int>;
     priority_queue<Pi, vector<Pi>, greater<Pi>> que;
     d[s] = 0;
     que.emplace(d[s], s);
     while (!que.empty()) {
-        T cost;
-        int v;
-        tie(cost, v) = que.top();
+        auto [cost, v] = que.top();
         que.pop();
         if (d[v] < cost) continue;
-        for (auto &e : g[v]) {
-            T nxt = cost + e.cost;
-            if (d[e.to] > nxt) {
-                d[e.to] = nxt;
-                que.emplace(nxt, e.to);
+        for (const auto &e : g[v]) {
+            if (T alt = cost + e.cost; d[e.to] > alt) {
+                d[e.to] = alt;
+                que.emplace(alt, e.to);
             }
         }
     }

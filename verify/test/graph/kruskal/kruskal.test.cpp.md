@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#5783499dee4ed269189fef3427a7d836">test/graph/kruskal</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/kruskal/kruskal.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-26 12:49:17+09:00
+    - Last commit date: 2020-06-26 12:56:23+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/2/GRL_2_A</a>
@@ -156,6 +156,10 @@ template<typename T>
 struct edge {
     int src, to;
     T cost;
+
+    friend ostream& operator<<(ostream& os, const edge& e) {
+        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
+    }
 };
 
 template<typename T>
@@ -166,8 +170,8 @@ using Graph = vector<vector<edge<T>>>;
 
 struct UnionFind
 {
-    vector<int> par, sz;
     const int n;
+    vector<int> par, sz;
     UnionFind(int n) : n(n), par(n), sz(n, 1) {
         for (int i = 0; i < n; ++i) par[i] = i;
     }

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/union_find.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-06-26 12:56:23+09:00
 
 
 
@@ -61,8 +61,8 @@ layout: default
 
 struct UnionFind
 {
-    vector<int> par, sz;
     const int n;
+    vector<int> par, sz;
     UnionFind(int n) : n(n), par(n), sz(n, 1) {
         for (int i = 0; i < n; ++i) par[i] = i;
     }
@@ -181,8 +181,8 @@ const ld EPS = 1e-9;
 
 struct UnionFind
 {
-    vector<int> par, sz;
     const int n;
+    vector<int> par, sz;
     UnionFind(int n) : n(n), par(n), sz(n, 1) {
         for (int i = 0; i < n; ++i) par[i] = i;
     }

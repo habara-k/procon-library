@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#201475acb17386f13f3e53190e3bcecc">test/graph/re_rooting</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/graph/re_rooting/re_rooting.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-06-26 12:49:17+09:00
+    - Last commit date: 2020-06-26 12:56:23+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A">https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_A</a>
@@ -174,6 +174,10 @@ template<typename T>
 struct edge {
     int src, to;
     T cost;
+
+    friend ostream& operator<<(ostream& os, const edge& e) {
+        return os << "(" << e.src << "->" << e.to << ":" << e.cost << ")";
+    }
 };
 
 template<typename T>
