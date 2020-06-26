@@ -2,8 +2,8 @@
 
 struct UnionFind
 {
-    vector<int> par, sz;
     const int n;
+    vector<int> par, sz;
     UnionFind(int n) : n(n), par(n), sz(n, 1) {
         for (int i = 0; i < n; ++i) par[i] = i;
     }
