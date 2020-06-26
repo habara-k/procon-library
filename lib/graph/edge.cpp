@@ -8,6 +8,7 @@ struct edge {
     T cost;
 };
 
+template<typename T>
 using Graph = vector<vector<edge<T>>>;
 
 #endif
