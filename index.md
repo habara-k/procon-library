@@ -138,20 +138,6 @@ layout: default
 * :heavy_check_mark: <a href="library/lib/structure/weighted_union_find.cpp.html">lib/structure/weighted_union_find.cpp</a>
 
 
-<div id="1e45766cad4fc615f4b62c4dd8d0991f"></div>
-
-### vim/src
-
-* :warning: <a href="library/vim/src/base-template.cpp.html">vim/src/base-template.cpp</a>
-
-
-<div id="0228fcaedf4e606a4784400ed59fd6ef"></div>
-
-### vim/template/cpp
-
-* :warning: <a href="library/vim/template/cpp/base-main.cpp.html">vim/template/cpp/base-main.cpp</a>
-
-
 ## Verify Files
 
 * :heavy_check_mark: <a href="verify/test/algorithm/inversion/inversion.test.cpp.html">test/algorithm/inversion/inversion.test.cpp</a>
