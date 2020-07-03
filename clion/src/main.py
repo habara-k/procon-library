@@ -60,7 +60,7 @@ def push_to_master():
 
     subprocess.check_call(['git', 'config', '--global', 'user.email', 'noreply@github.com'])
     subprocess.check_call(['git', 'config', '--global', 'user.name', 'GitHub'])
-    subprocess.check_call(['git', 'add', 'vim'])
+    subprocess.check_call(['git', 'add', 'clion'])
     if subprocess.run(['git', 'diff', '--quiet', '--staged']).returncode:
         subprocess.check_call(['git', 'commit', '-m', 'Create live-template files'])
         subprocess.check_call(['git', 'push', url, 'HEAD'])
