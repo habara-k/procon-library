@@ -30,12 +30,14 @@ struct RollingHash {
 
         return _mod(au*bu*2 + mu + (md<<31) + ad*bd);
     }
+
     static uint _mod(uint x) {
         uint xu = x >> 61, xd = x & MASK61;
         uint ret = xu + xd;
         if (ret >= MASK61) ret -= MASK61;
         return ret;
     }
+
     static uint gen_base() {
         mt19937 random{random_device{}()};
         uniform_int_distribution<uint> dist(2, MASK61-2);
