@@ -6,12 +6,12 @@
 
 [Online Judge Verify Helper](https://github.com/kmyk/online-judge-verify-helper) を使用している.
 
-テストファイルは`test`ディレクトリに置いている
+テストファイルは`test`ディレクトリに置いている.
 
 # clion
 - ライブテンプレート
 
-`clion/live_template/C_C__.xml`に生成される。
+Github Actions のArtifacts に`C_C__.xml` が生成される.
 
-Macだと`~/Library/Application Support/JetBrains/CLion2020.1/templates/C_C__.xml`のファイルをこれに置き換えれば動くはず。
+Macだと`~/Library/Application Support/JetBrains/CLion2020.1/templates/C_C__.xml`のファイルをこれに置き換えれば動くはず.
 
