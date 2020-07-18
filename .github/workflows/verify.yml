@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
 
     - name: Install dependencies
       run: |
@@ -25,8 +25,7 @@ jobs:
 
     - name: Create Live-templates file
       run: |
-        echo $GITHUB_WORKSPACE
-        lt-generate -d $GITHUB_WORKSPACE/lib -o C_C__.xml
+        lt-generate -d lib -o C_C__.xml
 
     - name: Upload Live-templates file
       uses: actions/upload-artifact@master
