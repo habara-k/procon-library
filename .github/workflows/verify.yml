@@ -24,7 +24,7 @@ jobs:
       run: oj-verify all
 
     - name: Create Live-templates file
-      run: lt-generate -d ./lib -o C_C__.xml
+      run: lt-generate -d $GITHUB_WORKSPACE/lib -o C_C__.xml
 
     - name: Upload Live-templates file
       uses: actions/upload-artifact@master
