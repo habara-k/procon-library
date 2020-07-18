@@ -17,11 +17,11 @@ jobs:
         pip3 install -U online-judge-verify-helper
         pip3 install -U clion-live-templates-generator
 
-    #- name: Run tests
-    #  env:
-    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #    GH_PAT: ${{ secrets.GH_PAT }}
-    #  run: oj-verify all
+    - name: Run tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: oj-verify all
 
     - name: Create Live-templates file
       run: |
