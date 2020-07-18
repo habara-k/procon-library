@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../../index.html#31a4d3622b17b59245712065ac1a2caf">test/string/rolling_hash</a>
 * <a href="{{ site.github.repository_url }}/blob/master/test/string/rolling_hash/rolling_hash.test.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-07-19 03:06:22+09:00
 
 
 * see: <a href="https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B">https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/14/ALDS1_14_B</a>
@@ -181,12 +181,14 @@ struct RollingHash {
 
         return _mod(au*bu*2 + mu + (md<<31) + ad*bd);
     }
+
     static uint _mod(uint x) {
         uint xu = x >> 61, xd = x & MASK61;
         uint ret = xu + xd;
         if (ret >= MASK61) ret -= MASK61;
         return ret;
     }
+
     static uint gen_base() {
         mt19937 random{random_device{}()};
         uniform_int_distribution<uint> dist(2, MASK61-2);

@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#9a48db5fb6f746df590a3d4604f6478b">lib/string</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/string/rolling_hash.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-07-19 03:06:22+09:00
 
 
 
@@ -83,12 +83,14 @@ struct RollingHash {
 
         return _mod(au*bu*2 + mu + (md<<31) + ad*bd);
     }
+
     static uint _mod(uint x) {
         uint xu = x >> 61, xd = x & MASK61;
         uint ret = xu + xd;
         if (ret >= MASK61) ret -= MASK61;
         return ret;
     }
+
     static uint gen_base() {
         mt19937 random{random_device{}()};
         uniform_int_distribution<uint> dist(2, MASK61-2);
@@ -205,12 +207,14 @@ struct RollingHash {
 
         return _mod(au*bu*2 + mu + (md<<31) + ad*bd);
     }
+
     static uint _mod(uint x) {
         uint xu = x >> 61, xd = x & MASK61;
         uint ret = xu + xd;
         if (ret >= MASK61) ret -= MASK61;
         return ret;
     }
+
     static uint gen_base() {
         mt19937 random{random_device{}()};
         uniform_int_distribution<uint> dist(2, MASK61-2);

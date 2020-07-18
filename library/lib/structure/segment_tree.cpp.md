@@ -31,7 +31,7 @@ layout: default
 
 * category: <a href="../../../index.html#c4d905b3311a5371af1ce28a5d3ead13">lib/structure</a>
 * <a href="{{ site.github.repository_url }}/blob/master/lib/structure/segment_tree.cpp">View this file on GitHub</a>
-    - Last commit date: 2020-04-20 18:48:42+09:00
+    - Last commit date: 2020-07-19 03:06:22+09:00
 
 
 
