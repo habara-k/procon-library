@@ -14,14 +14,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip3 install -U online-judge-verify-helper
         pip3 install -U clion-live-templates-generator
-
-    - name: Run tests
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GH_PAT: ${{ secrets.GH_PAT }}
-      run: oj-verify all
+        pip3 install -U online-judge-verify-helper
 
     - name: Create Live-templates file
       run: lt-generate -d lib
@@ -32,3 +26,10 @@ jobs:
         name: C_C__.xml
         path: C_C__.xml
       if: always()
+
+    - name: Run tests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: oj-verify all
+
