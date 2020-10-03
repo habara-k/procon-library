@@ -1,0 +1,119 @@
+---
+data:
+  _extendedDependsOn:
+  - icon: ':heavy_check_mark:'
+    path: lib/template.cpp
+    title: lib/template.cpp
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: test/graph/primal_dual/primal_dual.test.cpp
+    title: test/graph/primal_dual/primal_dual.test.cpp
+  _pathExtension: cpp
+  _verificationStatusIcon: ':heavy_check_mark:'
+  attributes:
+    links: []
+  bundledCode: "#line 1 \"lib/template.cpp\"\n\n\n#include <bits/stdc++.h>\nusing\
+    \ namespace std;\n\n// type {{{\nusing ll = long long;\nusing ull = unsigned long\
+    \ long;\nusing ld = long double;\nusing P = pair<int,int>;\nusing vi = vector<int>;\n\
+    using vll = vector<ll>;\nusing vvi = vector<vector<int>>;\nusing vvll = vector<vector<ll>>;\n\
+    // }}}\n\n\n// macro {{{\n#define REP(i,n) for (int i=0; i<(n); ++i)\n#define\
+    \ RREP(i,n) for (int i=(int)(n)-1; i>=0; --i)\n#define FOR(i,a,n) for (int i=(a);\
+    \ i<(n); ++i)\n#define RFOR(i,a,n) for (int i=(int)(n)-1; i>=(a); --i)\n\n#define\
+    \ SZ(x) ((int)(x).size())\n#define all(x) begin(x),end(x)\n// }}}\n\n\n// debug\
+    \ {{{\n#define dump(x) cerr<<#x<<\" = \"<<(x)<<endl\n#define debug(x) cerr<<#x<<\"\
+    \ = \"<<(x)<<\" (L\"<<__LINE__<<\")\"<< endl;\n\ntemplate<typename T>\nostream&\
+    \ operator<<(ostream& os, const vector<T>& v) {\n    os << \"[\";\n    REP (i,\
+    \ SZ(v)) {\n        if (i) os << \", \";\n        os << v[i];\n    }\n    return\
+    \ os << \"]\";\n}\n\ntemplate<typename T, typename U>\nostream& operator<<(ostream&\
+    \ os, const pair<T, U>& p) {\n    return os << \"(\" << p.first << \" \" << p.second\
+    \ << \")\";\n}\n// }}}\n\n\n// chmax, chmin {{{\ntemplate<class T>\nbool chmax(T&\
+    \ a, const T& b) {\n    if (a < b) { a = b; return true; }\n    return false;\n\
+    }\ntemplate<class T>\nbool chmin(T& a, const T& b) {\n    if (b < a) { a = b;\
+    \ return true; }\n    return false;\n}\n// }}}\n\n\n// constants {{{\n#define\
+    \ inf(T) (numeric_limits<T>::max() / 2)\nconst ll MOD = 1e9+7;\nconst ld EPS =\
+    \ 1e-9;\n// }}}\n\n\n#line 2 \"lib/graph/primal_dual.cpp\"\n\ntemplate<typename\
+    \ flow_t, typename cost_t>\nstruct PrimalDual {\n    // O(FElogV)\n    struct\
+    \ edge {\n        int to, rev;\n        flow_t cap;\n        cost_t cost;\n  \
+    \      edge(int to, flow_t cap, cost_t cost, int rev) :\n                to(to),\
+    \ cap(cap), cost(cost), rev(rev) {}\n    };\n\n    vector<vector<edge>> g;\n \
+    \   const int sz;\n    const cost_t INF;\n\n    PrimalDual(int V, cost_t INF)\
+    \ : g(V), sz(V), INF(INF) {}\n\n    void add_edge(int s, int t, flow_t cap, cost_t\
+    \ cost) {\n        g[s].emplace_back(t, cap,  cost, (int)g[t].size());\n     \
+    \   g[t].emplace_back(s,   0, -cost, (int)g[s].size() - 1);\n    }\n\n    void\
+    \ dijkstra(\n            vector<cost_t>& dist,\n            vector<int>& prevv,\n\
+    \            vector<int>& preve,\n            const vector<cost_t>& potential,\
+    \ int s)\n    {\n        dist.assign(sz, INF);\n        prevv.assign(sz, -1);\n\
+    \        preve.assign(sz, -1);\n        using Pi = pair<cost_t, int>;\n      \
+    \  priority_queue<Pi, vector<Pi>, greater<Pi>> que;\n        que.emplace(0, s);\n\
+    \        dist[s] = 0;\n        while (!que.empty()) {\n            cost_t cost;\
+    \ int v;\n            std::tie(cost, v) = que.top();\n            que.pop();\n\
+    \            if (dist[v] < cost) continue;\n            for (int i = 0; i < g[v].size();\
+    \ ++i) {\n                edge &e = g[v][i];\n\n                if (e.cost ==\
+    \ INF or e.cost == -INF) continue;\n\n                cost_t nextCost =\n    \
+    \                    dist[v] + e.cost + potential[v] - potential[e.to];\n    \
+    \            if (e.cap > 0 and dist[e.to] > nextCost) {\n                    dist[e.to]\
+    \ = nextCost;\n                    prevv[e.to] = v, preve[e.to] = i;\n       \
+    \             que.emplace(dist[e.to], e.to);\n                }\n            }\n\
+    \        }\n    }\n\n    cost_t min_cost_flow(int s, int t, flow_t f) {\n    \
+    \    cost_t ret = 0;\n        vector<cost_t> potential(sz, 0);\n\n        while\
+    \ (f > 0)\n        {\n            vector<cost_t> dist;\n            vector<int>\
+    \ prevv, preve;\n            dijkstra(dist, prevv, preve, potential, s);\n\n \
+    \           if (dist[t] == INF) return -1;\n\n            for (int v = 0; v <\
+    \ sz; ++v) potential[v] += dist[v];\n\n            flow_t diff = f;\n        \
+    \    for (int v = t; v != s; v = prevv[v]) {\n                diff = min(diff,\
+    \ g[prevv[v]][preve[v]].cap);\n            }\n            f -= diff;\n       \
+    \     ret += diff * potential[t];\n\n            for (int v = t; v != s; v = prevv[v])\
+    \ {\n                edge &e = g[prevv[v]][preve[v]], &re = g[v][e.rev];\n   \
+    \             e.cap -= diff;\n                re.cap += diff;\n            }\n\
+    \        }\n\n        return ret;\n    }\n};\n"
+  code: "#include \"../template.cpp\"\n\ntemplate<typename flow_t, typename cost_t>\n\
+    struct PrimalDual {\n    // O(FElogV)\n    struct edge {\n        int to, rev;\n\
+    \        flow_t cap;\n        cost_t cost;\n        edge(int to, flow_t cap, cost_t\
+    \ cost, int rev) :\n                to(to), cap(cap), cost(cost), rev(rev) {}\n\
+    \    };\n\n    vector<vector<edge>> g;\n    const int sz;\n    const cost_t INF;\n\
+    \n    PrimalDual(int V, cost_t INF) : g(V), sz(V), INF(INF) {}\n\n    void add_edge(int\
+    \ s, int t, flow_t cap, cost_t cost) {\n        g[s].emplace_back(t, cap,  cost,\
+    \ (int)g[t].size());\n        g[t].emplace_back(s,   0, -cost, (int)g[s].size()\
+    \ - 1);\n    }\n\n    void dijkstra(\n            vector<cost_t>& dist,\n    \
+    \        vector<int>& prevv,\n            vector<int>& preve,\n            const\
+    \ vector<cost_t>& potential, int s)\n    {\n        dist.assign(sz, INF);\n  \
+    \      prevv.assign(sz, -1);\n        preve.assign(sz, -1);\n        using Pi\
+    \ = pair<cost_t, int>;\n        priority_queue<Pi, vector<Pi>, greater<Pi>> que;\n\
+    \        que.emplace(0, s);\n        dist[s] = 0;\n        while (!que.empty())\
+    \ {\n            cost_t cost; int v;\n            std::tie(cost, v) = que.top();\n\
+    \            que.pop();\n            if (dist[v] < cost) continue;\n         \
+    \   for (int i = 0; i < g[v].size(); ++i) {\n                edge &e = g[v][i];\n\
+    \n                if (e.cost == INF or e.cost == -INF) continue;\n\n         \
+    \       cost_t nextCost =\n                        dist[v] + e.cost + potential[v]\
+    \ - potential[e.to];\n                if (e.cap > 0 and dist[e.to] > nextCost)\
+    \ {\n                    dist[e.to] = nextCost;\n                    prevv[e.to]\
+    \ = v, preve[e.to] = i;\n                    que.emplace(dist[e.to], e.to);\n\
+    \                }\n            }\n        }\n    }\n\n    cost_t min_cost_flow(int\
+    \ s, int t, flow_t f) {\n        cost_t ret = 0;\n        vector<cost_t> potential(sz,\
+    \ 0);\n\n        while (f > 0)\n        {\n            vector<cost_t> dist;\n\
+    \            vector<int> prevv, preve;\n            dijkstra(dist, prevv, preve,\
+    \ potential, s);\n\n            if (dist[t] == INF) return -1;\n\n           \
+    \ for (int v = 0; v < sz; ++v) potential[v] += dist[v];\n\n            flow_t\
+    \ diff = f;\n            for (int v = t; v != s; v = prevv[v]) {\n           \
+    \     diff = min(diff, g[prevv[v]][preve[v]].cap);\n            }\n          \
+    \  f -= diff;\n            ret += diff * potential[t];\n\n            for (int\
+    \ v = t; v != s; v = prevv[v]) {\n                edge &e = g[prevv[v]][preve[v]],\
+    \ &re = g[v][e.rev];\n                e.cap -= diff;\n                re.cap +=\
+    \ diff;\n            }\n        }\n\n        return ret;\n    }\n};\n"
+  dependsOn:
+  - lib/template.cpp
+  isVerificationFile: false
+  path: lib/graph/primal_dual.cpp
+  requiredBy: []
+  timestamp: '2020-05-22 14:55:46+09:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - test/graph/primal_dual/primal_dual.test.cpp
+documentation_of: lib/graph/primal_dual.cpp
+layout: document
+redirect_from:
+- /library/lib/graph/primal_dual.cpp
+- /library/lib/graph/primal_dual.cpp.html
+title: lib/graph/primal_dual.cpp
+---
