@@ -7,7 +7,7 @@
 //                   (ただし空箱はNG)
 template<typename Field>
 Field Stirling(int64_t n, int k) {
-    Combination<Field> comb(k+1);
+    Combination<Field> comb;
 
     Field ret = 0;
     for (int i = 0; i <= k; ++i) {

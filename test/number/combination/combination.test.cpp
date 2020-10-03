@@ -13,7 +13,7 @@ int main() {
     }
 
     using Int = modint<MOD>;
-    Combination<Int> comb(k+1);
+    Combination<Int> comb;
 
     cout << comb.C(k, n) * comb.fact(n) << endl;
 }
