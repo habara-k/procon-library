@@ -20,6 +20,6 @@ int main() {
     cin >> Q;
     while (Q--) {
         int x, y; cin >> x >> y;
-        printf("%d\n", hld.lca(x, y));
+        cout << hld.lca(x, y) << endl;
     }
 }

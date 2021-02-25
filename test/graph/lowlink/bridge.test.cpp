@@ -17,7 +17,7 @@ int main()
 
     sort(lowlink.bridges.begin(), lowlink.bridges.end());
     for (const auto& p : lowlink.bridges) {
-        printf("%d %d\n", p.first, p.second);
+        cout << p.first << ' ' << p.second << endl;
     }
 
     return 0;

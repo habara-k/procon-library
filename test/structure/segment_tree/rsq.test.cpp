@@ -11,6 +11,6 @@ int main() {
         int T, X, Y;
         cin >> T >> X >> Y;
         if (T == 0) tr.update(X-1, [&](int a){ return a+Y; });
-        else printf("%d\n", tr.query(X-1, Y));
+        else cout << tr.query(X-1, Y) << endl;
     }
 }

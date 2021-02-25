@@ -10,6 +10,6 @@ int main() {
         int t, x, y;
         cin >> t >> x >> y;
         if (t == 0) uf.merge(x, y);
-        else printf("%d\n", uf.root(x) == uf.root(y));
+        else cout << (uf.root(x) == uf.root(y)) << endl;
     }
 }

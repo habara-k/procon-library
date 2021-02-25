@@ -9,7 +9,7 @@ using namespace std;
 
 struct fast_ios {
     fast_ios() {
-        cin.tie(nullptr);
+        std::cin.tie(nullptr);
         ios::sync_with_stdio(false);
         cout << fixed << setprecision(20);
     };

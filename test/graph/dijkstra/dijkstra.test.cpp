@@ -13,7 +13,7 @@ int main() {
     }
 
     for (auto &dist : dijkstra(g, R)) {
-        if (dist == numeric_limits<int>::max()) puts("INF");
+        if (dist == numeric_limits<int>::max()) cout << "INF" << endl;
         else cout << dist << endl;
     }
 }

@@ -18,6 +18,6 @@ int main() {
     cin >> Q;
     while (Q--) {
         int x, y; cin >> x >> y;
-        printf("%d\n", lca.query(x, y));
+        cout << lca.query(x, y) << endl;
     }
 }
