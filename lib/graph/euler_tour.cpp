@@ -1,25 +1,24 @@
 #include "../template.cpp"
 
 struct EulerTour {
-    using G = vector<vector<int>>;
-    const G& g;
     vector<int> ds, us;
+    vector<vector<int>> g;
 
-    EulerTour(const G& g) :
+    EulerTour(const vector<vector<int>>& g) :
         g(g), ds(g.size()), us(g.size()) {}
 
-    void dfs(int v, int p, int& idx) {
-        for (int u : g[v]) {
-            if (u == p) continue;
-            ds[u] = idx++;
-            dfs(u, v, idx);
-            us[u] = idx++;
+    void dfs(int u, int p, int& idx) {
+        for (int v : g[u]) {
+            if (v == p) continue;
+            ds[v] = idx++;
+            dfs(v, u, idx);
+            us[v] = idx++;
         }
     }
 
-    void build(int v) {
+    void build(int root=0) {
         int idx = 1;
-        dfs(v, -1, idx);
-        us[v] = 2 * g.size() - 1;
+        dfs(root, -1, idx);
+        us[root] = 2 * g.size() - 1;
     }
 };
