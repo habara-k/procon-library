@@ -1,15 +1,15 @@
 #include "../template.cpp"
 
 template<ll mod>
-struct modint {
+class modint {
     int x;
 
 public:
     modint(ll x = 0) : x(x < 0 ? (mod - (-x) % mod) % mod : x % mod) {}
 
+    ll val() const { return x; }
     const modint operator-() const { return x ? mod - x : 0; }
     const modint inv() const {
-        //return pow(mod-2);
         int a = x, b = mod, u = 1, v = 0, t;
         while (b) {
             t = a / b;
