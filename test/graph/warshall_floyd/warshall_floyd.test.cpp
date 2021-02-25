@@ -18,16 +18,16 @@ int main() {
     warshall_floyd(G);
     for (int i = 0; i < V; ++i) {
         if (G[i][i] < 0) {
-            puts("NEGATIVE CYCLE");
+            cout << "NEGATIVE CYCLE" << endl;
             return 0;
         }
     }
     for (int i = 0; i < V; ++i) {
         for (int j = 0; j < V; ++j) {
-            if (j > 0) putchar(' ');
-            if (G[i][j] == INF) printf("INF");
-            else printf("%d", G[i][j]);
+            if (j) cout << ' ';
+            if (G[i][j] == INF) cout << "INF";
+            else cout << G[i][j];
         }
-        putchar('\n');
+        cout << endl;
     }
 }

@@ -4,7 +4,7 @@
 #include "../../../lib/number/combination.cpp"
 
 int main() {
-    int64_t n, k;
+    ll n, k;
     cin >> n >> k;
 
     if (n > k) {
@@ -12,7 +12,7 @@ int main() {
         return 0;
     }
 
-    using Int = modint<MOD>;
+    using Int = modint1000000007;
     Combination<Int> comb;
 
     cout << comb.C(k, n) * comb.fact(n) << endl;

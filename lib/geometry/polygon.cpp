@@ -1,4 +1,6 @@
-#include "./2D_template.cpp"
+#include "./geo2d.cpp"
+
+namespace geo2d {
 
 using Polygon = vector<Point>;
 
@@ -35,7 +37,7 @@ int contains(const Polygon &U, const Point &p) {
 vector<Point> convex_hull(vector<Point>& p, bool includeOnLine = false) {
     int n = p.size(), k = 0;
     if (n <= 2) return p;
-    sort(p.begin(), p.end());
+    sort(p.begin(), p.end(), [](Point& a, Point& b){ return a < b; });
     vector<Point> ch(n * 2);
     const Real BOUND = includeOnLine ? -EPS : EPS;
     for (int i = 0; i < n; ch[k++] = p[i++]) {
@@ -91,3 +93,5 @@ Polygon voronoi_cell(const Point& c, const vector<Point>& ps, Polygon outer) {
     }
     return outer;
 }
+
+} // namespace geo2d
