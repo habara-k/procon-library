@@ -7,6 +7,14 @@ using namespace std;
 #define ALL(x) begin(x),end(x)
 #define DUMP(x) cerr<<#x<<" = "<<(x)<<endl
 
+struct fast_ios {
+    fast_ios() {
+        cin.tie(nullptr);
+        ios::sync_with_stdio(false);
+        cout << fixed << setprecision(20);
+    };
+} fast_ios_;
+
 using ll = long long;
 
 template<class T>
