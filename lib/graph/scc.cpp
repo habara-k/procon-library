@@ -1,11 +1,11 @@
 #include "../template.cpp"
 
-struct StronglyConnectedComponents {
+struct SCC {
     int n;
     vector<vector<int>> g, rg, graph;
     vector<int> ord, used, comp;
 
-    StronglyConnectedComponents(const vector<vector<int>>& g) :
+    SCC(const vector<vector<int>>& g) :
             n(g.size()), g(g), rg(n), used(n), comp(n, -1)
     {
         for (int i = 0; i < n; ++i) {

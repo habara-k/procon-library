@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/3/GRL_3_C"
 
-#include "../../../lib/graph/strongly_connected_components.cpp"
+#include "../../../lib/graph/scc.cpp"
 
 int main() {
     int V, E, Q;
@@ -11,7 +11,7 @@ int main() {
         G[a].push_back(b);
     }
 
-    StronglyConnectedComponents scc(G);
+    SCC scc(G);
     scc.build();
 
     cin >> Q;

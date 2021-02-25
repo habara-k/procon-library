@@ -1,6 +1,6 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/5/GRL_5_E"
 
-#include "../../../lib/graph/heavy_light_decomposition.cpp"
+#include "../../../lib/tree/hld.cpp"
 #include "../../../lib/structure/lazy_segment_tree.cpp"
 
 int main()
