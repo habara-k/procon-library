@@ -2,20 +2,22 @@
 
 template<ll mod>
 class modint {
-    ll x;
+    int x;
 
 public:
-    modint(ll x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
+    modint(ll x = 0) : x(x < 0 ? (mod - (-x) % mod) % mod : x % mod) {}
 
     const modint operator-() const { return x ? mod - x : 0; }
     const modint inv() const {
-        ll a = x, b = mod, u = 1, v = 0, t;
+        //return pow(mod-2);
+        int a = x, b = mod, u = 1, v = 0, t;
         while (b) {
             t = a / b;
             swap(a -= t * b, b);
-            swap(u -= t * u, v);
+            swap(u -= t * v, v);
         }
         assert(a == 1);
+        assert(b == 0);
         return u;
     }
 
@@ -27,7 +29,7 @@ public:
         return *this += -rhs;
     }
     modint& operator*=(const modint& rhs) {
-        (x *= rhs.x) %= mod;
+        x = ((ll)x * rhs.x) % mod;
         return *this;
     }
     modint& operator/=(const modint& rhs) {
