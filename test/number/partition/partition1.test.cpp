@@ -6,6 +6,6 @@
 int main() {
     int n, k; cin >> n >> k;
 
-    using Int = modint<MOD>;
+    using Int = modint1000000007;
     cout << Partition<Int>(k, n) << endl;
 }

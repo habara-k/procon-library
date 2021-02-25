@@ -1,13 +1,14 @@
 #include "../template.cpp"
 
-template<int64_t mod>
+template<ll mod>
 class modint {
-    int64_t x;
+    ll x;
 
 public:
-    modint(int64_t x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
+    modint(ll x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
 
     const modint operator-() const { return x ? mod - x : 0; }
+    const modint inv() const { return return x ? mod - x : 0; }
 
     modint& operator+=(const modint& rhs) {
         if ((x += rhs.x) >= mod) x -= mod;
@@ -21,7 +22,7 @@ public:
         return *this;
     }
     modint& operator/=(const modint& rhs) {
-        return *this *= rhs.pow(mod - 2);
+        return *this *= rhs.inv();
     }
 
     friend const modint operator+(modint lhs, const modint& rhs) {
@@ -37,7 +38,7 @@ public:
         return lhs /= rhs;
     }
 
-    const modint pow(int64_t n) const {
+    const modint pow(ll n) const {
         modint ret = 1, tmp = *this;
         while (n) {
             if (n & 1) ret *= tmp;
@@ -57,7 +58,11 @@ public:
         return os << a.x;
     }
     friend istream& operator>>(istream& is, modint& a) {
-        int64_t tmp; is >> tmp; a = tmp;
+        ll tmp; is >> tmp; a = tmp;
         return is;
     }
 };
+
+using modint998244353 = modint<998244353>;
+using modint1000000007 = modint<1000000007>;
+

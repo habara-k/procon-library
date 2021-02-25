@@ -3,8 +3,8 @@
 #include "../../../lib/number/extended_gcd.cpp"
 
 int main() {
-    int64_t a, b; cin >> a >> b;
-    int64_t x, y;
+    ll a, b; cin >> a >> b;
+    ll x, y;
     extended_gcd(a, b, x, y);
     cout << x << " " << y << endl;
 }

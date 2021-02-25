@@ -1,5 +1,4 @@
 #include "../template.cpp"
-#include "./edge.cpp"
 #include "../structure/union_find.cpp"
 
 template<typename T>
