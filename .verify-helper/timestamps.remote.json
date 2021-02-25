@@ -40,7 +40,7 @@
 "test/number/stirling/stirling.test.cpp": "2021-02-25 14:55:56 +0900",
 "test/other/dice/dice.test.cpp": "2021-02-25 11:36:03 +0900",
 "test/string/aho_corasick/aho_corasick.test.cpp": "2021-02-25 11:36:03 +0900",
-"test/string/rolling_hash/rolling_hash.test.cpp": "2021-02-25 11:36:03 +0900",
+"test/string/rolling_hash/rolling_hash.test.cpp": "2021-02-25 15:26:11 +0900",
 "test/structure/dual_segment_tree/ruq.test.cpp": "2021-02-25 11:36:03 +0900",
 "test/structure/fenwick_tree/raq.test.cpp": "2021-02-25 11:36:03 +0900",
 "test/structure/fenwick_tree/rsq.test.cpp": "2021-02-25 11:36:03 +0900",
@@ -62,5 +62,6 @@
 "test/tree/hld/hld.test.cpp": "2021-02-25 15:08:40 +0900",
 "test/tree/hld/lca.test.cpp": "2021-02-25 15:08:40 +0900",
 "test/tree/lca/lca.test.cpp": "2021-02-25 15:24:11 +0900",
-"test/tree/re_rooting/re_rooting.test.cpp": "2021-02-25 15:24:11 +0900"
+"test/tree/re_rooting/re_rooting.test.cpp": "2021-02-25 15:24:11 +0900",
+"test/tree/tree_hash/tree_hash.test.cpp": "2021-02-25 15:27:59 +0900"
 }
