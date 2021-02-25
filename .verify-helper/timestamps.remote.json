@@ -60,5 +60,7 @@
 "test/structure/weighted_union_find/weighted_union_find.test.cpp": "2021-02-25 11:36:03 +0900",
 "test/tree/euler_tour/euler_tour.test.cpp": "2021-02-25 15:08:40 +0900",
 "test/tree/hld/hld.test.cpp": "2021-02-25 15:08:40 +0900",
-"test/tree/hld/lca.test.cpp": "2021-02-25 15:08:40 +0900"
+"test/tree/hld/lca.test.cpp": "2021-02-25 15:08:40 +0900",
+"test/tree/lca/lca.test.cpp": "2021-02-25 15:24:11 +0900",
+"test/tree/re_rooting/re_rooting.test.cpp": "2021-02-25 15:24:11 +0900"
 }
