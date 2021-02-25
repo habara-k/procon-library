@@ -1,13 +1,13 @@
 #include "../template.cpp"
 
-template<ll mod>
+template<int mod>
 class modint {
     int x;
 
 public:
     modint(ll x = 0) : x(x < 0 ? (mod - (-x) % mod) % mod : x % mod) {}
 
-    ll val() const { return x; }
+    int val() const { return x; }
     const modint operator-() const { return x ? mod - x : 0; }
     const modint inv() const {
         int a = x, b = mod, u = 1, v = 0, t;

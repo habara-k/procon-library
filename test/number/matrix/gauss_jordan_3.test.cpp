@@ -26,7 +26,7 @@ int main() {
         vector<mint> b(n*m);
         REP(i, n*m) cin >> b[i];
 
-        auto res = linear_equation<mint>(A, b, [](mint a){ return a.x; }, 1e-9);
+        auto res = linear_equation<mint>(A, b, [](mint a){ return a.val(); }, 1e-9);
         cout << !res.empty() << endl;
     }
     return 0;

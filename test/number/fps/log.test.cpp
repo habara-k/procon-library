@@ -10,9 +10,8 @@ int main()
         int x; cin >> x;
         a[i] = x;
     }
-    //cout << a.inv() << '\n';
-    cout << a.log_inplace() << '\n';
-    //cout << a.exp_inplace() << '\n';
-    //cout << a.pow_inplace(m) << '\n';
+    for (auto x : a.log_inplace()) {
+        cout << x.val() << endl;
+    }
     return 0;
 }
