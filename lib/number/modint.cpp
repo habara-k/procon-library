@@ -1,7 +1,7 @@
 #include "../template.cpp"
 
 template<ll mod>
-class modint {
+struct modint {
     int x;
 
 public:
