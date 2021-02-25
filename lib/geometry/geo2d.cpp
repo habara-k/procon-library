@@ -1,15 +1,17 @@
 #include "../template.cpp"
 
+namespace geo2d {
+
 using Real = double;
 const Real PI = acos(-1);
+const Real EPS = 1e-9;
 
 using Point = complex<Real>;
-namespace std {
-    bool operator<(const Point& a, const Point& b) {
-        if (a.real() == b.real()) return a.imag() < b.imag();
-        return a.real() < b.real();
-    }
+bool operator<(const Point& a, const Point& b) {
+    if (a.real() == b.real()) return a.imag() < b.imag();
+    return a.real() < b.real();
 }
+
 struct Line {
     Point a, b;
     Line() {}
@@ -180,3 +182,5 @@ vector<Line> common_tangent(const Circle& c1, const Circle& c2) {
     }
     return lines;
 }
+
+} // namespace geo2d

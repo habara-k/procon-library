@@ -1,6 +1,7 @@
-#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_B"
+#define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/2/CGL_2_A"
 
-#include "../../../lib/geometry/2D_template.cpp"
+#include "../../../lib/geometry/geo2d.cpp"
+using namespace geo2d;
 
 int main()
 {
@@ -11,7 +12,9 @@ int main()
         Segment l1{Point{x1, y1}, Point{x2, y2}},
                 l2{Point{x3, y3}, Point{x4, y4}};
 
-        if (intersected(l1, l2)) {
+        if (parallel(l1, l2)) {
+            cout << 2 << endl;
+        } else if (orthogonal(l1, l2)) {
             cout << 1 << endl;
         } else {
             cout << 0 << endl;

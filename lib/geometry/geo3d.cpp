@@ -1,7 +1,10 @@
 #include "../template.cpp"
 
+namespace geo3d {
+
 using Real = double;
 const Real PI = acos(-1);
+const EPS = 1e-9;
 
 struct Point3D {
     double x, y, z;
@@ -65,3 +68,5 @@ double distance(const Segment3D &l, const Point3D &p) {
     if (dot(l.a - l.b, p - l.b) < EPS) return abs(p - l.b);
     return abs(cross(l.b - l.a, p - l.a)) / abs(l.b - l.a);
 }
+
+} // namespace geo3d

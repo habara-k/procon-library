@@ -1,7 +1,8 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/1/CGL_1_A"
 #define ERROR "1e-8"
 
-#include "../../../lib/geometry/2D_template.cpp"
+#include "../../../lib/geometry/geo2d.cpp"
+using namespace geo2d;
 
 int main()
 {

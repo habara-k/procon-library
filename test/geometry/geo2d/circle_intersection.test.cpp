@@ -1,6 +1,7 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/7/CGL_7_A"
 
-#include "../../../lib/geometry/2D_template.cpp"
+#include "../../../lib/geometry/geo2d.cpp"
+using namespace geo2d;
 
 int main()
 {

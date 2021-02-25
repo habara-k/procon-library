@@ -1,4 +1,6 @@
-#include "./2D_template.cpp"
+#include "./geo2d.cpp"
+
+namespace geo2d {
 
 using Polygon = vector<Point>;
 
@@ -91,3 +93,5 @@ Polygon voronoi_cell(const Point& c, const vector<Point>& ps, Polygon outer) {
     }
     return outer;
 }
+
+} // namespace geo2d

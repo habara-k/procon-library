@@ -2,6 +2,7 @@
 #define ERROR "1e-5"
 
 #include "../../../lib/geometry/polygon.cpp"
+using namespace geo2d;
 
 int main()
 {
