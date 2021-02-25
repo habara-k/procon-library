@@ -51,11 +51,12 @@ ostream &operator<<(ostream &os, const map<T, U> &mp) {
     return os << '}';
 }
 
-const int INF = 1e9;
-const ll LINF = 1e18;
+const int INF = numeric_limits<int>::max();
+const ll LINF = numeric_limits<ll>::max();
 
+template<class T>
 struct edge {
-    int to, cost;
+    int to; T cost;
 };
 
 #endif

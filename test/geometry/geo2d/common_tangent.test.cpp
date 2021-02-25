@@ -17,7 +17,7 @@ int main()
 
     vector<Point> points;
     for (Line& l : lines) points.push_back(l.a);
-    sort(points.begin(), points.end());
+    sort(points.begin(), points.end(), [](Point& a, Point& b){ return a < b; });
 
     for (Point& p : points) {
         cout << p.real() << " " << p.imag() << endl;
