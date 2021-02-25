@@ -2,9 +2,6 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/graph/lowest_common_ancestor.cpp
-    title: lib/graph/lowest_common_ancestor.cpp
-  - icon: ':heavy_check_mark:'
     path: lib/structure/persistent_segment_tree.cpp
     title: lib/structure/persistent_segment_tree.cpp
   - icon: ':heavy_check_mark:'
@@ -13,8 +10,12 @@ data:
   - icon: ':heavy_check_mark:'
     path: lib/template.cpp
     title: lib/template.cpp
+  - icon: ':heavy_check_mark:'
+    path: lib/tree/lca.cpp
+    title: lib/tree/lca.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -25,29 +26,31 @@ data:
   bundledCode: "#line 1 \"test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp\"\
     \n#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270\"\
     \n\n#line 1 \"lib/template.cpp\"\n\n\n#include <bits/stdc++.h>\nusing namespace\
-    \ std;\n\n// type {{{\nusing ll = long long;\nusing ull = unsigned long long;\n\
-    using ld = long double;\nusing P = pair<int,int>;\nusing vi = vector<int>;\nusing\
-    \ vll = vector<ll>;\nusing vvi = vector<vector<int>>;\nusing vvll = vector<vector<ll>>;\n\
-    // }}}\n\n\n// macro {{{\n#define REP(i,n) for (int i=0; i<(n); ++i)\n#define\
-    \ RREP(i,n) for (int i=(int)(n)-1; i>=0; --i)\n#define FOR(i,a,n) for (int i=(a);\
-    \ i<(n); ++i)\n#define RFOR(i,a,n) for (int i=(int)(n)-1; i>=(a); --i)\n\n#define\
-    \ SZ(x) ((int)(x).size())\n#define all(x) begin(x),end(x)\n// }}}\n\n\n// debug\
-    \ {{{\n#define dump(x) cerr<<#x<<\" = \"<<(x)<<endl\n#define debug(x) cerr<<#x<<\"\
-    \ = \"<<(x)<<\" (L\"<<__LINE__<<\")\"<< endl;\n\ntemplate<typename T>\nostream&\
-    \ operator<<(ostream& os, const vector<T>& v) {\n    os << \"[\";\n    REP (i,\
-    \ SZ(v)) {\n        if (i) os << \", \";\n        os << v[i];\n    }\n    return\
-    \ os << \"]\";\n}\n\ntemplate<typename T, typename U>\nostream& operator<<(ostream&\
-    \ os, const pair<T, U>& p) {\n    return os << \"(\" << p.first << \" \" << p.second\
-    \ << \")\";\n}\n// }}}\n\n\n// chmax, chmin {{{\ntemplate<class T>\nbool chmax(T&\
-    \ a, const T& b) {\n    if (a < b) { a = b; return true; }\n    return false;\n\
-    }\ntemplate<class T>\nbool chmin(T& a, const T& b) {\n    if (b < a) { a = b;\
-    \ return true; }\n    return false;\n}\n// }}}\n\n\n// constants {{{\n#define\
-    \ inf(T) (numeric_limits<T>::max() / 2)\nconst ll MOD = 1e9+7;\nconst ld EPS =\
-    \ 1e-9;\n// }}}\n\n\n#line 2 \"lib/structure/persistent_segment_tree.cpp\"\n\n\
-    template<typename M>\nstruct PersistentSegmentTree {\n    struct Node {\n    \
-    \    Node *l, *r;\n        M data;\n        Node() : l(nullptr), r(nullptr) {}\n\
-    \    };\n\n    const function<M(M,M)> f;\n    const M e;\n    const int sz;\n\n\
-    \    PersistentSegmentTree(const function<M(M,M)>& f, const M& e, int sz) :\n\
+    \ std;\n\n#define REP(i,n) for (int i=0; i<(n); ++i)\n#define ALL(x) begin(x),end(x)\n\
+    #define DUMP(x) cerr<<#x<<\" = \"<<(x)<<endl\n\nstruct fast_ios {\n    fast_ios()\
+    \ {\n        std::cin.tie(nullptr);\n        ios::sync_with_stdio(false);\n  \
+    \      cout << fixed << setprecision(20);\n    };\n} fast_ios_;\n\nusing ll =\
+    \ long long;\n\ntemplate<class T>\nbool chmin(T &a, T b) {\n    if (a > b) { a\
+    \ = b; return true; }\n    return false;\n}\ntemplate<class T>\nbool chmax(T &a,\
+    \ T b) {\n    if (a < b) { a = b; return true; }\n    return false;\n}\n\ntemplate<class\
+    \ T>\nostream &operator<<(ostream &os, const vector<T> &v);\ntemplate<class T,\
+    \ class U>\nostream &operator<<(ostream &os, const pair<T, U> &p);\ntemplate<class\
+    \ T, class U>\nostream &operator<<(ostream &os, const map<T, U> &mp);\n\ntemplate<class\
+    \ T>\nostream &operator<<(ostream &os, const vector<T> &v) {\n    os << '[';\n\
+    \    REP(i, v.size()) {\n        if (i) os << ',';\n        os << v[i];\n    }\n\
+    \    return os << ']';\n}\n\ntemplate<class T, class U>\nostream &operator<<(ostream\
+    \ &os, const pair<T, U> &p) {\n    return os << '(' << p.first << ' ' << p.second\
+    \ << ')';\n}\n\ntemplate<class T, class U>\nostream &operator<<(ostream &os, const\
+    \ map<T, U> &mp) {\n    os << '{';\n    for (const auto &p : mp) {\n        os\
+    \ << p << endl;\n    }\n    return os << '}';\n}\n\nconst int INF = numeric_limits<int>::max();\n\
+    const ll LINF = numeric_limits<ll>::max();\n\ntemplate<class T>\nstruct edge {\n\
+    \    int from, to; T cost;\n    edge(int to, T cost) :\n        from(-1), to(to),\
+    \ cost(cost) {}\n    edge(int from, int to, T cost) :\n        from(from), to(to),\
+    \ cost(cost) {}\n};\n\n\n#line 2 \"lib/structure/persistent_segment_tree.cpp\"\
+    \n\ntemplate<typename M>\nstruct PersistentSegmentTree {\n    struct Node {\n\
+    \        Node *l, *r;\n        M data;\n        Node() : l(nullptr), r(nullptr)\
+    \ {}\n    };\n\n    const function<M(M,M)> f;\n    const M e;\n    const int sz;\n\
+    \n    PersistentSegmentTree(const function<M(M,M)>& f, const M& e, int sz) :\n\
     \        f(f), e(e), sz(sz) {}\n\n    Node* _new(const M& data) const {\n    \
     \    auto t = new Node();\n        t->data = data;\n        return t;\n    }\n\
     \n    Node* _new(Node* l, Node* r) const {\n        auto t = new Node();\n   \
@@ -66,7 +69,7 @@ data:
     \    if (a <= l and r <= b) return t->data;\n        return f(_query(t->l, a,\
     \ b, l, (l+r)>>1),\n                 _query(t->r, a, b, (l+r)>>1, r));\n    }\n\
     \n    M query(Node* root, int a, int b) const {\n        // return f[a,b)\n  \
-    \      return _query(root, a, b, 0, sz);\n    }\n\n};\n#line 2 \"lib/graph/lowest_common_ancestor.cpp\"\
+    \      return _query(root, a, b, 0, sz);\n    }\n\n};\n#line 2 \"lib/tree/lca.cpp\"\
     \n\nstruct LCA {\n    int n, log2_n;\n    vector<int> depth;\n    vector<vector<int>>\
     \ par;\n\n    void dfs(const vector<vector<int>>& G, int v, int p, int d) {\n\
     \        depth[v] = d;\n        par[0][v] = p;\n        for (auto to : G[v]) {\n\
@@ -111,17 +114,17 @@ data:
     }\n"
   code: "#define PROBLEM \"http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2270\"\
     \n\n#include \"../../../lib/structure/persistent_segment_tree.cpp\"\n#include\
-    \ \"../../../lib/graph/lowest_common_ancestor.cpp\"\n\nint main()\n{\n    int\
-    \ N, Q;\n    cin >> N >> Q;\n    vector<int> x(N);\n    for (int i = 0; i < N;\
-    \ ++i) {\n        cin >> x[i];\n    }\n\n    vector<vector<int>> G(N);\n    for\
-    \ (int i = 0; i < N-1; ++i) {\n        int a, b; cin >> a >> b;\n        --a,\
-    \ --b;\n        G[a].push_back(b);\n        G[b].push_back(a);\n    }\n\n    //\
-    \ compress\n    map<int,int> comp, comp_inv;\n    for (auto X : x) comp[X] = -1;\n\
-    \    int comp_size = 0;\n    for (auto &p : comp) {\n        p.second = comp_size++;\n\
-    \    }\n    for (auto p : comp) {\n        comp_inv[p.second] = p.first;\n   \
-    \ }\n\n    // lca\n    auto lca = LCA(G);\n\n    // persistent segtree\n    PersistentSegmentTree<int>\
-    \ segt(\n            [](int a,int b){ return a+b; },\n            0, comp.size());\n\
-    \n    map<int,PersistentSegmentTree<int>::Node*> root;\n    vector<int> par(N);\n\
+    \ \"../../../lib/tree/lca.cpp\"\n\nint main()\n{\n    int N, Q;\n    cin >> N\
+    \ >> Q;\n    vector<int> x(N);\n    for (int i = 0; i < N; ++i) {\n        cin\
+    \ >> x[i];\n    }\n\n    vector<vector<int>> G(N);\n    for (int i = 0; i < N-1;\
+    \ ++i) {\n        int a, b; cin >> a >> b;\n        --a, --b;\n        G[a].push_back(b);\n\
+    \        G[b].push_back(a);\n    }\n\n    // compress\n    map<int,int> comp,\
+    \ comp_inv;\n    for (auto X : x) comp[X] = -1;\n    int comp_size = 0;\n    for\
+    \ (auto &p : comp) {\n        p.second = comp_size++;\n    }\n    for (auto p\
+    \ : comp) {\n        comp_inv[p.second] = p.first;\n    }\n\n    // lca\n    auto\
+    \ lca = LCA(G);\n\n    // persistent segtree\n    PersistentSegmentTree<int> segt(\n\
+    \            [](int a,int b){ return a+b; },\n            0, comp.size());\n\n\
+    \    map<int,PersistentSegmentTree<int>::Node*> root;\n    vector<int> par(N);\n\
     \n    function<void(int,int)> dfs = [&](int v, int p) {\n        par[v] = p;\n\
     \        root[v] = segt.update(root[p],\n                comp[x[v]], [](int a){\
     \ return a+1; });\n        for (int u : G[v]) {\n            if (u != p) dfs(u,\
@@ -139,12 +142,12 @@ data:
   dependsOn:
   - lib/structure/persistent_segment_tree.cpp
   - lib/template.cpp
-  - lib/graph/lowest_common_ancestor.cpp
+  - lib/tree/lca.cpp
   - lib/template.cpp
   isVerificationFile: true
   path: test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp
   requiredBy: []
-  timestamp: '2020-05-22 14:57:54+09:00'
+  timestamp: '2021-02-25 17:59:51+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/structure/persistent_segment_tree/persistent_segment_tree.test.cpp

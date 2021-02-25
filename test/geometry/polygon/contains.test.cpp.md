@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: lib/geometry/2D_template.cpp
-    title: lib/geometry/2D_template.cpp
+    path: lib/geometry/geo2d.cpp
+    title: lib/geometry/geo2d.cpp
   - icon: ':heavy_check_mark:'
     path: lib/geometry/polygon.cpp
     title: lib/geometry/polygon.cpp
@@ -12,6 +12,7 @@ data:
     title: lib/template.cpp
   _extendedRequiredBy: []
   _extendedVerifiedWith: []
+  _isVerificationFailed: false
   _pathExtension: cpp
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
@@ -22,30 +23,32 @@ data:
   bundledCode: "#line 1 \"test/geometry/polygon/contains.test.cpp\"\n#define PROBLEM\
     \ \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/3/CGL_3_C\"\n\n#line\
     \ 1 \"lib/template.cpp\"\n\n\n#include <bits/stdc++.h>\nusing namespace std;\n\
-    \n// type {{{\nusing ll = long long;\nusing ull = unsigned long long;\nusing ld\
-    \ = long double;\nusing P = pair<int,int>;\nusing vi = vector<int>;\nusing vll\
-    \ = vector<ll>;\nusing vvi = vector<vector<int>>;\nusing vvll = vector<vector<ll>>;\n\
-    // }}}\n\n\n// macro {{{\n#define REP(i,n) for (int i=0; i<(n); ++i)\n#define\
-    \ RREP(i,n) for (int i=(int)(n)-1; i>=0; --i)\n#define FOR(i,a,n) for (int i=(a);\
-    \ i<(n); ++i)\n#define RFOR(i,a,n) for (int i=(int)(n)-1; i>=(a); --i)\n\n#define\
-    \ SZ(x) ((int)(x).size())\n#define all(x) begin(x),end(x)\n// }}}\n\n\n// debug\
-    \ {{{\n#define dump(x) cerr<<#x<<\" = \"<<(x)<<endl\n#define debug(x) cerr<<#x<<\"\
-    \ = \"<<(x)<<\" (L\"<<__LINE__<<\")\"<< endl;\n\ntemplate<typename T>\nostream&\
-    \ operator<<(ostream& os, const vector<T>& v) {\n    os << \"[\";\n    REP (i,\
-    \ SZ(v)) {\n        if (i) os << \", \";\n        os << v[i];\n    }\n    return\
-    \ os << \"]\";\n}\n\ntemplate<typename T, typename U>\nostream& operator<<(ostream&\
-    \ os, const pair<T, U>& p) {\n    return os << \"(\" << p.first << \" \" << p.second\
-    \ << \")\";\n}\n// }}}\n\n\n// chmax, chmin {{{\ntemplate<class T>\nbool chmax(T&\
-    \ a, const T& b) {\n    if (a < b) { a = b; return true; }\n    return false;\n\
-    }\ntemplate<class T>\nbool chmin(T& a, const T& b) {\n    if (b < a) { a = b;\
-    \ return true; }\n    return false;\n}\n// }}}\n\n\n// constants {{{\n#define\
-    \ inf(T) (numeric_limits<T>::max() / 2)\nconst ll MOD = 1e9+7;\nconst ld EPS =\
-    \ 1e-9;\n// }}}\n\n\n#line 2 \"lib/geometry/2D_template.cpp\"\n\nusing Real =\
-    \ double;\nconst Real PI = acos(-1);\n\nusing Point = complex<Real>;\nnamespace\
-    \ std {\n    bool operator<(const Point& a, const Point& b) {\n        if (a.real()\
-    \ == b.real()) return a.imag() < b.imag();\n        return a.real() < b.real();\n\
-    \    }\n}\nstruct Line {\n    Point a, b;\n    Line() {}\n    Line(const Point&\
-    \ a, const Point& b) : a(a), b(b) {}\n    friend ostream& operator<<(ostream&\
+    \n#define REP(i,n) for (int i=0; i<(n); ++i)\n#define ALL(x) begin(x),end(x)\n\
+    #define DUMP(x) cerr<<#x<<\" = \"<<(x)<<endl\n\nstruct fast_ios {\n    fast_ios()\
+    \ {\n        std::cin.tie(nullptr);\n        ios::sync_with_stdio(false);\n  \
+    \      cout << fixed << setprecision(20);\n    };\n} fast_ios_;\n\nusing ll =\
+    \ long long;\n\ntemplate<class T>\nbool chmin(T &a, T b) {\n    if (a > b) { a\
+    \ = b; return true; }\n    return false;\n}\ntemplate<class T>\nbool chmax(T &a,\
+    \ T b) {\n    if (a < b) { a = b; return true; }\n    return false;\n}\n\ntemplate<class\
+    \ T>\nostream &operator<<(ostream &os, const vector<T> &v);\ntemplate<class T,\
+    \ class U>\nostream &operator<<(ostream &os, const pair<T, U> &p);\ntemplate<class\
+    \ T, class U>\nostream &operator<<(ostream &os, const map<T, U> &mp);\n\ntemplate<class\
+    \ T>\nostream &operator<<(ostream &os, const vector<T> &v) {\n    os << '[';\n\
+    \    REP(i, v.size()) {\n        if (i) os << ',';\n        os << v[i];\n    }\n\
+    \    return os << ']';\n}\n\ntemplate<class T, class U>\nostream &operator<<(ostream\
+    \ &os, const pair<T, U> &p) {\n    return os << '(' << p.first << ' ' << p.second\
+    \ << ')';\n}\n\ntemplate<class T, class U>\nostream &operator<<(ostream &os, const\
+    \ map<T, U> &mp) {\n    os << '{';\n    for (const auto &p : mp) {\n        os\
+    \ << p << endl;\n    }\n    return os << '}';\n}\n\nconst int INF = numeric_limits<int>::max();\n\
+    const ll LINF = numeric_limits<ll>::max();\n\ntemplate<class T>\nstruct edge {\n\
+    \    int from, to; T cost;\n    edge(int to, T cost) :\n        from(-1), to(to),\
+    \ cost(cost) {}\n    edge(int from, int to, T cost) :\n        from(from), to(to),\
+    \ cost(cost) {}\n};\n\n\n#line 2 \"lib/geometry/geo2d.cpp\"\n\nnamespace geo2d\
+    \ {\n\nusing Real = double;\nconst Real PI = acos(-1);\nconst Real EPS = 1e-9;\n\
+    \nusing Point = complex<Real>;\nbool operator<(const Point& a, const Point& b)\
+    \ {\n    if (a.real() == b.real()) return a.imag() < b.imag();\n    return a.real()\
+    \ < b.real();\n}\n\nstruct Line {\n    Point a, b;\n    Line() {}\n    Line(const\
+    \ Point& a, const Point& b) : a(a), b(b) {}\n    friend ostream& operator<<(ostream&\
     \ os, const Line& l) {\n        return os << \"[\" << l.a << \",\" << l.b << \"\
     ]\";\n    }\n};\nstruct Segment : Line {\n    Segment() = default;\n\n    Segment(const\
     \ Point& a, const Point& b) : Line(a, b) {}\n};\n\ninline bool eq(Real a, Real\
@@ -106,61 +109,64 @@ data:
     \ lines.emplace_back(\n                    c1.p + u * polar(c1.r, a),\n      \
     \              c2.p - s * u * polar(c2.r, a));\n            lines.emplace_back(\n\
     \                    c1.p + u * polar(c1.r, -a),\n                    c2.p - s\
-    \ * u * polar(c2.r, -a));\n        }\n    }\n    return lines;\n}\n#line 2 \"\
-    lib/geometry/polygon.cpp\"\n\nusing Polygon = vector<Point>;\n\nReal area(const\
-    \ Polygon& U) {\n    Real area = 0;\n    for (int i = 0; i < U.size(); ++i) {\n\
-    \        area += cross(U[i], U[(i + 1) % U.size()]);\n    }\n    return area /\
-    \ 2.0;\n}\n\nbool is_convex(const Polygon &U) {\n    int n = U.size();\n    for\
-    \ (int i = 0; i < n; ++i) {\n        if (ccw(U[i], U[(i + 1) % n], U[(i + 2) %\
-    \ n]) == -1) return false;\n    }\n    return true;\n}\n\nconst int OUT = 0,\n\
-    \          ON = 1,\n          IN = 2;\nint contains(const Polygon &U, const Point\
-    \ &p) {\n    int in = 0;\n    for (int i = 0; i < U.size(); ++i) {\n        Point\
-    \ a = U[i] - p, b = U[(i + 1) % U.size()] - p;\n        if (cross(a, b) == 0 and\
-    \ dot(a, b) <= 0) return ON;\n        if (a.imag() > b.imag()) swap(a, b);\n \
-    \       if (a.imag() <= 0 and 0 < b.imag() and cross(a, b) < 0) in ^= 1;\n   \
-    \ }\n    return in ? IN : OUT;\n}\n\nvector<Point> convex_hull(vector<Point>&\
+    \ * u * polar(c2.r, -a));\n        }\n    }\n    return lines;\n}\n\n} // namespace\
+    \ geo2d\n#line 2 \"lib/geometry/polygon.cpp\"\n\nnamespace geo2d {\n\nusing Polygon\
+    \ = vector<Point>;\n\nReal area(const Polygon& U) {\n    Real area = 0;\n    for\
+    \ (int i = 0; i < U.size(); ++i) {\n        area += cross(U[i], U[(i + 1) % U.size()]);\n\
+    \    }\n    return area / 2.0;\n}\n\nbool is_convex(const Polygon &U) {\n    int\
+    \ n = U.size();\n    for (int i = 0; i < n; ++i) {\n        if (ccw(U[i], U[(i\
+    \ + 1) % n], U[(i + 2) % n]) == -1) return false;\n    }\n    return true;\n}\n\
+    \nconst int OUT = 0,\n          ON = 1,\n          IN = 2;\nint contains(const\
+    \ Polygon &U, const Point &p) {\n    int in = 0;\n    for (int i = 0; i < U.size();\
+    \ ++i) {\n        Point a = U[i] - p, b = U[(i + 1) % U.size()] - p;\n       \
+    \ if (cross(a, b) == 0 and dot(a, b) <= 0) return ON;\n        if (a.imag() >\
+    \ b.imag()) swap(a, b);\n        if (a.imag() <= 0 and 0 < b.imag() and cross(a,\
+    \ b) < 0) in ^= 1;\n    }\n    return in ? IN : OUT;\n}\n\nvector<Point> convex_hull(vector<Point>&\
     \ p, bool includeOnLine = false) {\n    int n = p.size(), k = 0;\n    if (n <=\
-    \ 2) return p;\n    sort(p.begin(), p.end());\n    vector<Point> ch(n * 2);\n\
-    \    const Real BOUND = includeOnLine ? -EPS : EPS;\n    for (int i = 0; i < n;\
-    \ ch[k++] = p[i++]) {\n        while (k >= 2 and cross(ch[k-1] - ch[k-2], p[i]\
-    \ - ch[k-1]) < BOUND) --k;\n    }\n    for (int i = n-2, t = k+1; i >= 0; ch[k++]\
-    \ = p[i--]) {\n        while (k >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1])\
-    \ < BOUND) --k;\n    }\n    ch.resize(k-1);\n    return ch;\n}\n\nReal convex_diameter(const\
-    \ Polygon &U) {\n    int n = U.size();\n    int is = 0, js = 0;\n    for (int\
-    \ i = 1; i < n; ++i) {\n        if (U[i].imag() > U[is].imag()) is = i;\n    \
-    \    if (U[i].imag() < U[js].imag()) js = i;\n    }\n    Real maxnorm = norm(U[is]\
-    \ - U[js]);\n\n    int i = is, j = js;\n    do {\n        if (cross(U[(i+1) %\
-    \ n] - U[i], U[(j+1) % n] - U[j]) >= 0) {\n            j = (j+1) % n;\n      \
-    \  } else {\n            i = (i+1) % n;\n        }\n        if (norm(U[i] - U[j])\
-    \ > maxnorm) {\n            maxnorm = norm(U[i] - U[j]);\n        }\n    } while\
-    \ (i != is or j != js);\n    return sqrt(maxnorm);\n}\n\nPolygon convex_cut(const\
-    \ Polygon& U, const Line& l) {\n    Polygon ret;\n    for (int i = 0; i < U.size();\
-    \ ++i) {\n        Point now = U[i], nxt = U[(i + 1) % U.size()];\n        if (ccw(l.a,\
+    \ 2) return p;\n    sort(p.begin(), p.end(), [](Point& a, Point& b){ return a\
+    \ < b; });\n    vector<Point> ch(n * 2);\n    const Real BOUND = includeOnLine\
+    \ ? -EPS : EPS;\n    for (int i = 0; i < n; ch[k++] = p[i++]) {\n        while\
+    \ (k >= 2 and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;\n    }\n\
+    \    for (int i = n-2, t = k+1; i >= 0; ch[k++] = p[i--]) {\n        while (k\
+    \ >= t and cross(ch[k-1] - ch[k-2], p[i] - ch[k-1]) < BOUND) --k;\n    }\n   \
+    \ ch.resize(k-1);\n    return ch;\n}\n\nReal convex_diameter(const Polygon &U)\
+    \ {\n    int n = U.size();\n    int is = 0, js = 0;\n    for (int i = 1; i < n;\
+    \ ++i) {\n        if (U[i].imag() > U[is].imag()) is = i;\n        if (U[i].imag()\
+    \ < U[js].imag()) js = i;\n    }\n    Real maxnorm = norm(U[is] - U[js]);\n\n\
+    \    int i = is, j = js;\n    do {\n        if (cross(U[(i+1) % n] - U[i], U[(j+1)\
+    \ % n] - U[j]) >= 0) {\n            j = (j+1) % n;\n        } else {\n       \
+    \     i = (i+1) % n;\n        }\n        if (norm(U[i] - U[j]) > maxnorm) {\n\
+    \            maxnorm = norm(U[i] - U[j]);\n        }\n    } while (i != is or\
+    \ j != js);\n    return sqrt(maxnorm);\n}\n\nPolygon convex_cut(const Polygon&\
+    \ U, const Line& l) {\n    Polygon ret;\n    for (int i = 0; i < U.size(); ++i)\
+    \ {\n        Point now = U[i], nxt = U[(i + 1) % U.size()];\n        if (ccw(l.a,\
     \ l.b, now) != -1) ret.push_back(now);\n        if (ccw(l.a, l.b, now) * ccw(l.a,\
     \ l.b, nxt) == -1) {\n            ret.push_back(crosspoint(Line{ now, nxt }, l));\n\
     \        }\n    }\n    return ret;\n}\n\nPolygon voronoi_cell(const Point& c,\
     \ const vector<Point>& ps, Polygon outer) {\n    for (const Point& p : ps) {\n\
     \        Point m = (p + c) / 2.0;\n        outer = convex_cut(outer,\n       \
     \             Line{ m, m + rotate(p - c, M_PI / 2) });\n    }\n    return outer;\n\
-    }\n#line 4 \"test/geometry/polygon/contains.test.cpp\"\n\nint main()\n{\n    int\
-    \ n; cin >> n;\n    vector<Point> p(n);\n    for (int i = 0; i < n; ++i) {\n \
-    \       double x, y; cin >> x >> y;\n        p[i] = { x, y };\n    }\n\n    int\
-    \ q; cin >> q;\n    while (q--) {\n        double x, y; cin >> x >> y;\n     \
-    \   cout << contains(p, Point{ x, y }) << endl;\n    }\n\n    return 0;\n}\n"
+    }\n\n} // namespace geo2d\n#line 4 \"test/geometry/polygon/contains.test.cpp\"\
+    \nusing namespace geo2d;\n\nint main()\n{\n    int n; cin >> n;\n    vector<Point>\
+    \ p(n);\n    for (int i = 0; i < n; ++i) {\n        double x, y; cin >> x >> y;\n\
+    \        p[i] = { x, y };\n    }\n\n    int q; cin >> q;\n    while (q--) {\n\
+    \        double x, y; cin >> x >> y;\n        cout << contains(p, Point{ x, y\
+    \ }) << endl;\n    }\n\n    return 0;\n}\n"
   code: "#define PROBLEM \"https://onlinejudge.u-aizu.ac.jp/courses/library/4/CGL/3/CGL_3_C\"\
-    \n\n#include \"../../../lib/geometry/polygon.cpp\"\n\nint main()\n{\n    int n;\
-    \ cin >> n;\n    vector<Point> p(n);\n    for (int i = 0; i < n; ++i) {\n    \
-    \    double x, y; cin >> x >> y;\n        p[i] = { x, y };\n    }\n\n    int q;\
-    \ cin >> q;\n    while (q--) {\n        double x, y; cin >> x >> y;\n        cout\
-    \ << contains(p, Point{ x, y }) << endl;\n    }\n\n    return 0;\n}\n"
+    \n\n#include \"../../../lib/geometry/polygon.cpp\"\nusing namespace geo2d;\n\n\
+    int main()\n{\n    int n; cin >> n;\n    vector<Point> p(n);\n    for (int i =\
+    \ 0; i < n; ++i) {\n        double x, y; cin >> x >> y;\n        p[i] = { x, y\
+    \ };\n    }\n\n    int q; cin >> q;\n    while (q--) {\n        double x, y; cin\
+    \ >> x >> y;\n        cout << contains(p, Point{ x, y }) << endl;\n    }\n\n \
+    \   return 0;\n}\n"
   dependsOn:
   - lib/geometry/polygon.cpp
-  - lib/geometry/2D_template.cpp
+  - lib/geometry/geo2d.cpp
   - lib/template.cpp
   isVerificationFile: true
   path: test/geometry/polygon/contains.test.cpp
   requiredBy: []
-  timestamp: '2020-04-23 00:34:26+09:00'
+  timestamp: '2021-02-25 17:59:51+09:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: test/geometry/polygon/contains.test.cpp

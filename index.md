@@ -1,22 +1,220 @@
 ---
 data:
   libraryCategories:
-  - name: lib/algorithm
+  - name: ac-library/atcoder
     pages:
     - icon: ':heavy_check_mark:'
-      path: lib/algorithm/inversion.cpp
-      title: lib/algorithm/inversion.cpp
+      path: ac-library/atcoder/convolution.hpp
+      title: ac-library/atcoder/convolution.hpp
     - icon: ':heavy_check_mark:'
-      path: lib/algorithm/longest_increasing_subsequence.cpp
-      title: lib/algorithm/longest_increasing_subsequence.cpp
+      path: ac-library/atcoder/dsu.hpp
+      title: ac-library/atcoder/dsu.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/fenwicktree.hpp
+      title: ac-library/atcoder/fenwicktree.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/internal_bit.hpp
+      title: ac-library/atcoder/internal_bit.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/internal_csr.hpp
+      title: ac-library/atcoder/internal_csr.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/internal_math.hpp
+      title: ac-library/atcoder/internal_math.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/internal_queue.hpp
+      title: ac-library/atcoder/internal_queue.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/internal_scc.hpp
+      title: ac-library/atcoder/internal_scc.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/internal_type_traits.hpp
+      title: ac-library/atcoder/internal_type_traits.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/lazysegtree.hpp
+      title: ac-library/atcoder/lazysegtree.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/math.hpp
+      title: ac-library/atcoder/math.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/maxflow.hpp
+      title: ac-library/atcoder/maxflow.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/mincostflow.hpp
+      title: ac-library/atcoder/mincostflow.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/modint.hpp
+      title: ac-library/atcoder/modint.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/scc.hpp
+      title: ac-library/atcoder/scc.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/segtree.hpp
+      title: ac-library/atcoder/segtree.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/string.hpp
+      title: ac-library/atcoder/string.hpp
+    - icon: ':heavy_check_mark:'
+      path: ac-library/atcoder/twosat.hpp
+      title: ac-library/atcoder/twosat.hpp
+  - name: ac-library
+    pages:
+    - icon: ':warning:'
+      path: ac-library/expander.py
+      title: ac-library/expander.py
+  - name: ac-library/test/benchmark
+    pages:
+    - icon: ':warning:'
+      path: ac-library/test/benchmark/convolution.cpp
+      title: ac-library/test/benchmark/convolution.cpp
+  - name: ac-library/test/example
+    pages:
+    - icon: ':warning:'
+      path: ac-library/test/example/convolution_int_practice.cpp
+      title: ac-library/test/example/convolution_int_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/convolution_practice.cpp
+      title: ac-library/test/example/convolution_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/dsu_practice.cpp
+      title: ac-library/test/example/dsu_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/fenwick_practice.cpp
+      title: ac-library/test/example/fenwick_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/floor_sum_practice.cpp
+      title: ac-library/test/example/floor_sum_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/lazyseg_practice1.cpp
+      title: ac-library/test/example/lazyseg_practice1.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/lazyseg_practice2.cpp
+      title: ac-library/test/example/lazyseg_practice2.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/maxflow_practice.cpp
+      title: ac-library/test/example/maxflow_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/mincostflow_practice.cpp
+      title: ac-library/test/example/mincostflow_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/modint_usage.cpp
+      title: ac-library/test/example/modint_usage.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/sa_practice.cpp
+      title: ac-library/test/example/sa_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/sa_usage.cpp
+      title: ac-library/test/example/sa_usage.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/scc_practice.cpp
+      title: ac-library/test/example/scc_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/segtree_practice.cpp
+      title: ac-library/test/example/segtree_practice.cpp
+    - icon: ':warning:'
+      path: ac-library/test/example/twosat_practice.cpp
+      title: ac-library/test/example/twosat_practice.cpp
+  - name: ac-library/test/expander
+    pages:
+    - icon: ':warning:'
+      path: ac-library/test/expander/comment_out.cpp
+      title: ac-library/test/expander/comment_out.cpp
+    - icon: ':warning:'
+      path: ac-library/test/expander/include_all.cpp
+      title: ac-library/test/expander/include_all.cpp
+    - icon: ':warning:'
+      path: ac-library/test/expander/include_dsu.cpp
+      title: ac-library/test/expander/include_dsu.cpp
+    - icon: ':warning:'
+      path: ac-library/test/expander/include_unusual_format.cpp
+      title: ac-library/test/expander/include_unusual_format.cpp
+  - name: ac-library/test
+    pages:
+    - icon: ':warning:'
+      path: ac-library/test/test_expander.py
+      title: ac-library/test/test_expander.py
+  - name: ac-library/test/unittest
+    pages:
+    - icon: ':warning:'
+      path: ac-library/test/unittest/basic_test.cpp
+      title: ac-library/test/unittest/basic_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/bit_test.cpp
+      title: ac-library/test/unittest/bit_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/convolution_test.cpp
+      title: ac-library/test/unittest/convolution_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/dsu_test.cpp
+      title: ac-library/test/unittest/dsu_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/fenwicktree_test.cpp
+      title: ac-library/test/unittest/fenwicktree_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/internal_math_test.cpp
+      title: ac-library/test/unittest/internal_math_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/lazysegtree_stress_test.cpp
+      title: ac-library/test/unittest/lazysegtree_stress_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/lazysegtree_test.cpp
+      title: ac-library/test/unittest/lazysegtree_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/math_test.cpp
+      title: ac-library/test/unittest/math_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/maxflow_test.cpp
+      title: ac-library/test/unittest/maxflow_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/mincostflow_test.cpp
+      title: ac-library/test/unittest/mincostflow_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/modint_test.cpp
+      title: ac-library/test/unittest/modint_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/scc_test.cpp
+      title: ac-library/test/unittest/scc_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/segtree_test.cpp
+      title: ac-library/test/unittest/segtree_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/string_test.cpp
+      title: ac-library/test/unittest/string_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/twosat_test.cpp
+      title: ac-library/test/unittest/twosat_test.cpp
+    - icon: ':warning:'
+      path: ac-library/test/unittest/type_traits_test.cpp
+      title: ac-library/test/unittest/type_traits_test.cpp
+  - name: ac-library/test/unittest/utils
+    pages:
+    - icon: ':warning:'
+      path: ac-library/test/unittest/utils/math_test.cpp
+      title: ac-library/test/unittest/utils/math_test.cpp
+  - name: ac-library/test/utils
+    pages:
+    - icon: ':warning:'
+      path: ac-library/test/utils/math.hpp
+      title: ac-library/test/utils/math.hpp
+    - icon: ':warning:'
+      path: ac-library/test/utils/random.hpp
+      title: ac-library/test/utils/random.hpp
+  - name: ac-library/tools
+    pages:
+    - icon: ':warning:'
+      path: ac-library/tools/generate_document.py
+      title: ac-library/tools/generate_document.py
+    - icon: ':warning:'
+      path: ac-library/tools/generate_zip.py
+      title: ac-library/tools/generate_zip.py
   - name: lib/geometry
     pages:
     - icon: ':heavy_check_mark:'
-      path: lib/geometry/2D_template.cpp
-      title: lib/geometry/2D_template.cpp
+      path: lib/geometry/geo2d.cpp
+      title: lib/geometry/geo2d.cpp
     - icon: ':warning:'
-      path: lib/geometry/3D_template.cpp
-      title: lib/geometry/3D_template.cpp
+      path: lib/geometry/geo3d.cpp
+      title: lib/geometry/geo3d.cpp
     - icon: ':heavy_check_mark:'
       path: lib/geometry/polygon.cpp
       title: lib/geometry/polygon.cpp
@@ -29,23 +227,11 @@ data:
       path: lib/graph/dinic.cpp
       title: lib/graph/dinic.cpp
     - icon: ':heavy_check_mark:'
-      path: lib/graph/edge.cpp
-      title: lib/graph/edge.cpp
-    - icon: ':heavy_check_mark:'
-      path: lib/graph/euler_tour.cpp
-      title: lib/graph/euler_tour.cpp
-    - icon: ':heavy_check_mark:'
       path: lib/graph/ford_fulkerson.cpp
       title: lib/graph/ford_fulkerson.cpp
     - icon: ':heavy_check_mark:'
-      path: lib/graph/heavy_light_decomposition.cpp
-      title: lib/graph/heavy_light_decomposition.cpp
-    - icon: ':heavy_check_mark:'
       path: lib/graph/kruskal.cpp
       title: lib/graph/kruskal.cpp
-    - icon: ':heavy_check_mark:'
-      path: lib/graph/lowest_common_ancestor.cpp
-      title: lib/graph/lowest_common_ancestor.cpp
     - icon: ':heavy_check_mark:'
       path: lib/graph/lowlink.cpp
       title: lib/graph/lowlink.cpp
@@ -56,11 +242,8 @@ data:
       path: lib/graph/primal_dual.cpp
       title: lib/graph/primal_dual.cpp
     - icon: ':heavy_check_mark:'
-      path: lib/graph/re_rooting.cpp
-      title: lib/graph/re_rooting.cpp
-    - icon: ':heavy_check_mark:'
-      path: lib/graph/strongly_connected_components.cpp
-      title: lib/graph/strongly_connected_components.cpp
+      path: lib/graph/scc.cpp
+      title: lib/graph/scc.cpp
     - icon: ':warning:'
       path: lib/graph/topological_sort.cpp
       title: lib/graph/topological_sort.cpp
@@ -91,9 +274,9 @@ data:
       path: lib/number/fast_zeta_transform.cpp
       title: lib/number/fast_zeta_transform.cpp
     - icon: ':heavy_check_mark:'
-      path: lib/number/is_prime.cpp
-      title: lib/number/is_prime.cpp
-    - icon: ':warning:'
+      path: lib/number/fps.cpp
+      title: lib/number/fps.cpp
+    - icon: ':heavy_check_mark:'
       path: lib/number/matrix.cpp
       title: lib/number/matrix.cpp
     - icon: ':heavy_check_mark:'
@@ -102,9 +285,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/number/partition.cpp
       title: lib/number/partition.cpp
-    - icon: ':heavy_check_mark:'
-      path: lib/number/permutation.cpp
-      title: lib/number/permutation.cpp
     - icon: ':heavy_check_mark:'
       path: lib/number/prime_factorize.cpp
       title: lib/number/prime_factorize.cpp
@@ -119,14 +299,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/other/dice.cpp
       title: lib/other/dice.cpp
-  - name: lib/parse
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: lib/parse/expression.cpp
-      title: lib/parse/expression.cpp
-    - icon: ':heavy_check_mark:'
-      path: lib/parse/parser.cpp
-      title: lib/parse/parser.cpp
   - name: lib/string
     pages:
     - icon: ':heavy_check_mark:'
@@ -141,11 +313,11 @@ data:
   - name: lib/structure
     pages:
     - icon: ':heavy_check_mark:'
-      path: lib/structure/binary_indexed_tree.cpp
-      title: lib/structure/binary_indexed_tree.cpp
-    - icon: ':heavy_check_mark:'
       path: lib/structure/dual_segment_tree.cpp
       title: lib/structure/dual_segment_tree.cpp
+    - icon: ':heavy_check_mark:'
+      path: lib/structure/fenwick_tree.cpp
+      title: lib/structure/fenwick_tree.cpp
     - icon: ':heavy_check_mark:'
       path: lib/structure/lazy_randomized_binary_search_tree.cpp
       title: lib/structure/lazy_randomized_binary_search_tree.cpp
@@ -169,52 +341,65 @@ data:
     - icon: ':heavy_check_mark:'
       path: lib/template.cpp
       title: lib/template.cpp
+  - name: lib/tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/centroid.cpp
+      title: lib/tree/centroid.cpp
+    - icon: ':warning:'
+      path: lib/tree/centroid_decomposition.cpp
+      title: lib/tree/centroid_decomposition.cpp
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/euler_tour.cpp
+      title: lib/tree/euler_tour.cpp
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/hld.cpp
+      title: lib/tree/hld.cpp
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/lca.cpp
+      title: lib/tree/lca.cpp
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/re_rooting.cpp
+      title: lib/tree/re_rooting.cpp
+    - icon: ':heavy_check_mark:'
+      path: lib/tree/tree_hash.cpp
+      title: lib/tree/tree_hash.cpp
   verificationCategories:
-  - name: test/algorithm/inversion
+  - name: test/geometry/geo2d
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/algorithm/inversion/inversion.test.cpp
-      title: test/algorithm/inversion/inversion.test.cpp
-  - name: test/algorithm/longest_increasing_subsequence
-    pages:
+      path: test/geometry/geo2d/circle_crosspoint.test.cpp
+      title: test/geometry/geo2d/circle_crosspoint.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp
-      title: test/algorithm/longest_increasing_subsequence/longest_increasing_subsequence.test.cpp
-  - name: test/geometry/2D_template
-    pages:
+      path: test/geometry/geo2d/circle_intersection.test.cpp
+      title: test/geometry/geo2d/circle_intersection.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/circle_crosspoint.test.cpp
-      title: test/geometry/2D_template/circle_crosspoint.test.cpp
+      path: test/geometry/geo2d/circle_line_crosspoint.test.cpp
+      title: test/geometry/geo2d/circle_line_crosspoint.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/circle_intersection.test.cpp
-      title: test/geometry/2D_template/circle_intersection.test.cpp
+      path: test/geometry/geo2d/common_tangent.test.cpp
+      title: test/geometry/geo2d/common_tangent.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/circle_line_crosspoint.test.cpp
-      title: test/geometry/2D_template/circle_line_crosspoint.test.cpp
+      path: test/geometry/geo2d/counter_clockwise.test.cpp
+      title: test/geometry/geo2d/counter_clockwise.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/common_tangent.test.cpp
-      title: test/geometry/2D_template/common_tangent.test.cpp
+      path: test/geometry/geo2d/crosspoint.test.cpp
+      title: test/geometry/geo2d/crosspoint.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/counter_clockwise.test.cpp
-      title: test/geometry/2D_template/counter_clockwise.test.cpp
+      path: test/geometry/geo2d/distance.test.cpp
+      title: test/geometry/geo2d/distance.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/crosspoint.test.cpp
-      title: test/geometry/2D_template/crosspoint.test.cpp
+      path: test/geometry/geo2d/intersection.test.cpp
+      title: test/geometry/geo2d/intersection.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/distance.test.cpp
-      title: test/geometry/2D_template/distance.test.cpp
+      path: test/geometry/geo2d/parallel_orthogonal.test.cpp
+      title: test/geometry/geo2d/parallel_orthogonal.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/intersection.test.cpp
-      title: test/geometry/2D_template/intersection.test.cpp
+      path: test/geometry/geo2d/projection.test.cpp
+      title: test/geometry/geo2d/projection.test.cpp
     - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/parallel_orthogonal.test.cpp
-      title: test/geometry/2D_template/parallel_orthogonal.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/projection.test.cpp
-      title: test/geometry/2D_template/projection.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/geometry/2D_template/tangent.test.cpp
-      title: test/geometry/2D_template/tangent.test.cpp
+      path: test/geometry/geo2d/tangent.test.cpp
+      title: test/geometry/geo2d/tangent.test.cpp
   - name: test/geometry/polygon
     pages:
     - icon: ':heavy_check_mark:'
@@ -245,34 +430,16 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/dinic/dinic.test.cpp
       title: test/graph/dinic/dinic.test.cpp
-  - name: test/graph/euler_tour
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/graph/euler_tour/euler_tour.test.cpp
-      title: test/graph/euler_tour/euler_tour.test.cpp
   - name: test/graph/ford_fulkerson
     pages:
     - icon: ':heavy_check_mark:'
       path: test/graph/ford_fulkerson/ford_fulkerson.test.cpp
       title: test/graph/ford_fulkerson/ford_fulkerson.test.cpp
-  - name: test/graph/heavy_light_decomposition
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp
-      title: test/graph/heavy_light_decomposition/heavy_light_decomposition.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/graph/heavy_light_decomposition/lca.test.cpp
-      title: test/graph/heavy_light_decomposition/lca.test.cpp
   - name: test/graph/kruskal
     pages:
     - icon: ':heavy_check_mark:'
       path: test/graph/kruskal/kruskal.test.cpp
       title: test/graph/kruskal/kruskal.test.cpp
-  - name: test/graph/lowest_common_ancestor
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp
-      title: test/graph/lowest_common_ancestor/lowest_common_ancesstor.test.cpp
   - name: test/graph/lowlink
     pages:
     - icon: ':heavy_check_mark:'
@@ -291,16 +458,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/graph/primal_dual/primal_dual.test.cpp
       title: test/graph/primal_dual/primal_dual.test.cpp
-  - name: test/graph/re_rooting
+  - name: test/graph/scc
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/graph/re_rooting/re_rooting.test.cpp
-      title: test/graph/re_rooting/re_rooting.test.cpp
-  - name: test/graph/strongly_connected_components
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/graph/strongly_connected_components/strongly_connected_components.test.cpp
-      title: test/graph/strongly_connected_components/strongly_connected_components.test.cpp
+      path: test/graph/scc/scc.test.cpp
+      title: test/graph/scc/scc.test.cpp
   - name: test/graph/warshall_floyd
     pages:
     - icon: ':heavy_check_mark:'
@@ -321,11 +483,31 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/number/extended_gcd/extended_gcd.test.cpp
       title: test/number/extended_gcd/extended_gcd.test.cpp
-  - name: test/number/is_prime
+  - name: test/number/fps
     pages:
     - icon: ':heavy_check_mark:'
-      path: test/number/is_prime/is_prime.test.cpp
-      title: test/number/is_prime/is_prime.test.cpp
+      path: test/number/fps/exp.test.cpp
+      title: test/number/fps/exp.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/number/fps/inv.test.cpp
+      title: test/number/fps/inv.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/number/fps/log.test.cpp
+      title: test/number/fps/log.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/number/fps/pow.test.cpp
+      title: test/number/fps/pow.test.cpp
+  - name: test/number/matrix
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/number/matrix/gauss_jordan.test.cpp
+      title: test/number/matrix/gauss_jordan.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/number/matrix/gauss_jordan_2.test.cpp
+      title: test/number/matrix/gauss_jordan_2.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/number/matrix/gauss_jordan_3.test.cpp
+      title: test/number/matrix/gauss_jordan_3.test.cpp
   - name: test/number/modint
     pages:
     - icon: ':heavy_check_mark:'
@@ -339,11 +521,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/number/partition/partition2.test.cpp
       title: test/number/partition/partition2.test.cpp
-  - name: test/number/permutation
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/number/permutation/permutation.test.cpp
-      title: test/number/permutation/permutation.test.cpp
   - name: test/number/prime_factorize
     pages:
     - icon: ':heavy_check_mark:'
@@ -364,11 +541,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/other/dice/dice.test.cpp
       title: test/other/dice/dice.test.cpp
-  - name: test/parse/expression
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/parse/expression/expression.test.cpp
-      title: test/parse/expression/expression.test.cpp
   - name: test/string/aho_corasick
     pages:
     - icon: ':heavy_check_mark:'
@@ -379,19 +551,19 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/string/rolling_hash/rolling_hash.test.cpp
       title: test/string/rolling_hash/rolling_hash.test.cpp
-  - name: test/structure/binary_indexed_tree
-    pages:
-    - icon: ':heavy_check_mark:'
-      path: test/structure/binary_indexed_tree/raq.test.cpp
-      title: test/structure/binary_indexed_tree/raq.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: test/structure/binary_indexed_tree/rsq.test.cpp
-      title: test/structure/binary_indexed_tree/rsq.test.cpp
   - name: test/structure/dual_segment_tree
     pages:
     - icon: ':heavy_check_mark:'
       path: test/structure/dual_segment_tree/ruq.test.cpp
       title: test/structure/dual_segment_tree/ruq.test.cpp
+  - name: test/structure/fenwick_tree
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/structure/fenwick_tree/raq.test.cpp
+      title: test/structure/fenwick_tree/raq.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/structure/fenwick_tree/rsq.test.cpp
+      title: test/structure/fenwick_tree/rsq.test.cpp
   - name: test/structure/lazy_randomized_binary_search_tree
     pages:
     - icon: ':heavy_check_mark:'
@@ -446,5 +618,33 @@ data:
     - icon: ':heavy_check_mark:'
       path: test/structure/weighted_union_find/weighted_union_find.test.cpp
       title: test/structure/weighted_union_find/weighted_union_find.test.cpp
+  - name: test/tree/euler_tour
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/tree/euler_tour/euler_tour.test.cpp
+      title: test/tree/euler_tour/euler_tour.test.cpp
+  - name: test/tree/hld
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/tree/hld/hld.test.cpp
+      title: test/tree/hld/hld.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: test/tree/hld/lca.test.cpp
+      title: test/tree/hld/lca.test.cpp
+  - name: test/tree/lca
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/tree/lca/lca.test.cpp
+      title: test/tree/lca/lca.test.cpp
+  - name: test/tree/re_rooting
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/tree/re_rooting/re_rooting.test.cpp
+      title: test/tree/re_rooting/re_rooting.test.cpp
+  - name: test/tree/tree_hash
+    pages:
+    - icon: ':heavy_check_mark:'
+      path: test/tree/tree_hash/tree_hash.test.cpp
+      title: test/tree/tree_hash/tree_hash.test.cpp
 layout: toppage
 ---
