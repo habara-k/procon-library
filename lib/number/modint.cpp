@@ -8,7 +8,16 @@ public:
     modint(ll x = 0) : x(x < 0 ? ((x % mod) + mod) % mod : x % mod) {}
 
     const modint operator-() const { return x ? mod - x : 0; }
-    const modint inv() const { return return x ? mod - x : 0; }
+    const modint inv() const {
+        ll a = x, b = mod, u = 1, v = 0, t;
+        while (b) {
+            t = a / b;
+            swap(a -= t * b, b);
+            swap(u -= t * u, v);
+        }
+        assert(a == 1);
+        return u;
+    }
 
     modint& operator+=(const modint& rhs) {
         if ((x += rhs.x) >= mod) x -= mod;
