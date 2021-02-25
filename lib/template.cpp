@@ -56,7 +56,11 @@ const ll LINF = numeric_limits<ll>::max();
 
 template<class T>
 struct edge {
-    int to; T cost;
+    int from, to; T cost;
+    edge(int to, T cost) :
+        from(-1), to(to), cost(cost) {}
+    edge(int from, int to, T cost) :
+        from(from), to(to), cost(cost) {}
 };
 
 #endif

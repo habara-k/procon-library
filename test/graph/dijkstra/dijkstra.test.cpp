@@ -1,6 +1,5 @@
 #define PROBLEM "https://onlinejudge.u-aizu.ac.jp/courses/library/5/GRL/1/GRL_1_A"
 
-#include "../../../lib/graph/edge.cpp"
 #include "../../../lib/graph/dijkstra.cpp"
 
 int main() {
@@ -10,7 +9,7 @@ int main() {
     for (int i = 0; i < E; ++i) {
         int a, b, c;
         cin >> a >> b >> c;
-        g[a].push_back({a,b,c});
+        g[a].emplace_back(b, c);
     }
 
     for (auto &dist : dijkstra(g, R)) {

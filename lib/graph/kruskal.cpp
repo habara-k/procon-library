@@ -16,9 +16,9 @@ T kruskal(const vector<edge<T>> &es, int V) {
 
     for (auto i : ord) {
         auto &e = es[i];
-        if (!uf.issame(e.src, e.to)) {
+        if (!uf.issame(e.from, e.to)) {
             ret += e.cost;
-            uf.merge(e.src, e.to);
+            uf.merge(e.from, e.to);
         }
     }
 
